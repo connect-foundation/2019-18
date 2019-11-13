@@ -1,0 +1,12 @@
+FROM node:10.15-alpine
+
+WORKDIR "/app"
+
+COPY ./package.json ./
+
+RUN yarn add global nodemon \
+ && yarn install
+ 
+COPY . .
+
+CMD ["yarn","dev"]

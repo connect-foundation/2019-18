@@ -1,0 +1,32 @@
+version: "3"
+services:
+  client:                 
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client    
+    volumes:
+      - ./client/:/app      
+      - /app/node_modules  
+    networks:
+      - backend           
+  server:                          
+    build:
+      dockerfile: dockerfile.dev
+      context: ./server    
+    volumes:
+      - ./server/:/app      
+      - /app/node_modules      
+    environment:
+      - NODE_PATH=src
+      - PORT=3050
+    networks:
+      - backend  
+    ports:
+      - "5000:3050"   
+networks: 
+  backend:
+    driver: bridge
+
+volumes:
+  data:
+    driver: local
