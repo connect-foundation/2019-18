@@ -21,7 +21,7 @@ const withdrawal = async (req:Request, res:Response) => {
   const result = await remove(email);
   if (result.deletedCount !== 1) {
     // 삭제한 데이터 없음
-    res.json(false);
+    return res.json(false);
   }
 
   res.json(result);
