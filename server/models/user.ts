@@ -3,6 +3,7 @@ import {
 } from 'mongoose';
 
 import bcrypt from 'bcrypt';
+import validator from 'validator';
 import { IUser } from '../interfaces/user';
 import {
   DEFAULT_ORIGIN_URL,
@@ -20,6 +21,8 @@ const userSchema = new Schema({
   thumbnail_url: { type: String, required: true, default: DEFAULT_THUMBNAIL_URL },
   origin_url: { type: String, required: true, default: DEFAULT_ORIGIN_URL },
 });
+
+userSchema.path('email').validate((value) => validator.isEmail(value), 'invalid email');
 
 userSchema.pre<IUserModel>('save', async function (next) {
   // this.pwd = `${this.pwd} pre`;
