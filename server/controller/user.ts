@@ -1,15 +1,10 @@
 import { Request, Response } from 'express';
 import { create, remove } from '../services/user';
-import {
-  DEFAULT_ORIGIN_URL,
-  DEFAULT_THUMBNAIL_URL,
-} from '../constant';
 
-const signup = async (req: Request, res: Responseq) => {
+
+const signup = async (req: Request, res: Response) => {
   const data = {
     ...req.body,
-    thumbnail_url: DEFAULT_THUMBNAIL_URL,
-    origin_url: DEFAULT_ORIGIN_URL,
   };
   try {
     const user = await create(data);
@@ -27,7 +22,7 @@ const withdrawal = async (req:Request, res:Response) => {
     return res.json(false);
   }
 
-  res.json(result);
+  return res.json(result);
 };
 
 export {

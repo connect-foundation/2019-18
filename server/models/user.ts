@@ -4,6 +4,10 @@ import {
 
 import bcrypt from 'bcrypt';
 import { IUser } from '../interfaces/user';
+import {
+  DEFAULT_ORIGIN_URL,
+  DEFAULT_THUMBNAIL_URL,
+} from '../constant';
 
 interface IUserModel extends IUser, Document{}
 
@@ -13,8 +17,8 @@ const userSchema = new Schema({
   },
   pwd: { type: String, required: true },
   name: { type: String, required: true },
-  thumbnail_url: { type: String, required: true },
-  origin_url: { type: String, required: true },
+  thumbnail_url: { type: String, required: true, default: DEFAULT_THUMBNAIL_URL },
+  origin_url: { type: String, required: true, default: DEFAULT_ORIGIN_URL },
 });
 
 userSchema.pre<IUserModel>('save', async function (next) {
