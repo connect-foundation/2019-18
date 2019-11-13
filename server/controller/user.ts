@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { create } from '../services/user';
+import { create, remove } from '../services/user';
 import {
   DEFAULT_ORIGIN_URL,
   DEFAULT_THUMBNAIL_URL,
@@ -16,6 +16,18 @@ const signup = async (req: Request, res: Response) => {
   res.json(user);
 };
 
+const withdrawal = async (req:Request, res:Response) => {
+  const { email } = req.body;
+  const result = await remove(email);
+  if (result.deletedCount !== 1) {
+    // 삭제한 데이터 없음
+    res.json(false);
+  }
+
+  res.json(result);
+};
+
 export {
   signup,
+  withdrawal,
 };
