@@ -4,9 +4,9 @@ WORKDIR "/app"
 
 COPY ./package.json ./
 
-RUN yarn add global nodemon \
- && yarn install
+RUN npm install -g nodemon \
+ && npm install
  
 COPY . .
 
-CMD ["yarn","dev"]
+CMD ["npm","run","dev"]
