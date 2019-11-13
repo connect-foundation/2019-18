@@ -1,4 +1,7 @@
 export interface IUser{
-    id: String;
-    pwd: String;
+    email: string,
+    pwd: string,
+    name: string,
+    thumbnailUrl: string;
+    originUrl: string;
 }
