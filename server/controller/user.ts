@@ -5,15 +5,18 @@ import {
   DEFAULT_THUMBNAIL_URL,
 } from '../constant';
 
-const signup = async (req: Request, res: Response) => {
+const signup = async (req: Request, res: Responseq) => {
   const data = {
     ...req.body,
     thumbnail_url: DEFAULT_THUMBNAIL_URL,
     origin_url: DEFAULT_ORIGIN_URL,
   };
-  const user = await create(data);
-
-  res.json(user);
+  try {
+    const user = await create(data);
+    res.json(user);
+  } catch (e) {
+    res.json({ success: false, message: 'email is duplicated' });
+  }
 };
 
 const withdrawal = async (req:Request, res:Response) => {

@@ -5,10 +5,12 @@ import {
 import bcrypt from 'bcrypt';
 import { IUser } from '../interfaces/user';
 
-interface IUserModel extends IUser, Document{
-}
+interface IUserModel extends IUser, Document{}
+
 const userSchema = new Schema({
-  email: { type: String, required: true },
+  email: {
+    type: String, required: true, unique: true,
+  },
   pwd: { type: String, required: true },
   name: { type: String, required: true },
   thumbnail_url: { type: String, required: true },
