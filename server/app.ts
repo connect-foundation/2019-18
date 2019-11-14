@@ -10,6 +10,8 @@ const bodyParser = require('body-parser');
 const connect = require('./config/mongo');
 
 const app = express();
+app.set('jwt-secret', process.env.JWT_SECRET);
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

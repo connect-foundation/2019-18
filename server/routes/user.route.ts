@@ -1,4 +1,4 @@
-import { signup, withdrawal } from '../controller/user';
+import { signup, withdrawal } from '../controllers/user';
 
 const router = require('express').Router();
 

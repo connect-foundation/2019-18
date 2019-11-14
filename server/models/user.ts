@@ -10,7 +10,7 @@ import {
   DEFAULT_THUMBNAIL_URL,
 } from '../constant';
 
-interface IUserModel extends IUser, Document{}
+export interface IUserModel extends IUser, Document{}
 
 const userSchema = new Schema({
   email: {
