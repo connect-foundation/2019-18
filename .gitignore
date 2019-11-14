@@ -5,10 +5,11 @@ client/*
 ./server/.env
 ./server/node_modules
 
-server/controllers/login.ts
+server/controllers/user.ts
 server/routes/user.route.ts
 server/services/user.ts
 
+constant.ts
 
 package-lock.json
 node_modules
