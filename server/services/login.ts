@@ -47,6 +47,7 @@ const loginService = async (inputedEmail, pwd) => {
     result.token = token;
     return result;
   } catch (e) {
+    console.log(e);
     throw Error('Error while Paginating Users');
   }
 };

@@ -5,8 +5,8 @@ module.exports = () => {
     if (process.env.NODE_ENV !== 'production') {
       mongoose.set('debug', true);
     }
-    const uri = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PWD}@${process.env.MONGO_ADDR}:2020/${process.env.MONGO_DBNAME_DEV}`;
-    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+    const config = require('./config')[process.env.NODE_ENV ? process.env.NODE_ENV : 'development'];
+    mongoose.connect(config.uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
       if (err) {
         console.log('mongodb connection error', err);
       } else {
@@ -24,6 +24,4 @@ module.exports = () => {
     console.log('mongodb connection is lost, trying to re-connect to mongodb.');
     connect();
   });
-
-  // require('../models/user');
 };
