@@ -1,7 +1,7 @@
 import User from '../models/user';
 
-const create = async (payload) => User.create(payload);
-const remove = async (email) => User.deleteOne({ email });
+const create = (payload) => User.create(payload);
+const remove = (email) => User.deleteOne({ email });
 
 export {
   create,
