@@ -1,21 +1,21 @@
 #!/usr/bin/env node
-
+require("dotenv").config();
 import ErrnoException = NodeJS.ErrnoException;
 
 /**
  * Module dependencies.
  */
 
-const debug = require('debug')('nodejs-express-typescript-sample:server');
-const http = require('http');
-const app = require('../app');
+const debug = require("debug")("nodejs-express-typescript-sample:server");
+const http = require("http");
+const app = require("../app");
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3050');
-app.set('port', port);
+const port = normalizePort(process.env.PORT || "3050");
+app.set("port", port);
 
 /**
  * Create HTTP server.
@@ -28,8 +28,8 @@ const server = http.createServer(app);
  */
 
 server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+server.on("error", onError);
+server.on("listening", onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -56,21 +56,19 @@ function normalizePort(val: string) {
  */
 
 function onError(error: ErrnoException) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error;
   }
 
-  const bind = typeof port === 'string'
-    ? `Pipe ${port}`
-    : `Port ${port}`;
+  const bind = typeof port === "string" ? `Pipe ${port}` : `Port ${port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case 'EACCES':
+    case "EACCES":
       console.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
-    case 'EADDRINUSE':
+    case "EADDRINUSE":
       console.error(`${bind} is already in use`);
       process.exit(1);
       break;
@@ -85,8 +83,6 @@ function onError(error: ErrnoException) {
 
 function onListening() {
   const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? `pipe ${addr}`
-    : `port ${addr.port}`;
+  const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
   debug(`Listening on ${bind}`);
 }
