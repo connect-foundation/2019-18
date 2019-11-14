@@ -15,6 +15,9 @@ const oauth = async (req: Request, res: Response, next: NextFunction) => {
     redirectURI +
     "&state=" +
     state;
+
+  console.log(api_url);
+
   res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
   res.end(
     "<a href='" +
