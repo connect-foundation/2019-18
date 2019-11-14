@@ -25,7 +25,6 @@ const userSchema = new Schema({
 userSchema.path('email').validate((value) => validator.isEmail(value), 'invalid email');
 
 userSchema.pre<IUserModel>('save', async function (next) {
-  // this.pwd = `${this.pwd} pre`;
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(this.pwd, salt);
   this.pwd = hash;
