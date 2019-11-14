@@ -18,6 +18,7 @@ module.exports =  {
       'no-use-before-define':'warn',
       'semi': [ 'error', 'always' ],
       'quotes':['error', 'single'],
-      'space-before-blocks':['error', 'always']
+      'space-before-blocks':['error', 'always'],
+      'no-unused-vars':'off',
     },
   };
