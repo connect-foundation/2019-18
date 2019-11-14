@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "nodemon --exec 'ts-node' ./bin/www.ts",
-    "start": "nodemon --exec 'ts-node' bin/www.ts",
+    "start": "NODE_ENV=development nodemon --exec 'ts-node' bin/www.ts",
     "seed": "NODE_ENV=development 'ts-node' seed/index.ts",
-    "test": "jest"
+    "test": "NODE_ENV=development jest"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",

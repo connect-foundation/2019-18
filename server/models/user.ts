@@ -6,7 +6,7 @@ import {
 import { IUser } from '../interfaces/user';
 
 // const mongoose = require('mongoose');
-interface IUserModel extends IUser, Document{
+export interface IUserModel extends IUser, Document{
   auth(pwd:string):boolean;
 }
 const userSchema = new Schema({
@@ -18,7 +18,6 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.auth = function (pwd) {
-  console.log(pwd);
   return this.pwd === pwd;
 };
 const User:Model<IUserModel> = model<IUserModel>('User', userSchema);
