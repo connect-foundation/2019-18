@@ -8,7 +8,7 @@ const signup = async (req: Request, res: Response) => {
   };
   try {
     const user = await create(data);
-    res.json(user);
+    return res.json(user);
   } catch (e) {
     if (e.name === 'MongoError') {
       return res.json({ success: false, message: 'email is duplicated' });
