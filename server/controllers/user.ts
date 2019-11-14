@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { create, remove } from '../services/user';
 
-
 const signup = async (req: Request, res: Response) => {
   const data = {
     ...req.body,
