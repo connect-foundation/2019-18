@@ -8,6 +8,7 @@ const signup = async (req: Request, res: Response) => {
   };
   try {
     const user = await create(data);
+
     return res.json(user);
   } catch (e) {
     if (e.name === 'MongoError') {

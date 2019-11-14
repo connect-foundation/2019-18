@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@types/validator": "^10.11.3",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
