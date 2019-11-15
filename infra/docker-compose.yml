@@ -1,0 +1,16 @@
+version: '3'
+services:
+  database:
+    image: 'mongo'
+    container_name: 'mongo-container'
+    environment:
+        - MONGO_INITDB_DATABASE=mongo1
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=******
+    volumes:
+        - ./init-mongo.js:/docker-entry-initdb.d/init-mongo.js
+        - ./mongo-volume:/data/db
+    ports:
+        - '2020-2022:27017-27019'
+    command:
+        - --auth
