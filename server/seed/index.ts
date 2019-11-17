@@ -1,8 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import User from '../models/user';
-import users from './user';
-
 
 require('dotenv').config();
 const connect = require('../config/mongo');

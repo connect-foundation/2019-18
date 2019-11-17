@@ -4,12 +4,10 @@ const app = require('../app');
 
 
 describe('로그인 테스트', () => {
-  beforeAll(async () => {
-    userData = {
+  let userData = {
       email: 'test@gmail.com',
       pwd: '1234',
-    };
-  });
+  }
 
   test('실제 로그인 테스트. | 200  login success', async () => {
     const response = await request(app)
