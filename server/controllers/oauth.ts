@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
+import { fetch } from 'node-fetch';
 
 const clientId = `${process.env.clientID}`;
 const clientSecret = `${process.env.clientSECRET}`;
-const state = 'RAMDOM_STATE';
-const redirectURI = encodeURI('http://106.10.58.138/oauth/callback');
+const redirectURI = encodeURI('http://106.10.58.138:3050/oauth/callback');
 
-const oauth = async (req: Request, res: Response, next: NextFunction) => {
+const oauth = async (_req: Request, res: Response, _next: NextFunction) => {
+  const state = 'RAMDOM_STATE';
   const apiUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
     clientId
   }&redirect_uri=${
@@ -19,9 +20,36 @@ const oauth = async (req: Request, res: Response, next: NextFunction) => {
     }'><img height='50' src='http://static.nid.naver.com/oauth/small_g_in.PNG'/></a>`,
   );
 };
+
 const oauthCallback = async (
   req: Request,
   res: Response,
-  next: NextFunction,
-) => {};
+  _next: NextFunction,
+) => {
+  const { code } = req.query;
+  const { state } = req.query;
+  const apiUrl = `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${
+    clientId
+  }&client_secret=${
+    clientSecret
+  }&redirect_uri=${
+    redirectURI
+  }&code=${
+    code
+  }&state=${
+    state}`;
+
+  fetch(apiUrl, {
+    headers: { 'X-Naver-Client-Id': clientId, 'X-Naver-Client-Secret': clientSecret },
+  })
+    .then((error, response, body) => {
+      if (!error && response.statusCode === '200') {
+        res.writeHead(200, { 'Content-Type': 'text/json;charset=utf-8' });
+        res.end(body);
+      } else {
+        res.status(response.statusCode).end();
+        console.log(`error = ${response.statusCode}`);
+      }
+    });
+};
 export { oauth, oauthCallback };
