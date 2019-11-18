@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import index from './routes';
 
-require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const logger = require('morgan');
