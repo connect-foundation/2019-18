@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import StyledLink from '../StyledLink';
 import Button from '../Button';
 
@@ -24,7 +23,6 @@ const TabButton = styled(Button)`
     color: black;
     outline: none;
 `;
-
 
 const FeedNavigator:React.FC = () => (
   <FeedNavigatorContainer>
