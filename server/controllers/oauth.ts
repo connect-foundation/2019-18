@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { fetch } from 'node-fetch';
+import fetch from 'node-fetch';
 
 const clientId = `${process.env.clientID}`;
 const clientSecret = `${process.env.clientSECRET}`;
@@ -42,13 +42,12 @@ const oauthCallback = async (
   fetch(apiUrl, {
     headers: { 'X-Naver-Client-Id': clientId, 'X-Naver-Client-Secret': clientSecret },
   })
-    .then((error, response, body) => {
-      if (!error && response.statusCode === '200') {
-        res.writeHead(200, { 'Content-Type': 'text/json;charset=utf-8' });
-        res.end(body);
+    .then((response) => {
+      if (response.status === 200) {
+        response.json().then((json) => res.json(json));
       } else {
-        res.status(response.statusCode).end();
-        console.log(`error = ${response.statusCode}`);
+        res.status(response.status).end();
+        console.log(`error = ${response.status}`);
       }
     });
 };
