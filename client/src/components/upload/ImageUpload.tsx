@@ -1,48 +1,57 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, {
+  useState, useEffect,
+} from 'react';
 import ImageUploader from 'react-images-upload';
+import Preview from './Preview';
 
 function ImageUpload() {
   const [pictures, setPictures] = useState <File[]>([]);
-  const [preview, setPreview] = useState('');
-  let fileReader: FileReader;
-
-  const handleFileRead = () => {
-    const content = fileReader.result;
-  };
+  const [previews, setPreviews] = useState<string[]>([]);
+  useEffect(() => {
+    console.dir(pictures);
+  });
   const onDrop = (picture: File[]) => {
+    const newpicture = picture[picture.length - 1];
     const temp:File[] = pictures;
     if (!temp) {
       return;
     }
-    const newtemp = temp.concat(picture);
-    if (typeof newtemp === 'number') {
-      return;
-    }
-    setPictures(newtemp);
-    fileReader = new FileReader();
-    fileReader.onloadend = handleFileRead;
-    fileReader.readAsText(picture[0]);
-    setPreview(URL.createObjectURL(picture[0]));
+    temp.push(newpicture);
+    setPictures(temp);
+    const newUrls = temp.map((file) => URL.createObjectURL(file));
+    setPreviews(newUrls);
+  };
+  const customButton = {
+    color: 'white',
+    width: '100px',
+    height: '100px',
+    fontSize: '16px',
+    borderRadius: '2px',
+    backgroundColor: 'palevioletred',
+    fontWeight: '400',
   };
 
+  const customFileContainer = {
+    border: '2px solid palevioletred',
+  };
   return (
     <div className="ImageUpload-container">
-      <p>ImageUpload</p>
+      <div>
+        {previews.map((element) => <Preview src={element} />)}
+      </div>
       <div>
         <ImageUploader
-          withIcon
-          buttonText="Choose images"
+          withIcon={false}
+          withLabel={false}
+          buttonText="이미지 선택"
           onChange={onDrop}
           imgExtension={['.jpg', '.gif', '.png', '.gif']}
           maxFileSize={5242880}
           withPreview
+          buttonStyles={customButton}
+          fileContainerStyle={customFileContainer}
+          singleImage
         />
-      </div>
-      <div>
-        {/* <input type="file" onChange={handleChange} /> */}
-      </div>
-      <div>
-        <img src={preview} alt="preview_image" />
       </div>
     </div>
   );
