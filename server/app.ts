@@ -1,13 +1,13 @@
-import { NextFunction, Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import index from './routes';
 
 require('dotenv').config();
-const cors = require('cors');
-const express = require('express');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const connect = require('./config/mongo');
+
+import cors = require('cors');
+import logger = require('morgan');
+import cookieParser = require('cookie-parser');
+import bodyParser = require('body-parser');
+import connect = require('./config/mongo');
 
 const app = express();
 app.set('jwt-secret', process.env.JWT_SECRET);
@@ -29,7 +29,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next({ ...err, status: 404 });
 });
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

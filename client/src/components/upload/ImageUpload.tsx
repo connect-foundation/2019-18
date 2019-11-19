@@ -1,65 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import ImageUploader from 'react-images-upload';
-import { EEXIST } from 'constants';
 
 function ImageUpload() {
-  const [pictures, setPictures] = useState([]);
+  const [pictures, setPictures] = useState <File[]>([]);
   const [preview, setPreview] = useState('');
+  let fileReader: FileReader;
 
-  //   const onDrop = (picture: File) => {
-  //     const newPictures = [...pictures, picture];
-  //     setPictures(newPictures);
-  //     setPreview(URL.createObjectURL(picture));
-  //   };
-
-
-  const getFileFromInput = (file: File) => new Promise(((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onerror = reject;
-    reader.onload = function () { resolve(reader.result); };
-    reader.readAsBinaryString(file); // here the file can be read in different way Text, DataUrl, ArrayBuffer
-  }));
-
-  const manageUploadedFile = (binary: String, file: File) => {
-    // do what you need with your file (fetch POST, ect ....)
-    if (binary) {
-      console.log(`The file size is ${binary.length}`);
-    }
+  const handleFileRead = () => {
+    const content = fileReader.result;
   };
-
-  const handleChange = async (event: HTMLInputElement) => {
-    if (event.files) {
-      console.log(event.files.item);
-      console.log(event.files.length);
-      const binary = await getFileFromInput(event.files[0]);
-    } else {
-      console.log('empty');
+  const onDrop = (picture: File[]) => {
+    const temp:File[] = pictures;
+    if (!temp) {
+      return;
     }
-    // Array.from(event.files).forEach((file) => {
-    //   getFileFromInput(file)
-    //     .then((binary) => {
-    //       this.manageUploadedFile(binary, file);
-    //     }).catch((reason) => {
-    //       console.log(`Error during upload ${reason}`);
-    //       event.target.value = ''; // to allow upload of same file if error occurs
-    //     });
-    // });
+    const newtemp = temp.concat(picture);
+    if (typeof newtemp === 'number') {
+      return;
+    }
+    setPictures(newtemp);
+    fileReader = new FileReader();
+    fileReader.onloadend = handleFileRead;
+    fileReader.readAsText(picture[0]);
+    setPreview(URL.createObjectURL(picture[0]));
   };
 
   return (
     <div className="ImageUpload-container">
       <p>ImageUpload</p>
       <div>
-        {/* <ImageUploader
+        <ImageUploader
           withIcon
           buttonText="Choose images"
           onChange={onDrop}
           imgExtension={['.jpg', '.gif', '.png', '.gif']}
           maxFileSize={5242880}
-        /> */}
+          withPreview
+        />
       </div>
       <div>
-        <input type="file" onChange={(e) => handleChange(e.target)} />
+        {/* <input type="file" onChange={handleChange} /> */}
       </div>
       <div>
         <img src={preview} alt="preview_image" />
