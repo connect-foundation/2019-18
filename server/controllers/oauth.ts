@@ -69,7 +69,7 @@ const oauthCallback = async (
     headers,
   });
 
-  if (responseUserInfo.status !== '200') {
+  if (responseUserInfo.status !== 200) {
     next(new Error('auth Error : 사용자 정보 반환 실패'));
   }
 
@@ -77,7 +77,7 @@ const oauthCallback = async (
 
   const {
     name, email, profile_image, id,
-  } = infoJson;
+  } = infoJson.response;
 
   const profileImage = profile_image;
   // id : 네이버 아이디가 아닌, 사용자별 식별가능한 어떤 값
