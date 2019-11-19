@@ -10,6 +10,7 @@
     "aws-sdk": "^2.348.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "styled-components": "^4.4.1",
     "typescript": "3.7.2"
@@ -36,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.1.2",
     "@types/styled-components": "^4.4.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
