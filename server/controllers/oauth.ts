@@ -49,12 +49,12 @@ const oauthCallback = async (
   }&state=${
     state}`;
 
-  const responseToken = fetch(apiUrl, {
+  const responseToken = await fetch(apiUrl, {
     method: 'GET',
     headers: { 'X-Naver-Client-Id': clientId, 'X-Naver-Client-Secret': clientSecret },
   });
 
-  if (responseToken.status !== '200') {
+  if (responseToken.status !== 200) {
     next(new Error('auth Error : accessToken 반환 실패'));
   }
 
