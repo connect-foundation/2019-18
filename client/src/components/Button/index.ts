@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
-    background: ${props=>props.theme.green};
+    background: ${(props) => props.theme.green};
     width: 4rem;
     height: 2rem;
     color: white;

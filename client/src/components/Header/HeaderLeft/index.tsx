@@ -14,12 +14,10 @@ const LogoImg = styled(Img)`
     height: 3rem;
 `;
 
-const HeaderLeft: React.FC = () =>{
-    return (
-        <HeaderLeftContainer>
-            <LogoImg src={logo}/>
-        </HeaderLeftContainer>
-    )
-}
+const HeaderLeft: React.FC = () => (
+  <HeaderLeftContainer>
+    <LogoImg src={logo} />
+  </HeaderLeftContainer>
+);
 
 export default HeaderLeft;

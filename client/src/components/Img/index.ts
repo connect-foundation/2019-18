@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const Img = styled.img`
@@ -6,7 +5,7 @@ const Img = styled.img`
     height: 2rem;
     margin: auto;
     cursor:pointer;
-    background-image: url(${props=>props.src});
+    background-image: url(${(props) => props.src});
 `;
 
 export default Img;

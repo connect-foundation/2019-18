@@ -9,7 +9,6 @@ const HeaderRightContainer = styled.div`
     display: flex;
     justify-content: center;
     justify-items: center;
-
     margin-left: auto;
     margin-right: 5rem;
 `;
@@ -30,15 +29,13 @@ const ProfileImg = styled(Img)`
 
 const DEFAULT_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/thumbnail/user-profile-thumbnail.png';
 
-const HeaderRight: React.FC = () => {
-    return(
-        <HeaderRightContainer>
-            <HeaderSearch/>
-            <LoginButton>로그인</LoginButton>
-            <AlarmImg src={Alarm}/>
-            <ProfileImg src={DEFAULT_PROFILE_THUMBNAIL}/>
-        </HeaderRightContainer>
-    )
-}
+const HeaderRight: React.FC = () => (
+  <HeaderRightContainer>
+    <HeaderSearch />
+    <LoginButton>로그인</LoginButton>
+    <AlarmImg src={Alarm} />
+    <ProfileImg src={DEFAULT_PROFILE_THUMBNAIL} />
+  </HeaderRightContainer>
+);
 
 export default HeaderRight;

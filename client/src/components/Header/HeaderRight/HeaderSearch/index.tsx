@@ -25,13 +25,11 @@ const HeaderInput = styled(Input)`
     color: #A0A0A0;
 `;
 
-const HeaderSearch: React.FC = () =>{
-    return (
-        <HeaderSearchContainer>
-            <SearchImg src={Search}/>
-            <HeaderInput/>
-        </HeaderSearchContainer>
-    )
-}
+const HeaderSearch: React.FC = () => (
+  <HeaderSearchContainer>
+    <SearchImg src={Search} />
+    <HeaderInput />
+  </HeaderSearchContainer>
+);
 
 export default HeaderSearch;
