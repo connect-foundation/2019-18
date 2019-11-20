@@ -1,12 +1,15 @@
 import React from 'react';
 
 import { createGlobalStyle } from 'styled-components';
-import Header from './components/Header';
-import FeedContainer from './components/FeedContainer';
+import {
+  Switch, Route, BrowserRouter as Router, Redirect,
+} from 'react-router-dom';
 
 import { ThemeProvider } from './style/typed-compoennts';
 import { theme } from './style/theme';
+import Home from './components/Home';
 
+import Login from './components/Login';
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -20,10 +23,14 @@ const GlobalStyle = createGlobalStyle`
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
-    <Header />
-    <FeedContainer />
+    <Router>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/" component={Home} />
+        <Redirect from="*" to="/" />
+      </Switch>
+    </Router>
   </ThemeProvider>
-
 );
 
 export default App;

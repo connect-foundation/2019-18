@@ -36,12 +36,13 @@ function Upload() {
 function ModalSwitch() {
   return (
     <div className="Upload-route-container">
-      <Route exact path="/" component={Home} />
-      <Route exact path="/upload/image" component={ImageUpload} />
-      <Route exact path="/upload/music" component={Home} />
-      <Route exact path="/upload/background" component={Home} />
-      <Route exact path="/test" component={Test} />
-      <Redirect from="*" to="/" />
+      <Switch>
+        <Route exact path="/upload" component={Home} />
+        <Route path="/upload/image" component={ImageUpload} />
+        <Route path="/upload/music" component={Home} />
+        <Route path="/upload/background" component={Home} />
+        <Route path="/test" component={Test} />
+      </Switch>
     </div>
   );
 }
