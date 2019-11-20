@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createGlobalStyle } from 'styled-components';
+import Header from './components/Header';
+import FeedContainer from './components/FeedContainer';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { ThemeProvider } from './style/typed-compoennts';
+import { theme } from './style/theme';
+
+
+const GlobalStyle = createGlobalStyle`
+  body{
+    padding: 0;
+    margin: 0;
+    background: ${theme.background};
+    font-family: sans-serif;
+  }
+`;
+
+const App: React.FC = () => (
+  <ThemeProvider theme={theme}>
+    <GlobalStyle />
+    <Header />
+    <FeedContainer />
+  </ThemeProvider>
+);
 
 export default App;
