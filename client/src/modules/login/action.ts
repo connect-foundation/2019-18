@@ -1,5 +1,5 @@
-export const LOGIN = "login/LOGIN" as const;
-export const LOGOUT = "login/LOGOUT" as const; 
+export const LOGIN = 'login/LOGIN' as const;
+export const LOGOUT = 'login/LOGOUT' as const;
 
 interface loginType {
     email: string;
@@ -7,11 +7,8 @@ interface loginType {
     thumbnailUrl: string;
 }
 
-export const login = (user: loginType) =>({
-    type:LOGIN,
-    payload: user,
+export const login = (user: loginType) => ({
+  type: LOGIN,
+  payload: user,
 });
-export const logout = () =>({type:LOGOUT
-
-});
-
+export const logout = () => ({ type: LOGOUT });

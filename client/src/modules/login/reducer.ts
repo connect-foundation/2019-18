@@ -16,7 +16,6 @@ function login(state:LoginState = initialState, action:LoginAction) {
   switch (action.type) {
     case LOGIN:
       console.log(state);
-      console.log(action);
       return {
         ...state,
         email: action.payload.email,

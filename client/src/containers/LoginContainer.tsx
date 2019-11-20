@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Login from '../components/Login';
 
-import { login } from '../modules/login/action';
+import { login, logout } from '../modules/login/action';
 
 const Content:React.FC = () => {
   const [id, setId] = useState('');
@@ -29,6 +29,9 @@ const Content:React.FC = () => {
     dispatch(login(user));
   };
 
+  const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(logout());
+  };
   const onChangeid = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
   };
@@ -38,6 +41,7 @@ const Content:React.FC = () => {
   return (
     <Login
       onSubmit={onSubmit}
+      onLogout={onLogout}
       onChangeid={onChangeid}
       onChangepwd={onChangepwd}
     />
