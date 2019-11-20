@@ -2,6 +2,7 @@ import React, {
   useState, useEffect,
 } from 'react';
 import ImageUploader from 'react-images-upload';
+import axios from 'axios';
 import Preview from './Preview';
 
 function ImageUpload() {
@@ -21,6 +22,17 @@ function ImageUpload() {
     const newUrls = temp.map((file) => URL.createObjectURL(file));
     setPreviews(newUrls);
   };
+
+  const onClickHandler = () => {
+    const data = new FormData();
+    data.append('file', pictures[0]);
+    axios.post('http://localhost:3050/upload', data, { // receive two parameter endpoint url ,form data
+    })
+      .then((res) => { // then print response status
+        console.log(res.statusText);
+      });
+  };
+
   const customButton = {
     color: 'white',
     width: '100px',
@@ -34,11 +46,13 @@ function ImageUpload() {
   const customFileContainer = {
     border: '2px solid palevioletred',
   };
+
   return (
     <div className="ImageUpload-container">
       <div>
-        {previews.map((element) => <Preview src={element} />)}
+        {previews && previews.map((element) => <Preview src={element} />)}
       </div>
+      <button type="button" className="upload-button" onClick={onClickHandler}>Upload</button>
       <div>
         <ImageUploader
           withIcon={false}

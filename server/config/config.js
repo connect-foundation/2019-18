@@ -10,4 +10,7 @@ const configs = {
   },
 };
 
+console.log(configs.production.uri);
+// console.log(process.env);
+
 module.exports = configs;
