@@ -6,6 +6,7 @@ module.exports = () => {
       mongoose.set('debug', true);
     }
     const config = require('./config')[process.env.NODE_ENV ? process.env.NODE_ENV : 'development'];
+    console.log(config);
     mongoose.connect(config.uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
       if (err) {
         console.log('mongodb connection error', err);
