@@ -53,17 +53,21 @@ const CardFooter = styled.div`
     padding: 0 1rem;
 `;
 
+interface CardProp{
+  imgUrl: string;
+  creator: string;
+}
 
-const Card: React.FC = () => (
+const Card: React.FC<CardProp> = ({ imgUrl, creator }) => (
   <Container>
     <CardImgContainer>
-      <CardImg src={Dummy} />
+      <CardImg src={imgUrl} />
     </CardImgContainer>
     <CardHeader>
       <H3>라이언과 작은 요정들의 반짝반짝 윈터 원더랜드</H3>
     </CardHeader>
     <CardBody>
-      <TextWithImg src="https://kr.object.ncloudstorage.com/crafolio/user/thumbnail/user-profile-thumbnail.png" text="junow" />
+      <TextWithImg src="https://kr.object.ncloudstorage.com/crafolio/user/thumbnail/user-profile-thumbnail.png" text={creator} />
     </CardBody>
     <CardFooter>
       <TextWithImg src={Smile} small text="20" />
@@ -72,6 +76,5 @@ const Card: React.FC = () => (
     </CardFooter>
   </Container>
 );
-
 
 export default Card;
