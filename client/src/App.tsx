@@ -9,7 +9,7 @@ import { ThemeProvider } from './style/typed-compoennts';
 import { theme } from './style/theme';
 import Home from './components/Home';
 
-import Login from './components/Login';
+import Login from './containers/LoginContainer';
 
 const GlobalStyle = createGlobalStyle`
   body{
