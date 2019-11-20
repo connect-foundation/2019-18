@@ -31,4 +31,5 @@ module.exports = {
       "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
       "react/prop-types": 0,
     }
+
 };

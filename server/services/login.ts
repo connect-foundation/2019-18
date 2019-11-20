@@ -1,11 +1,6 @@
-import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User, { IUserModel } from '../models/user';
-import { IUser } from '../interfaces/user';
-
-
-const saltRounds = 10;
+import User from '../models/user';
 
 const loginService = async (inputedEmail, pwd) => {
   const result = {
@@ -47,7 +42,6 @@ const loginService = async (inputedEmail, pwd) => {
     result.token = token;
     return result;
   } catch (e) {
-    console.log(e);
     throw Error('Error while Paginating Users');
   }
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { createGlobalStyle } from 'styled-components';
 import Header from './components/Header';
 import FeedContainer from './components/FeedContainer';
@@ -22,6 +23,7 @@ const App: React.FC = () => (
     <Header />
     <FeedContainer />
   </ThemeProvider>
+
 );
 
 export default App;
