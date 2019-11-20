@@ -1,8 +1,8 @@
-import { oauth, oauthCallback } from "../controllers/oauth";
+import { oauth, oauthCallback } from '../controllers/oauth';
 
-const router = require("express").Router();
+const router = require('express').Router();
 
-router.get("/", oauth);
-router.get("/callback", oauthCallback);
+router.get('/', oauth);
+router.get('/callback', oauthCallback);
 
 export default router;

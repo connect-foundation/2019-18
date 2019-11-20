@@ -18,8 +18,8 @@ const userSchema = new Schema({
   },
   pwd: { type: String, required: true },
   name: { type: String, required: true },
-  thumbnail_url: { type: String, required: true, default: DEFAULT_THUMBNAIL_URL },
-  origin_url: { type: String, required: true, default: DEFAULT_ORIGIN_URL },
+  thumbnailUrl: { type: String, required: true, default: DEFAULT_THUMBNAIL_URL },
+  originUrl: { type: String, required: true, default: DEFAULT_ORIGIN_URL },
 });
 
 userSchema.path('email').validate((value) => validator.isEmail(value), 'invalid email');
