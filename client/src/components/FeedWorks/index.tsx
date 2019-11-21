@@ -31,7 +31,6 @@ const FeedWorks:React.FC = () => {
         const images = await result.json();
         const newData = data.concat(images);
         setData(newData);
-        console.log(newData);
         setIsLoading(false);
       } catch (e) {
         setIsError(true);
