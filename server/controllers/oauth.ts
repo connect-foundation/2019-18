@@ -97,7 +97,7 @@ const oauthCallback = async (
     if (result.token !== null) {
       res.cookie('token', result.token);
     }
-    return res.status(result.status).json({ token: result.token, msg: result.msg });
+    return res.redirect('../login');
   } catch (e) {
     next(e);
   }
