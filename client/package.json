@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/js-cookie": "^2.2.4",
     "axios": "^0.19.0",
+    "dotenv": "^8.2.0",
+    "js-cookie": "^2.2.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-images-upload": "^1.2.7",
@@ -50,5 +53,10 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": ".eslintrc.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

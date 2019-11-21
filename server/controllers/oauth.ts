@@ -6,7 +6,7 @@ import { loginService } from '../services/login';
 
 const clientId = `${process.env.clientID}`;
 const clientSecret = `${process.env.clientSECRET}`;
-const redirectURI = encodeURI('http://106.10.58.138:3050/oauth/callback');
+const redirectURI = encodeURI(`${process.env.serviceURL}/oauth/callback`);
 const oauthCallBackURI = 'https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=';
 const getInfoURI = 'https://openapi.naver.com/v1/nid/me';
 
@@ -97,7 +97,7 @@ const oauthCallback = async (
     if (result.token !== null) {
       res.cookie('token', result.token);
     }
-    return res.status(result.status).json({ token: result.token, msg: result.msg });
+    return res.redirect('../login');
   } catch (e) {
     next(e);
   }

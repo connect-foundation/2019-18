@@ -7,6 +7,7 @@ const loginService = async (inputedEmail, pwd) => {
     status: 200,
     msg: '',
     token: null,
+    userOid: '',
   };
 
   try {
@@ -26,8 +27,10 @@ const loginService = async (inputedEmail, pwd) => {
       return result;
     }
 
-    const { _id, email } = user;
-    const payload = { _id, email };
+    const {
+      _id,
+    } = user;
+    const payload = { _id };
     const secret = process.env.JWT_SECRET;
     const ttl = 3600000;
 
@@ -40,6 +43,7 @@ const loginService = async (inputedEmail, pwd) => {
     result.status = 200;
     result.msg = 'success login';
     result.token = token;
+    result.userOid = _id;
     return result;
   } catch (e) {
     throw Error('Error while Paginating Users');
