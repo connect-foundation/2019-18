@@ -10,7 +10,11 @@ import { theme } from './style/theme';
 import Home from './components/Home';
 
 import Login from './containers/LoginContainer';
+<<<<<<< HEAD
 dotenv.config();
+=======
+
+>>>>>>> 64e80fe04f2519edc97309139816df491acc1943
 const GlobalStyle = createGlobalStyle`
   body{
     padding: 0;

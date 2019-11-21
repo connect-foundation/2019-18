@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import StyledLink from '../StyledLink';
-import Button from '../Button';
+import StyledLink from '../../basics/StyledLink';
+import Button from '../../basics/Button';
 
 const FeedNavigatorContainer = styled.div`
     display: flex;

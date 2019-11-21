@@ -1,9 +1,10 @@
 import React from 'react';
+
 import styled from 'styled-components';
 import LoginInput from '../../basics/Input/LoginInput';
 import PasswordInput from '../../basics/Input/PasswordInput';
 
-import SubmitButton from '../../basics/Button/SubmitButton';
+import SubmitButton from '../../basics/SubmitButton';
 import NaverIcon from '../../assets/naver_login_white.png';
 import CrafolioIcon from '../../assets/logo_white_larger.png';
 
