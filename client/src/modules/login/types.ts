@@ -1,12 +1,9 @@
-import {login, logout} from './action';
+import { login, logout } from './action';
 
-export type LoginAction = 
+export type LoginAction =
 | ReturnType<typeof login>
 | ReturnType<typeof logout>;
 
-
 export type LoginState = {
-    email : string | null ;
-    name : string | null;
-    thumbnailUrl : string | null;
+    userOid: string;
 };

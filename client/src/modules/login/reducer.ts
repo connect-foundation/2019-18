@@ -7,9 +7,7 @@ import {
 } from './types';
 
 const initialState = {
-  email: null,
-  name: null,
-  thumbnailUrl: null,
+  userOid: '',
 };
 
 function login(state:LoginState = initialState, action:LoginAction) {
@@ -18,9 +16,7 @@ function login(state:LoginState = initialState, action:LoginAction) {
       console.log(state);
       return {
         ...state,
-        email: action.payload.email,
-        name: action.payload.name,
-        thumbnailUrl: action.payload.thumbnailUrl,
+        userOid: action.payload.userOid,
       };
 
     case LOGOUT:

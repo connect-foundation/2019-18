@@ -2,9 +2,7 @@ export const LOGIN = 'login/LOGIN' as const;
 export const LOGOUT = 'login/LOGOUT' as const;
 
 interface loginType {
-    email: string;
-    name: string;
-    thumbnailUrl: string;
+    userOid: string;
 }
 
 export const login = (user: loginType) => ({
