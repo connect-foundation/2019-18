@@ -5,12 +5,15 @@ type submitButtonProps = {
     children : string;
 }
 const StyledButton = styled.button`
-    display: block;
-    height: 3rem;
-    color: #7cc7c4;
-    background-color:#fbe99e;
+    display:block;
+    height: 2.5rem;
+    color: #FEFEFE;
+    background-color:#93ece9;
     cursor: pointer;
+    border-color:#93ece9; 
     border-radius: 2px;
+    font-weight: bold;
+    font-size : 1rem;
 `;
 
 function SubmitButton({ children }:submitButtonProps) {

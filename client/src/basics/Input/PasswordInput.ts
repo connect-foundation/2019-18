@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import input from './index';
 
-const LoginInput = styled(input)`
+const PasswordInput = styled(input).attrs({
+  type: 'password',
+})`
     height: 2.5rem;
     display: block;
     border-radius: 5px; 
@@ -14,4 +16,4 @@ const LoginInput = styled(input)`
     };
 `;
 
-export default LoginInput;
+export default PasswordInput;

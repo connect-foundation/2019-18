@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import dotenv from 'dotenv';
-import Login from '../components/Login';
+import LoginBox from '../components/LoginBox';
 import { login, logout } from '../modules/login/action';
 
 dotenv.config();
@@ -42,7 +42,7 @@ const Content:React.FC = () => {
     setPwd(e.target.value);
   };
   return (
-    <Login
+    <LoginBox
       onSubmit={onSubmit}
       onLogout={onLogout}
       onChangeid={onChangeid}
