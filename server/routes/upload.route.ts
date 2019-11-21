@@ -1,8 +1,8 @@
-import { handleCSVFile } from '../controllers/upload';
-import multerUpload from '../middleware/multer';
+import { getUrl, uploadWorkImage } from '../controllers/upload';
+import { multerUpload } from '../middleware/multer';
 
 const router = require('express').Router();
 
-router.post('/', multerUpload.single('file'), handleCSVFile);
-
+router.post('/getImageUrl', multerUpload, getUrl);
+router.post('/works-image', uploadWorkImage);
 export default router;

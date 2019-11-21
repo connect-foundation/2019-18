@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
 
-const endpoint = new AWS.Endpoint('https://kr.object.ncloudstorage.com');
+const endpoint = new AWS.Endpoint(process.env.OS_ENDPOINT);
 const region = 'kr-standard';
 const accessKey = process.env.OS_ACCESS_KEY;
 const secretKey = process.env.OS_SECRET_KEY;
@@ -15,6 +15,4 @@ const S3 = new AWS.S3({
   region,
 });
 
-const bucketName = process.env.OS_BUCKET_NAME;
-
-export { S3, bucketName };
+export { S3 };
