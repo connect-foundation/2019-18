@@ -29,7 +29,7 @@ const Content:React.FC = () => {
     }
     const responseJson = await response.json();
     console.log(JSON.stringify(responseJson));
-    dispatch(login(responseJson.user));
+    dispatch(login(responseJson));
   };
 
   const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
