@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from '../../../assets/logo.png';
-import Img from '../../Img';
+import Img from '../../../basics/Img';
 
 const HeaderLeftContainer = styled.div`
     margin: auto;
