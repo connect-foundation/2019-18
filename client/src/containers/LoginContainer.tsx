@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import dotenv from 'dotenv';
-import LoginBox from '../components/LoginBox';
+import Login from '../components/Login';
 import { login, logout } from '../modules/login/action';
 
 dotenv.config();
@@ -11,7 +11,7 @@ const Content:React.FC = () => {
   const [pwd, setPwd] = useState('');
   const dispatch = useDispatch();
 
-  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const body = {
       email: id,
       pwd,
@@ -24,11 +24,9 @@ const Content:React.FC = () => {
 
     // 로그인 실패
     if (response.status !== 200) {
-      console.log('로그인 실패');
       return;
     }
     const responseJson = await response.json();
-    console.log(JSON.stringify(responseJson));
     dispatch(login(responseJson));
   };
 
@@ -42,11 +40,13 @@ const Content:React.FC = () => {
     setPwd(e.target.value);
   };
   return (
-    <LoginBox
-      onSubmit={onSubmit}
+    <Login
+      onLogin={onLogin}
       onLogout={onLogout}
       onChangeid={onChangeid}
       onChangepwd={onChangepwd}
+      id={id}
+      pwd={pwd}
     />
   );
 };

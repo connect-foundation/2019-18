@@ -3,6 +3,7 @@ import React from 'react';
 
 type submitButtonProps = {
     children : string;
+    onClick : (e: React.MouseEvent<HTMLButtonElement>)=>void;
 }
 const StyledButton = styled.button`
     display:block;
@@ -16,9 +17,9 @@ const StyledButton = styled.button`
     font-size : 1rem;
 `;
 
-function SubmitButton({ children }:submitButtonProps) {
+function SubmitButton({ children, onClick }:submitButtonProps) {
   return (
-    <StyledButton>
+    <StyledButton onClick={onClick}>
       {children}
     </StyledButton>
   );

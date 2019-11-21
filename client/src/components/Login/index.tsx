@@ -61,23 +61,25 @@ const OauthContent = styled.div`
 `;
 
 interface LoginProp{
-    onSubmit: (e: React.MouseEvent<HTMLButtonElement>)=>void;
+    onLogin: (e: React.MouseEvent<HTMLButtonElement>)=>void;
     onLogout: (e: React.MouseEvent<HTMLButtonElement>)=>void;
     onChangeid: (e: React.ChangeEvent<HTMLInputElement>)=> void;
     onChangepwd: (e: React.ChangeEvent<HTMLInputElement>)=> void;
+    id: string;
+    pwd: string;
 }
 
 
 const Login:React.FC<LoginProp> = ({
-  onSubmit, onChangeid, onChangepwd, onLogout,
+  onLogin, onChangeid, onChangepwd, onLogout, id, pwd,
 }) => (
   <LoginBox>
     <CrafolioLogoContainer>
       <CrafolioLogo src={CrafolioIcon} />
     </CrafolioLogoContainer>
-    <LoginInput placeholder="이메일을 입력하세요" />
-    <PasswordInput placeholder="비밀번호를 입력하세요" />
-    <SubmitButton>로그인</SubmitButton>
+    <LoginInput onChange={onChangeid} value={id} placeholder="이메일을 입력하세요" />
+    <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
+    <SubmitButton onClick={onLogin}>로그인</SubmitButton>
     <MidLine>
       <Line />
       또는
@@ -89,8 +91,6 @@ const Login:React.FC<LoginProp> = ({
         NAVER 으로 로그인
       </OauthContent>
     </OauthLine>
-
-
   </LoginBox>
 );
 
