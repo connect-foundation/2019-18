@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import dotenv from 'dotenv';
+import Cookies from 'js-cookie';
+import styled from 'styled-components';
 import Login from '../components/Login';
 import { login, logout } from '../modules/login/action';
 
 dotenv.config();
 
+const Screen = styled.div`
+  width:100%;
+  height:100%; 
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+`;
 const Content:React.FC = () => {
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
+
+
   const dispatch = useDispatch();
 
   const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -19,6 +30,7 @@ const Content:React.FC = () => {
     const response = await fetch(`${process.env.REACT_APP_URL}/login`, {
       method: 'post',
       body: JSON.stringify(body),
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -40,14 +52,16 @@ const Content:React.FC = () => {
     setPwd(e.target.value);
   };
   return (
-    <Login
-      onLogin={onLogin}
-      onLogout={onLogout}
-      onChangeid={onChangeid}
-      onChangepwd={onChangepwd}
-      id={id}
-      pwd={pwd}
-    />
+    <Screen>
+      <Login
+        onLogin={onLogin}
+        onLogout={onLogout}
+        onChangeid={onChangeid}
+        onChangepwd={onChangepwd}
+        id={id}
+        pwd={pwd}
+      />
+    </Screen>
   );
 };
 

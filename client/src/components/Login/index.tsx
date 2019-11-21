@@ -26,7 +26,8 @@ const LoginNaverLogo = styled.img`
   margin : 0 0.7rem;
 `;
 const LoginBox = styled.div`
-    height : 32 rem;
+    margin-top : 6rem;
+    height : 42 rem;
     width : 28rem;
     padding : 70px 50px; 
     border:1px #EFEFEF solid;
