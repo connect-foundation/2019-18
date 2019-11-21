@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Input from '../../../Input';
+import Input from '../../../../basics/Input';
 import Img from '../../../Img';
 import Search from '../../../../assets/search.png';
 
