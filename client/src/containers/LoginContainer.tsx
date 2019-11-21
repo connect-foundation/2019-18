@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-<<<<<<< HEAD
 import dotenv from 'dotenv';
 import Cookies from 'js-cookie';
 import styled from 'styled-components';
@@ -46,37 +45,6 @@ const Content:React.FC = () => {
   const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(logout());
   };
-=======
-import Login from '../components/Login';
-
-import { login } from '../modules/login/action';
-
-const Content:React.FC = () => {
-  const [id, setId] = useState('');
-  const [pwd, setPwd] = useState('');
-  const dispatch = useDispatch();
-
-  const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // const body = {
-    //   email: 'test@gmail.com',
-    //   pwd: '1234',
-    // };
-    // fetch('localhost:3050/login', {
-
-    //   method: 'post',
-    //   body: JSON.stringify(body),
-    // }).then((response) => response.json()).then((data) => {
-    //   console.log(data);
-    // });
-    const user = {
-      email: 'test@gmail.com',
-      name: 'test',
-      thumbnailUrl: 'test',
-    };
-    dispatch(login(user));
-  };
-
->>>>>>> 64e80fe04f2519edc97309139816df491acc1943
   const onChangeid = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
   };
@@ -84,7 +52,6 @@ const Content:React.FC = () => {
     setPwd(e.target.value);
   };
   return (
-<<<<<<< HEAD
     <Screen>
       <Login
         onLogin={onLogin}
@@ -95,13 +62,6 @@ const Content:React.FC = () => {
         pwd={pwd}
       />
     </Screen>
-=======
-    <Login
-      onSubmit={onSubmit}
-      onChangeid={onChangeid}
-      onChangepwd={onChangepwd}
-    />
->>>>>>> 64e80fe04f2519edc97309139816df491acc1943
   );
 };
 
