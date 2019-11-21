@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Img from '../Img';
-import H4 from '../H4';
+import Img from '../../basics/Img';
+import H4 from '../../basics/H4';
 
 const Container = styled.div`
     display: flex;

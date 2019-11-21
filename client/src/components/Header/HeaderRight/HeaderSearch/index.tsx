@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Input from '../../../Input';
-import Img from '../../../Img';
+import Input from '../../../../basics/Input';
+import Img from '../../../../basics/Img';
 import Search from '../../../../assets/search.png';
 
 const HeaderSearchContainer = styled.div`

@@ -13,6 +13,7 @@ const Container = styled.div`
 `;
 
 interface IImage{
+  _id: string;
   creator: string;
   url: string;
 }
@@ -30,6 +31,7 @@ const FeedWorks:React.FC = () => {
         const images = await result.json();
         const newData = data.concat(images);
         setData(newData);
+        console.log(newData);
         setIsLoading(false);
       } catch (e) {
         setIsError(true);
@@ -48,6 +50,7 @@ const FeedWorks:React.FC = () => {
           <Card
             imgUrl={image.url}
             creator={image.creator}
+            key={image._id}
           />
         ))
       )}
