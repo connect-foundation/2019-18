@@ -5,7 +5,7 @@ import {
 import Header from '../Header';
 import FeedContainer from '../FeedContainer';
 
-import Upload from '../Upload';
+import Upload from '../upload';
 
 const Home:React.FC = () => (
   <Router>

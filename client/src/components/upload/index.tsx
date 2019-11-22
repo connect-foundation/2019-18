@@ -11,7 +11,6 @@ import {
 import styled from 'styled-components';
 
 import ImageUpload from './ImageUpload';
-import Test from './Test';
 import Basicbox from './Basicbox';
 
 const U = {
@@ -41,7 +40,6 @@ function ModalSwitch() {
         <Route path="/upload/image" component={ImageUpload} />
         <Route path="/upload/music" component={Home} />
         <Route path="/upload/background" component={Home} />
-        <Route path="/test" component={Test} />
       </Switch>
     </div>
   );
