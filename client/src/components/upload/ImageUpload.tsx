@@ -15,48 +15,33 @@ function ImageUpload() {
   const [pictures, setPictures] = useState <File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [contents, setContents] = useState<ContentObject[]>([]);
-  const naniContent: Array<ContentObject> = [];
 
   useEffect(() => {
 
   });
+
   const onDrop = (picture: File[]) => {
     const newpicture = picture[picture.length - 1];
-    const temp:File[] = pictures;
-    if (!temp) {
-      return;
-    }
-    temp.push(newpicture);
-    setPictures(temp);
-    const newUrls = temp.map((file) => URL.createObjectURL(file));
-    setPreviews(newUrls);
+    const tempPictures:File[] = pictures;
+    tempPictures.push(newpicture);
+    setPictures(tempPictures);
+
+    const tempPreviews = tempPictures.map((file) => URL.createObjectURL(file));
+    setPreviews(tempPreviews);
+
+    const tempContents:ContentObject[] = contents;
     const obj:ContentObject = {
       type: 'image',
       content: '',
     };
-    naniContent.push(obj);
-    const temp2:ContentObject[] = contents;
-    temp2.push(obj);
-    setContents(temp2);
+    tempContents.push(obj);
+    setContents(tempContents);
   };
 
-  const onClickHandler = async () => {
-    const urls = await getImageUrl();
-    console.log(contents);
-
-    const temp3 = contents.map((element2) => {
-      if (element2.type === 'image') {
-        element2.content = urls.shift();
-      }
-      return element2;
-    });
-    console.log(temp3);
-  };
-
-  const getImageUrl = async () => {
+  const makeFormData = () => {
     const formdata = new FormData();
+    let format:string;
     pictures.forEach((element) => {
-      let format;
       if (element.type === 'image/jpeg') {
         format = '.jpg';
       } else if (element.type === 'image/png') {
@@ -65,10 +50,38 @@ function ImageUpload() {
       const nameUuid = uuidv4();
       formdata.append('multi-files', element, nameUuid + format);
     });
-    const { data } = await axios.post('http://localhost:3050/upload', formdata);
+    return formdata;
+  };
+
+  const getImageUrl = async () => {
+    const formdata = makeFormData();
+    const { data } = await axios.post('http://localhost:3050/upload/getImageUrl', formdata);
     const { objectStorageUrls } = data;
     return objectStorageUrls;
   };
+
+  const uploadHandler = async () => {
+    const urls = await getImageUrl();
+    const dbContent = contents.map((element2) => {
+      if (element2.type === 'image') {
+        element2.content = urls.shift();
+      }
+      return element2;
+    });
+    const obj = {
+      title: '임시 타이틀',
+      content: dbContent,
+      commemts_allow: true,
+      ccl: '임시 CCL',
+      field: '임시 field',
+      public: true,
+      tags: [],
+    };
+
+    const { data } = await axios.post('http://localhost:3050/upload/works-image', obj);
+    console.log(data);
+  };
+
 
   const customButton = {
     color: 'white',
@@ -99,7 +112,7 @@ function ImageUpload() {
       <div>
         {previews && previews.map((element) => <Preview src={element} />)}
       </div>
-      <button type="button" className="upload-button" onClick={onClickHandler}>Upload</button>
+      <button type="button" className="upload-button" onClick={uploadHandler}>Upload</button>
       <div>
         <ImageUploader
           withIcon={false}

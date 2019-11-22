@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
 import { create } from '../services/upload';
 
 interface MulterFile {
@@ -20,9 +21,10 @@ const getUrl = async (req: Request & { files: MulterFile[] },
 const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) => {
   const data = {
     ...req.body,
+    owner: mongoose.Types.ObjectId(),
   };
-  // console.log(data);
-  // const result = await create(data);
+  console.log(data);
+  const result = await create(data);
   // model WorkImage 스키마 작성 + Insert 해야함
 };
 

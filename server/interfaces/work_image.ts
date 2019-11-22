@@ -2,12 +2,12 @@ import {
   Schema,
 } from 'mongoose';
 
-interface IWorkImageContent {
+export interface IWorkImageContent {
   type: string,
   content: string,
 }
 
-interface IWorkImage{
+export interface IWorkImage {
     owner: Schema.Types.ObjectId,
     title: string,
     content: [IWorkImageContent],
@@ -18,7 +18,5 @@ interface IWorkImage{
     field: string,
     public:string,
     tags: [string],
-    views: string,
+    views: number,
 }
-
-export { IWorkImage, IWorkImageContent };
