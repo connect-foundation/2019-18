@@ -51,8 +51,8 @@ docker compose up --build .
 
 ### back
 
-- (아이콘) Node.js
-- (아이콘) Express 
+- Node.js
+- Express 
 - TS
 - Mongoose
 - jest(supertest)
