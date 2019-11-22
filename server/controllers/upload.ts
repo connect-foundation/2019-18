@@ -1,41 +1,31 @@
 import { Request, Response, NextFunction } from 'express';
-// import { loginService } from '../services/login';
-import { S3, bucketName } from '../middleware/aws';
+import mongoose from 'mongoose';
+import { create } from '../services/upload';
 
-export interface MulterFile {
-    key: string // Available using `S3`.
-    path: string // Available using `DiskStorage`.
+interface MulterFile {
+    key: string,
+    path: string,
     mimetype: string
     originalname: string
-    size: number
-  }
+    size: number,
+    screenShots: string,
+}
 
-const handleCSVFile = async (req: Request & { file: MulterFile[] },
-  res: Response, next: NextFunction) => {
-  const { file } = req;
-
-  if (!file) {
-    const error = new Error('Please upload a file');
-    return next(error);
-  }
-
-  // const bucketName = 'jmj-temp-image';
-  // const objectName = 'sample-object';
-  // const result = await S3.putObject({
-  //   Bucket: bucketName,
-  //   Key: objectName,
-  //   ACL: 'public-read',
-  // }).promise();
-
-  // // upload file
-  // const uploadresult = await S3.putObject({
-  //   Bucket: bucket_name,
-  //   Key: object_name,
-  //   ACL: 'public-read',
-  //   // ACL을 지우면 전체공개가 되지 않습니다.
-  //   Body: fs.createReadStream(local_file_path),
-  // }).promise();
-  res.send(file);
+const getUrl = async (req: Request & { files: MulterFile[] },
+  res: Response, _next: NextFunction) => {
+  const { files } = req;
+  const objectStorageUrls = files.map((element) => process.env.OS_TARGET_URL + element.originalname);
+  res.json({ objectStorageUrls });
 };
 
-export { handleCSVFile };
+const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) => {
+  const data = {
+    ...req.body,
+    owner: mongoose.Types.ObjectId(),
+  };
+  console.log(data);
+  const result = await create(data);
+  // model WorkImage 스키마 작성 + Insert 해야함
+};
+
+export { getUrl, uploadWorkImage };

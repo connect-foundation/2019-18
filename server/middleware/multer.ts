@@ -1,14 +1,21 @@
+import multerS3 from 'multer-s3';
+import { S3 } from '../middleware/aws';
+
 import multer = require('multer');
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, './image_data/upload');
-  },
-  filename(req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
+const bucket = process.env.OS_BUCKET_NAME;
 
-const multerUpload = multer({ storage });
+const multerUpload = multer({
+  storage: multerS3({
+    s3: S3,
+    bucket,
+    metadata: (req, file, cb) => {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  }),
+}).array('multi-files', 10);
 
-export = multerUpload;
+export { multerUpload };
