@@ -1,28 +1,36 @@
+import {
+  Document, Schema, Model, model,
+} from 'mongoose';
 
-import * as mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+import validator from 'validator';
 import { IUser } from '../interfaces/user';
-// const mongoose = require('mongoose');
+import {
+  DEFAULT_ORIGIN_URL,
+  DEFAULT_THUMBNAIL_URL,
+} from '../constant';
 
-const userSchema = new mongoose.Schema({
-  id: { type: String, reuqired: true },
+export interface IUserModel extends IUser, Document{}
+
+const userSchema = new Schema({
+  email: {
+    type: String, required: true, unique: true,
+  },
   pwd: { type: String, required: true },
+  name: { type: String, required: true },
+  thumbnailUrl: { type: String, required: true, default: DEFAULT_THUMBNAIL_URL },
+  originUrl: { type: String, required: true, default: DEFAULT_ORIGIN_URL },
 });
 
-userSchema.statics.findAll = function () {
-  return this.find({});
-};
+userSchema.path('email').validate((value) => validator.isEmail(value), 'invalid email');
 
-userSchema.statics.create = function (payload:IUser) {
-  const user = new this(payload);
-  return user.save();
-};
+userSchema.pre<IUserModel>('save', async function (next) {
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(this.pwd, salt);
+  this.pwd = hash;
+  next();
+});
 
-userSchema.statics.findById = function (id:String) {
-  return this.findOne({ id });
-};
+const User:Model<IUserModel> = model<IUserModel>('User', userSchema);
 
-// const model = mongoose.model('User', userSchema);
-
-// export default model;
-
-module.exports = mongoose.model('User', userSchema);
+export default User;

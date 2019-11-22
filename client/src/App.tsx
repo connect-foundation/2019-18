@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createGlobalStyle } from 'styled-components';
+import {
+  Switch, Route, BrowserRouter as Router, Redirect,
+} from 'react-router-dom';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import dotenv from 'dotenv';
+import { ThemeProvider } from './style/typed-compoennts';
+import { theme } from './style/theme';
+import Home from './components/Home';
+
+import Login from './containers/LoginContainer';
+
+dotenv.config();
+const GlobalStyle = createGlobalStyle`
+  body{
+    padding: 0;
+    margin: 0;
+    background: ${theme.background};
+    font-family: sans-serif;
+  }
+`;
+
+const App: React.FC = () => (
+  <ThemeProvider theme={theme}>
+    <GlobalStyle />
+    <Router>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/" component={Home} />
+        <Redirect from="*" to="/" />
+      </Switch>
+    </Router>
+  </ThemeProvider>
+);
 
 export default App;

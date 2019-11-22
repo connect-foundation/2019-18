@@ -5,7 +5,7 @@ import ErrnoException = NodeJS.ErrnoException;
 /**
  * Module dependencies.
  */
-
+require('dotenv').config();
 const debug = require('debug')('nodejs-express-typescript-sample:server');
 const http = require('http');
 const app = require('../app');
@@ -38,7 +38,7 @@ server.on('listening', onListening);
 function normalizePort(val: string) {
   const port = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (Number.isNaN(port)) {
     // named pipe
     return val;
   }
