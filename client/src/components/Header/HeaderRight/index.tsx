@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../../Button';
-import Img from '../../Img/index';
+import Button from '../../../basics/Button';
+import Img from '../../../basics/Img/index';
 import Alarm from '../../../assets/alarm.png';
 import HeaderSearch from './HeaderSearch';
 

@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Img from '../Img';
-import H4 from '../H4';
-
-const Container = styled.div`
-    display: flex;
-`;
+import Img from '../../basics/Img';
+import H4 from '../../basics/H4';
+import * as S from './styles';
 
 interface Props {
     src: string;
@@ -27,11 +24,11 @@ const SmallH4 = styled(H4)`
 `;
 
 const TextWithImg: React.FC<Props> = ({ src, text, small }) => (
-  <Container>
+  <S.Container>
     {small && <SmallImg src={src} small />}
     {!small && <SmallImg src={src} />}
     <SmallH4>{text}</SmallH4>
-  </Container>
+  </S.Container>
 );
 
 export default TextWithImg;

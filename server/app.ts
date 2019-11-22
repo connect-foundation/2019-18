@@ -17,7 +17,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(cors());
+const corsConfig = {
+  origin: ['http://localhost:3000'],
+  credentials: true,
+};
+app.use(cors(corsConfig));
+
 
 connect();
 
