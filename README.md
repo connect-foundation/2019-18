@@ -8,7 +8,6 @@
         <img src="https://img.shields.io/badge/documentation-yes-brightgreen"/>
         </a>
 </p>
-### 
 
 <h1 align="center">💡 Crafolio🎶🎨 &nbsp</h1>
 
@@ -71,5 +70,7 @@ docker compose up --build .
 ## TeamName: 사아자~🦁 
 
 사: 신철헌 [@suphremechicken](https://github.com/suphremechicken)
+
 아: 이준호 [@Junow](https://github.com/Junow)
+
 자: 조민지 [@jominjimail](https://github.com/jominjimail)
