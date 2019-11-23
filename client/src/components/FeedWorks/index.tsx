@@ -8,14 +8,17 @@ const Container = styled.div`
     display: flex;
     flex-flow: wrap;
     justify-content: space-between;
-
     width: 60%;
     margin: auto;
 `;
 
 interface IImage{
   _id: string;
-  creator: string;
+  creator:{
+    _id: string,
+    name: string,
+    email: string,
+  };
   url: string;
 }
 const FeedWorks:React.FC = () => {
@@ -31,6 +34,7 @@ const FeedWorks:React.FC = () => {
         const result = await fetch(`${API_SERVER}/image/`);
         const images = await result.json();
         const newData = data.concat(images);
+        console.log(images);
         setData(newData);
         setIsLoading(false);
       } catch (e) {
@@ -49,7 +53,7 @@ const FeedWorks:React.FC = () => {
         data.map((image) => (
           <Card
             imgUrl={image.url}
-            creator={image.creator}
+            creator={image.creator.name}
             key={image._id}
           />
         ))
