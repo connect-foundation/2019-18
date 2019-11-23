@@ -1,7 +1,8 @@
 import baseStyled, { ThemedStyledInterface } from 'styled-components';
 
 export const theme = {
-  background: '#ffffff' as const,
+  // / colors
+  background: '#ffffff',
   green: '#5FCD8B',
   LIGHT_GREENISH_BLUE: '#55efc4',
   FADED_POSTER: '#81ecec',
@@ -23,6 +24,9 @@ export const theme = {
   CHI_CONG: '#d63031',
   PRUNUS_AVIUM: '#e84393',
   DRACULA_ORCHID: '#2d3436',
+
+  // box-shadow
+  BOX_SHADOW: 'rgba(0, 0, 0, 0.2) 0px 5px 13px',
 };
 
 export type Theme = typeof theme;

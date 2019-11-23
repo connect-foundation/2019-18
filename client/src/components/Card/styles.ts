@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Img from '../../basics/Img';
+import { theme } from '../../style/theme';
 
 export const Container = styled.div`
     display: flex;
@@ -8,7 +9,8 @@ export const Container = styled.div`
     height: 20rem;
     margin: 1rem;
     border-radius: 10px;
-    border: 1px solid black;
+    border: 0px solid black;
+    box-shadow: ${theme.BOX_SHADOW};
 `;
 
 export const CardImgContainer = styled.div`
