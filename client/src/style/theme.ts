@@ -24,6 +24,7 @@ export const theme = {
   CHI_CONG: '#d63031',
   PRUNUS_AVIUM: '#e84393',
   DRACULA_ORCHID: '#2d3436',
+  BORDER_GRAY: '#dddddd',
 
   // box-shadow
   BOX_SHADOW: 'rgba(0, 0, 0, 0.2) 0px 5px 13px',

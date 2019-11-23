@@ -34,7 +34,7 @@ export const CardHeader = styled.div`
 export const CardBody = styled.div`
     display: flex;
     padding: 0 1rem;
-    border-bottom: 1px #DDDDDD solid;
+    border-bottom: 1px ${theme.BORDER_GRAY} solid;
 `;
 
 export const CardFooter = styled.div`

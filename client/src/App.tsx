@@ -17,7 +17,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     background: ${theme.background};
-    font-family: sans-serif;
+    @font-face {
+      font-family: 'Anton-Regular';
+      src: url('./style/fonts/Anton-Regular.ttf');
+    }
+    font-family: "Anton-Regular", "Cabin-Medium", "GothicA1-Regular" "Apple SD Gothic Neo", sans-serif;
   }
 `;
 
