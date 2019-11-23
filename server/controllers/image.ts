@@ -15,8 +15,8 @@ const getImages = async (req: Request, res: Response, next:NextFunction) => {
       image.url = `${IMAGE_CDN}${WORKS}${image.url}${IMAGE_QUERY_LOW}`;
       return image;
     });
-    return next(createError(422, IMAGE.NOT_FOUND_IMAGE));
-    // return response(res, newimages);
+    // return next(createError(422, IMAGE.NOT_FOUND_IMAGE));
+    return response(res, newimages);
     // return res.json(newimages);
   } catch (e) {
     next(e);
