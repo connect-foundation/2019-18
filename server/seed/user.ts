@@ -1,11 +1,23 @@
+import mongoose from 'mongoose';
 
 const users = [
   {
-    originUrl: '1234',
-    thumbnailUrl: '1234',
+    _id: mongoose.Types.ObjectId(),
+    email: 'suphremechicken@gmail.com',
     pwd: '1234',
-    email: 'test@gmail.com',
-    name: 'test1',
+    name: '신철헌',
+  },
+  {
+    _id: mongoose.Types.ObjectId(),
+    email: 'taristmas@gmail.com',
+    pwd: '1234',
+    name: 'junow',
+  },
+  {
+    _id: mongoose.Types.ObjectId(),
+    email: 'jominjimail@gmail.com',
+    pwd: '1234',
+    name: '조민지',
   },
 ];
 
