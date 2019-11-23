@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Card from '../Card';
 import useFetch from '../../hooks/useFetch';
+import { API_SERVER } from '../../utils/constants';
 
 const Container = styled.div`
     display: flex;
@@ -27,7 +28,7 @@ const FeedWorks:React.FC = () => {
       setIsLoading(true);
       setIsError(false);
       try {
-        const result = await fetch('http://localhost:3050/image/');
+        const result = await fetch(`${API_SERVER}/image/`);
         const images = await result.json();
         const newData = data.concat(images);
         setData(newData);

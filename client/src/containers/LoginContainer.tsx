@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import styled from 'styled-components';
 import Login from '../components/Login';
 import { login, logout } from '../modules/login/action';
+import { API_SERVER } from '../utils/constants';
 
 dotenv.config();
 
@@ -27,7 +28,7 @@ const Content:React.FC = () => {
       email: id,
       pwd,
     };
-    const response = await fetch(`${process.env.REACT_APP_URL}/login`, {
+    const response = await fetch(`${API_SERVER}/login`, {
       method: 'post',
       body: JSON.stringify(body),
       credentials: 'include',
