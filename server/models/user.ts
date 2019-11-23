@@ -8,7 +8,7 @@ import { IUser } from '../interfaces/user';
 import {
   DEFAULT_ORIGIN_URL,
   DEFAULT_THUMBNAIL_URL,
-} from '../constant';
+} from '../utils/constant';
 
 export interface IUserModel extends IUser, Document{}
 
