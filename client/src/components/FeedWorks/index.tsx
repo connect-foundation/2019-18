@@ -58,8 +58,9 @@ const FeedWorks:React.FC = () => {
       ) : (
         data.map((image) => (
           <Card
+            imageId={image._id}
             imgUrl={image.url}
-            creator={image.creator.name}
+            creator={image.creator}
             key={image._id}
           />
         ))

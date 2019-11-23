@@ -9,11 +9,16 @@ import View from '../../assets/view.png';
 import Comment from '../../assets/comment.png';
 
 interface CardProp{
+  imageId: string,
   imgUrl: string;
-  creator: string;
+  creator: {
+    _id: string,
+    email: string,
+    name: string,
+  };
 }
 
-const Card: React.FC<CardProp> = ({ imgUrl, creator }) => (
+const Card: React.FC<CardProp> = ({ imageId, imgUrl, creator }) => (
   <S.Container>
     <S.CardImgContainer>
       <S.CardImg src={imgUrl} />
@@ -21,8 +26,11 @@ const Card: React.FC<CardProp> = ({ imgUrl, creator }) => (
     <S.CardHeader>
       <H3>라이언과 작은 요정들의 반짝반짝 윈터 원더랜드</H3>
     </S.CardHeader>
-    <S.CardBody>
-      <TextWithImg src="https://kr.object.ncloudstorage.com/crafolio/user/thumbnail/user-profile-thumbnail.png" text={creator} />
+    <S.CardBody id={creator._id}>
+      <TextWithImg
+        src="https://kr.object.ncloudstorage.com/crafolio/user/thumbnail/user-profile-thumbnail.png"
+        text={creator.name}
+      />
     </S.CardBody>
     <S.CardFooter>
       <TextWithImg src={Smile} small text="20" />
