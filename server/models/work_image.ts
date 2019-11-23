@@ -1,5 +1,5 @@
-import {
-  Document, Schema, Model, model,
+import mongoose, {
+  Document, Schema, Model, model, Mongoose, SchemaType,
 } from 'mongoose';
 
 import { IWorkImage, IWorkImageContent } from '../interfaces/work_image';
@@ -17,7 +17,7 @@ const workImageSchema = new Schema({
     type: ObjectId, required: true, unique: true,
   },
   title: { type: String, required: true },
-  content: { type: [obj], required: true, default: [] },
+  content: { type: [Schema.Types.Mixed], required: true, default: [] },
   emoji: { type: [String], required: true, default: [] },
   comments: { type: [String], required: true, default: [] },
   comments_allow: { type: Boolean, required: true, default: true },
@@ -26,7 +26,6 @@ const workImageSchema = new Schema({
   public: { type: String, required: true, default: true },
   tags: { type: [String], required: true, default: [] },
   views: { type: Number, required: true, default: 0 },
-
 });
 
 const WorkImage:Model<IWorkImageModel> = model<IWorkImageModel>('WorkImage', workImageSchema);

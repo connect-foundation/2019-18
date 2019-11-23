@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import Card from '../Card';
 import useFetch from '../../hooks/useFetch';
 import { API_SERVER } from '../../utils/constants';
@@ -31,12 +32,17 @@ const FeedWorks:React.FC = () => {
       setIsLoading(true);
       setIsError(false);
       try {
-        const result = await fetch(`${API_SERVER}/image/`);
-        const images = await result.json();
-        const newData = data.concat(images);
-        console.log(images);
-        setData(newData);
-        setIsLoading(false);
+        const result = await axios(`${API_SERVER}/image/`);
+        if (!result.data.success) {
+          alert(result.data.data.message);
+          setIsError(true);
+          setIsLoading(false);
+        } else {
+          const images = result.data.data;
+          const newData = data.concat(images);
+          setData(newData);
+          setIsLoading(false);
+        }
       } catch (e) {
         setIsError(true);
       }
@@ -46,7 +52,7 @@ const FeedWorks:React.FC = () => {
 
   return (
     <Container>
-      {isError && <div>Something wrong...</div>}
+      {isError && !isLoading && <div>Something wrong...</div>}
       {isLoading ? (
         <div>Loading...</div>
       ) : (
