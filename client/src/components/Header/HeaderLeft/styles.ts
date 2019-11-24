@@ -3,7 +3,7 @@ import Img from '../../../basics/Img';
 
 export const HeaderLeftContainer = styled.div`
 margin: auto;
-margin-right: auto;
+/* margin-right: auto; */
 margin-left: 5rem;
 `;
 

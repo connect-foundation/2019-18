@@ -8,4 +8,17 @@ export const HeaderContainer = styled.div`
     justify-content: center;
     justify-items: center;
     border-bottom: 1px ${theme.BORDER_GRAY} solid;
+    position: relative;
+`;
+
+export const HeaderTitle = styled.div`
+position: absolute;
+  width: 1440px;
+  display: flex;
+  height: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 600;
 `;

@@ -9,7 +9,7 @@ const HeaderRightContainer = styled.div`
     display: flex;
     justify-content: center;
     justify-items: center;
-    margin-left: auto;
+    /* margin-left: auto; */
     margin-right: 5rem;
 `;
 
