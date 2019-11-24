@@ -5,13 +5,13 @@ import {
 import Header from '../Header';
 import FeedContainer from '../FeedContainer';
 
-import Upload from '../upload';
+import UploadMain from '../UploadMain';
 
 const Home:React.FC = () => (
   <Router>
     <Header />
     <Switch>
-      <Route path="/upload" component={Upload} />
+      <Route path="/upload" component={UploadMain} />
       <Route path="/" exact component={FeedContainer} />
       <Redirect from="*" to="/" />
     </Switch>

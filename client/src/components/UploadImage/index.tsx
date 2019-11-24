@@ -4,12 +4,13 @@ import React, {
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import uuidv4 from 'uuid/v4';
-import Preview from './Preview';
+import Preview from '../Preview';
+import * as S from './style';
 
-interface ContentObject {
-  type: string,
-  content: string,
-}
+  interface ContentObject {
+    type: string,
+    content: string,
+  }
 
 function ImageUpload() {
   const [pictures, setPictures] = useState <File[]>([]);
@@ -83,20 +84,6 @@ function ImageUpload() {
   };
 
 
-  const customButton = {
-    color: 'white',
-    width: '100px',
-    height: '100px',
-    fontSize: '16px',
-    borderRadius: '2px',
-    backgroundColor: 'palevioletred',
-    fontWeight: '400',
-  };
-
-  const customFileContainer = {
-    border: '2px solid palevioletred',
-  };
-
   const addDescription: ()=> void = () => {
     const obj:ContentObject = {
       type: 'description',
@@ -122,8 +109,8 @@ function ImageUpload() {
           imgExtension={['.jpg', '.png', '.gif']}
           maxFileSize={5242880}
           withPreview
-          buttonStyles={customButton}
-          fileContainerStyle={customFileContainer}
+          buttonStyles={S.customButton}
+          fileContainerStyle={S.customFileContainer}
           singleImage
         />
       </div>

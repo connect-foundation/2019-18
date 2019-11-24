@@ -8,23 +8,12 @@ import {
   useRouteMatch,
   Redirect,
 } from 'react-router-dom';
-import styled from 'styled-components';
 
-import ImageUpload from './ImageUpload';
-import Basicbox from './Basicbox';
+import UploadImage from '../UploadImage';
+import Basicbox from '../Basicbox';
+import * as S from './style';
 
-const U = {
-  Div: styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 800px;
-  height: 150px;
-  justify-content: space-around;
-  border: 2px solid palevioletred;
-  `,
-};
-
-function Upload() {
+function UploadMain() {
   return (
     <Router>
       <ModalSwitch />
@@ -37,7 +26,7 @@ function ModalSwitch() {
     <div className="Upload-route-container">
       <Switch>
         <Route exact path="/upload" component={Home} />
-        <Route path="/upload/image" component={ImageUpload} />
+        <Route path="/upload/image" component={UploadImage} />
         <Route path="/upload/music" component={Home} />
         <Route path="/upload/background" component={Home} />
       </Switch>
@@ -47,13 +36,13 @@ function ModalSwitch() {
 
 function Home() {
   return (
-    <U.Div className="Upload-link-container">
+    <S.LinkBox>
       <Link to="/upload/image"><Basicbox name="이미지" /></Link>
       <Link to="/upload/music"><Basicbox name="음악" /></Link>
       <Link to="/upload/background"><Basicbox name="배경화면" /></Link>
-    </U.Div>
+    </S.LinkBox>
   );
 }
 
 
-export default Upload;
+export default UploadMain;
