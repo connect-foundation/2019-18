@@ -9,7 +9,7 @@ function Basicbox({
   name,
 }: BasicboxProps) {
   return (
-    <S.Box className="Basicbox">
+    <S.Box>
       <S.Button type="button">{name}</S.Button>
     </S.Box>
   );

@@ -4,9 +4,6 @@ import {
   Switch,
   Route,
   Link,
-  useParams,
-  useRouteMatch,
-  Redirect,
 } from 'react-router-dom';
 
 import UploadImage from '../UploadImage';
