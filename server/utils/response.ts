@@ -9,7 +9,7 @@ export default (res:Response, data = {}, code = httpStatus.OK) => {
 
   if (code > 399) {
     result.success = false;
-    code = httpStatus.OK;
+    // code = httpStatus.OK;
   }
 
   if (typeof data === 'object') {

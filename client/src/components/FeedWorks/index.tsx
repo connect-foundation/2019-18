@@ -19,7 +19,7 @@ const FeedWorks:React.FC = () => {
   }, doFetch] = useFetch<IImage>([]);
 
   useEffect(() => {
-    doFetch(`${API_SERVER}/image/`);
+    doFetch(`${API_SERVER}/feed/images`);
   }, []);
 
   return (

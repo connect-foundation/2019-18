@@ -38,7 +38,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
   let apiError = err;
-
   if (!err.status) {
     apiError = createError(err);
   }
