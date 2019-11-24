@@ -30,12 +30,12 @@ const FeedWorks:React.FC = () => {
           : isLoading
             ? (<div>Loading...</div>)
             : (
-              data.map((image) => (
+              data.map(({ _id, url, creator }) => (
                 <Card
-                  imageId={image._id}
-                  imgUrl={image.url}
-                  creator={image.creator}
-                  key={image._id}
+                  imageId={_id}
+                  imgUrl={url}
+                  creator={creator}
+                  key={_id}
                 />
               ))
             )
