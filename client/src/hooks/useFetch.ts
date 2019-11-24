@@ -1,37 +1,39 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-interface IImage {
-  creator: string;
-  url: string;
-}
-
-const useFetch = () => {
-  const [data, setData] = useState<IImage[] | null>(null);
+const useFetch = <T>(initData:T[])
+  :[{data:T[], isLoading:boolean, isError:boolean}, (url:string)=>void ] => {
+  const [data, setData] = useState(initData);
   const [url, setUrl] = useState('');
-
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  // const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
-
       try {
-        const result = await fetch(url);
-        const json = await result.json();
-        console.log(JSON.stringify(json));
-        setData(json);
+        const result = await axios(url);
+        if (!result.data.success) {
+          setIsLoading(false);
+        } else {
+          const images = result.data.data;
+          const newData = data.concat(images);
+          setData(newData);
+          setIsLoading(false);
+          setIsError(false);
+        }
       } catch (e) {
-        setIsError(e);
+        setIsError(true);
       }
-
-      setIsLoading(false);
     };
     fetchData();
   }, [url]);
 
-  return [{ data, isLoading, isError }, setUrl];
+  return [{
+    data, isLoading, isError,
+  }, setUrl];
 };
 
 export default useFetch;

@@ -32,6 +32,7 @@ module.exports = {
       "react/prop-types": 0,
       'react-hooks/exhaustive-deps': 0,
       'no-underscore-dangle':0,
+      'no-nested-ternary': 0,
     }
 
 };
