@@ -3,7 +3,7 @@ import logo from '../../../assets/logo.png';
 import * as S from './styles';
 
 const HeaderLeft: React.FC = () => (
-  <S.HeaderLeftContainer>
+  <S.HeaderLeftContainer to="/">
     <S.LogoImg src={logo} />
   </S.HeaderLeftContainer>
 );

@@ -13,7 +13,7 @@ export const HeaderContainer = styled.div`
 
 export const HeaderTitle = styled.div`
 position: absolute;
-  width: 1440px;
+  width: 10rem;
   display: flex;
   height: 100%;
   margin: auto;
