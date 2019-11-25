@@ -27,11 +27,11 @@ const Login:React.FC<LoginProp> = ({
     <LoginInput onChange={onChangeid} value={id} placeholder="이메일을 입력하세요" />
     <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
     <SubmitButton onClick={onLogin}>로그인</SubmitButton>
-    <S.MidLine>
-      <S.Line />
+    <S.LoginMidLine>
+      <S.LoginLine />
       또는
-      <S.Line />
-    </S.MidLine>
+      <S.LoginLine />
+    </S.LoginMidLine>
     <S.OauthLine>
       <S.LoginNaverLogo src={NaverIcon} />
       <S.OauthContent>
