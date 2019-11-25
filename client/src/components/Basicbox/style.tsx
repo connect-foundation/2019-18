@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const Button = styled.button`
+export const Button = styled.button`
   cursor: pointer;
   font-size: 13px;
   color: palevioletred;
@@ -15,26 +14,11 @@ const Button = styled.button`
   }
 `;
 
-const Box = styled.div`
+export const Box = styled.div`
 border: solid 1px #dde1e5; 
 width: 130px;
 height: 130px;
 display: flex;
 border-radius: 1px;
 `;
-
-type BasicboxProps = {
-    name: string,
-}
-
-function Basicbox({
-  name,
-}: BasicboxProps) {
-  return (
-    <Box className="Basicbox">
-      <Button type="button">{name}</Button>
-    </Box>
-  );
-}
-
-export default Basicbox;
+ 
