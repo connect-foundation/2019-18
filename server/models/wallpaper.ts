@@ -13,8 +13,8 @@ const wallpaperSchema = new Schema({
   owner: { type: ObjectId, required: true },
   creator: { type: ObjectId, required: true, ref: User },
   public: { type: Boolean, required: true, default: true },
-  ref: { type: [ObjectId], required: true },
   url: { type: String, required: true },
+  downloads: { type: Number, required: true, default: 0 },
 });
 
 const Wallpaper:Model<IWallpaperModel> = model<IWallpaperModel>('wallpaper', wallpaperSchema);
