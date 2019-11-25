@@ -1,4 +1,4 @@
-import WorkImage from '../models/work_image';
+import WorkImage from '../models/workImage';
 
 const create = (payload) => WorkImage.create(payload);
 

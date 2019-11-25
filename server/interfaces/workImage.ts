@@ -1,6 +1,4 @@
-import {
-  Schema,
-} from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface IWorkImageContent {
   type: string,
@@ -8,15 +6,15 @@ export interface IWorkImageContent {
 }
 
 export interface IWorkImage {
-    owner: Schema.Types.ObjectId,
+    owner: mongoose.Types.ObjectId,
     title: string,
-    content: [IWorkImageContent],
-    emoji: [string],
-    comments: [string],
+    content: IWorkImageContent[],
+    emoji: string[],
+    comments: string[],
     commentsAllow: boolean,
     ccl: string,
     field: string,
-    public:string,
-    tags: [string],
+    public:boolean,
+    tags: string[],
     views: number,
 }

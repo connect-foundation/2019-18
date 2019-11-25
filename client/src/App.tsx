@@ -25,9 +25,7 @@ const GlobalStyle = createGlobalStyle`
       font-style: normal; 
       font-weight: 400;
     }
-
     font-family: "Anton Regular", sans-serif;
-
   }
 `;
 
@@ -36,8 +34,8 @@ const App: React.FC = () => (
     <GlobalStyle />
     <Router>
       <Switch>
-        <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
+        <Route path="/" component={Home} />
         <Redirect from="*" to="/" />
       </Switch>
     </Router>

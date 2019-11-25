@@ -12,7 +12,7 @@ const Home:React.FC = () => (
     <Header />
     <Switch>
       <Route path="/upload" component={UploadMain} />
-      <Route path="/" exact component={FeedContainer} />
+      <Route path="/" component={FeedContainer} />
       <Redirect from="*" to="/" />
     </Switch>
   </Router>
