@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { theme } from '../../style/theme';
 import Line from '../../basics/Line';
+import StyledLink from '../../basics/StyledLink';
 
 export const CrafolioLogoContainer = styled.div`
   display: flex;
@@ -55,4 +56,10 @@ export const OauthContent = styled.div`
     line-height: 2.5rem;
     font-size: 0.9rem;
     font-weight: bold;
+`;
+export const JoinLink = styled(StyledLink)`
+   line-height: 2.5rem;
+   text-decoration: none;
+   margin : auto
+   color: white;
 `;

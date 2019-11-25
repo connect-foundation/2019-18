@@ -44,6 +44,9 @@ const Login:React.FC<LoginProp> = ({
         NAVER 으로 로그인
           </S.OauthContent>
         </S.OauthLine>
+        <S.LoginMidLine>
+          <S.JoinLink to="/join">계정이 없으시면 가입하세요</S.JoinLink>
+        </S.LoginMidLine>
       </S.LoginBox>
     )
 );
