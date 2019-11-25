@@ -36,7 +36,7 @@ const App: React.FC = () => (
     <GlobalStyle />
     <Router>
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Redirect from="*" to="/" />
       </Switch>

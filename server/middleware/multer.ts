@@ -1,4 +1,5 @@
 import multerS3 from 'multer-s3';
+import uuidv4 from 'uuid/v4';
 import { S3 } from '../middleware/aws';
 
 import multer = require('multer');
@@ -12,9 +13,10 @@ const multerUpload = multer({
     metadata: (req, file, cb) => {
       cb(null, { fieldName: file.fieldname });
     },
-    key: (req, file, cb) => {
-      console.log(file);
-      cb(null, file.originalname);
+    key: (_req, file, cb) => {
+      const [type, format] = file.originalname.split('.');
+      const nameUuid = uuidv4();
+      cb(null, `${type}/${nameUuid}.${format}`);
     },
   }),
 }).array('multi-files', 10);

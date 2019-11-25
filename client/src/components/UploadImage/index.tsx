@@ -3,54 +3,71 @@ import React, {
 } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
-import uuidv4 from 'uuid/v4';
 import { API_SERVER } from '../../utils/constants';
 
 import Preview from '../Preview';
 import * as S from './style';
-
-  interface ContentObject {
-    type: string,
-    content: string,
-  }
+// Documnet content
+interface ContentObject {
+  type: string,
+  content: string,
+  file: File | null,
+}
 
 function ImageUpload() {
   const [pictures, setPictures] = useState <File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [contents, setContents] = useState<ContentObject[]>([]);
+  const [documents, setDocumnets] = useState<ContentObject[]>([]);
+
 
   useEffect(() => {
 
   });
 
-  const onDrop = (file: File[]) => {
+  const onDropWallPaper = (file: File[]) => {
     const newfile = file[file.length - 1];
-    const tempPictures = [...pictures, newfile];
-    setPictures(tempPictures);
+    const tempDocuments:ContentObject[] = [...documents];
+    const obj:ContentObject = {
+      type: 'wallpaper',
+      content: '',
+      file: newfile,
+    };
+    tempDocuments.push(obj);
+    setDocumnets(tempDocuments);
 
-    const tempPreviews = tempPictures.map((p) => URL.createObjectURL(p));
+    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpaper' || d.type === 'image').map((m) => URL.createObjectURL(m.file));
     setPreviews(tempPreviews);
+  };
 
-    const tempContents:ContentObject[] = contents;
+  const onDropImage = (file: File[]) => {
+    const newfile = file[file.length - 1];
+    const tempDocuments:ContentObject[] = [...documents];
     const obj:ContentObject = {
       type: 'image',
       content: '',
+      file: newfile,
     };
-    tempContents.push(obj);
-    setContents(tempContents);
+    tempDocuments.push(obj);
+    setDocumnets(tempDocuments);
+
+    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpaper' || d.type === 'image').map((m) => URL.createObjectURL(m.file));
+    setPreviews(tempPreviews);
   };
 
   const makeFormData = () => {
     const formdata = new FormData();
     let format:string;
-    pictures.forEach((element) => {
-      if (element.type === 'image/jpeg') {
-        format = '.jpg';
-      } else if (element.type === 'image/png') {
-        format = '.png';
+
+    documents.forEach((element) => {
+      if (element.file !== null) {
+        if (element.file.type === 'image/jpeg') {
+          format = '.jpg';
+        } else {
+          format = '.png';
+        }
+        formdata.append('multi-files', element.file, element.type + format);
       }
-      const nameUuid = uuidv4();
-      formdata.append('multi-files', element, nameUuid + format);
     });
     return formdata;
   };
@@ -65,8 +82,7 @@ function ImageUpload() {
   const uploadHandler = async () => {
     const urls = await getImageUrl();
     const dbContent = contents.map((element2) => {
-      if (element2.type === 'image') {
-        // element2.content = urls.shift();
+      if (element2.type === 'image' || element2.type === 'wallpaper') {
         const obj = {
           type: element2.type,
           content: urls.shift(),
@@ -86,7 +102,6 @@ function ImageUpload() {
     };
 
     const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
-    console.log(data);
   };
 
 
@@ -94,6 +109,7 @@ function ImageUpload() {
     const obj:ContentObject = {
       type: 'description',
       content: '아무말 아무말',
+      file: null,
     };
     const temp2:ContentObject[] = contents;
     temp2.push(obj);
@@ -110,8 +126,20 @@ function ImageUpload() {
         <ImageUploader
           withIcon={false}
           withLabel={false}
-          buttonText="이미지 선택"
-          onChange={onDrop}
+          buttonText="이미지"
+          onChange={onDropImage}
+          imgExtension={['.jpg', '.png', '.gif']}
+          maxFileSize={5242880}
+          withPreview
+          buttonStyles={S.customButton}
+          fileContainerStyle={S.customFileContainer}
+          singleImage
+        />
+        <ImageUploader
+          withIcon={false}
+          withLabel={false}
+          buttonText="배경화면"
+          onChange={onDropWallPaper}
           imgExtension={['.jpg', '.png', '.gif']}
           maxFileSize={5242880}
           withPreview

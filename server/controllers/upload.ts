@@ -23,7 +23,7 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
     ...req.body,
     owner: mongoose.Types.ObjectId(),
   };
-  console.log(data);
+  // console.log(data);
   const result = await create(data);
   // model WorkImage 스키마 작성 + Insert 해야함
 };
