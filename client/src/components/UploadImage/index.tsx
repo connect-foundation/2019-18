@@ -4,6 +4,8 @@ import React, {
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import uuidv4 from 'uuid/v4';
+import { API_SERVER } from '../../utils/constants';
+
 import Preview from '../Preview';
 import * as S from './style';
 
@@ -55,7 +57,7 @@ function ImageUpload() {
 
   const getImageUrl = async () => {
     const formdata = makeFormData();
-    const { data } = await axios.post('http://localhost:3050/upload/getImageUrl', formdata);
+    const { data } = await axios.post(`${API_SERVER}/upload/getImageUrl`, formdata);
     const { objectStorageUrls } = data;
     return objectStorageUrls;
   };
@@ -83,7 +85,7 @@ function ImageUpload() {
       tags: [],
     };
 
-    const { data } = await axios.post('http://localhost:3050/upload/works-image', obj);
+    const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
     console.log(data);
   };
 

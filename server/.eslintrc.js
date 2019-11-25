@@ -17,5 +17,7 @@ module.exports =  {
       'quotes':['error', 'single'],
       'space-before-blocks':['error', 'always'],
       'no-unused-vars':'off',
+      'no-underscore-dangle': 'off',
+      'import/no-unresolved': 'off',
     },
   };

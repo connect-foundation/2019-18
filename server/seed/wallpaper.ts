@@ -1,113 +1,114 @@
 import mongoose from 'mongoose';
-import IImage from '../interfaces/image';
+import IWallpaper from '../interfaces/wallpaper';
 import users from './user';
 
-const images:IImage[] = [
+const wallpapers:IWallpaper[] = [
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[0]._id,
     public: true,
     ref: [],
-    url: 'prescott-horn-4j-y6rpohFI-unsplash.jpg',
-  },
-  {
-    owner: mongoose.Types.ObjectId(),
-    creator: users[0]._id,
-    public: true,
-    ref: [],
-    url: 'prescott-horn-RIguu7kJqLM-unsplash.jpg',
+    url: '35mm-6HTf3ZlGYHM-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[0]._id,
     public: true,
     ref: [],
-    url: 'prescott-horn-yoO8xot8pKY-unsplash.jpg',
+    url: '35mm-IstXvxHGoA4-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[0]._id,
     public: true,
     ref: [],
-    url: 'randy-laybourne-h5MBEIV3t1s-unsplash.jpg',
+    url: '35mm-tR-hmR1ZGmE-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[0]._id,
     public: true,
     ref: [],
-    url: 'ruslan-petrov--9cV7wTi--Y-unsplash.jpg',
+    url: 'annie-spratt-6L_Jg8RMjmo-unsplash.jpg',
+  },
+  {
+    owner: mongoose.Types.ObjectId(),
+    creator: users[0]._id,
+    public: true,
+    ref: [],
+    url: 'annie-spratt-T1u_zyWjKng-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[1]._id,
     public: true,
     ref: [],
-    url: 'ruslan-petrov-9ljUUBK6jNQ-unsplash.jpg',
+    url: 'armin-hosseini-hNX1Qe4gksQ-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[1]._id,
     public: true,
     ref: [],
-    url: 'ruslan-petrov-E7sVm7fOZmY-unsplash.jpg',
+    url: ' armin-hosseini-rsg9k0FkfoM-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[1]._id,
     public: true,
     ref: [],
-    url: 'ruslan-petrov-bmJSjYjo-Fo-unsplash.jpg',
+    url: 'dima-kosh-oT7LSYk6Ok4-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[1]._id,
     public: true,
     ref: [],
-    url: 'stanislav-rozhkov-7O5L2R31Lv4-unsplash.jpg',
+    url: 'gemma-evans-BVu7ej00PwA-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[1]._id,
     public: true,
     ref: [],
-    url: 'the-joy-of-film-74HpE9VOEQU-unsplash.jpg',
+    url: 'gemma-evans-GU2nWOhDFAY-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[2]._id,
     public: true,
     ref: [],
-    url: 'the-new-york-public-library-8J5rVKRuBTY-unsplash.jpg',
+    url: 'kai-wei-HiVnFped9vE-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[2]._id,
     public: true,
     ref: [],
-    url: 'victor-ballesteros-XNlYz25pzII-unsplash.jpg',
+    url: 'maite-recalde-Wti4g5E-Mw0-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[2]._id,
     public: true,
     ref: [],
-    url: 'yang-deng-W_mPpR35kWo-unsplash.jpg',
+    url: 'memories-on-35mm-SEHphg11Y1M-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[2]._id,
     public: true,
     ref: [],
-    url: 'yining-liu-g-x7C_B0zwM-unsplash.jpg',
+    url: 'memories-on-35mm-ZS0ewed4_oU-unsplash.jpg',
   },
   {
     owner: mongoose.Types.ObjectId(),
     creator: users[2]._id,
     public: true,
     ref: [],
-    url: 'yining-liu-g_4G8MxFZTw-unsplash.jpg',
+    url: 'ola-ciszewska-ZqKx1AV5laA-unsplash.jpg',
   },
 ];
 
-export default images;
+
+export default wallpapers;

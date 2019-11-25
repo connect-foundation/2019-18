@@ -1,15 +1,15 @@
-import mongoose, {
+import {
   Document, Schema, Model, model,
 } from 'mongoose';
 
 import User from './user';
-import IImage from '../interfaces/Image';
+import IWallpaper from '../interfaces/wallpaper';
 
-export interface IImageModel extends IImage, Document{}
+export interface IWallpaperModel extends IWallpaper, Document{}
 
 const { ObjectId } = Schema.Types;
 
-const imageSchema = new Schema({
+const wallpaperSchema = new Schema({
   owner: { type: ObjectId, required: true },
   creator: { type: ObjectId, required: true, ref: User },
   public: { type: Boolean, required: true, default: true },
@@ -17,7 +17,6 @@ const imageSchema = new Schema({
   url: { type: String, required: true },
 });
 
+const Wallpaper:Model<IWallpaperModel> = model<IWallpaperModel>('wallpaper', wallpaperSchema);
 
-const Image:Model<IImageModel> = model<IImageModel>('Image', imageSchema);
-
-export default Image;
+export default Wallpaper;

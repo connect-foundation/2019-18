@@ -25,8 +25,7 @@ const SmallH4 = styled(H4)`
 
 const TextWithImg: React.FC<Props> = ({ src, text, small }) => (
   <S.Container>
-    {small && <SmallImg src={src} small />}
-    {!small && <SmallImg src={src} />}
+    {small ? <SmallImg src={src} small /> : <SmallImg src={src} />}
     <SmallH4>{text}</SmallH4>
   </S.Container>
 );

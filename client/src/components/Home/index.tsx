@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Switch, Route, BrowserRouter as Router, Redirect,
+  Switch, Route, BrowserRouter as Router, Redirect, RouteComponentProps,
 } from 'react-router-dom';
 import Header from '../Header';
 import FeedContainer from '../FeedContainer';
