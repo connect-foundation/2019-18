@@ -5,20 +5,17 @@ import {
 import Header from '../Header';
 import FeedContainer from '../FeedContainer';
 
-import Upload from '../upload';
+import UploadMain from '../UploadMain';
 
-const Home = ({ match }:RouteComponentProps) => {
-  console.log(match);
-  return (
-    <Router>
-      <Header />
-      <Switch>
-        <Route path="/" exact component={FeedContainer} />
-        <Route path="/upload" component={Upload} />
-        <Redirect from="*" to="/" />
-      </Switch>
-    </Router>
-  );
-};
+const Home:React.FC = () => (
+  <Router>
+    <Header />
+    <Switch>
+      <Route path="/upload" component={UploadMain} />
+      <Route path="/" exact component={FeedContainer} />
+      <Redirect from="*" to="/" />
+    </Switch>
+  </Router>
+);
 
 export default Home;
