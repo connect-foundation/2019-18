@@ -1,4 +1,4 @@
-import AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 
 const endpoint = new AWS.Endpoint(process.env.OS_ENDPOINT);
 const region = 'kr-standard';

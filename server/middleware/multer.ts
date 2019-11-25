@@ -13,6 +13,7 @@ const multerUpload = multer({
       cb(null, { fieldName: file.fieldname });
     },
     key: (req, file, cb) => {
+      console.log(file);
       cb(null, file.originalname);
     },
   }),
