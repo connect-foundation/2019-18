@@ -3,14 +3,14 @@ import {
   Switch, Route, BrowserRouter as Router,
 } from 'react-router-dom';
 import FeedContainer from '../FeedContainer';
-import Login from '../Login';
+import LoginContainer from '../../containers/LoginContainer';
 import Header from '../Header';
 import FeedNavigator from '../FeedNavigator';
 
 const Home:React.FC = () => (
   <Router>
     <Switch>
-      <Route path="/login" component={Login} />
+      <Route path="/login" component={LoginContainer} />
       <Route path="/">
         <Header />
         <FeedNavigator />
