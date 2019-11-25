@@ -21,13 +21,12 @@ function ImageUpload() {
 
   });
 
-  const onDrop = (picture: File[]) => {
-    const newpicture = picture[picture.length - 1];
-    const tempPictures:File[] = pictures;
-    tempPictures.push(newpicture);
+  const onDrop = (file: File[]) => {
+    const newfile = file[file.length - 1];
+    const tempPictures = [...pictures, newfile];
     setPictures(tempPictures);
 
-    const tempPreviews = tempPictures.map((file) => URL.createObjectURL(file));
+    const tempPreviews = tempPictures.map((p) => URL.createObjectURL(p));
     setPreviews(tempPreviews);
 
     const tempContents:ContentObject[] = contents;
@@ -65,14 +64,19 @@ function ImageUpload() {
     const urls = await getImageUrl();
     const dbContent = contents.map((element2) => {
       if (element2.type === 'image') {
-        element2.content = urls.shift();
+        // element2.content = urls.shift();
+        const obj = {
+          type: element2.type,
+          content: urls.shift(),
+        };
+        return obj;
       }
       return element2;
     });
     const obj = {
       title: '임시 타이틀',
       content: dbContent,
-      commemts_allow: true,
+      commemtsAllow: true,
       ccl: '임시 CCL',
       field: '임시 field',
       public: true,
@@ -114,7 +118,7 @@ function ImageUpload() {
           singleImage
         />
       </div>
-      <button onClick={addDescription}>글씨 추가</button>
+      <button type="button" onClick={addDescription}>글씨 추가</button>
     </div>
   );
 }
