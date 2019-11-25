@@ -17,8 +17,8 @@ const get10Wallpapers = (skip, limit) => Wallpaper.find()
 const getImageFeeds = (skip, limit) => Image.find()
   .skip(skip)
   .limit(limit)
-  // .populate('creator', 'name thumbnailUrl');
-  .populate('owner', 'content emoji comments views title');
+  .populate('creator', 'name thumbnailUrl')
+  .populate('owner', 'emoji comments views title');
 
 
 export {

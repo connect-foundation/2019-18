@@ -37,11 +37,32 @@ const getWallpapers = async (req: Request, res: Response, next: NextFunction) =>
 const test = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const feeds = await getImageFeeds(0, 10);
-    return response(res, feeds);
+    const filteredFeed = feeds.map((feed: any) => {
+      const newFeed = {
+        _id: '',
+        url: '',
+        owner: '',
+        numOfComments: '',
+        views: '',
+        title: '',
+        creator: '',
+      };
+      newFeed._id = feed._id;
+      newFeed.url = feed.url;
+      newFeed.owner = feed.owner._id;
+      newFeed.numOfComments = feed.owner.comments.length;
+      newFeed.views = feed.owner.views;
+      newFeed.title = feed.owner.title;
+      newFeed.creator = feed.creator;
+      return newFeed;
+    });
+
+    return response(res, filteredFeed);
   } catch (e) {
     next(e);
   }
 };
+
 export {
   getImages,
   getWallpapers,
