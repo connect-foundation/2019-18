@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
-import { exportDefaultSpecifier } from '@babel/types';
 import { API_SERVER } from '../../utils/constants';
 
 import Preview from '../Preview';
@@ -16,7 +15,6 @@ interface ContentObject {
 }
 
 function ImageUpload() {
-  const [pictures, setPictures] = useState <File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [contents, setContents] = useState<ContentObject[]>([]);
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
@@ -127,33 +125,36 @@ function ImageUpload() {
         {previews && previews.map((element) => <Preview src={element} />)}
       </div>
       <button type="button" className="upload-button" onClick={uploadHandler}>Upload</button>
-      <div>
-        <ImageUploader
-          withIcon={false}
-          withLabel={false}
-          buttonText="이미지"
-          onChange={onDropImage}
-          imgExtension={['.jpg', '.png', '.gif']}
-          maxFileSize={5242880}
-          withPreview
-          buttonStyles={S.customButton}
-          fileContainerStyle={S.customFileContainer}
-          singleImage
-        />
-        <ImageUploader
-          withIcon={false}
-          withLabel={false}
-          buttonText="배경화면"
-          onChange={onDropWallPaper}
-          imgExtension={['.jpg', '.png', '.gif']}
-          maxFileSize={5242880}
-          withPreview
-          buttonStyles={S.customButton}
-          fileContainerStyle={S.customFileContainer}
-          singleImage
-        />
-      </div>
-      <button type="button" onClick={addDescription}>글씨 추가</button>
+      <S.SeleteBox>
+        <S.Box>
+          <ImageUploader
+            withIcon={false}
+            withLabel={false}
+            buttonText="이미지"
+            onChange={onDropImage}
+            imgExtension={['.jpg', '.png', '.gif']}
+            maxFileSize={5242880}
+            buttonStyles={S.customButton}
+            singleImage
+          />
+        </S.Box>
+        <S.Box>
+          <ImageUploader
+            withIcon={false}
+            withLabel={false}
+            buttonText="배경화면"
+            onChange={onDropWallPaper}
+            imgExtension={['.jpg', '.png', '.gif']}
+            maxFileSize={5242880}
+            buttonStyles={S.customButton}
+            singleImage
+          />
+        </S.Box>
+        <S.Box>
+          <S.Button type="button" onClick={addDescription}>글씨 추가</S.Button>
+        </S.Box>
+      </S.SeleteBox>
+
     </div>
   );
 }
