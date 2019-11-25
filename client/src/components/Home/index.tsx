@@ -1,19 +1,21 @@
 import React from 'react';
 import {
-  Switch, Route, BrowserRouter as Router, Redirect, RouteComponentProps,
+  Switch, Route, BrowserRouter as Router,
 } from 'react-router-dom';
-import Header from '../Header';
 import FeedContainer from '../FeedContainer';
-
-import UploadMain from '../UploadMain';
+import Login from '../Login';
+import Header from '../Header';
+import FeedNavigator from '../FeedNavigator';
 
 const Home:React.FC = () => (
   <Router>
-    <Header />
     <Switch>
-      <Route path="/upload" component={UploadMain} />
-      <Route path="/" exact component={FeedContainer} />
-      <Redirect from="*" to="/" />
+      <Route path="/login" component={Login} />
+      <Route path="/">
+        <Header />
+        <FeedNavigator />
+        <FeedContainer />
+      </Route>
     </Switch>
   </Router>
 );
