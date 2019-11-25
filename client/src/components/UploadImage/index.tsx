@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
+import { exportDefaultSpecifier } from '@babel/types';
 import { API_SERVER } from '../../utils/constants';
 
 import Preview from '../Preview';
@@ -81,7 +82,7 @@ function ImageUpload() {
 
   const uploadHandler = async () => {
     const urls = await getImageUrl();
-    const dbContent = contents.map((element2) => {
+    const dbContent = documents.map((element2) => {
       if (element2.type === 'image' || element2.type === 'wallpaper') {
         const obj = {
           type: element2.type,
@@ -89,7 +90,11 @@ function ImageUpload() {
         };
         return obj;
       }
-      return element2;
+      const obj = {
+        type: element2.type,
+        content: element2.content,
+      };
+      return obj;
     });
     const obj = {
       title: '임시 타이틀',

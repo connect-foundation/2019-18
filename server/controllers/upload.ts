@@ -14,7 +14,10 @@ interface MulterFile {
 const getUrl = async (req: Request & { files: MulterFile[] },
   res: Response, _next: NextFunction) => {
   const { files } = req;
-  const objectStorageUrls = files.map((element) => process.env.OS_TARGET_URL + element.originalname);
+  const objectStorageUrls = files.map(
+    (element) => process.env.OS_TARGET_URL + element.key,
+  );
+  console.log(objectStorageUrls);
   res.json({ objectStorageUrls });
 };
 
@@ -23,9 +26,9 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
     ...req.body,
     owner: mongoose.Types.ObjectId(),
   };
-  // console.log(data);
+  console.log(data);
   const result = await create(data);
-  // model WorkImage 스키마 작성 + Insert 해야함
+  console.log(result);
 };
 
 export { getUrl, uploadWorkImage };
