@@ -1,5 +1,7 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import * as S from './style';
+
 import NaverIcon from '../../assets/naver_login_white.png';
 import CrafolioIcon from '../../assets/logo_white_larger.png';
 import LoginInput from '../../basics/Input/LoginInput';
@@ -12,33 +14,38 @@ interface LoginProp{
     onLogout: (e: React.MouseEvent<HTMLButtonElement>)=>void;
     onChangeid: (e: React.ChangeEvent<HTMLInputElement>)=> void;
     onChangepwd: (e: React.ChangeEvent<HTMLInputElement>)=> void;
+    oid: string;
     id: string;
     pwd: string;
 }
 
 
 const Login:React.FC<LoginProp> = ({
-  onLogin, onChangeid, onChangepwd, onLogout, id, pwd,
+  onLogin, onChangeid, onChangepwd, onLogout, id, pwd, oid,
 }) => (
-  <S.LoginBox>
-    <S.CrafolioLogoContainer>
-      <S.CrafolioLogo src={CrafolioIcon} />
-    </S.CrafolioLogoContainer>
-    <LoginInput onChange={onChangeid} value={id} placeholder="이메일을 입력하세요" />
-    <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
-    <SubmitButton onClick={onLogin}>로그인</SubmitButton>
-    <S.LoginMidLine>
-      <S.LoginLine />
+  (oid !== '')
+    ? (<Redirect to="/" />)
+    : (
+      <S.LoginBox>
+        <S.CrafolioLogoContainer>
+          <S.CrafolioLogo src={CrafolioIcon} />
+        </S.CrafolioLogoContainer>
+        <LoginInput onChange={onChangeid} value={id} placeholder="이메일을 입력하세요" />
+        <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
+        <SubmitButton onClick={onLogin}>로그인</SubmitButton>
+        <S.LoginMidLine>
+          <S.LoginLine />
       또는
-      <S.LoginLine />
-    </S.LoginMidLine>
-    <S.OauthLine>
-      <S.LoginNaverLogo src={NaverIcon} />
-      <S.OauthContent>
+          <S.LoginLine />
+        </S.LoginMidLine>
+        <S.OauthLine>
+          <S.LoginNaverLogo src={NaverIcon} />
+          <S.OauthContent>
         NAVER 으로 로그인
-      </S.OauthContent>
-    </S.OauthLine>
-  </S.LoginBox>
+          </S.OauthContent>
+        </S.OauthLine>
+      </S.LoginBox>
+    )
 );
 
 export default Login;

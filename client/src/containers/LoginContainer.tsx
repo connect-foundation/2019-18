@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import dotenv from 'dotenv';
 import Cookies from 'js-cookie';
 import styled from 'styled-components';
 import Login from '../components/Login';
 import { login, logout } from '../modules/login/action';
 import { API_SERVER } from '../utils/constants';
+import { RootState } from '../modules';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ const Content:React.FC = () => {
 
 
   const dispatch = useDispatch();
+  const userOid = useSelector((state:RootState) => state.login.userOid);
 
   const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const body = {
@@ -61,6 +63,7 @@ const Content:React.FC = () => {
         onChangepwd={onChangepwd}
         id={id}
         pwd={pwd}
+        oid={userOid}
       />
     </Screen>
   );
