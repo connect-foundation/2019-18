@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
-
+import { ReactCookieProps, withCookies } from 'react-cookie';
 import dotenv from 'dotenv';
 import { ThemeProvider } from './style/typed-compoennts';
+// import {SetUserContainer} from './containers/SetUserContainer';
 import { theme } from './style/theme';
 import Home from './components/Home';
 
@@ -24,11 +25,16 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App: React.FC = () => (
+const App:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
+  useEffect(()=>{
+    console.log(props.cookies)
+  });
+  return (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
     <Home />
   </ThemeProvider>
-);
+  );
+}
 
-export default App;
+export default withCookies(App);
