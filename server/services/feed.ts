@@ -20,7 +20,6 @@ const getImageFeeds = (skip, limit) => Image.find()
   .populate('creator', 'name thumbnailUrl')
   .populate('owner', 'emoji comments views title');
 
-
 export {
   get10Images,
   get10Wallpapers,

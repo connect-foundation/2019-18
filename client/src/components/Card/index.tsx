@@ -11,6 +11,9 @@ import Comment from '../../assets/comment.png';
 interface CardProp{
   imageId: string,
   imgUrl: string;
+  title: string;
+  numOfComments: string;
+  views: string;
   creator: {
     _id: string,
     email: string,
@@ -18,13 +21,15 @@ interface CardProp{
   };
 }
 
-const Card: React.FC<CardProp> = ({ imageId, imgUrl, creator }) => (
+const Card: React.FC<CardProp> = ({
+  imageId, imgUrl, creator, title, numOfComments, views,
+}) => (
   <S.Container>
     <S.CardImgContainer>
       <S.CardImg src={imgUrl} />
     </S.CardImgContainer>
     <S.CardHeader>
-      <H3>라이언과 작은 요정들의 반짝반짝 윈터 원더랜드</H3>
+      <H3>{title}</H3>
     </S.CardHeader>
     <S.CardBody id={creator._id}>
       <TextWithImg
@@ -34,8 +39,8 @@ const Card: React.FC<CardProp> = ({ imageId, imgUrl, creator }) => (
     </S.CardBody>
     <S.CardFooter>
       <TextWithImg src={Smile} small text="20" />
-      <TextWithImg src={Comment} small text="200" />
-      <TextWithImg src={View} small text="200" />
+      <TextWithImg src={Comment} small text={numOfComments} />
+      <TextWithImg src={View} small text={views} />
     </S.CardFooter>
   </S.Container>
 );

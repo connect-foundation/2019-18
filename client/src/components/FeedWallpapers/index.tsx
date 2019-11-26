@@ -12,6 +12,9 @@ interface IWallpaper{
     email: string,
   };
   url: string;
+  title:string;
+  numOfComments:string;
+  views: string;
 }
 
 const FeedWallpapers: React.FC = () => {
@@ -20,7 +23,7 @@ const FeedWallpapers: React.FC = () => {
   }, doFetch] = useFetch<IWallpaper>([]);
 
   useEffect(() => {
-    doFetch(`${API_SERVER}/feed/wallpapers`);
+    doFetch(`${API_SERVER}/feed/images`);
   }, []);
   return (
 
@@ -31,12 +34,17 @@ const FeedWallpapers: React.FC = () => {
           : isLoading
             ? (<div>Loadinng...</div>)
             : (
-              data.map(({ _id, url, creator }) => (
+              data.map(({
+                _id, url, creator, title, numOfComments, views,
+              }) => (
                 <Card
                   imageId={_id}
                   imgUrl={url}
                   creator={creator}
                   key={_id}
+                  title={title}
+                  numOfComments={numOfComments}
+                  views={views}
                 />
               ))
             )

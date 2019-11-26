@@ -12,6 +12,9 @@ interface IImage{
     email: string,
   };
   url: string;
+  title:string;
+  numOfComments:string;
+  views: string;
 }
 const FeedWorks:React.FC = () => {
   const [{
@@ -22,6 +25,8 @@ const FeedWorks:React.FC = () => {
     doFetch(`${API_SERVER}/feed/images`);
   }, []);
 
+  console.log(data);
+
   return (
     <S.Container>
       {
@@ -30,12 +35,17 @@ const FeedWorks:React.FC = () => {
           : isLoading
             ? (<div>Loading...</div>)
             : (
-              data.map(({ _id, url, creator }) => (
+              data.map(({
+                _id, url, creator, title, numOfComments, views,
+              }) => (
                 <Card
                   imageId={_id}
                   imgUrl={url}
                   creator={creator}
                   key={_id}
+                  title={title}
+                  numOfComments={numOfComments}
+                  views={views}
                 />
               ))
             )
