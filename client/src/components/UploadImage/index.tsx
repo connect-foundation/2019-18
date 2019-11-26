@@ -26,14 +26,14 @@ function ImageUpload() {
     const newfile = file[file.length - 1];
     const tempDocuments:ContentObject[] = [...documents];
     const obj:ContentObject = {
-      type: 'wallpaper',
+      type: 'wallpapers',
       content: '',
       file: newfile,
     };
     tempDocuments.push(obj);
     setDocumnets(tempDocuments);
 
-    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpaper' || d.type === 'image').map((m) => URL.createObjectURL(m.file));
+    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpapers' || d.type === 'images').map((m) => URL.createObjectURL(m.file));
     setPreviews(tempPreviews);
   };
 
@@ -41,14 +41,14 @@ function ImageUpload() {
     const newfile = file[file.length - 1];
     const tempDocuments:ContentObject[] = [...documents];
     const obj:ContentObject = {
-      type: 'image',
+      type: 'images',
       content: '',
       file: newfile,
     };
     tempDocuments.push(obj);
     setDocumnets(tempDocuments);
 
-    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpaper' || d.type === 'image').map((m) => URL.createObjectURL(m.file));
+    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpapers' || d.type === 'images').map((m) => URL.createObjectURL(m.file));
     setPreviews(tempPreviews);
   };
 
@@ -79,7 +79,7 @@ function ImageUpload() {
   const uploadHandler = async () => {
     const urls = await getImageUrl();
     const dbContent = documents.map((element2) => {
-      if (element2.type === 'image' || element2.type === 'wallpaper') {
+      if (element2.type === 'images' || element2.type === 'wallpapers') {
         const obj = {
           type: element2.type,
           content: urls.shift(),
