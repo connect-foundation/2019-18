@@ -12,12 +12,19 @@ interface MulterFile {
 }
 
 const getUrl = async (req: Request & { files: MulterFile[] },
-  res: Response, _next: NextFunction) => {
-  const { files } = req;
-  const objectStorageUrls = files.map(
-    (element) => process.env.OS_TARGET_URL + element.key,
-  );
-  res.json({ objectStorageUrls });
+  res: Response, next: NextFunction) => {
+  try {
+    const { files } = req;
+    const objectStorageUrls = files.map(
+      (element) => {
+        const [_pwd, filename] = element.key.split('/');
+        return filename;
+      },
+    );
+    res.json({ objectStorageUrls });
+  } catch (e) {
+    next(e);
+  }
 };
 
 interface ContentObject {
