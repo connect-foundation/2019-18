@@ -1,8 +1,9 @@
 import mongoose, {
   Document, Schema, Model, model, Mongoose, SchemaType,
 } from 'mongoose';
+import User from './user';
 
-import { IWorkImage, IWorkImageContent } from '../interfaces/work_image';
+import { IWorkImage, IWorkImageContent } from '../interfaces/workImage';
 
 const { ObjectId } = Schema.Types;
 export interface IWorkImageModel extends IWorkImage, Document{}
@@ -14,7 +15,7 @@ const obj: IWorkImageContent = {
 
 const workImageSchema = new Schema({
   owner: {
-    type: ObjectId, required: true, unique: true,
+    type: ObjectId, required: true, unique: true, ref: User,
   },
   title: { type: String, required: true },
   content: { type: [Schema.Types.Mixed], required: true, default: [] },

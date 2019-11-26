@@ -20,9 +20,7 @@ const GlobalStyle = createGlobalStyle`
       font-style: normal; 
       font-weight: 400;
     }
-
     font-family: "Anton Regular", sans-serif;
-
   }
 `;
 
