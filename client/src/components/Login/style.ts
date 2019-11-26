@@ -21,6 +21,7 @@ export const LoginNaverLogo = styled.img`
   height: 2rem;
   margin : auto 0.7rem;
 `;
+
 export const LoginBox = styled.div`
     margin-top : 6rem;
     height : 33rem;

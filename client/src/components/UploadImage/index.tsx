@@ -4,10 +4,10 @@ import React, {
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import { API_SERVER } from '../../utils/constants';
-
+import UploadTitle from '../../basics/Input/UploadTitle';
 import Preview from '../Preview';
 import * as S from './style';
-// Documnet content
+
 interface ContentObject {
   type: string,
   content: string,
@@ -119,6 +119,9 @@ function ImageUpload() {
 
   return (
     <div className="ImageUpload-container">
+      <S.Title>
+        <UploadTitle type="text" id="title" name="title" placeholder="제목을 입력해 주세요." className="ipt_tit" value="" />
+      </S.Title>
       <div>
         {previews && previews.map((element) => <Preview src={element} />)}
       </div>

@@ -14,6 +14,10 @@ export const customFileContainer = {
   border: '2px solid palevioletred',
 };
 
+export const Title = styled.div`
+  
+`;
+
 export const SeleteBox = styled.div`
   border: 2px solid blue;
   width: 600px;
