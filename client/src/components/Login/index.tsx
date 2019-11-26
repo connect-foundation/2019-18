@@ -7,23 +7,22 @@ import CrafolioIcon from '../../assets/logo_white_larger.png';
 import LoginInput from '../../basics/Input/LoginInput';
 import PasswordInput from '../../basics/Input/PasswordInput';
 import SubmitButton from '../../basics/SubmitButton';
-
+import { LoginUserState } from '../../modules/login';
 
 interface LoginProp{
     onLogin: (e: React.MouseEvent<HTMLButtonElement>)=>void;
-    onLogout: (e: React.MouseEvent<HTMLButtonElement>)=>void;
     onChangeid: (e: React.ChangeEvent<HTMLInputElement>)=> void;
     onChangepwd: (e: React.ChangeEvent<HTMLInputElement>)=> void;
-    oid: string;
     id: string;
     pwd: string;
+    LoginUser : LoginUserState;
 }
 
 
 const Login:React.FC<LoginProp> = ({
-  onLogin, onChangeid, onChangepwd, onLogout, id, pwd, oid,
+  onLogin, onChangeid, onChangepwd, id, pwd, LoginUser,
 }) => (
-  (oid !== '')
+  (LoginUser.isLogin)
     ? (<Redirect to="/" />)
     : (
       <S.LoginBox>

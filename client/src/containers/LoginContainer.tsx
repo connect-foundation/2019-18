@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import dotenv from 'dotenv';
-import Cookies from 'js-cookie';
 import styled from 'styled-components';
 import Login from '../components/Login';
-import { login, logout } from '../modules/login/action';
 import { API_SERVER } from '../utils/constants';
 import { RootState } from '../modules';
 
@@ -12,7 +10,7 @@ dotenv.config();
 
 const Screen = styled.div`
   width:100%;
-  height:100%; 
+  height:100%;
   display: flex;
   justify-items: center;
   justify-content: center;
@@ -20,11 +18,8 @@ const Screen = styled.div`
 const Content:React.FC = () => {
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
-
-
-  const dispatch = useDispatch();
-  const userOid = useSelector((state:RootState) => state.login.userOid);
-
+  const LoginUser = useSelector((state:RootState) => state.login);
+  console.log(LoginUser);
   const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const body = {
       email: id,
@@ -37,16 +32,12 @@ const Content:React.FC = () => {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    // 로그인 실패
+    // 로그인 실패 success..!!!!!
     if (response.status !== 200) {
       return;
     }
     const responseJson = await response.json();
-    dispatch(login(responseJson));
-  };
-
-  const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(logout());
+    console.log(responseJson);
   };
   const onChangeid = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
@@ -58,12 +49,11 @@ const Content:React.FC = () => {
     <Screen>
       <Login
         onLogin={onLogin}
-        onLogout={onLogout}
         onChangeid={onChangeid}
         onChangepwd={onChangepwd}
         id={id}
         pwd={pwd}
-        oid={userOid}
+        LoginUser={LoginUser}
       />
     </Screen>
   );
