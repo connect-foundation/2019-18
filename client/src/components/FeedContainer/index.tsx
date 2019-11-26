@@ -13,7 +13,7 @@ import NotFound from '../../components/NotFound';
 
 const Content = ({ match }: RouteComponentProps) => (
   <Switch>
-    <Route path={`${match.path}/detail/:id`} component={WorkDetail} />
+    <Route path={`${match.path}/detail-image/:id`} component={WorkDetail} />
     <Route path={`${match.path}`}>
       <Route path={`${match.path}`} component={FeedNavigator} />
       <Switch>
