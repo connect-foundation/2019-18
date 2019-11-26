@@ -5,8 +5,7 @@ import dotenv from 'dotenv';
 import { ThemeProvider } from './style/typed-compoennts';
 import { theme } from './style/theme';
 import Home from './components/Home';
-import Login from './containers/LoginContainer';
-import LoginUserContextProvider from './containers/LoginContext';
+
 dotenv.config();
 const GlobalStyle = createGlobalStyle`
   body{
@@ -30,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
-      <LoginUserContextProvider><Home/></LoginUserContextProvider> 
+    <Home />
   </ThemeProvider>
 );
 

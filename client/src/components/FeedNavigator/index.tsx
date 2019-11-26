@@ -5,13 +5,13 @@ import * as S from './styles';
 
 const FeedNavigator:React.FC = () => (
   <S.FeedNavigatorContainer>
-    <StyledLink to="/">
+    <StyledLink to="/home/">
       <S.TabButton>작품</S.TabButton>
     </StyledLink>
-    <StyledLink to="/wallpaper">
+    <StyledLink to="/home/wallpaper">
       <S.TabButton>배경화면</S.TabButton>
     </StyledLink>
-    <StyledLink to="/music">
+    <StyledLink to="/home/music">
       <S.TabButton>음악</S.TabButton>
     </StyledLink>
   </S.FeedNavigatorContainer>

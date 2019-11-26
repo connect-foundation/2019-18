@@ -9,10 +9,10 @@ import FeedWorks from '../FeedWorks';
 
 const Content = () => (
   <Switch>
-    <Route exact path="/upload" component={UploadMain} />
-    <Route exact path="/wallpaper" component={FeedWallpapers} />
-    <Route exact path="/music" component={FeedMusic} />
-    <Route path="/" component={FeedWorks} />
+    <Route exact path="/home/upload" component={UploadMain} />
+    <Route exact path="/home/wallpaper" component={FeedWallpapers} />
+    <Route exact path="/home/music" component={FeedMusic} />
+    <Route path="/home" component={FeedWorks} />
   </Switch>
 );
 

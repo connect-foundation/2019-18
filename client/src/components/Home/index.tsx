@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Switch, Route, BrowserRouter as Router,
+  Redirect, Switch, Route, BrowserRouter as Router,
 } from 'react-router-dom';
 import FeedContainer from '../FeedContainer';
 import LoginContainer from '../../containers/LoginContainer';
@@ -13,11 +13,12 @@ const Home:React.FC = () => (
     <Switch>
       <Route path="/login" component={LoginContainer} />
       <Route path="/join" component={JoinContainer} />
-      <Route path="/">
+      <Route path="/home">
         <Header />
         <FeedNavigator />
         <FeedContainer />
       </Route>
+      <Redirect from="/*" to="/home" />
     </Switch>
   </Router>
 );
