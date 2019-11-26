@@ -1,5 +1,6 @@
 import Image from '../models/image';
 import Wallpaper from '../models/wallpaper';
+import WorkImage from '../models/work_image';
 
 const get10Images = (skip, limit) => Image.find()
   .select({ creator: 1, url: 1 })
@@ -13,7 +14,15 @@ const get10Wallpapers = (skip, limit) => Wallpaper.find()
   .limit(limit)
   .populate('creator', 'name email');
 
+const getImageFeeds = (skip, limit) => Image.find()
+  .skip(skip)
+  .limit(limit)
+  .populate('creator', 'name thumbnailUrl')
+  .populate('owner', 'emoji comments views title');
+
+
 export {
   get10Images,
   get10Wallpapers,
+  getImageFeeds,
 };
