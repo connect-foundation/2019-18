@@ -1,9 +1,13 @@
-import { login, logout } from './action';
+import { setuser, unsetuser } from './action';
 
-export type LoginAction =
-| ReturnType<typeof login>
-| ReturnType<typeof logout>;
+export type LoginUserAction =
+| ReturnType<typeof setuser>
+| ReturnType<typeof unsetuser>;
 
-export type LoginState = {
-    userOid: string;
+export type LoginUserState = {
+    isLogin: boolean;
+    email: string;
+    name: string;
+    thumbnailUrl: string;
+    originUrl: string;
 };
