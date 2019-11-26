@@ -8,10 +8,10 @@ type submitButtonProps = {
 const StyledButton = styled.button`
     display:block;
     height: 2.5rem;
-    color: #FEFEFE;
-    background-color:#93ece9;
+    color: #343e7a;
+    background-color:#fbe99e;
     cursor: pointer;
-    border-color:#93ece9; 
+    border-color:#fbe99e;
     border-radius: 2px;
     font-weight: bold;
     font-size : 1rem;

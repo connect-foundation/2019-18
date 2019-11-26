@@ -1,26 +1,19 @@
 import React from 'react';
 import {
-  Switch, Route, BrowserRouter, RouteComponentProps,
+  Switch, Route, BrowserRouter as Router,
 } from 'react-router-dom';
-
-import FeedWorks from '../FeedWorks';
+import UploadMain from '../UploadMain';
 import FeedWallpapers from '../FeedWallpapers';
 import FeedMusic from '../FeedMusics';
-import FeedNavigator from '../FeedNavigator';
+import FeedWorks from '../FeedWorks';
 
-const Content = ({ match }: RouteComponentProps) => {
-  console.log(match);
-
-  return (
-    <BrowserRouter>
-      <FeedNavigator />
-      <Switch>
-        <Route path={match.path} exact component={FeedWorks} />
-        <Route path="/wallpaper" component={FeedWallpapers} />
-        <Route path="/music" component={FeedMusic} />
-      </Switch>
-    </BrowserRouter>
-  );
-};
+const Content = () => (
+  <Switch>
+    <Route exact path="/home/upload" component={UploadMain} />
+    <Route exact path="/home/wallpaper" component={FeedWallpapers} />
+    <Route exact path="/home/music" component={FeedMusic} />
+    <Route path="/home" component={FeedWorks} />
+  </Switch>
+);
 
 export default Content;

@@ -50,4 +50,38 @@ const loginService = async (inputedEmail, pwd) => {
   }
 };
 
-export { loginService };
+const decodeJwt = async (token) => {
+  const secret = process.env.JWT_SECRET;
+  const p = new Promise(
+    (resolve, reject) => {
+      jwt.verify(token, secret, (err, decoded) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(decoded);
+      });
+    },
+  );
+  try {
+    const result = await p;
+    return result;
+  } catch (err) {
+    return '';
+  }
+};
+const getUserFromToken = async (decodedToken) => {
+  if (!decodedToken && !decodedToken._id) {
+    return {};
+  }
+
+  const query = User.findById(decodedToken._id);
+  const user = await query;
+
+  if (!user) {
+    return {};
+  }
+
+  return { user };
+};
+
+export { loginService, decodeJwt, getUserFromToken };

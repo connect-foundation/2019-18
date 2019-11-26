@@ -1,15 +1,10 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import {
-  Switch, Route, BrowserRouter as Router, Redirect,
-} from 'react-router-dom';
 
 import dotenv from 'dotenv';
 import { ThemeProvider } from './style/typed-compoennts';
 import { theme } from './style/theme';
 import Home from './components/Home';
-
-import Login from './containers/LoginContainer';
 
 dotenv.config();
 const GlobalStyle = createGlobalStyle`
@@ -32,13 +27,7 @@ const GlobalStyle = createGlobalStyle`
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
-    <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/" component={Home} />
-        <Redirect from="*" to="/" />
-      </Switch>
-    </Router>
+    <Home />
   </ThemeProvider>
 );
 
