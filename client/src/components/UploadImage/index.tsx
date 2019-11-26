@@ -16,9 +16,7 @@ interface ContentObject {
 
 function ImageUpload() {
   const [previews, setPreviews] = useState<string[]>([]);
-  const [contents, setContents] = useState<ContentObject[]>([]);
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
-
 
   useEffect(() => {
 
@@ -95,7 +93,7 @@ function ImageUpload() {
       return obj;
     });
     const obj = {
-      title: '임시 타이틀',
+      title: '임시 타이틀22',
       content: dbContent,
       commemtsAllow: true,
       ccl: '임시 CCL',
@@ -114,9 +112,9 @@ function ImageUpload() {
       content: '아무말 아무말',
       file: null,
     };
-    const temp2:ContentObject[] = contents;
+    const temp2:ContentObject[] = [...documents];
     temp2.push(obj);
-    setContents(temp2);
+    setDocumnets(temp2);
   };
 
   return (
