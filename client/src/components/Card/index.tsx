@@ -31,7 +31,7 @@ const Card: React.FC<CardProp> = ({
       <S.CardImg src={imgUrl} />
     </S.CardImgContainer>
     <S.CardHeader>
-      <StyledLink to={`/home/${ownerId}`}>
+      <StyledLink to={`/home/detail/${ownerId}`}>
         <H3>{title}</H3>
       </StyledLink>
     </S.CardHeader>
