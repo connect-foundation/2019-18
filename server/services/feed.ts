@@ -9,10 +9,10 @@ const get10Images = (skip, limit) => Image.find()
   .populate('creator', 'name email');
 
 const get10Wallpapers = (skip, limit) => Wallpaper.find()
-  .select({ creator: 1, url: 1 })
   .skip(skip)
   .limit(limit)
-  .populate('creator', 'name email');
+  .populate('creator', 'name thumbnailUrl')
+  .populate('owner', 'emoji comments views title');
 
 const getImageFeeds = (skip, limit) => Image.find()
   .skip(skip)
@@ -20,8 +20,11 @@ const getImageFeeds = (skip, limit) => Image.find()
   .populate('creator', 'name thumbnailUrl')
   .populate('owner', 'emoji comments views title');
 
+const getWorkImageById = (id) => WorkImage.findById(id);
+
 export {
   get10Images,
   get10Wallpapers,
   getImageFeeds,
+  getWorkImageById,
 };

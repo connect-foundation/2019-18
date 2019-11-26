@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Card from '../Card';
-import useFetch from '../../hooks/useFetch';
+import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';
 
 interface IImage{
   _id: string;
+  ownerId: string;
   creator:{
     _id: string,
     name: string,
@@ -19,11 +21,11 @@ interface IImage{
 const FeedWorks:React.FC = () => {
   const [{
     data, isLoading, isError,
-  }, doFetch] = useFetch<IImage>([]);
+  }, doFetch] = useGetFeedList<IImage>([]);
 
   useEffect(() => {
     doFetch(`${API_SERVER}/feed/images`);
-  }, []);
+  }, [data]);
 
   console.log(data);
 
@@ -36,10 +38,11 @@ const FeedWorks:React.FC = () => {
             ? (<div>Loading...</div>)
             : (
               data.map(({
-                _id, url, creator, title, numOfComments, views,
+                _id, ownerId, url, creator, title, numOfComments, views,
               }) => (
                 <Card
-                  imageId={_id}
+                  _id={_id}
+                  ownerId={ownerId}
                   imgUrl={url}
                   creator={creator}
                   key={_id}

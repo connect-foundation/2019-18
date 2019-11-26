@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import Card from '../Card';
-import useFetch from '../../hooks/useFetch';
+import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';
 
 interface IWallpaper{
   _id: string;
+  ownerId:string;
   creator:{
     _id: string,
     name: string,
@@ -20,7 +21,7 @@ interface IWallpaper{
 const FeedWallpapers: React.FC = () => {
   const [{
     data, isLoading, isError,
-  }, doFetch] = useFetch<IWallpaper>([]);
+  }, doFetch] = useGetFeedList<IWallpaper>([]);
 
   useEffect(() => {
     doFetch(`${API_SERVER}/feed/images`);
@@ -35,10 +36,11 @@ const FeedWallpapers: React.FC = () => {
             ? (<div>Loadinng...</div>)
             : (
               data.map(({
-                _id, url, creator, title, numOfComments, views,
+                _id, ownerId, url, creator, title, numOfComments, views,
               }) => (
                 <Card
-                  imageId={_id}
+                  _id={_id}
+                  ownerId={ownerId}
                   imgUrl={url}
                   creator={creator}
                   key={_id}

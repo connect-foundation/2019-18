@@ -21,7 +21,7 @@ const workImageSchema = new Schema({
   content: { type: [Schema.Types.Mixed], required: true, default: [] },
   emoji: { type: [String], required: true, default: [] },
   comments: { type: [String], required: true, default: [] },
-  comments_allow: { type: Boolean, required: true, default: true },
+  commentsAllow: { type: Boolean, required: true, default: true },
   ccl: { type: String, required: true },
   field: { type: String, required: true },
   public: { type: String, required: true, default: true },

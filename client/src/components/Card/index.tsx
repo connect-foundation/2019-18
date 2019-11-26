@@ -7,9 +7,11 @@ import * as S from './styles';
 import Smile from '../../assets/smile.png';
 import View from '../../assets/view.png';
 import Comment from '../../assets/comment.png';
+import StyledLink from '../../basics/StyledLink';
 
 interface CardProp{
-  imageId: string,
+  _id: string,
+  ownerId: string,
   imgUrl: string;
   title: string;
   numOfComments: string;
@@ -22,14 +24,16 @@ interface CardProp{
 }
 
 const Card: React.FC<CardProp> = ({
-  imageId, imgUrl, creator, title, numOfComments, views,
+  _id, ownerId, imgUrl, creator, title, numOfComments, views,
 }) => (
   <S.Container>
     <S.CardImgContainer>
       <S.CardImg src={imgUrl} />
     </S.CardImgContainer>
     <S.CardHeader>
-      <H3>{title}</H3>
+      <StyledLink to={`/home/${ownerId}`}>
+        <H3>{title}</H3>
+      </StyledLink>
     </S.CardHeader>
     <S.CardBody id={creator._id}>
       <TextWithImg
