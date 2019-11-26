@@ -1,6 +1,6 @@
 import Image from '../models/image';
 import Wallpaper from '../models/wallpaper';
-import WorkImage from '../models/workImage';
+import WorkImage from '../models/work_image';
 
 const get10Images = (skip, limit) => Image.find()
   .select({ creator: 1, url: 1 })

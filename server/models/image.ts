@@ -3,7 +3,7 @@ import mongoose, {
 } from 'mongoose';
 
 import User from './user';
-import workImage from './workImage';
+import workImage from './work_image';
 import IImage from '../interfaces/Image';
 
 export interface IImageModel extends IImage, Document{}
