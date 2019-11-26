@@ -1,4 +1,3 @@
-import { LoginUserState } from '../login/types';
 import { API_SERVER } from '../../utils/constants';
 
 const initialState = {
@@ -8,7 +7,7 @@ const initialState = {
   originUrl: '',
   isLogin: false,
 };
-export const makeUserState = async (cookies:string) => {
+const makeUserState = async (cookies:string) => {
   const response = await fetch(`${API_SERVER}/login/whoAmI`, {
     method: 'get',
     credentials: 'include',
@@ -30,6 +29,5 @@ export const makeUserState = async (cookies:string) => {
 
   return UserState;
 };
-export const setUserState = (LoginUser: LoginUserState) => {
-  console.log(LoginUser);
-};
+
+export default makeUserState;

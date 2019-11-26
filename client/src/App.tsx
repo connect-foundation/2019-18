@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { ReactCookieProps, withCookies } from 'react-cookie';
 import {RootState} from './modules';
+import {setuser} from './modules/login'
 import dotenv from 'dotenv';
 import { ThemeProvider } from './style/typed-compoennts';
 // import {SetUserContainer} from './containers/SetUserContainer';
 import { theme } from './style/theme';
 import Home from './components/Home';
-import {makeUserState, setUserState} from './modules/loginuser';
-
-
+import makeUserState from './modules/loginuser';
 
 
 dotenv.config();
@@ -33,12 +32,13 @@ const GlobalStyle = createGlobalStyle`
 
 const App:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
   const currentUserState = useSelector((state:RootState)=>state.login);
+  const dispatch = useDispatch()
   useEffect(()=>{
     const UpdateUserState = async () =>{
       let token=  props.cookies && props.cookies.get('token') 
       token = token || '';
       const userState = await makeUserState(token);
-      setUserState(userState);
+      dispatch(setuser(userState));
     }
     UpdateUserState();
   },[currentUserState.isLogin]);
