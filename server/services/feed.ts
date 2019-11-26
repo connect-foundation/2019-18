@@ -20,7 +20,7 @@ const getImageFeeds = (skip, limit) => Image.find()
   .populate('creator', 'name thumbnailUrl')
   .populate('owner', 'emoji comments views title');
 
-const getWorkImageById = (id) => WorkImage.findById(id);
+const getWorkImageById = (id) => WorkImage.findById(id).populate('owner', 'name');
 
 export {
   get10Images,

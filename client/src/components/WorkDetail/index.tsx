@@ -17,15 +17,17 @@ interface IData {
     tags:string[],
     views: number,
     _id: string,
-    owner: string,
+    owner: {
+      _id: string,
+      name: string,
+    },
     title: string,
     ccl: string,
     field: string,
 }
 
-const WorkDetail = (props: RouteComponentProps<{id:string}>) => {
-//   const { id } = useParams();
-  const { id } = props.match.params;
+const WorkDetail = ({ match }: RouteComponentProps<{id:string}>) => {
+  const { id } = match.params;
   const [{ data, isLoading, isError }, setUrl] = useGetFeed<IData | null>(null);
 
   useEffect(() => {
@@ -33,13 +35,17 @@ const WorkDetail = (props: RouteComponentProps<{id:string}>) => {
   }, [data]);
 
   return (
-    <S.Container>
-      {
-        isLoading || data === null
-          ? (<div>Loading...</div>)
-          : (<div>{JSON.stringify(JSON.parse(JSON.stringify(data))) }</div>)
-      }
-    </S.Container>
+    isLoading || data === null
+      ? (<div>Loading...</div>)
+      : (
+        <S.Container>
+          <S.Title>{data.title}</S.Title>
+          <S.Creator>{`by ${data.owner.name} | 2019.11.26 | 조회${data.views}`}</S.Creator>
+        </S.Container>
+
+      )
+
+
   );
 };
 
