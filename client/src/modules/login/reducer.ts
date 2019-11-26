@@ -1,25 +1,29 @@
 import {
-  LOGIN, LOGOUT,
+  SETUSER, UNSETUSER,
 } from './action';
 
 import {
-  LoginState, LoginAction,
+  LoginUserState, LoginUserAction,
 } from './types';
 
 const initialState = {
-  userOid: '',
+  isLogin: false,
+  email: '',
+  name: '',
+  thumbnailUrl: '',
+  originUrl: '',
 };
 
-function login(state:LoginState = initialState, action:LoginAction) {
+function login(state:LoginUserState = initialState, action:LoginUserAction) {
   switch (action.type) {
-    case LOGIN:
+    case SETUSER:
       return {
-        ...state,
-        userOid: action.payload.userOid,
+        ...action.payload,
       };
-
-    case LOGOUT:
-      return initialState;
+    case UNSETUSER:
+      return {
+        ...initialState,
+      };
     default:
       return state;
   }

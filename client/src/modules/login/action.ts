@@ -1,12 +1,16 @@
-export const LOGIN = 'login/LOGIN' as const;
-export const LOGOUT = 'login/LOGOUT' as const;
+export const SETUSER = 'login/SETUSER' as const;
+export const UNSETUSER = 'login/UNSETUSER' as const;
 
-interface loginType {
-    userOid: string;
+interface loginUser {
+    isLogin: boolean;
+    email: string;
+    name: string;
+    thumbnailUrl: string;
+    originUrl: string;
 }
 
-export const login = (user: loginType) => ({
-  type: LOGIN,
+export const setuser = (user: loginUser) => ({
+  type: SETUSER,
   payload: user,
 });
-export const logout = () => ({ type: LOGOUT });
+export const unsetuser = () => ({ type: UNSETUSER });

@@ -26,6 +26,10 @@ export const theme = {
   DRACULA_ORCHID: '#2d3436',
   BORDER_GRAY: '#dddddd',
 
+  // Color in Crafolio logo
+  CRA_PURPLE: '#343E7A',
+  CRA_YELLOW: '#FBE99E',
+
   // box-shadow
   BOX_SHADOW: 'rgba(0, 0, 0, 0.2) 0px 5px 13px',
 };
