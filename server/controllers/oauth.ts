@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import fetch from 'node-fetch';
-import { SSL_OP_NETSCAPE_CA_DN_BUG } from 'constants';
 import { isExist, create } from '../services/user';
 import { loginService } from '../services/login';
 
@@ -102,4 +101,4 @@ const oauthCallback = async (
     next(e);
   }
 };
-export { oauth, oauthCallback };
+export { oauthCallback };
