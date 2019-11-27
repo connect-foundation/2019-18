@@ -38,10 +38,13 @@ const App:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
       let token=  props.cookies && props.cookies.get('token') 
       token = token || '';
       const userState = await makeUserState(token);
+      console.log(userState);
       dispatch(setuser(userState));
     }
-    UpdateUserState();
-  },[currentUserState.isLogin]);
+    if(currentUserState.isLogin&&currentUserState.name===''){
+      UpdateUserState();
+    }
+  },[currentUserState]);
   return (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
