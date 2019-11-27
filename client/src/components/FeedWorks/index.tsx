@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Card from '../Card';
 import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
@@ -32,9 +31,7 @@ const FeedWorks:React.FC = () => {
   return (
     <S.Container>
       {
-        isError
-          ? (<div>Something wrong...</div>)
-          : isLoading
+          isLoading
             ? (<div>Loading...</div>)
             : (
               data.map(({
