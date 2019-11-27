@@ -21,7 +21,7 @@ export const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  width: 300px;
+  width: 420px;
   height: auto;
   background: white;
   padding: 30px 20px;
@@ -29,4 +29,31 @@ export const Inner = styled.div`
   label{
     margin-bottom: 10px;
   }
+`;
+
+export const SelectBox = styled.div`
+  display: flex;
+  flex-direction:column;
+  width: 370px;
+  span {
+    display: block;
+    font-weight: 700;
+    line-height: 37px;
+    text-align: left;
+    margin-top: 10px;
+  }
+`;
+
+export const Radios = styled.div`
+  label {
+    line-height: 30px;
+    margin-right: 10px;
+  }
+`;
+
+export const Buttons = styled.div`
+  display: flex;
+  width: 90%;
+  justify-content: space-around;
+  margin-top: 20px;
 `;

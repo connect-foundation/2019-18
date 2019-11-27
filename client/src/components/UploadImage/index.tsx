@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect,
+  useState,
 } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import { API_SERVER } from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
 import PopupWarn from '../../commons/Popup_warn';
+import PopupDetail from '../Upload_detail_Popup';
 
 interface ContentObject {
   type: string,
@@ -14,11 +15,27 @@ interface ContentObject {
   file: File | null,
 }
 
+const initDetailObject = {
+  commentsAllow: true,
+  ccl: '',
+  field: '',
+  public: true,
+};
+
+interface DetailObject {
+  commentsAllow: boolean,
+  ccl: string,
+  field: string,
+  public: boolean,
+}
+
 function ImageUpload() {
   const [previews, setPreviews] = useState<string[]>([]);
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
   const [title, setTitle] = useState<string>('');
   const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
+  const [showPopupDETAIL, setShowPopupDETAIL] = useState<boolean>(false);
+  const [detailInfo, setDetailInfo] = useState<DetailObject>(initDetailObject);
 
   const onDropWallPaper = (file: File[]) => {
     const newfile = file[file.length - 1];
@@ -85,11 +102,7 @@ function ImageUpload() {
   };
 
   const uploadHandler = async () => {
-    if (title.length === 0) {
-      console.log('제목은 필수 입력 사항입니다.');
-      setShowPopupWARN(true);
-      return;
-    }
+    setShowPopupDETAIL(false);
     const urls = await getImageUrl();
     const dbContent = documents.map((element2) => {
       if (element2.type === 'images' || element2.type === 'wallpapers') {
@@ -106,16 +119,25 @@ function ImageUpload() {
       return obj;
     });
     const obj = {
-      title: '임시 타이틀22',
+      title,
       content: dbContent,
-      commemtsAllow: true,
-      ccl: '임시 CCL',
-      field: '임시 field',
-      public: true,
+      commentsAllow: detailInfo.commentsAllow,
+      ccl: detailInfo.ccl,
+      field: detailInfo.field,
+      public: detailInfo.public,
       tags: [],
     };
 
     const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
+  };
+
+
+  const titleCheck = () => {
+    if (title.length === 0) {
+      setShowPopupWARN(true);
+    } else {
+      setShowPopupDETAIL(true);
+    }
   };
 
 
@@ -136,6 +158,10 @@ function ImageUpload() {
 
   const togglePopup = () => {
     setShowPopupWARN(false);
+  };
+
+  const togglePopupDetail = () => {
+    setShowPopupDETAIL(false);
   };
 
 
@@ -178,8 +204,9 @@ function ImageUpload() {
           <S.Button type="button" onClick={addDescription}>글씨 추가</S.Button>
         </S.Box>
       </S.SeleteBox>
-      <S.UploadButton type="button" onClick={uploadHandler}>업로드</S.UploadButton>
+      <S.UploadButton type="button" onClick={titleCheck}>업로드</S.UploadButton>
       {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
+      {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setDetailInfo={setDetailInfo} />}
     </S.UploadMain>
   );
 }
