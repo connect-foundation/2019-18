@@ -1,4 +1,4 @@
-import { oauth, oauthCallback } from '../controllers/oauth';
+import { oauthCallback } from '../controllers/oauth';
 
 const router = require('express').Router();
 

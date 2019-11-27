@@ -1,4 +1,4 @@
-import { login, authUser, whoAmI } from '../controllers/login';
+import { login, whoAmI } from '../controllers/login';
 import jwt from '../middleware/jwt';
 
 const router = require('express').Router();
