@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { theme } from '../../style/theme';
 
 export const customButton = {
   color: 'white',
@@ -13,10 +14,6 @@ export const customButton = {
 export const customFileContainer = {
   border: '2px solid palevioletred',
 };
-
-export const Title = styled.div`
-  
-`;
 
 export const SeleteBox = styled.div`
   border: 2px solid blue;
@@ -43,16 +40,47 @@ export const Box = styled.div`
 `;
 
 export const Button = styled.button`
-display: inline-block;
-border: none;
-padding: 1rem 2rem;
-margin: 0;
-text-decoration: none;
-background: palevioletred;
-color: #ffffff;
-font-size: 16px;
-cursor: pointer;
-text-align: center;
-width: 100%;
-height: 100%;
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  background: palevioletred;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+`;
+
+export const Title = styled.div`
+  height: 60px;
+`;
+
+export const TitleInput = styled.input`
+  height: 100%;
+  width: 600px;
+  display: block;
+  font-size : 20px;
+  padding: 0 0.3rem;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  margin-bottom: 30px;
+  ::placeholder {
+      color : ${theme.BLOR_TEXT};
+      font-size : 20px;
+  };
+  :focus{
+    outline: none;
+  }
+`;
+
+export const UploadMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 `;

@@ -4,13 +4,10 @@ import { S3 } from '../middleware/aws';
 
 import multer = require('multer');
 
-const bucket = process.env.OS_BUCKET_NAME;
-const uuidArray:string[] = [];
-
 const multerUpload = multer({
   storage: multerS3({
     s3: S3,
-    bucket,
+    bucket: process.env.OS_BUCKET_NAME,
     metadata: (req, file, cb) => {
       cb(null, { fieldName: file.fieldname });
     },
@@ -23,4 +20,4 @@ const multerUpload = multer({
   }),
 }).array('multi-files', 10);
 
-export { multerUpload, uuidArray };
+export { multerUpload };

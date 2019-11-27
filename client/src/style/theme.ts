@@ -26,6 +26,8 @@ export const theme = {
   DRACULA_ORCHID: '#2d3436',
   BORDER_GRAY: '#dddddd',
 
+  BLOR_TEXT: '#757575',
+
   // Color in Crafolio logo
   CRA_PURPLE: '#343E7A',
   CRA_YELLOW: '#FBE99E',

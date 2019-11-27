@@ -4,7 +4,6 @@ import React, {
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import { API_SERVER } from '../../utils/constants';
-import UploadTitle from '../../basics/Input/UploadTitle';
 import Preview from '../Preview';
 import * as S from './style';
 
@@ -17,10 +16,7 @@ interface ContentObject {
 function ImageUpload() {
   const [previews, setPreviews] = useState<string[]>([]);
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
-
-  useEffect(() => {
-
-  });
+  const [title, setTitle] = useState<string>('');
 
   const onDropWallPaper = (file: File[]) => {
     const newfile = file[file.length - 1];
@@ -33,8 +29,13 @@ function ImageUpload() {
     tempDocuments.push(obj);
     setDocumnets(tempDocuments);
 
-    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpapers' || d.type === 'images').map((m) => URL.createObjectURL(m.file));
-    setPreviews(tempPreviews);
+    const reader = new FileReader();
+    const url = reader.readAsDataURL(newfile);
+    reader.onloadend = (e) => {
+      if (typeof reader.result === 'string') {
+        setPreviews([...previews, reader.result]);
+      }
+    };
   };
 
   const onDropImage = (file: File[]) => {
@@ -48,8 +49,13 @@ function ImageUpload() {
     tempDocuments.push(obj);
     setDocumnets(tempDocuments);
 
-    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpapers' || d.type === 'images').map((m) => URL.createObjectURL(m.file));
-    setPreviews(tempPreviews);
+    const reader = new FileReader();
+    const url = reader.readAsDataURL(newfile);
+    reader.onloadend = (e) => {
+      if (typeof reader.result === 'string') {
+        setPreviews([...previews, reader.result]);
+      }
+    };
   };
 
   const makeFormData = () => {
@@ -117,10 +123,14 @@ function ImageUpload() {
     setDocumnets(temp2);
   };
 
+  const onChangetitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
   return (
-    <div className="ImageUpload-container">
+    <S.UploadMain>
       <S.Title>
-        <UploadTitle type="text" id="title" name="title" placeholder="제목을 입력해 주세요." className="ipt_tit" value="" />
+        <S.TitleInput type="text" name="title" onChange={onChangetitle} value={title} placeholder="제목을 입력해 주세요." />
       </S.Title>
       <div>
         {previews && previews.map((element) => <Preview src={element} />)}
@@ -155,8 +165,7 @@ function ImageUpload() {
           <S.Button type="button" onClick={addDescription}>글씨 추가</S.Button>
         </S.Box>
       </S.SeleteBox>
-
-    </div>
+    </S.UploadMain>
   );
 }
 

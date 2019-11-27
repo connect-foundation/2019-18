@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import input from './index';
+import { theme } from '../../style/theme';
 
 const UploadTitle = styled(input)`
     height: 60px;
@@ -7,8 +8,8 @@ const UploadTitle = styled(input)`
     font-size : 20px;
     padding: 0 0.3rem;
     ::placeholder {
-        color : #343e7a;
-        font-size : 1rem;
+        color : ${theme.BLOR_TEXT};
+        font-size : 20px;
     };
 `;
 

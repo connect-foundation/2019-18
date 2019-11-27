@@ -12,9 +12,7 @@ import * as S from './style';
 
 function UploadMain() {
   return (
-    <Router>
-      <ModalSwitch />
-    </Router>
+    <ModalSwitch />
   );
 }
 
@@ -49,14 +47,12 @@ function Home() {
 
 function ModalSwitch() {
   return (
-    <div className="Upload-route-container">
-      <Switch>
-        <Route exact path="/home/upload" component={Home} />
-        <Route path="/home/upload/image" component={UploadImage} />
-        <Route path="/home/upload/music" component={Home} />
-        <Route path="/home/upload/background" component={Home} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path="/home/upload" component={Home} />
+      <Route path="/home/upload/image" component={UploadImage} />
+      <Route path="/home/upload/music" component={Home} />
+      <Route path="/home/upload/background" component={Home} />
+    </Switch>
   );
 }
 
