@@ -87,9 +87,14 @@ export const CommentOwner = styled.div`
     background: ${theme.ROBINS_EGG_BLUE};
 `;
 
+export const CommentContent = styled.div`
+    padding: 1rem;
+`;
+
 export const CommentTimestamp = styled.span`
     display: block;
     font-size: 0.8rem;
+    margin-left: 1rem;
 `;
 
 export const Right = styled.div`

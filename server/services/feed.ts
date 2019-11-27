@@ -22,9 +22,16 @@ const getImageFeeds = (skip, limit) => Image.find()
 
 const getWorkImageById = (id) => WorkImage.findById(id).populate('owner', 'name');
 
+const addCommentToWorkImage = (id, payload) => WorkImage.findOneAndUpdate(
+  { _id: id },
+  { $push: { comments: payload } },
+  { new: true },
+);
+
 export {
   get10Images,
   get10Wallpapers,
   getImageFeeds,
   getWorkImageById,
+  addCommentToWorkImage,
 };

@@ -5,12 +5,18 @@ export interface IWorkImageContent {
   content: string,
 }
 
+export interface IComments {
+  owner: mongoose.Types.ObjectId,
+  content: string,
+  createdAt: mongoose.Schema.Types.Date,
+}
+
 export interface IWorkImage {
     owner: mongoose.Types.ObjectId,
     title: string,
     content: IWorkImageContent[],
     emoji: string[],
-    comments: string[],
+    comments: IComments[],
     commentsAllow: boolean,
     ccl: string,
     field: string,

@@ -16,7 +16,7 @@ const imageSchema = new Schema({
   public: { type: Boolean, required: true, default: true },
   ref: { type: [ObjectId], required: true },
   url: { type: String, required: true },
-});
+}, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } });
 
 const Image:Model<IImageModel> = model<IImageModel>('Image', imageSchema);
 

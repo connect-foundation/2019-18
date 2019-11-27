@@ -16,7 +16,7 @@ const wallpaperSchema = new Schema({
   public: { type: Boolean, required: true, default: true },
   url: { type: String, required: true },
   downloads: { type: Number, required: true, default: 0 },
-});
+}, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } });
 
 const Wallpaper:Model<IWallpaperModel> = model<IWallpaperModel>('wallpaper', wallpaperSchema);
 

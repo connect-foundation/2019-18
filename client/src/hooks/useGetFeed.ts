@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
 const useGetFeed = <T>(initData:T)
-  :[{data:T, isLoading:boolean, isError:boolean}, (url:string)=>void ] => {
+  :[{data:T, setData:React.Dispatch<T>, isLoading:boolean, isError:boolean}, (url:string)=>void ] => {
   const [data, setData] = useState(initData);
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +31,7 @@ const useGetFeed = <T>(initData:T)
   }, [url]);
 
   return [{
-    data, isLoading, isError,
+    data, setData, isLoading, isError,
   }, setUrl];
 };
 
