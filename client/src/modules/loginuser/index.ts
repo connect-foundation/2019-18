@@ -12,14 +12,12 @@ const makeUserState = async (cookies:string, resolve:any) => {
     method: 'get',
     credentials: 'include',
   });
+  const responseData = await response.json();
 
-  console.log(response);
-  if (!response.ok) {
-    return resolve(initialState);
-  }
+  if (!responseData.success) { return resolve(initialState); }
 
-  const { user } = (await response.json()).data;
-
+  console.log(responseData);
+  const { user } = responseData.data;
   const UserState = {
     email: user.email,
     name: user.name,

@@ -71,11 +71,11 @@ const decodeJwt = async (token) => {
 };
 const getUserFromToken = async (decodedToken) => {
   if (!decodedToken && !decodedToken._id) {
-    return {};
+    return null;
   }
   const user = await User.findById(decodedToken._id);
   if (!user) {
-    return {};
+    return null;
   }
   return user;
 };

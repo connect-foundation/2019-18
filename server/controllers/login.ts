@@ -17,7 +17,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
 
 const whoAmI = async (req: Request, res: Response, next: NextFunction) => {
-  let userdata = {};
+  let userdata;
   if (req.decodedUser) {
     userdata = { user: req.decodedUser };
   }
