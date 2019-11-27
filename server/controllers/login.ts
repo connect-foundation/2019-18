@@ -6,12 +6,10 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, pwd } = req.body;
     const result = await loginService(email, pwd);
-    const userInfo = { userOid: '' };
     if (result.token !== null) {
       res.cookie('token', result.token);
-      userInfo.userOid = result.userOid;
     }
-    return res.status(result.status).json(userInfo);
+    return response(res, {}, result.status);
   } catch (e) {
     next(e);
   }
@@ -36,7 +34,6 @@ const whoAmI = async (req: Request, res: Response, next: NextFunction) => {
     }
     const decoded = await decodeJwt(req.cookies.token);
     const userdata = await getUserFromToken(decoded);
-    console.log(userdata);
     return (userdata !== {}) ? response(res, userdata) : response(res, {}, 404);
   } catch (e) {
     next(e);
