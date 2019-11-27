@@ -1,4 +1,6 @@
-const getTime = (s:number) => {
+import axios from 'axios';
+
+export const getTime = (s:number) => {
   function appendLeadingZeroes(n:number) {
     if (n <= 9) return `0${n}`;
     return n;
@@ -10,4 +12,9 @@ const getTime = (s:number) => {
   return formattedDate;
 };
 
-export default getTime;
+
+export const Axios = ({ method, url, data }:any) => axios({
+  method,
+  url,
+  data,
+});
