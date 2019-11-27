@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ReactCookieProps, withCookies } from 'react-cookie';
-import {RootState} from './modules';
-import {setuser} from './modules/login'
 import dotenv from 'dotenv';
+import { RootState } from './modules';
+import { setuser } from './modules/login';
 import { ThemeProvider } from './style/typed-compoennts';
 // import {SetUserContainer} from './containers/SetUserContainer';
 import { theme } from './style/theme';
 import Home from './components/Home';
 import makeUserState from './modules/loginuser';
-
+import { loginUser } from './modules/login/action';
 
 dotenv.config();
 const GlobalStyle = createGlobalStyle`
@@ -31,26 +31,24 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
-  const currentUserState = useSelector((state:RootState)=>state.login);
-  const dispatch = useDispatch()
-  useEffect(()=>{
-    const UpdateUserState = async () =>{
-      let token=  props.cookies && props.cookies.get('token') 
-      token = token || '';
-      const userState = await makeUserState(token);
-      console.log(userState);
-      dispatch(setuser(userState));
+  const currentUserState = useSelector((state:RootState) => state.login);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const token = props.cookies && props.cookies.get('token');
+    const UpdateUserState = new Promise<loginUser>((resolve) => {
+      makeUserState(token, resolve);
+    });
+    if (token && currentUserState.name === '') {
+      UpdateUserState.then((userState:loginUser) => dispatch(setuser(userState)));
     }
-    if(currentUserState.isLogin&&currentUserState.name===''){
-      UpdateUserState();
-    }
-  },[currentUserState]);
+    console.log(currentUserState);
+  }, [currentUserState]);
   return (
-  <ThemeProvider theme={theme}>
-    <GlobalStyle />
-    <Home />
-  </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Home />
+    </ThemeProvider>
   );
-}
+};
 
 export default withCookies(App);
