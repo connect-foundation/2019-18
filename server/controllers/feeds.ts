@@ -71,11 +71,9 @@ const getWallpapers = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-
 const getWorkImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    console.log(id);
 
     const workImage = await getWorkImageById(id);
     if (!workImage) {
