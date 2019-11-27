@@ -34,7 +34,7 @@ const Content:React.FC = () => {
     });
 
     const responseJson = await response.json();
-    if (responseJson.success) {
+    if (responseJson.userOid) {
       dispatch(login());
     }
   };
