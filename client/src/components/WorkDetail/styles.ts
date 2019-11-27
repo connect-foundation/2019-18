@@ -4,6 +4,7 @@ import H4 from '../../basics/H4';
 import { theme } from '../../style/theme';
 import Textarea from '../../basics/Textarea';
 import Button from '../../basics/Button';
+import Img from '../../basics/Img';
 
 export const Container = styled.div`
     width: 60%;
@@ -23,13 +24,19 @@ export const Creator = styled(H4)`
     margin-right: auto;
 `;
 
+export const ContentImg = styled(Img)`
+    width: auto;
+    max-width: 70%;
+    height: auto;
+`;
+
 export const CopyRight = styled.div`
     margin-right:auto;
 `;
 
 export const CommentContainer = styled.div`
     width: auto;
-    max-height: fit-content;
+    /* max-height: fit-content; */
     min-height: 5rem;
     border: 1px solid black;
     padding: 1rem;

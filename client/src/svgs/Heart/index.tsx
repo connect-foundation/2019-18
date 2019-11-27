@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Heart = ({ color = '#000000', width = 'auto', height = 'auto' }) => (
+const Heart = ({ color = '#000000', width = 'auto', height = '100%' }) => (
   <svg
     viewBox="0 -28 512.001 512"
     xmlns="http://www.w3.org/2000/svg"
-    width={width || 'auto'}
-    height={height || 'auto'}
+    width={width}
+    height={height}
   >
     <path
       fill={color}

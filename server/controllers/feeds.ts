@@ -7,8 +7,9 @@ import {
   get10Images, get10Wallpapers, getImageFeeds, getWorkImageById,
 } from '../services/feed';
 import {
-  IMAGE_CDN, IMAGES, WALLPAPERS, IMAGE_QUERY_LOW,
+  IMAGE_CDN, IMAGES, WALLPAPERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
 } from '../utils/constant';
+import { FEED } from '../utils/messages';
 
 const getImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -62,7 +63,6 @@ const getWallpapers = async (req: Request, res: Response, next: NextFunction) =>
       return newFeed;
     });
 
-
     return response(res, newWallpapers);
   } catch (e) {
     next(e);
@@ -75,9 +75,15 @@ const getWorkImage = async (req: Request, res: Response, next: NextFunction) => 
     const { id } = req.params;
     const workImage = await getWorkImageById(id);
     if (!workImage) {
-      throw (createError(httpStatus.NOT_FOUND, '해당 글을 찾을 수 없습니다.'));
+      throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
     }
-    console.log(workImage);
+    workImage.content = workImage.content.map((el) => {
+      if (el.type === 'description') {
+        return el;
+      }
+      return { ...el, content: `${IMAGE_CDN}${el.type}/${el.content}${IMAGE_QUERY_HIGH}` };
+    });
+
     response(res, workImage);
   } catch (e) {
     next(e);

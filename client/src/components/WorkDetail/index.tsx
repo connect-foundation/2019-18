@@ -28,6 +28,22 @@ interface IData {
     field: string,
 }
 
+interface CommentProp {
+  owner: string;
+  comment: string;
+  time: string;
+}
+const Comment = ({ owner, comment, time }:CommentProp) => (
+  <S.Comment>
+    <S.CommentOwner>{owner}</S.CommentOwner>
+    {comment}
+    <S.CommentTimestamp>{time}</S.CommentTimestamp>
+    <S.Right>
+      <Like initCount={10} />
+    </S.Right>
+  </S.Comment>
+);
+
 const WorkDetail = ({ match }: RouteComponentProps<{id:string}>) => {
   const { id } = match.params;
   const [{ data, isLoading, isError }, setUrl] = useGetFeed<IData | null>(null);
@@ -44,9 +60,18 @@ const WorkDetail = ({ match }: RouteComponentProps<{id:string}>) => {
           <S.Title>{data.title}</S.Title>
           <S.Creator>{`by ${data.owner.name} | 2019.11.26 | 조회${data.views}`}</S.Creator>
 
+          {data.content.map((content, idx) => {
+            if (content.type === 'description') {
+              return <p key={idx}>{content.content}</p>;
+            }
+            return (
+              <S.ContentImg src={content.content} key={idx} />
+            );
+          })}
+
           <S.CommentContainer>
             <S.CommentHeader>내 아이디 올 자리</S.CommentHeader>
-            <S.CommentInput contentEditable></S.CommentInput>
+            <S.CommentInput />
             <S.CommentFooter>
               <S.Mention>멘션</S.Mention>
               <S.Mention>비밀댓글</S.Mention>
@@ -54,15 +79,13 @@ const WorkDetail = ({ match }: RouteComponentProps<{id:string}>) => {
             </S.CommentFooter>
           </S.CommentContainer>
 
-          <S.Comment>
-            <S.CommentOwner>오너다</S.CommentOwner>
-            {data.comments[0]}
-            <S.CommentTimestamp>2019-07-10 09:01</S.CommentTimestamp>
-            <S.Right>
-              <Like initCount={10} />
-            </S.Right>
-          </S.Comment>
-          <S.Comment>{data.comments[1]}</S.Comment>
+          {data.comments.map((comment) => (
+            <Comment
+              owner="내이름"
+              comment={comment}
+              time="2019-11-27 14:21"
+            />
+          ))}
 
 
           <S.CopyRight>{`Copyright © ${data.owner.name} All Rights Reserved`}</S.CopyRight>
