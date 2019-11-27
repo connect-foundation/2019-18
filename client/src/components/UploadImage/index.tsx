@@ -6,6 +6,7 @@ import axios from 'axios';
 import { API_SERVER } from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
+import PopupWarn from '../../commons/Popup_warn';
 
 interface ContentObject {
   type: string,
@@ -17,6 +18,7 @@ function ImageUpload() {
   const [previews, setPreviews] = useState<string[]>([]);
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
   const [title, setTitle] = useState<string>('');
+  const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
 
   const onDropWallPaper = (file: File[]) => {
     const newfile = file[file.length - 1];
@@ -83,6 +85,11 @@ function ImageUpload() {
   };
 
   const uploadHandler = async () => {
+    if (title.length === 0) {
+      console.log('제목은 필수 입력 사항입니다.');
+      setShowPopupWARN(true);
+      return;
+    }
     const urls = await getImageUrl();
     const dbContent = documents.map((element2) => {
       if (element2.type === 'images' || element2.type === 'wallpapers') {
@@ -127,6 +134,11 @@ function ImageUpload() {
     setTitle(e.target.value);
   };
 
+  const togglePopup = () => {
+    setShowPopupWARN(false);
+  };
+
+
   return (
     <S.UploadMain>
       <S.Title>
@@ -135,7 +147,7 @@ function ImageUpload() {
       <div>
         {previews && previews.map((element) => <Preview src={element} />)}
       </div>
-      <button type="button" className="upload-button" onClick={uploadHandler}>Upload</button>
+
       <S.SeleteBox>
         <S.Box>
           <ImageUploader
@@ -156,7 +168,8 @@ function ImageUpload() {
             buttonText="배경화면"
             onChange={onDropWallPaper}
             imgExtension={['.jpg', '.png', '.gif']}
-            maxFileSize={5242880}
+            // 13.5MB = 13481938, MAX SIZE is 20MB
+            maxFileSize={20242880}
             buttonStyles={S.customButton}
             singleImage
           />
@@ -165,6 +178,8 @@ function ImageUpload() {
           <S.Button type="button" onClick={addDescription}>글씨 추가</S.Button>
         </S.Box>
       </S.SeleteBox>
+      <S.UploadButton type="button" onClick={uploadHandler}>업로드</S.UploadButton>
+      {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
     </S.UploadMain>
   );
 }
