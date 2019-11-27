@@ -19,10 +19,14 @@ const Content:React.FC = () => {
   const [pwd, setPwd] = useState('');
   const [pwdCheck, setPwdCheck] = useState('');
   const [name, setName] = useState('');
-
-
+  const [joinSuccess, setJoinSuccess] = useState({ result: false, message: '' });
   const onJoin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (pwd !== pwdCheck) { return; }
+    if (pwd !== pwdCheck) {
+      return setJoinSuccess({
+        result: false, message: '비밀번호 확인과 비밀번호가 같지 않습니다.',
+      });
+    }
+
     const body = {
       email,
       pwd,
@@ -35,11 +39,11 @@ const Content:React.FC = () => {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    if (response.status !== 200) {
-      return;
-    }
     const responseJson = await response.json();
-    console.log(responseJson);
+    if (responseJson.success) {
+      return setJoinSuccess({ result: true, message: '' });
+    }
+    return setJoinSuccess({ result: false, message: responseJson.message });
   };
 
   const onChangename = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +70,7 @@ const Content:React.FC = () => {
         pwd={pwd}
         pwdcheck={pwdCheck}
         name={name}
+        joinSuccess={joinSuccess}
       />
     </Screen>
   );

@@ -21,33 +21,36 @@ interface LoginProp{
 
 const Login:React.FC<LoginProp> = ({
   onLogin, onChangeid, onChangepwd, id, pwd, LoginUser,
-}) => (
-  (LoginUser.isLogin)
-    ? (<Redirect to="/" />)
-    : (
-      <S.LoginBox>
-        <S.CrafolioLogoContainer>
-          <S.CrafolioLogo src={CrafolioIcon} />
-        </S.CrafolioLogoContainer>
-        <LoginInput onChange={onChangeid} value={id} placeholder="이메일을 입력하세요" />
-        <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
-        <SubmitButton onClick={onLogin}>로그인</SubmitButton>
-        <S.LoginMidLine>
-          <S.LoginLine />
+}) => {
+  console.log(LoginUser);
+  return (
+    (LoginUser.isLogin)
+      ? (<Redirect to="/" />)
+      : (
+        <S.LoginBox>
+          <S.CrafolioLogoContainer>
+            <S.CrafolioLogo src={CrafolioIcon} />
+          </S.CrafolioLogoContainer>
+          <LoginInput onChange={onChangeid} value={id} placeholder="이메일을 입력하세요" />
+          <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
+          <SubmitButton onClick={onLogin}>로그인</SubmitButton>
+          <S.LoginMidLine>
+            <S.LoginLine />
       또는
-          <S.LoginLine />
-        </S.LoginMidLine>
-        <S.OauthLine>
-          <S.LoginNaverLogo src={NaverIcon} />
-          <S.OauthContent>
+            <S.LoginLine />
+          </S.LoginMidLine>
+          <S.OauthLine>
+            <S.LoginNaverLogo src={NaverIcon} />
+            <S.OauthContent>
         NAVER 으로 로그인
-          </S.OauthContent>
-        </S.OauthLine>
-        <S.LoginMidLine>
-          <S.JoinLink to="/join">계정이 없으시면 가입하세요</S.JoinLink>
-        </S.LoginMidLine>
-      </S.LoginBox>
-    )
-);
+            </S.OauthContent>
+          </S.OauthLine>
+          <S.LoginMidLine>
+            <S.JoinLink to="/join">계정이 없으시면 가입하세요</S.JoinLink>
+          </S.LoginMidLine>
+        </S.LoginBox>
+      )
+  );
+};
 
 export default Login;
