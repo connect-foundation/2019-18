@@ -15,29 +15,13 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const authUser = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    if (!req.cookies || !req.cookies.token) {
-      return response(res, 0, 404);
-    }
-    const decoded = await decodeJwt(req.cookies.token);
-    return (decoded !== '') ? response(res, { decoded }) : response(res, {}, 404);
-  } catch (e) {
-    next(e);
-  }
-};
 
 const whoAmI = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    if (!req.cookies || !req.cookies.token) {
-      return response(res, 0, 404);
-    }
-    const decoded = await decodeJwt(req.cookies.token);
-    const userdata = await getUserFromToken(decoded);
-    return (userdata !== {}) ? response(res, userdata) : response(res, {}, 404);
-  } catch (e) {
-    next(e);
+  let userdata = {};
+  if (req.decodedUser) {
+    userdata = { user: req.decodedUser };
   }
+  return (userdata) ? response(res, userdata) : response(res, {}, 404);
 };
 
-export { login, authUser, whoAmI };
+export { login, whoAmI };

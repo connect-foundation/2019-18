@@ -1,9 +1,10 @@
 import { login, authUser, whoAmI } from '../controllers/login';
+import jwt from '../middleware/jwt';
 
 const router = require('express').Router();
 
 router.post('/', login);
-router.get('/authUser', authUser);
-router.get('/whoAmI', whoAmI);
+router.get('/whoAmI', jwt, whoAmI);
+
 
 export default router;

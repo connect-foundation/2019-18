@@ -73,15 +73,11 @@ const getUserFromToken = async (decodedToken) => {
   if (!decodedToken && !decodedToken._id) {
     return {};
   }
-
-  const query = User.findById(decodedToken._id);
-  const user = await query;
-
+  const user = await User.findById(decodedToken._id);
   if (!user) {
     return {};
   }
-
-  return { user };
+  return user;
 };
 
 export { loginService, decodeJwt, getUserFromToken };
