@@ -1,8 +1,9 @@
-import { setuser, unsetuser } from './action';
+import { setuser, unsetuser, login } from './action';
 
 export type LoginUserAction =
 | ReturnType<typeof setuser>
-| ReturnType<typeof unsetuser>;
+| ReturnType<typeof unsetuser>
+| ReturnType<typeof login>;
 
 export type LoginUserState = {
     isLogin: boolean;

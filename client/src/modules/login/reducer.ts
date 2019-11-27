@@ -1,5 +1,5 @@
 import {
-  SETUSER, UNSETUSER,
+  SETUSER, UNSETUSER, LOGIN,
 } from './action';
 
 import {
@@ -23,6 +23,10 @@ function login(state:LoginUserState = initialState, action:LoginUserAction) {
     case UNSETUSER:
       return {
         ...initialState,
+      };
+    case LOGIN:
+      return {
+        ...initialState, isLogin: true,
       };
     default:
       return state;
