@@ -2,11 +2,10 @@ import React from 'react';
 import * as S from './styles';
 import Like from '../../commons/Like';
 import Content from '../FeedContainer';
-// import { CommentOwner } from '../WorkDetail/styles';
 import { getTime } from '../../utils';
 import { CommentProp, WorksDetailProp } from './types';
 
-const Comment = ({ owner, comment, createdAt }: CommentProp) => (
+const Comment:React.FC<CommentProp> = ({ owner, comment, createdAt }) => (
   <S.Comment>
     <S.CommentOwner>{owner}</S.CommentOwner>
     <S.CommentContent>{comment}</S.CommentContent>
