@@ -25,10 +25,15 @@ export const theme = {
   PRUNUS_AVIUM: '#e84393',
   DRACULA_ORCHID: '#2d3436',
   BORDER_GRAY: '#dddddd',
+  WARN_GRAY: '#F2F3F5',
+
+  PALE_TEXT: '#757575',
 
   // Color in Crafolio logo
   CRA_PURPLE: '#343E7A',
   CRA_YELLOW: '#FBE99E',
+
+  PALE_CRA_PURPLE: '#525d9c',
 
   // box-shadow
   BOX_SHADOW: 'rgba(0, 0, 0, 0.2) 0px 5px 13px',
