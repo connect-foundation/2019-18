@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import IWallpaper from '../interfaces/wallpaper';
 import users from './user';
-import { wallpaper as wallpaperId, user as userId } from './ids';
+import { workImage as wallpaperId, user as userId } from './ids';
 
 const wallpapers = [
   {
@@ -12,98 +12,98 @@ const wallpapers = [
     url: '1.jpg',
   },
   {
-    owner: wallpaperId[1],
+    owner: wallpaperId[0],
     creator: userId[0],
     public: true,
     ref: [],
     url: '2.jpg',
   },
   {
-    owner: wallpaperId[2],
+    owner: wallpaperId[0],
     creator: userId[0],
     public: true,
     ref: [],
     url: '3.jpg',
   },
   {
-    owner: wallpaperId[3],
+    owner: wallpaperId[0],
     creator: userId[0],
     public: true,
     ref: [],
     url: '4.jpg',
   },
   {
-    owner: wallpaperId[4],
+    owner: wallpaperId[0],
     creator: userId[0],
     public: true,
     ref: [],
     url: '5.jpg',
   },
   {
-    owner: wallpaperId[5],
+    owner: wallpaperId[1],
     creator: userId[1],
     public: true,
     ref: [],
     url: '6.jpg',
   },
   {
-    owner: wallpaperId[6],
+    owner: wallpaperId[1],
     creator: userId[1],
     public: true,
     ref: [],
     url: '7.jpg',
   },
   {
-    owner: wallpaperId[7],
+    owner: wallpaperId[1],
     creator: userId[1],
     public: true,
     ref: [],
     url: '8.jpg',
   },
   {
-    owner: wallpaperId[8],
+    owner: wallpaperId[1],
     creator: userId[1],
     public: true,
     ref: [],
     url: '9.jpg',
   },
   {
-    owner: wallpaperId[9],
+    owner: wallpaperId[1],
     creator: userId[1],
     public: true,
     ref: [],
     url: '10.jpg',
   },
   {
-    owner: wallpaperId[10],
+    owner: wallpaperId[2],
     creator: userId[2],
     public: true,
     ref: [],
     url: '11.jpg',
   },
   {
-    owner: wallpaperId[11],
+    owner: wallpaperId[2],
     creator: userId[2],
     public: true,
     ref: [],
     url: '12.jpg',
   },
   {
-    owner: wallpaperId[12],
+    owner: wallpaperId[2],
     creator: userId[2],
     public: true,
     ref: [],
     url: '13.jpg',
   },
   {
-    owner: wallpaperId[13],
+    owner: wallpaperId[2],
     creator: userId[2],
     public: true,
     ref: [],
     url: '14.jpg',
   },
   {
-    owner: wallpaperId[14],
+    owner: wallpaperId[2],
     creator: userId[2],
     public: true,
     ref: [],

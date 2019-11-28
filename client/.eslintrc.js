@@ -33,6 +33,7 @@ module.exports = {
       'react-hooks/exhaustive-deps': 0,
       'no-underscore-dangle':0,
       'no-nested-ternary': 0,
+      'react/no-array-index-key': 0,
     }
 
 };

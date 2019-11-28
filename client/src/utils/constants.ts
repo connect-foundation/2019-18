@@ -5,6 +5,15 @@ export const API_SERVER:string = process.env.NODE_ENV === 'production'
   : 'http://localhost:3050/api';
 
 
+export const FEED_IMAGE_ADD_COMMENT = (id:string) => {
+  const METHOD = 'POST';
+  const ADDR = `${API_SERVER}/feed/images/${id}/add-comment`;
+  return {
+    METHOD,
+    ADDR,
+  };
+};
+
 export const fieldoptions = [
   { value: '일러스트', label: '일러스트' },
   { value: '회화', label: '회화' },

@@ -12,24 +12,35 @@ const workImages = [
     title: faker.name.title(),
     content: [
       {
-        type: 'image',
+        type: 'images',
         content: images[0].url,
       },
       {
-        type: 'image',
+        type: 'images',
         content: images[1].url,
       },
       {
-        type: 'text',
+        type: 'description',
         content: faker.lorem.sentence(),
       },
       {
-        type: 'image',
+        type: 'images',
         content: images[2].url,
       },
     ],
     emoji: ['emoji', 'test'],
-    comments: [faker.lorem.sentences(), faker.lorem.sentences()],
+    comments: [
+      {
+        owner: userId[1],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+      {
+        owner: userId[2],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+    ],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',
@@ -43,24 +54,35 @@ const workImages = [
     title: faker.name.title(),
     content: [
       {
-        type: 'image',
+        type: 'images',
         content: images[3].url,
       },
       {
-        type: 'image',
+        type: 'images',
         content: images[4].url,
       },
       {
-        type: 'text',
+        type: 'description',
         content: faker.lorem.sentence(),
       },
       {
-        type: 'image',
+        type: 'images',
         content: images[5].url,
       },
     ],
     emoji: ['emoji', 'test'],
-    comments: [faker.lorem.sentences(), faker.lorem.sentences()],
+    comments: [
+      {
+        owner: userId[1],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+      {
+        owner: userId[2],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+    ],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',
@@ -74,24 +96,35 @@ const workImages = [
     title: faker.name.title(),
     content: [
       {
-        type: 'image',
+        type: 'images',
         content: images[6].url,
       },
       {
-        type: 'image',
+        type: 'images',
         content: images[7].url,
       },
       {
-        type: 'text',
+        type: 'description',
         content: faker.lorem.sentence(),
       },
       {
-        type: 'image',
+        type: 'images',
         content: images[8].url,
       },
     ],
     emoji: ['emoji', 'test'],
-    comments: [faker.lorem.sentences(), faker.lorem.sentences()],
+    comments: [
+      {
+        owner: userId[0],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+      {
+        owner: userId[2],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+    ],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',
@@ -104,24 +137,35 @@ const workImages = [
     owner: userId[1],
     title: faker.name.title(),
     content: [{
-      type: 'image',
+      type: 'images',
       content: images[9].url,
     },
     {
-      type: 'image',
+      type: 'images',
       content: images[10].url,
     },
     {
-      type: 'text',
+      type: 'description',
       content: faker.lorem.sentence(),
     },
     {
-      type: 'image',
+      type: 'images',
       content: images[11].url,
     },
     ],
     emoji: ['emoji', 'test'],
-    comments: [faker.lorem.sentences(), faker.lorem.sentences()],
+    comments: [
+      {
+        owner: userId[0],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+      {
+        owner: userId[2],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+    ],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',
@@ -134,24 +178,35 @@ const workImages = [
     owner: userId[2],
     title: faker.name.title(),
     content: [{
-      type: 'music',
+      type: 'images',
       content: images[12].url,
     },
     {
-      type: 'music',
+      type: 'images',
       content: images[13].url,
     },
     {
-      type: 'text',
+      type: 'description',
       content: faker.lorem.sentence(),
     },
     {
-      type: 'image',
+      type: 'images',
       content: images[14].url,
     },
     ],
     emoji: ['emoji', 'test'],
-    comments: [faker.lorem.sentences(), faker.lorem.sentences()],
+    comments: [
+      {
+        owner: userId[0],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+      {
+        owner: userId[1],
+        content: faker.lorem.sentences(),
+        createdAt: Date.now(),
+      },
+    ],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',
