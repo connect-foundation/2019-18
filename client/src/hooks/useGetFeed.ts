@@ -1,39 +1,38 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useFetch = <T>(initData:T[])
-  :[{data:T[], isLoading:boolean, isError:boolean}, (url:string)=>void ] => {
+const useGetFeed = <T>(initData:T)
+  :[{data:T, setData:React.Dispatch<T>, isLoading:boolean, isError:boolean}, (url:string)=>void ] => {
   const [data, setData] = useState(initData);
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  // const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
+
       try {
         const result = await axios(url);
         if (!result.data.success) {
           setIsLoading(false);
         } else {
-          const images = result.data.data;
-          const newData = data.concat(images);
-          setData(newData);
+          console.log(result.data);
+          setData(result.data.data);
           setIsLoading(false);
-          setIsError(false);
+          setIsError(true);
         }
       } catch (e) {
-        setIsError(true);
+        setIsError(e);
       }
     };
     fetchData();
   }, [url]);
 
   return [{
-    data, isLoading, isError,
+    data, setData, isLoading, isError,
   }, setUrl];
 };
 
-export default useFetch;
+export default useGetFeed;

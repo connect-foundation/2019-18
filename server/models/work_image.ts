@@ -3,15 +3,10 @@ import mongoose, {
 } from 'mongoose';
 import User from './user';
 
-import { IWorkImage, IWorkImageContent } from '../interfaces/workImage';
+import { IWorkImage, IWorkImageContent, IComments } from '../interfaces/workImage';
 
 const { ObjectId } = Schema.Types;
 export interface IWorkImageModel extends IWorkImage, Document{}
-
-const obj: IWorkImageContent = {
-  type: '',
-  content: '',
-};
 
 const workImageSchema = new Schema({
   owner: {
@@ -20,14 +15,14 @@ const workImageSchema = new Schema({
   title: { type: String, required: true },
   content: { type: [Schema.Types.Mixed], required: true, default: [] },
   emoji: { type: [String], required: true, default: [] },
-  comments: { type: [String], required: true, default: [] },
-  comments_allow: { type: Boolean, required: true, default: true },
+  comments: { type: [Schema.Types.Mixed], required: true, default: [] },
+  commentsAllow: { type: Boolean, required: true, default: true },
   ccl: { type: String, required: true },
   field: { type: String, required: true },
   public: { type: String, required: true, default: true },
   tags: { type: [String], required: true, default: [] },
   views: { type: Number, required: true, default: 0 },
-});
+}, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } });
 
 const WorkImage:Model<IWorkImageModel> = model<IWorkImageModel>('WorkImage', workImageSchema);
 

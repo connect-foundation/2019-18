@@ -5,20 +5,21 @@ import {
 import FeedContainer from '../FeedContainer';
 import LoginContainer from '../../containers/LoginContainer';
 import Header from '../Header';
-import FeedNavigator from '../FeedNavigator';
 import JoinContainer from '../../containers/JoinContainer';
+import NotFound from '../../components/NotFound/index';
 
 const Home:React.FC = () => (
   <Router>
     <Switch>
-      <Route path="/login" component={LoginContainer} />
-      <Route path="/join" component={JoinContainer} />
+      <Redirect exact from="/" to="/home" />
       <Route path="/home">
         <Header />
-        <FeedNavigator />
-        <FeedContainer />
+        <Route path="/home" component={FeedContainer} />
+        {/* <FeedContainer /> */}
       </Route>
-      <Redirect from="/*" to="/home" />
+      <Route path="/login" component={LoginContainer} />
+      <Route path="/join" component={JoinContainer} />
+      <Route component={NotFound} />
     </Switch>
   </Router>
 );
