@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import axios from 'axios';
 import useGetFeed from '../hooks/useGetFeed';
 import { API_SERVER, FEED_IMAGE_ADD_COMMENT } from '../utils/constants';
 import { IData } from '../components/WorksDetail/types';
@@ -25,12 +24,14 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
 
   const addNewComment = () => {
     if (data) {
+      if (inputComment.length < 5) {
+        alert('댓글은 5자 이상이어야 합니다.');
+        return;
+      }
       const postData = {
         content: inputComment,
       };
-
       const { METHOD, ADDR } = FEED_IMAGE_ADD_COMMENT(id);
-      //   axios.post(`${API_SERVER}/feed/images/${data._id}/add-comment`, postData)
       Axios({
         METHOD,
         ADDR,
@@ -60,6 +61,5 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
     />
   );
 };
-
 
 export default WorkDetailContainer;
