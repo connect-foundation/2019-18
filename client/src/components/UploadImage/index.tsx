@@ -8,12 +8,7 @@ import Preview from '../Preview';
 import * as S from './style';
 import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
-
-interface ContentObject {
-  type: string,
-  content: string,
-  file: File | null,
-}
+import { ContentObject, DetailObject } from './type';
 
 const initDetailObject = {
   commentsAllow: true,
@@ -22,12 +17,6 @@ const initDetailObject = {
   public: true,
 };
 
-interface DetailObject {
-  commentsAllow: boolean,
-  ccl: string,
-  field: string,
-  public: boolean,
-}
 
 function ImageUpload() {
   const [previews, setPreviews] = useState<string[]>([]);

@@ -1,46 +1,12 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
+
 import * as S from './style';
 import PurpleButton from '../../basics/PURPLE_Button';
-
-interface OptionType {
-  label: string;
-  value: string;
-}
-type OptionsType<OptionType> = ReadonlyArray<OptionType>;
-type ValueType<OptionType> = OptionType | OptionsType<OptionType> | null | undefined;
-
-const fieldoptions = [
-  { value: '일러스트', label: '일러스트' },
-  { value: '회화', label: '회화' },
-  { value: '사진', label: '사진' },
-  { value: '캘리그라피', label: '캘리그라피' },
-  { value: '디자인', label: '디자인' },
-];
-
-const ccloptions = [
-  { value: 'All', label: 'Copyright @ All Rights Reserved' },
-  { value: 'CCBY', label: 'CC BY (저작자 표시)' },
-  { value: 'CCBY-SA', label: 'CC BY-SA (저작자표시-동일조건변경허락)' },
-  { value: 'CCBY-ND', label: 'CC BY-ND (저작자표시-변경금지)' },
-  { value: 'CCBY-NC', label: 'CC BY-NC (저작자표시-비영리)' },
-  { value: 'CCBY-NC-SA', label: 'CC BY-NC-SA (저작자표시-비영리-동일조건변경허락)' },
-  { value: 'CCBY-NC-ND', label: 'CC BY-NC-ND (저작자표시-비영리-변경금지)' },
-];
-
-type PopupProps = {
-  text: string,
-  cancleHandler: (e: React.MouseEvent<HTMLButtonElement>)=>void;
-  aproveHandler: ()=>void;
-  setDetailInfo: (arg0: DetailObject)=>void;
-}
-
-interface DetailObject {
-  field: string,
-  ccl: string,
-  commentsAllow: boolean,
-  public: boolean,
-}
+import {
+  PopupProps, ValueType, OptionType,
+} from './type';
+import { fieldoptions, ccloptions } from '../../utils/constants';
 
 function Popup({
   text,
@@ -123,11 +89,11 @@ function Popup({
           </S.Radios>
           <span>공개설정</span>
           <S.Radios>
-            <label htmlFor="is">
+            <label htmlFor="is1">
               <input type="radio" name="ispublic" value="Y" checked onChange={radioHandlerIspublic} />
               공개
             </label>
-            <label htmlFor="is">
+            <label htmlFor="is2">
               <input type="radio" name="ispublic" value="N" onChange={radioHandlerIspublic} />
               비공개
             </label>
