@@ -1,60 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
 import Card from '../Card';
-import useFetch from '../../hooks/useFetch';
-
-const Container = styled.div`
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-between;
-
-    width: 60%;
-    margin: auto;
-`;
+import useGetFeedList from '../../hooks/useGetFeedList';
+import { API_SERVER } from '../../utils/constants';
+import * as S from './styles';
 
 interface IImage{
   _id: string;
-  creator: string;
+  ownerId: string;
+  creator:{
+    _id: string,
+    name: string,
+    email: string,
+  };
   url: string;
+  title:string;
+  numOfComments:string;
+  views: string;
 }
 const FeedWorks:React.FC = () => {
-  const [data, setData] = useState<IImage[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [{
+    data, isLoading, isError,
+  }, doFetch] = useGetFeedList<IImage>([]);
 
   useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      setIsError(false);
-      try {
-        const result = await fetch('http://localhost:3050/image/');
-        const images = await result.json();
-        const newData = data.concat(images);
-        setData(newData);
-        setIsLoading(false);
-      } catch (e) {
-        setIsError(true);
-      }
-    }
-    fetchData();
-  }, []);
+    doFetch(`${API_SERVER}/feed/images`);
+  }, [data]);
+
+  console.log(data);
 
   return (
-    <Container>
-      {isError && <div>Something wrong...</div>}
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        data.map((image) => (
-          <Card
-            imgUrl={image.url}
-            creator={image.creator}
-            key={image._id}
-          />
-        ))
-      )}
+    <S.Container>
+      {
+          isLoading
+            ? (<div>Loading...</div>)
+            : (
+              data.map(({
+                _id, ownerId, url, creator, title, numOfComments, views,
+              }) => (
+                <Card
+                  _id={_id}
+                  ownerId={ownerId}
+                  imgUrl={url}
+                  creator={creator}
+                  key={_id}
+                  title={title}
+                  numOfComments={numOfComments}
+                  views={views}
+                />
+              ))
+            )
+      }
 
-    </Container>
+    </S.Container>
   );
 };
 

@@ -1,19 +1,25 @@
 import React from 'react';
 import {
-  Switch, Route, BrowserRouter as Router, Redirect,
+  Redirect, Switch, Route, BrowserRouter as Router,
 } from 'react-router-dom';
-import Header from '../Header';
 import FeedContainer from '../FeedContainer';
-
-import Upload from '../upload';
+import LoginContainer from '../../containers/LoginContainer';
+import Header from '../Header';
+import JoinContainer from '../../containers/JoinContainer';
+import NotFound from '../../components/NotFound/index';
 
 const Home:React.FC = () => (
   <Router>
-    <Header />
     <Switch>
-      <Route path="/upload" component={Upload} />
-      <Route path="/" exact component={FeedContainer} />
-      <Redirect from="*" to="/" />
+      <Redirect exact from="/" to="/home" />
+      <Route path="/home">
+        <Header />
+        <Route path="/home" component={FeedContainer} />
+        {/* <FeedContainer /> */}
+      </Route>
+      <Route path="/login" component={LoginContainer} />
+      <Route path="/join" component={JoinContainer} />
+      <Route component={NotFound} />
     </Switch>
   </Router>
 );

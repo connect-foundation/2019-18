@@ -1,22 +1,31 @@
 import React from 'react';
 import {
-  Switch, Route, BrowserRouter,
+  Switch, Route, RouteComponentProps,
 } from 'react-router-dom';
 
-import FeedWorks from '../FeedWorks';
+import UploadMain from '../UploadMain';
 import FeedWallpapers from '../FeedWallpapers';
 import FeedMusic from '../FeedMusics';
+import FeedWorks from '../FeedWorks';
 import FeedNavigator from '../FeedNavigator';
+import NotFound from '../../components/NotFound';
 
-const Content:React.FC = () => (
-  <BrowserRouter>
-    <FeedNavigator />
-    <Switch>
-      <Route path="/" exact component={FeedWorks} />
-      <Route path="/wallpaper" component={FeedWallpapers} />
-      <Route path="/music" component={FeedMusic} />
-    </Switch>
-  </BrowserRouter>
+import WorkDetailContainer from '../../containers/WorkDetailContainer';
+
+const Content = ({ match }: RouteComponentProps) => (
+  <Switch>
+    <Route path={`${match.path}/detail-image/:id`} component={WorkDetailContainer} />
+    <Route path={`${match.path}`}>
+      <Route path={`${match.path}`} component={FeedNavigator} />
+      <Switch>
+        <Route exact path={`${match.path}`} component={FeedWorks} />
+        <Route path={`${match.path}/wallpaper`} component={FeedWallpapers} />
+        <Route path={`${match.path}/music`} component={FeedMusic} />
+        <Route path={`${match.path}/upload`} componnent={UploadMain} />
+        <Route component={NotFound} />
+      </Switch>
+    </Route>
+    <Route component={NotFound} />
+  </Switch>
 );
-
 export default Content;

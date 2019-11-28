@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import index from './routes';
+import response from './utils/response';
 
 require('dotenv').config();
 
@@ -8,6 +9,7 @@ import logger = require('morgan');
 import cookieParser = require('cookie-parser');
 import bodyParser = require('body-parser');
 import connect = require('./config/mongo');
+import createError = require('http-errors');
 
 const app = express();
 app.set('jwt-secret', process.env.JWT_SECRET);
@@ -35,11 +37,19 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  let apiError = err;
+  if (!err.status) {
+    apiError = createError(err);
+  }
 
-  res.status(err.status || 500);
-  res.json('error');
+  // set locals, only providing error in development
+  res.locals.message = apiError.message;
+  res.locals.error = process.env.NODE_ENV === 'development' ? apiError : {};
+
+  // render the error page
+  return response(res, {
+    message: apiError.message,
+  }, apiError.status);
 });
 
 module.exports = app;

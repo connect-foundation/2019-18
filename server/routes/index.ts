@@ -11,6 +11,6 @@ fs.readdirSync(__dirname)
       && file !== indexJs
       && file.slice(-9) === '.route.ts',
   )
-  .forEach((routeFile) => router.use(`/${routeFile.split('.')[0]}`, require(`./${routeFile}`).default));
+  .forEach((routeFile) => router.use(`/api/${routeFile.split('.')[0]}`, require(`./${routeFile}`).default));
 
 export default router;

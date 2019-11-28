@@ -1,19 +1,27 @@
 import { Request, Response, NextFunction } from 'express';
-import { loginService } from '../services/login';
+import { loginService, decodeJwt, getUserFromToken } from '../services/login';
+import response from '../utils/response';
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, pwd } = req.body;
     const result = await loginService(email, pwd);
-    const userInfo = { userOid: '' };
     if (result.token !== null) {
       res.cookie('token', result.token);
-      userInfo.userOid = result.userOid;
     }
-    return res.status(result.status).json(userInfo);
+    return response(res, {}, result.status);
   } catch (e) {
     next(e);
   }
 };
 
-export { login };
+
+const whoAmI = async (req: Request, res: Response, next: NextFunction) => {
+  let userdata;
+  if (req.decodedUser) {
+    userdata = { user: req.decodedUser };
+  }
+  return (userdata) ? response(res, userdata) : response(res, {}, 404);
+};
+
+export { login, whoAmI };
