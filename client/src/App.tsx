@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
 import { ReactCookieProps, withCookies } from 'react-cookie';
 import dotenv from 'dotenv';
-import { RootState } from './modules';
-import { setuser } from './modules/login';
 import { ThemeProvider } from './style/typed-compoennts';
 // import {SetUserContainer} from './containers/SetUserContainer';
 import { theme } from './style/theme';
 import Home from './components/Home';
-import makeUserState from './modules/loginuser';
-import { loginUser } from './modules/login/action';
+import useUserState from './hooks/useUserState';
 
 dotenv.config();
 const GlobalStyle = createGlobalStyle`
@@ -31,18 +27,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
-  const currentUserState = useSelector((state:RootState) => state.login);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const token = props.cookies && props.cookies.get('token');
-    const UpdateUserState = new Promise<loginUser>((resolve) => {
-      makeUserState(token, resolve);
-    });
-    if (token && currentUserState.name === '') {
-      UpdateUserState.then((userState:loginUser) => dispatch(setuser(userState)));
-    }
-    console.log(currentUserState);
-  }, [currentUserState]);
+  useUserState(props);
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />

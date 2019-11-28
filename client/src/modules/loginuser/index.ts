@@ -16,7 +16,6 @@ const makeUserState = async (cookies:string, resolve:any) => {
 
   if (!responseData.success) { return resolve(initialState); }
 
-  console.log(responseData);
   const { user } = responseData.data;
   const UserState = {
     email: user.email,
