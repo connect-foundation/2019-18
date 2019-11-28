@@ -17,8 +17,8 @@ interface ContentObject {
 
 const initDetailObject = {
   commentsAllow: true,
-  ccl: '',
-  field: '',
+  ccl: 'ALL',
+  field: '회화',
   public: true,
 };
 
@@ -49,7 +49,7 @@ function ImageUpload() {
     setDocumnets(tempDocuments);
 
     const reader = new FileReader();
-    const url = reader.readAsDataURL(newfile);
+    reader.readAsDataURL(newfile);
     reader.onloadend = (e) => {
       if (typeof reader.result === 'string') {
         setPreviews([...previews, reader.result]);
@@ -69,7 +69,7 @@ function ImageUpload() {
     setDocumnets(tempDocuments);
 
     const reader = new FileReader();
-    const url = reader.readAsDataURL(newfile);
+    reader.readAsDataURL(newfile);
     reader.onloadend = (e) => {
       if (typeof reader.result === 'string') {
         setPreviews([...previews, reader.result]);

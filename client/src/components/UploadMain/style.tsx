@@ -7,11 +7,13 @@ export const LinkBox = styled.div`
     width: 800px;
     height: 200px;
     align-items: center;
-    justify-content: space-around;
-    border: 2px solid palevioletred;
+    justify-content: center;
+    /* border: 2px solid palevioletred; */
 
     a {
         text-decoration: none;
+        margin-right: 20px;
+        margin-left: 20px;
     }
 `;
 
@@ -29,7 +31,22 @@ export const UploadMain = styled.div`
 `;
 
 export const Warn = styled.div`
-    border: 2px solid red;
-    font-size: 15px;
+    /* border: 2px solid red; */
+    font-size: 12px;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+    background: ${theme.WARN_GEAY};
+    padding: 15px 20px;
+
+    span {
+        color: ${theme.AMERICAN_RIVER};
+        margin-top: 5px;
+        margin-left: 5px;
+        margin-right: 15px;
+        img {
+            width: 40px;
+            height: auto;
+        }
+    }
 `;

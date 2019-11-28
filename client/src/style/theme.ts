@@ -25,6 +25,7 @@ export const theme = {
   PRUNUS_AVIUM: '#e84393',
   DRACULA_ORCHID: '#2d3436',
   BORDER_GRAY: '#dddddd',
+  WARN_GEAY: '#F2F3F5',
 
   BLOR_TEXT: '#757575',
 

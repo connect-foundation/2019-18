@@ -9,6 +9,7 @@ import {
 import UploadImage from '../UploadImage';
 import Basicbox from '../Basicbox';
 import * as S from './style';
+import circleWarn from '../../assets/circle_warn.png';
 
 function UploadMain() {
   return (
@@ -25,11 +26,11 @@ function Home() {
       <S.LinkBox>
         <Link to="/home/upload/image"><Basicbox name="이미지" /></Link>
         <Link to="/home/upload/music"><Basicbox name="음악" /></Link>
-        <Link to="/home/upload/background"><Basicbox name="배경화면" /></Link>
+        {/* <Link to="/home/upload/background"><Basicbox name="배경화면" /></Link> */}
       </S.LinkBox>
       <S.Warn>
         <span>
-          <img src="../assets/circle_warn.jpg" alt="Italian Trulli" />
+          <img src={circleWarn} alt="Italian Trulli" />
         </span>
         <span>
           업로드 시, 이 콘텐츠의 저작권 소유자이며&nbsp;
