@@ -36,7 +36,7 @@ export const Warn = styled.div`
     margin-top: 20px;
     display: flex;
     align-items: center;
-    background: ${theme.WARN_GEAY};
+    background: ${theme.WARN_GRAY};
     padding: 15px 20px;
 
     span {

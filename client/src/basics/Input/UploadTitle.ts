@@ -8,7 +8,7 @@ const UploadTitle = styled(input)`
     font-size : 20px;
     padding: 0 0.3rem;
     ::placeholder {
-        color : ${theme.BLOR_TEXT};
+        color : ${theme.PALE_TEXT};
         font-size : 20px;
     };
 `;

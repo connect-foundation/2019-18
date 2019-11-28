@@ -25,9 +25,9 @@ export const theme = {
   PRUNUS_AVIUM: '#e84393',
   DRACULA_ORCHID: '#2d3436',
   BORDER_GRAY: '#dddddd',
-  WARN_GEAY: '#F2F3F5',
+  WARN_GRAY: '#F2F3F5',
 
-  BLOR_TEXT: '#757575',
+  PALE_TEXT: '#757575',
 
   // Color in Crafolio logo
   CRA_PURPLE: '#343E7A',

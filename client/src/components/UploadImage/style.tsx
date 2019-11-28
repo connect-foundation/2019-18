@@ -86,7 +86,7 @@ export const TitleInput = styled.input`
   border-bottom-style: groove;
   margin-bottom: 30px;
   ::placeholder {
-      color : ${theme.BLOR_TEXT};
+      color : ${theme.PALE_TEXT};
       font-size : 20px;
   };
   :focus{

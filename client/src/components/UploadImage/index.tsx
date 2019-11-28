@@ -129,6 +129,7 @@ function ImageUpload() {
     };
 
     const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
+    // 업로드 완료후 작품 상세 페이지로 refirect
   };
 
 
@@ -168,7 +169,13 @@ function ImageUpload() {
   return (
     <S.UploadMain>
       <S.Title>
-        <S.TitleInput type="text" name="title" onChange={onChangetitle} value={title} placeholder="제목을 입력해 주세요." />
+        <S.TitleInput
+          type="text"
+          name="title"
+          onChange={onChangetitle}
+          value={title}
+          placeholder="제목을 입력해 주세요."
+        />
       </S.Title>
       <div>
         {previews && previews.map((element) => <Preview src={element} />)}
