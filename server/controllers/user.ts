@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { create, remove } from '../services/user';
+import response from '../utils/response';
 
 const { validationResult } = require('express-validator');
 
@@ -14,13 +15,12 @@ const signup = async (req: Request, res: Response) => {
   };
   try {
     const user = await create(data);
-
-    return res.json(user);
+    return response(res);
   } catch (e) {
     if (e.name === 'MongoError') {
-      return res.json({ success: false, message: '이미 사용중인 이메일입니다.' });
+      return response(res, { message: '이미 사용중인 이메일입니다' }, 500);
     }
-    return res.json({ success: false, message: 'unknown error' });
+    return response(res, { message: 'unknown error' }, 500);
   }
 };
 

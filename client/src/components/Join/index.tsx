@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import * as S from './style';
 
 import CrafolioIcon from '../../assets/logo_white_larger.png';
@@ -7,7 +8,7 @@ import PasswordInput from '../../basics/Input/PasswordInput';
 import SubmitButton from '../../basics/SubmitButton';
 
 
-interface LoginProp{
+interface JoinProp{
     onJoin: (e: React.MouseEvent<HTMLButtonElement>)=>void;
     onChangename: (e: React.ChangeEvent<HTMLInputElement>)=> void;
     onChangeemail: (e: React.ChangeEvent<HTMLInputElement>)=> void;
@@ -18,21 +19,29 @@ interface LoginProp{
     name: string;
     email: string;
     pwdcheck: string;
+    joinSuccess: {
+      result : boolean;
+      message : string;
+    }
+
 }
 
 
-const Login:React.FC<LoginProp> = ({
-  onJoin, onChangename, onChangepwdcheck, onChangepwd, onChangeemail, name, pwd, email, pwdcheck,
+const Login:React.FC<JoinProp> = ({
+  onJoin, onChangename, onChangepwdcheck, onChangepwd, onChangeemail, name, pwd, email, pwdcheck, joinSuccess,
 }) => (
-  <S.JoinBox>
-    <S.CrafolioLogoContainer>
-      <S.CrafolioLogo src={CrafolioIcon} />
-    </S.CrafolioLogoContainer>
-    <LoginInput onChange={onChangeemail} value={email} placeholder="이메일을 입력하세요" />
-    <LoginInput onChange={onChangename} value={name} placeholder="이름을 입력하세요" />
-    <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
-    <PasswordInput onChange={onChangepwdcheck} value={pwdcheck} placeholder="비밀번호를 다시 입력하세요" />
-    <SubmitButton onClick={onJoin}>제출</SubmitButton>
-  </S.JoinBox>
-);
+  (joinSuccess.result)
+    ? (<Redirect to="/login" />)
+    : (
+      <S.JoinBox>
+        <S.CrafolioLogoContainer>
+          <S.CrafolioLogo src={CrafolioIcon} />
+        </S.CrafolioLogoContainer>
+        <LoginInput onChange={onChangeemail} value={email} placeholder="이메일을 입력하세요" />
+        <LoginInput onChange={onChangename} value={name} placeholder="이름을 입력하세요" />
+        <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
+        <PasswordInput onChange={onChangepwdcheck} value={pwdcheck} placeholder="비밀번호를 다시 입력하세요" />
+        <SubmitButton onClick={onJoin}>제출</SubmitButton>
+      </S.JoinBox>
+    ));
 export default Login;

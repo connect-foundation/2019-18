@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import dotenv from 'dotenv';
 import styled from 'styled-components';
 import Login from '../components/Login';
 import { API_SERVER } from '../utils/constants';
 import { RootState } from '../modules';
+import { login } from '../modules/login';
 
 dotenv.config();
 
@@ -19,7 +20,7 @@ const Content:React.FC = () => {
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
   const LoginUser = useSelector((state:RootState) => state.login);
-  console.log(LoginUser);
+  const dispatch = useDispatch();
   const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const body = {
       email: id,
@@ -32,12 +33,10 @@ const Content:React.FC = () => {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    // 로그인 실패 success..!!!!!
-    if (response.status !== 200) {
-      return;
-    }
     const responseJson = await response.json();
-    console.log(responseJson);
+    if (responseJson.success) {
+      dispatch(login());
+    }
   };
   const onChangeid = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);

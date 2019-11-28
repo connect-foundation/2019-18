@@ -71,17 +71,13 @@ const decodeJwt = async (token) => {
 };
 const getUserFromToken = async (decodedToken) => {
   if (!decodedToken && !decodedToken._id) {
-    return {};
+    return null;
   }
-
-  const query = User.findById(decodedToken._id);
-  const user = await query;
-
+  const user = await User.findById(decodedToken._id);
   if (!user) {
-    return {};
+    return null;
   }
-
-  return { user };
+  return user;
 };
 
 export { loginService, decodeJwt, getUserFromToken };
