@@ -17,21 +17,14 @@ const getImages = async (req: Request, res: Response, next: NextFunction) => {
     const filteredFeed = images.map((image: any) => {
       console.log(image);
       const newFeed = {
-        id: '',
-        url: '',
-        ownerId: '',
-        numOfComments: '',
-        views: '',
-        title: '',
-        creator: '',
+        id: image.id,
+        url: `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`,
+        ownerId: image.owner.id,
+        numOfComments: image.owner.comments.length,
+        views: image.owner.views,
+        title: image.owner.title,
+        creator: image.creator,
       };
-      newFeed.id = image.id;
-      newFeed.url = `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`;
-      newFeed.ownerId = image.owner.id;
-      newFeed.numOfComments = image.owner.comments.length;
-      newFeed.views = image.owner.views;
-      newFeed.title = image.owner.title;
-      newFeed.creator = image.creator;
 
       return newFeed;
     });
@@ -47,21 +40,14 @@ const getWallpapers = async (req: Request, res: Response, next: NextFunction) =>
     const wallpapers = await get10Wallpapers(0, 10);
     const newWallpapers = wallpapers.map((wallpaper:any) => {
       const newFeed = {
-        _id: '',
-        url: '',
-        ownerId: '',
-        numOfComments: '',
-        views: '',
-        title: '',
-        creator: '',
+        _id: wallpaper._id,
+        url: `${IMAGE_CDN}${WALLPAPERS}${wallpaper.url}${IMAGE_QUERY_LOW}`,
+        ownerId: wallpaper.owner._id,
+        numOfComments: wallpaper.owner.comments.length,
+        views: wallpaper.owner.views,
+        title: wallpaper.owner.title,
+        creator: wallpaper.creator,
       };
-      newFeed._id = wallpaper._id;
-      newFeed.url = `${IMAGE_CDN}${WALLPAPERS}${wallpaper.url}${IMAGE_QUERY_LOW}`;
-      newFeed.ownerId = wallpaper.owner._id;
-      newFeed.numOfComments = wallpaper.owner.comments.length;
-      newFeed.views = wallpaper.owner.views;
-      newFeed.title = wallpaper.owner.title;
-      newFeed.creator = wallpaper.creator;
       return newFeed;
     });
 
