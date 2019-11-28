@@ -1,26 +1,30 @@
 import React, {
-  useState, useEffect,
+  useState,
 } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import { API_SERVER } from '../../utils/constants';
-
 import Preview from '../Preview';
 import * as S from './style';
-// Documnet content
-interface ContentObject {
-  type: string,
-  content: string,
-  file: File | null,
-}
+import PopupWarn from '../../commons/Popup_warn';
+import PopupDetail from '../Upload_detail_Popup';
+import { ContentObject, DetailObject } from './type';
+
+const initDetailObject = {
+  commentsAllow: true,
+  ccl: 'ALL',
+  field: '회화',
+  public: true,
+};
+
 
 function ImageUpload() {
   const [previews, setPreviews] = useState<string[]>([]);
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
-
-  useEffect(() => {
-
-  });
+  const [title, setTitle] = useState<string>('');
+  const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
+  const [showPopupDETAIL, setShowPopupDETAIL] = useState<boolean>(false);
+  const [detailInfo, setDetailInfo] = useState<DetailObject>(initDetailObject);
 
   const onDropWallPaper = (file: File[]) => {
     const newfile = file[file.length - 1];
@@ -33,8 +37,13 @@ function ImageUpload() {
     tempDocuments.push(obj);
     setDocumnets(tempDocuments);
 
-    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpapers' || d.type === 'images').map((m) => URL.createObjectURL(m.file));
-    setPreviews(tempPreviews);
+    const reader = new FileReader();
+    reader.readAsDataURL(newfile);
+    reader.onloadend = (e) => {
+      if (typeof reader.result === 'string') {
+        setPreviews([...previews, reader.result]);
+      }
+    };
   };
 
   const onDropImage = (file: File[]) => {
@@ -48,8 +57,13 @@ function ImageUpload() {
     tempDocuments.push(obj);
     setDocumnets(tempDocuments);
 
-    const tempPreviews = tempDocuments.filter((d) => d.type === 'wallpapers' || d.type === 'images').map((m) => URL.createObjectURL(m.file));
-    setPreviews(tempPreviews);
+    const reader = new FileReader();
+    reader.readAsDataURL(newfile);
+    reader.onloadend = (e) => {
+      if (typeof reader.result === 'string') {
+        setPreviews([...previews, reader.result]);
+      }
+    };
   };
 
   const makeFormData = () => {
@@ -77,6 +91,7 @@ function ImageUpload() {
   };
 
   const uploadHandler = async () => {
+    setShowPopupDETAIL(false);
     const urls = await getImageUrl();
     const dbContent = documents.map((element2) => {
       if (element2.type === 'images' || element2.type === 'wallpapers') {
@@ -93,16 +108,26 @@ function ImageUpload() {
       return obj;
     });
     const obj = {
-      title: '임시 타이틀22',
+      title,
       content: dbContent,
-      commemtsAllow: true,
-      ccl: '임시 CCL',
-      field: '임시 field',
-      public: true,
+      commentsAllow: detailInfo.commentsAllow,
+      ccl: detailInfo.ccl,
+      field: detailInfo.field,
+      public: detailInfo.public,
       tags: [],
     };
 
     const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
+    // 업로드 완료후 작품 상세 페이지로 refirect
+  };
+
+
+  const titleCheck = () => {
+    if (title.length === 0) {
+      setShowPopupWARN(true);
+    } else {
+      setShowPopupDETAIL(true);
+    }
   };
 
 
@@ -117,12 +142,34 @@ function ImageUpload() {
     setDocumnets(temp2);
   };
 
+  const onChangetitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const togglePopup = () => {
+    setShowPopupWARN(false);
+  };
+
+  const togglePopupDetail = () => {
+    setShowPopupDETAIL(false);
+  };
+
+
   return (
-    <div className="ImageUpload-container">
+    <S.UploadMain>
+      <S.Title>
+        <S.TitleInput
+          type="text"
+          name="title"
+          onChange={onChangetitle}
+          value={title}
+          placeholder="제목을 입력해 주세요."
+        />
+      </S.Title>
       <div>
         {previews && previews.map((element) => <Preview src={element} />)}
       </div>
-      <button type="button" className="upload-button" onClick={uploadHandler}>Upload</button>
+
       <S.SeleteBox>
         <S.Box>
           <ImageUploader
@@ -143,7 +190,8 @@ function ImageUpload() {
             buttonText="배경화면"
             onChange={onDropWallPaper}
             imgExtension={['.jpg', '.png', '.gif']}
-            maxFileSize={5242880}
+            // 13.5MB = 13481938, MAX SIZE is 20MB
+            maxFileSize={20242880}
             buttonStyles={S.customButton}
             singleImage
           />
@@ -152,8 +200,10 @@ function ImageUpload() {
           <S.Button type="button" onClick={addDescription}>글씨 추가</S.Button>
         </S.Box>
       </S.SeleteBox>
-
-    </div>
+      <S.UploadButton type="button" onClick={titleCheck}>업로드</S.UploadButton>
+      {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
+      {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setDetailInfo={setDetailInfo} />}
+    </S.UploadMain>
   );
 }
 
