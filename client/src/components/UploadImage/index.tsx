@@ -33,6 +33,7 @@ function ImageUpload() {
    * rendering 할 필요없는 documents 는 '그냥 변수'로 사용하고 싶은데 
    * const documents = [];
    * push를 해줘도 값을 읽을 수 없다는, undefined 에러가 나서 useState로 변경했습니다.
+   * style, type을 뺐는데도.. 파일 라인수가 200이 넘어가는데 .... 이건 별로 안 좋은거죠...?? 
    */
   const [previews, setPreviews] = useState<string[]>([]);
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
