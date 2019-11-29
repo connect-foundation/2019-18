@@ -63,7 +63,8 @@ function Popup({
       <S.Inner>
         <label htmlFor="text">{text}</label>
         <S.SelectBox>
-          <span>분야</span>
+          {/** 분야와 CCL라이선스는 컴포넌트로 묶어서 관리할 수 있을 것 같습니다. */}
+          {/* <span>분야</span>
           <Select
             options={fieldoptions}
             onChange={selectHandlerField}
@@ -75,8 +76,10 @@ function Popup({
             options={ccloptions}
             onChange={selectHandlerCcl}
             placeholder="CCL라이선스를 선택해 주세요."
-          />
-          <span>댓글</span>
+          /> */}
+
+          {/** 댓글과 공개설정도 컴포넌트로 묶어서 관리할 수 있을 것 같습니다. */}
+          {/* <span>댓글</span>
           <S.Radios>
             <label htmlFor="comment">
               <input type="radio" name="comments" value="Y" checked onChange={radioHandlerComments} />
@@ -97,7 +100,7 @@ function Popup({
               <input type="radio" name="ispublic" value="N" onChange={radioHandlerIspublic} />
               비공개
             </label>
-          </S.Radios>
+          </S.Radios> */}
         </S.SelectBox>
         <S.Buttons>
           <PurpleButton clickHandler={cancleHandler} buttonText="취소" />
