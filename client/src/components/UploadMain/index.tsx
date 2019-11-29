@@ -32,6 +32,7 @@ function Home() {
         <span>
           <img src={circleWarn} alt="Italian Trulli" />
         </span>
+        {/** text는 따로 빼겠습니다. */}
         <span>
           업로드 시, 이 콘텐츠의 저작권 소유자이며&nbsp;
           <a href="/servicePolicy.grfl" target="_blank">서비스 운영원칙</a>
