@@ -78,29 +78,6 @@ function Popup({
             placeholder="CCL라이선스를 선택해 주세요."
           /> */}
 
-          {/** 댓글과 공개설정도 컴포넌트로 묶어서 관리할 수 있을 것 같습니다. */}
-          {/* <span>댓글</span>
-          <S.Radios>
-            <label htmlFor="comment">
-              <input type="radio" name="comments" value="Y" checked onChange={radioHandlerComments} />
-              허용
-            </label>
-            <label htmlFor="comment">
-              <input type="radio" name="comments" value="N" onChange={radioHandlerComments} />
-              비허용
-            </label>
-          </S.Radios>
-          <span>공개설정</span>
-          <S.Radios>
-            <label htmlFor="is1">
-              <input type="radio" name="ispublic" value="Y" checked onChange={radioHandlerIspublic} />
-              공개
-            </label>
-            <label htmlFor="is2">
-              <input type="radio" name="ispublic" value="N" onChange={radioHandlerIspublic} />
-              비공개
-            </label>
-          </S.Radios> */}
         </S.SelectBox>
         <S.Buttons>
           <PurpleButton clickHandler={cancleHandler} buttonText="취소" />
