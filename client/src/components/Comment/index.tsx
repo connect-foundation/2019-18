@@ -16,11 +16,11 @@ const CommentList:React.FC<CommentListProp> = ({ owner, comment, createdAt }) =>
 );
 
 const Comment: React.FC<CommentProp> = ({
-  comments, commentRef, changeInputHandler, addNewComment,
+  comments, inputComment, changeInputHandler, addNewComment,
 }) => (
   <S.CommentContainer>
     <S.CommentHeader>내 아이디 올 자리</S.CommentHeader>
-    <S.CommentInput ref={commentRef} onChange={changeInputHandler} />
+    <S.CommentInput onChange={changeInputHandler} value={inputComment} />
     <S.CommentFooter>
       <S.Mention>멘션</S.Mention>
       <S.Mention>비밀 댓글</S.Mention>

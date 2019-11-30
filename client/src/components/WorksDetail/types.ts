@@ -2,6 +2,7 @@ import { IComment } from '../Comment/types';
 
 export interface WorksDetailProp{
     data: IData | null,
+    inputComment: string,
     isLoading: boolean,
     isError: boolean,
     commentRef: React.RefObject<HTMLTextAreaElement>,

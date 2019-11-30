@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import axios from 'axios';
 import useGetFeed from '../hooks/useGetFeed';
-import { API_SERVER, FEED_IMAGE_ADD_COMMENT } from '../utils/constants';
+import { API_SERVER, API_ADDR } from '../utils/constants';
 import { IData } from '../components/WorksDetail/types';
 import WorksDetail from '../components/WorksDetail';
-import { Axios } from '../utils';
+import { CheckCommentLength } from '../utils/error';
+
 
 const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   const { id } = match.params;
@@ -18,41 +20,39 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   useEffect(() => {
     setUrl(`${API_SERVER}/feed/images/${id}`);
   }, [data]);
+
   const changeInputHandler = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputComment(e.target.value);
   };
 
+  const CommentLengthCheker = CheckCommentLength();
+
   const addNewComment = () => {
     if (data) {
-      if (inputComment.length < 5) {
-        alert('댓글은 5자 이상이어야 합니다.');
-        return;
-      }
+      CommentLengthCheker(inputComment);
+
       const postData = {
         content: inputComment,
       };
-      const { METHOD, ADDR } = FEED_IMAGE_ADD_COMMENT(id);
-      Axios({
-        METHOD,
-        ADDR,
-        postData,
-      })
-        .then((response) => {
-          if (!response.data.success) {
-            console.error(response.data.msg);
-          } else {
-            setData(response.data.data);
-            if (commentRef.current) {
-              commentRef.current.value = '';
-            }
-          }
-        });
+      const ADDR = API_ADDR.FEED_IMAGE_ADD_COMMENT(id);
+
+      axios.post(ADDR, postData).then((response) => {
+        if (!response.data.success) {
+          alert(response.data.msg);
+        } else {
+          setData(response.data.data);
+          setInputComment('');
+        }
+      }).catch((e) => {
+        console.error(e);
+      });
     }
   };
 
   return (
     <WorksDetail
       data={data}
+      inputComment={inputComment}
       isLoading={isLoading}
       isError={isError}
       commentRef={commentRef}

@@ -12,7 +12,7 @@ export interface CommentListProp{
 
 export interface CommentProp{
   comments:IComment[],
-  commentRef: React.RefObject<HTMLTextAreaElement>,
+  inputComment: string,
   changeInputHandler: (e:React.ChangeEvent<HTMLTextAreaElement>)=>void,
   addNewComment: ()=>void,
 }

@@ -17,13 +17,8 @@ export const OAUTH_URL:string = `https://nid.naver.com/oauth2.0/authorize?respon
   STATE
 }`;
 
-export const FEED_IMAGE_ADD_COMMENT = (id:string) => {
-  const METHOD = 'POST';
-  const ADDR = `${API_SERVER}/feed/images/${id}/add-comment`;
-  return {
-    METHOD,
-    ADDR,
-  };
+export const API_ADDR = {
+  FEED_IMAGE_ADD_COMMENT: (id:string) => `${API_SERVER}/feed/images/${id}/add-comment`,
 };
 
 export const fieldoptions = [
