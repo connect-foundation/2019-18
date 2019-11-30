@@ -1,3 +1,5 @@
+import { IComment } from '../Comment/types';
+
 export interface WorksDetailProp{
     data: IData | null,
     isLoading: boolean,
@@ -13,17 +15,14 @@ export interface CommentProp{
     createdAt: string,
 }
 
+
 export interface IData {
     content:{
         type:string,
         content:string,
     }[],
     emoji: string[],
-    comments:{
-      owner: string,
-      content: string,
-      createdAt: number,
-    }[],
+    comments:IComment[],
     commentsAllow: boolean,
     public: boolean,
     tags:string[],
