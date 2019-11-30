@@ -5,7 +5,7 @@ import useGetFeed from '../hooks/useGetFeed';
 import { API_SERVER, API_ADDR } from '../utils/constants';
 import { IData } from '../components/WorksDetail/types';
 import WorksDetail from '../components/WorksDetail';
-import { CheckCommentLength } from '../utils/error';
+import { CheckStringLength, CommentChecker } from '../utils/check';
 
 
 const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
@@ -25,11 +25,13 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
     setInputComment(e.target.value);
   };
 
-  const CommentLengthCheker = CheckCommentLength();
+  const CommentLengthCheker = CheckStringLength(CommentChecker);
 
   const addNewComment = () => {
     if (data) {
-      CommentLengthCheker(inputComment);
+      if (!CommentLengthCheker(inputComment)) {
+        return;
+      }
 
       const postData = {
         content: inputComment,
