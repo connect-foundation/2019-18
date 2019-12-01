@@ -24,6 +24,7 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
 
         <Comment
           comments={data.comments}
+          commentsAllow={data.commentsAllow}
           inputComment={inputComment}
           changeInputHandler={changeInputHandler}
           addNewComment={addNewComment}

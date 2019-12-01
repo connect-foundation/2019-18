@@ -16,25 +16,41 @@ const CommentList:React.FC<CommentListProp> = ({ owner, comment, createdAt }) =>
 );
 
 const Comment: React.FC<CommentProp> = ({
-  comments, inputComment, changeInputHandler, addNewComment,
+  comments, commentsAllow, inputComment, changeInputHandler, addNewComment,
 }) => (
   <S.CommentContainer>
     <S.CommentHeader>내 아이디 올 자리</S.CommentHeader>
-    <S.CommentInput onChange={changeInputHandler} value={inputComment} />
+    {
+    commentsAllow
+      ? <S.CommentInput onChange={changeInputHandler} value={inputComment} />
+      : <S.CommentInput readOnly value="댓글이 허용되지 않는 게시물 입니다." />
+    }
+
     <S.CommentFooter>
       <S.Mention>멘션</S.Mention>
       <S.Mention>비밀 댓글</S.Mention>
-      <S.SubmitButton onClick={addNewComment}>등록</S.SubmitButton>
+      {
+        commentsAllow
+          ? <S.SubmitButton onClick={addNewComment}>등록</S.SubmitButton>
+          : <S.SubmitButton>등록</S.SubmitButton>
+      }
+
     </S.CommentFooter>
 
-    {comments.map((comment, idx) => (
-      <CommentList
-        owner="내이름"
-        comment={comment.content}
-        createdAt={getTime(comment.createdAt)}
-        key={idx}
-      />
-    ))}
+    {commentsAllow
+      ? (
+        comments.map((comment, idx) => (
+          <CommentList
+            owner="내이름"
+            comment={comment.content}
+            createdAt={getTime(comment.createdAt)}
+            key={idx}
+          />
+        ))
+      )
+      : <div />}
+
+
   </S.CommentContainer>
 );
 
