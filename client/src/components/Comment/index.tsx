@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './styles';
 import { CommentProp, CommentListProp } from './types';
 import Like from '../../commons/Like';
-import { getTime } from '../../utils';
+import { getTime, getShortId } from '../../utils';
 
 const CommentList:React.FC<CommentListProp> = ({ owner, comment, createdAt }) => (
   <S.Comment>
@@ -44,7 +44,7 @@ const Comment: React.FC<CommentProp> = ({
             owner="내이름"
             comment={comment.content}
             createdAt={getTime(comment.createdAt)}
-            key={idx}
+            key={getShortId()}
           />
         ))
       )
