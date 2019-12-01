@@ -3,6 +3,7 @@ import Card from '../Card';
 import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';
+import { getShortId } from '../../utils';
 
 interface IImage{
   _id: string;
@@ -42,7 +43,7 @@ const FeedWorks:React.FC = () => {
                   ownerId={ownerId}
                   imgUrl={url}
                   creator={creator}
-                  key={_id}
+                  key={getShortId()}
                   title={title}
                   numOfComments={numOfComments}
                   views={views}
