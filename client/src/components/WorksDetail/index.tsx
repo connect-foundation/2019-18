@@ -4,7 +4,7 @@ import { WorksDetailProp } from './types';
 import Comment from '../Comment';
 
 const WorksDetail:React.FC<WorksDetailProp> = ({
-  data, inputComment, isLoading, isError, changeInputHandler, addNewComment,
+  data, inputComment, user, isLoading, isError, changeInputHandler, addNewComment,
 }) => (
   isLoading || data === null
     ? (<div>Loading...</div>)
@@ -25,6 +25,7 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
         <Comment
           comments={data.comments}
           commentsAllow={data.commentsAllow}
+          user={user}
           inputComment={inputComment}
           changeInputHandler={changeInputHandler}
           addNewComment={addNewComment}

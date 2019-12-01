@@ -1,8 +1,10 @@
 import { IComment } from '../Comment/types';
+import { LoginUserState } from '../../modules/login/types';
 
 export interface WorksDetailProp{
     data: IData | null,
     inputComment: string,
+    user:LoginUserState,
     isLoading: boolean,
     isError: boolean,
     commentRef: React.RefObject<HTMLTextAreaElement>,

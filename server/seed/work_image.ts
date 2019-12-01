@@ -29,18 +29,7 @@ const workImages = [
       },
     ],
     emoji: ['emoji', 'test'],
-    comments: [
-      {
-        owner: userId[1],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-      {
-        owner: userId[2],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-    ],
+    comments: [],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',
@@ -71,18 +60,7 @@ const workImages = [
       },
     ],
     emoji: ['emoji', 'test'],
-    comments: [
-      {
-        owner: userId[1],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-      {
-        owner: userId[2],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-    ],
+    comments: [],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',
@@ -113,18 +91,7 @@ const workImages = [
       },
     ],
     emoji: ['emoji', 'test'],
-    comments: [
-      {
-        owner: userId[0],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-      {
-        owner: userId[2],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-    ],
+    comments: [],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',
@@ -154,18 +121,7 @@ const workImages = [
     },
     ],
     emoji: ['emoji', 'test'],
-    comments: [
-      {
-        owner: userId[0],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-      {
-        owner: userId[2],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-    ],
+    comments: [],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',
@@ -195,18 +151,7 @@ const workImages = [
     },
     ],
     emoji: ['emoji', 'test'],
-    comments: [
-      {
-        owner: userId[0],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-      {
-        owner: userId[1],
-        content: faker.lorem.sentences(),
-        createdAt: Date.now(),
-      },
-    ],
+    comments: [],
     commentsAllow: true,
     ccl: 'all rights reserved',
     field: 'this is field',

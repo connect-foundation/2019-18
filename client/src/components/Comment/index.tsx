@@ -16,10 +16,14 @@ const CommentList:React.FC<CommentListProp> = ({ owner, comment, createdAt }) =>
 );
 
 const Comment: React.FC<CommentProp> = ({
-  comments, commentsAllow, inputComment, changeInputHandler, addNewComment,
+  comments, commentsAllow, user, inputComment, changeInputHandler, addNewComment,
 }) => (
   <S.CommentContainer>
-    <S.CommentHeader>내 아이디 올 자리</S.CommentHeader>
+    {
+      user.isLogin
+        ? <S.CommentHeader>{user.name}</S.CommentHeader>
+        : <S.CommentHeader>로그인 해주세요</S.CommentHeader>
+    }
     {
     commentsAllow
       ? <S.CommentInput onChange={changeInputHandler} value={inputComment} />
@@ -38,17 +42,16 @@ const Comment: React.FC<CommentProp> = ({
     </S.CommentFooter>
 
     {commentsAllow
-      ? (
+      && (
         comments.map((comment, idx) => (
           <CommentList
-            owner="내이름"
+            owner={comment.ownerName}
             comment={comment.content}
             createdAt={getTime(comment.createdAt)}
             key={getShortId()}
           />
         ))
-      )
-      : <div />}
+      )}
 
 
   </S.CommentContainer>

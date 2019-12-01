@@ -9,13 +9,12 @@ import {
 import {
   IMAGE_CDN, IMAGES, WALLPAPERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH,
 } from '../utils/constant';
-import { FEED } from '../utils/messages';
+import { FEED, AUTH } from '../utils/messages';
 
 const getImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const images = await getImageFeeds(0, 10);
     const filteredFeed = images.map((image: any) => {
-      console.log(image);
       const newFeed = {
         id: image.id,
         url: `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`,
@@ -80,13 +79,18 @@ const getWorkImage = async (req: Request, res: Response, next: NextFunction) => 
 
 const addComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const user = req.decodedUser;
+    if (!user) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    }
     const workImageId = req.params.id;
     const { content } = req.body;
-    const createdAt = Date.now();
     const payload = {
-      owner: '0000000188e1a5245cea7a3a',
+      owner: user._id,
+      ownerThumbnail: user.thumbnailUrl,
+      ownerName: user.name,
       content,
-      createdAt,
+      createdAt: Date.now(),
     };
     const workImage = await addCommentToWorkImage(workImageId, payload);
     if (!workImage) {
