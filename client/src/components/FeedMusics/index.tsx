@@ -50,9 +50,17 @@ const FeedMusics: React.FC = () => {
     console.log(audio.loop);
   };
 
+  const test = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const { clientX } = e;
+    const { offsetWidth, offsetLeft } = e.currentTarget;
+    // console.log(((clientX - offsetLeft) / offsetWidth) * 100);
+    const toPlay = ((clientX - offsetLeft) / offsetWidth) * 100;
+    audio.currentTime = (duration * toPlay) / 100;
+    // console.log((duration * toPlay) / 100);
+  };
   useEffect(() => {
     audio = document.getElementById('myaudio') as HTMLAudioElement;
-
+    audio.loop = isRepeat;
     audio.addEventListener('loadeddata', () => setDuration(audio.duration));
     audio.addEventListener('timeupdate', () => setCurTime(audio.currentTime));
     audio.addEventListener('canplaythrough', () => {});
@@ -71,7 +79,7 @@ const FeedMusics: React.FC = () => {
       </S.Header>
 
       <S.PlayingArea>
-        <S.Player>
+        <S.Player onMouseDown={test}>
           <S.SeekBar duration={duration} curTime={curTime} />
 
           <S.TogglePlayButton onClick={togglePlay}>
@@ -109,7 +117,7 @@ const FeedMusics: React.FC = () => {
         <S.Right>
           <S.RightItem>
             {
-              isRepeat
+              isRepeat === true
                 ? <RepeatIcon fontSize="large" style={{ color: theme.ELECTRON_BLUE }} onClick={toggleRepeat} />
                 : <RepeatIcon fontSize="large" style={{ color: 'black' }} onClick={toggleRepeat} />
             }

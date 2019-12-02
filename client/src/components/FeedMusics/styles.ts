@@ -99,6 +99,8 @@ export const RightItem = styled.div`
 export const PlayerTitle = styled.div`
     display: flex;
     flex-direction: column;
+    pointer-events: none;
+    user-select: none;
 `;
 
 export const Title = styled(H3)`
