@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import Slider from '@material-ui/core/Slider';
+import RepeatIcon from '@material-ui/icons/Repeat';
 import * as S from './styles';
 import VolumeSlider from '../VolumeSlider';
+import { theme } from '../../style/theme';
 
 const url = 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3';
 
@@ -16,14 +18,13 @@ const getLength = (duration:number) => {
   return `${m}:${s}`;
 };
 
-const getProgressPercentage = (duration:number, curTime:number):string =>
-  // console.log(`${((Math.floor(curTime * 100) / 100) / (Math.floor(duration * 100) / 100)) * 100}%`);
-  `${((Math.floor(curTime * 100) / 100) / (Math.floor(duration * 100) / 100)) * 100}%`;
 const FeedMusics: React.FC = () => {
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [curTime, setCurTime] = useState(0);
   const [volume, setVolume] = useState(30);
+  const [isRepeat, setIsRepeat] = useState(false);
+
   // const [value, setValue] = React.useState<number>(30);
   let audio = document.getElementById('myaudio') as HTMLAudioElement;
 
@@ -42,18 +43,15 @@ const FeedMusics: React.FC = () => {
     }
   };
 
+  const toggleRepeat = () => {
+    setIsRepeat(!isRepeat);
+    audio.loop = isRepeat;
+    console.log(audio);
+    console.log(audio.loop);
+  };
+
   useEffect(() => {
     audio = document.getElementById('myaudio') as HTMLAudioElement;
-
-    const play = () => {
-      audio.play();
-      setIsPlaying(true);
-    };
-
-    const pause = () => {
-      audio.pause();
-      setIsPlaying(false);
-    };
 
     audio.addEventListener('loadeddata', () => setDuration(audio.duration));
     audio.addEventListener('timeupdate', () => setCurTime(audio.currentTime));
@@ -78,8 +76,8 @@ const FeedMusics: React.FC = () => {
 
           <S.TogglePlayButton onClick={togglePlay}>
             {isPlaying
-              ? <PauseIcon color="action" fontSize="large" />
-              : <PlayArrowIcon color="action" fontSize="large" />}
+              ? <PauseIcon fontSize="large" style={{ color: 'black' }} />
+              : <PlayArrowIcon fontSize="large" style={{ color: 'black' }} />}
           </S.TogglePlayButton>
 
           <S.PlayerTitle>
@@ -109,13 +107,24 @@ const FeedMusics: React.FC = () => {
           </S.FooterDl>
         </S.FooterAudioList>
         <S.Right>
-          <VolumeSlider volume={volume} handleChange={handleChange} />
+          <S.RightItem>
+            {
+              isRepeat
+                ? <RepeatIcon fontSize="large" style={{ color: theme.ELECTRON_BLUE }} onClick={toggleRepeat} />
+                : <RepeatIcon fontSize="large" style={{ color: 'black' }} onClick={toggleRepeat} />
+            }
+          </S.RightItem>
+          <S.RightItem>
+            <VolumeSlider volume={volume} handleChange={handleChange} />
+          </S.RightItem>
         </S.Right>
       </S.PlayerFooter>
       <audio
         id="myaudio"
         src="https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3"
-      />
+      >
+        <track kind="captions" src="" srcLang="en" label="English" />
+      </audio>
     </S.Container>
 
 

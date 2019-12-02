@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import RepeatIcon from '@material-ui/icons/Repeat';
 import { theme } from '../../style/theme';
 import Button from '../../basics/Button';
 import H3 from '../../basics/H3';
@@ -87,7 +88,12 @@ export const TogglePlayButton = styled(Button)`
 `;
 
 export const Right = styled.div`
+    display: flex;
     margin-left: auto;
+`;
+
+export const RightItem = styled.div`
+    margin-left: 1rem;
 `;
 
 export const PlayerTitle = styled.div`
@@ -136,4 +142,8 @@ export const FooterDt = styled.dt`
 export const FooterDd = styled.dd`
     display: inline-block;
     margin-inline-start: 1rem;
+`;
+
+export const Repeat = styled(RepeatIcon)`
+    
 `;
