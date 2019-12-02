@@ -8,7 +8,7 @@ export const CommentChecker = {
   minLen: 5,
   maxLen: 100,
   msg: () => `댓글은 ${CommentChecker.minLen}자 이상, ${CommentChecker.maxLen}자 이하여야 합니다.`,
-  check: (str: string) => (str.length >= CommentChecker.minLen),
+  check: (str: string) => (str.length >= CommentChecker.minLen && str.length <= CommentChecker.maxLen),
 };
 
 export const IdChecker = {
