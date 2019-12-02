@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import dotenv from 'dotenv';
 import styled from 'styled-components';
 import Join from '../components/Join';
 import { API_SERVER } from '../utils/constants';
 
-dotenv.config();
-
-const Screen = styled.div`
+const S = {
+  JoinContainer: styled.div`
   width:100%;
-  height:100%; 
+  height:100%;
   display: flex;
   justify-items: center;
   justify-content: center;
-`;
+`,
+};
 
 const Content:React.FC = () => {
   const [email, setEmail] = useState('');
@@ -59,7 +58,7 @@ const Content:React.FC = () => {
     setEmail(e.target.value);
   };
   return (
-    <Screen>
+    <S.JoinContainer>
       <Join
         onJoin={onJoin}
         onChangeemail={onChangeemail}
@@ -72,7 +71,7 @@ const Content:React.FC = () => {
         name={name}
         joinSuccess={joinSuccess}
       />
-    </Screen>
+    </S.JoinContainer>
   );
 };
 
