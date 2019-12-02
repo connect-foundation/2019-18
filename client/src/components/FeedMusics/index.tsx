@@ -51,6 +51,9 @@ const FeedMusics: React.FC = () => {
   };
 
   const test = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const el = e.target as HTMLElement;
+    if (el.tagName !== 'DIV') return;
+
     const { clientX } = e;
     const { offsetWidth, offsetLeft } = e.currentTarget;
     // console.log(((clientX - offsetLeft) / offsetWidth) * 100);
@@ -130,6 +133,7 @@ const FeedMusics: React.FC = () => {
       <audio
         id="myaudio"
         src="https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3"
+        autoPlay
       >
         <track kind="captions" src="" srcLang="en" label="English" />
       </audio>
