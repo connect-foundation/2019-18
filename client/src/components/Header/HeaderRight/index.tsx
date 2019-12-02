@@ -18,14 +18,12 @@ const HeaderRightContainer = styled.div`
 `;
 
 const LoginButton = styled(Button)`
-    margin: auto;
-    margin-left: 1rem;
     font-size: 0.8rem;
 `;
 const LoginLink = styled(Link)`
-    width: 100%; 
-    height: 100%;
     text-decoration : none;
+    margin: auto;
+    margin-left: 1rem;
 `;
 
 const AlarmImg = styled(Img)`
@@ -50,7 +48,7 @@ const HeaderRight: React.FC = () => {
       {!LoginUser.isLogin
         ? (
           <LoginContainer>
-            <LoginButton><LoginLink to="/login">로그인</LoginLink></LoginButton>
+            <LoginLink to='/login'><LoginButton>로그인</LoginButton></LoginLink>
             <ProfileImg src={DEFAULT_PROFILE_THUMBNAIL} />
           </LoginContainer>
         )
