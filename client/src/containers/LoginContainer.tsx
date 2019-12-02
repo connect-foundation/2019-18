@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import dotenv from 'dotenv';
 import styled from 'styled-components';
 import Login from '../components/Login';
 import { API_SERVER } from '../utils/constants';
 import { RootState } from '../modules';
 import { login } from '../modules/login';
 
-dotenv.config();
 
 const Screen = styled.div`
   width:100%;
