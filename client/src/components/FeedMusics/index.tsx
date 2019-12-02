@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
+import Slider from '@material-ui/core/Slider';
 import * as S from './styles';
 import VolumeSlider from '../VolumeSlider';
 
@@ -15,29 +16,34 @@ const getLength = (duration:number) => {
   return `${m}:${s}`;
 };
 
-const getProgressPercentage = (duration:number, curTime:number):string => {
-  console.log(`${((Math.floor(curTime * 100) / 100) / (Math.floor(duration * 100) / 100)) * 100}%`);
-  return `${((Math.floor(curTime * 100) / 100) / (Math.floor(duration * 100) / 100)) * 100}%`;
-};
-
+const getProgressPercentage = (duration:number, curTime:number):string =>
+  // console.log(`${((Math.floor(curTime * 100) / 100) / (Math.floor(duration * 100) / 100)) * 100}%`);
+  `${((Math.floor(curTime * 100) / 100) / (Math.floor(duration * 100) / 100)) * 100}%`;
 const FeedMusics: React.FC = () => {
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [curTime, setCurTime] = useState(0);
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(30);
+  // const [value, setValue] = React.useState<number>(30);
+  let audio = document.getElementById('myaudio') as HTMLAudioElement;
+
+  const handleChange = (event: any, newValue: number | number[]) => {
+    setVolume(newValue as number);
+    audio.volume = newValue as number / 100;
+  };
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(!isPlaying);
+    } else {
+      audio.play();
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   useEffect(() => {
-    const audio = document.getElementById('myaudio') as HTMLAudioElement;
-    // const TogglePlay = () => {
-    //   console.log(isPlaying);
-    //   if (isPlaying === true) {
-    //     audio.pause();
-    //     setIsPlaying(false);
-    //   } else {
-    //     audio.play();
-    //     setIsPlaying(true);
-    //   }
-    // };
+    audio = document.getElementById('myaudio') as HTMLAudioElement;
 
     const play = () => {
       audio.play();
@@ -49,23 +55,13 @@ const FeedMusics: React.FC = () => {
       setIsPlaying(false);
     };
 
-
-    setVolume(audio.volume);
     audio.addEventListener('loadeddata', () => setDuration(audio.duration));
     audio.addEventListener('timeupdate', () => setCurTime(audio.currentTime));
-    audio.addEventListener('canplaythrough', () => {
-      document.getElementById('play-button')!.addEventListener('click', play);
-      document.getElementById('pause-button')!.addEventListener('click', pause);
-    });
-    // document.getElementById('toggle-play-button')!.addEventListener('click', TogglePlay);
-    audio.volume = volume;
+    audio.addEventListener('canplaythrough', () => {});
+    audio.volume = volume / 100;
     return () => {
       audio.removeEventListener('loadeddata', () => setDuration(audio.duration));
       audio.removeEventListener('timeupdate', () => setCurTime(audio.currentTime));
-      audio.removeEventListener('canplaythrough', () => {
-        document.getElementById('play-button')!.removeEventListener('click', play);
-        document.getElementById('pause-button')!.removeEventListener('click', pause);
-      });
     };
   }, []);
 
@@ -79,12 +75,11 @@ const FeedMusics: React.FC = () => {
       <S.PlayingArea>
         <S.Player>
           <S.SeekBar duration={duration} curTime={curTime} />
-          <S.TogglePlayButton id="play-button">
-            <PlayArrowIcon color="action" fontSize="large" />
-          </S.TogglePlayButton>
 
-          <S.TogglePlayButton id="pause-button">
-            <PauseIcon color="action" fontSize="large" />
+          <S.TogglePlayButton onClick={togglePlay}>
+            {isPlaying
+              ? <PauseIcon color="action" fontSize="large" />
+              : <PlayArrowIcon color="action" fontSize="large" />}
           </S.TogglePlayButton>
 
           <S.PlayerTitle>
@@ -114,16 +109,13 @@ const FeedMusics: React.FC = () => {
           </S.FooterDl>
         </S.FooterAudioList>
         <S.Right>
-          <VolumeSlider setVolume={setVolume} />
+          <VolumeSlider volume={volume} handleChange={handleChange} />
         </S.Right>
       </S.PlayerFooter>
       <audio
         id="myaudio"
-        // controls
         src="https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3"
       />
-
-
     </S.Container>
 
 
