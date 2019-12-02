@@ -14,15 +14,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     background: ${theme.background};
-
-    @font-face {
-      font-family: 'Anton Regular';
-      src: url('./style/fonts/Anton-Regular.woff') format('woff'); /* Modern Browsers */
-      src: url('./style/fonts/Anton-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
-      font-style: normal; 
-      font-weight: 400;
-    }
-    font-family: "Anton Regular", sans-serif;
   }
 `;
 
