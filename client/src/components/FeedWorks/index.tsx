@@ -4,20 +4,8 @@ import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';
 import { getShortId } from '../../utils';
+import IImage from './types';
 
-interface IImage{
-  _id: string;
-  ownerId: string;
-  creator:{
-    _id: string,
-    name: string,
-    email: string,
-  };
-  url: string;
-  title:string;
-  numOfComments:string;
-  views: string;
-}
 const FeedWorks:React.FC = () => {
   const [{
     data, isLoading, isError,

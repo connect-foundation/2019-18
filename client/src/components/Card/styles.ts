@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import Img from '../../basics/Img';
 import { theme } from '../../style/theme';
+import Smile from '../../assets/smile.png';
+import View from '../../assets/view.png';
+import Comment from '../../assets/comment.png';
 
 export const Container = styled.div`
     display: flex;
@@ -44,3 +47,9 @@ export const CardFooter = styled.div`
     margin: auto;
     padding: 0 1rem;
 `;
+
+export {
+  Smile,
+  View,
+  Comment,
+};

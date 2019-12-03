@@ -4,10 +4,9 @@ import H3 from '../../basics/H3';
 import TextWithImg from '../../commons/TextWithImg';
 import * as S from './styles';
 
-import Smile from '../../assets/smile.png';
-import View from '../../assets/view.png';
-import Comment from '../../assets/comment.png';
 import StyledLink from '../../basics/StyledLink';
+
+import CardFooter from './CardFooter';
 
 interface CardProp{
   _id: string,
@@ -41,11 +40,11 @@ const Card: React.FC<CardProp> = ({
         text={creator.name}
       />
     </S.CardBody>
-    <S.CardFooter>
-      <TextWithImg src={Smile} small text="20" />
-      <TextWithImg src={Comment} small text={numOfComments} />
-      <TextWithImg src={View} small text={views} />
-    </S.CardFooter>
+    <CardFooter
+      smiles="20"
+      comments={numOfComments}
+      views={views}
+    />
   </S.Container>
 );
 
