@@ -48,6 +48,7 @@ export const SeekBar = styled.div.attrs((props:SeekBarProp) => ({
 export const TogglePlayButton = styled(Button)`
     width: fit-content;
     height: fit-content;
+    margin: 1rem;
     background:none;
 `;
 
@@ -74,12 +75,14 @@ export const AudioLength = styled(Span)`
 
 export const Controller = styled.div`
     display: flex;
+    align-items: center;
     position: absolute;
     right: 0;
     bottom: 0;
 `;
 
 export const ControllerItem = styled.div`
+    display: flex;
     margin-left: 1rem;
 `;
 

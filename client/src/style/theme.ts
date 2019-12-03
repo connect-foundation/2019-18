@@ -35,6 +35,12 @@ export const theme = {
 
   PALE_CRA_PURPLE: '#525d9c',
 
+  WEIGHT: {
+    NORMAL: 400,
+    MEDIUM: 600,
+    STRONG: 800,
+  },
+
   // box-shadow
   BOX_SHADOW: 'rgba(0, 0, 0, 0.2) 0px 5px 13px',
 };

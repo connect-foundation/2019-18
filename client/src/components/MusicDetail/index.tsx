@@ -10,7 +10,13 @@ const MusicDetail: React.FC<MusicDetailProp> = ({
   <S.Container>
     <S.Header>
       <S.HeaderTitle>{title}</S.HeaderTitle>
-      <h4>{`by ${author} | ${date} | 조회 ${views}`}</h4>
+      <S.HeaderMeta>
+        <span>by</span>
+        &nbsp;
+        <S.Strong>{author}</S.Strong>
+        &nbsp;
+        <span>{`| ${date} | 조회 ${views}`}</span>
+      </S.HeaderMeta>
     </S.Header>
 
     <MusicPlayer

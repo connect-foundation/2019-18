@@ -13,13 +13,12 @@ export const Container = styled.div`
     width: 60%;
     background: none;
     margin: auto;
+    margin-top: 3rem;
 `;
 
 export const Header = styled.div`
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
-
 `;
 
 export const HeaderTitle = styled(H3)`
@@ -28,11 +27,23 @@ export const HeaderTitle = styled(H3)`
 `;
 
 
+export const Strong = styled(Span)`
+    font-weight: ${theme.WEIGHT.STRONG};
+    color: black;
+`;
+
+export const HeaderMeta = styled(Span)`
+    font-size: 1rem;
+    font-weight: ${theme.WEIGHT.MEDIUM};
+    margin: 1rem 0;
+    color: ${theme.AMERICAN_RIVER};
+`;
+
+
 export const PlayerFooter = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    border: 1px ${theme.CRA_PURPLE} solid;
     align-items: center;
 `;
 
@@ -45,7 +56,7 @@ export const FooterDl = styled.dl`
 
 export const FooterDt = styled.dt`
     display: inline-block;
-    color: #A1A1A1;
+    color: ${theme.AMERICAN_RIVER};
 `;
 
 export const FooterDd = styled.dd`

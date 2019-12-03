@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import VolumeUp from '@material-ui/icons/VolumeUp';
 import * as S from './styles';
 import { theme } from '../../style/theme';
 import VolumeSlider from '../VolumeSlider';
@@ -17,7 +18,7 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
 
   const getLength = (time:number) => {
     let m:number | string = Math.floor(time / 60);
-    let s:number | string = Math.round(time % 60);
+    let s:number | string = Math.floor(time % 60);
     if (m < 10) m = `0${m}` as string;
     if (s < 10) s = `0${s}` as string;
 
@@ -77,7 +78,6 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
     <S.PlayingArea>
       <S.Player id="player" onMouseDown={musicSeekHandler}>
         <S.SeekBar duration={duration} curTime={curTime} />
-
         <S.TogglePlayButton onClick={togglePlay}>
           {isPlaying
             ? <S.PauseIcon fontSize="large" style={{ color: 'black' }} />
@@ -97,14 +97,17 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
         </S.PlayerTitle>
         <S.Controller>
           <S.ControllerItem>
-            {
-              isRepeat
-                ? <S.RepeatIcon fontSize="large" style={{ color: theme.ELECTRON_BLUE }} onClick={toggleRepeact} />
-                : <S.RepeatIcon fontSize="large" style={{ color: 'black' }} onClick={toggleRepeact} />
-            }
+            <VolumeSlider volume={volume} handleChange={handleChange} />
           </S.ControllerItem>
           <S.ControllerItem>
-            <VolumeSlider volume={volume} handleChange={handleChange} />
+            <VolumeUp fontSize="small" />
+          </S.ControllerItem>
+          <S.ControllerItem>
+            {
+              isRepeat
+                ? <S.RepeatIcon fontSize="small" style={{ color: theme.CRA_PURPLE }} onClick={toggleRepeact} />
+                : <S.RepeatIcon fontSize="small" style={{ color: 'black' }} onClick={toggleRepeact} />
+            }
           </S.ControllerItem>
         </S.Controller>
       </S.Player>

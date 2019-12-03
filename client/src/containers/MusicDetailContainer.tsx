@@ -3,14 +3,14 @@ import { RouteComponentProps } from 'react-router-dom';
 import MusicDetail from '../components/MusicDetail';
 
 const md = {
-  title: 'wpahrdlek',
-  author: 'authordlek',
+  title: 'face to face',
+  author: 'Ruel',
   date: '2019.12.03',
-  views: 123,
-  plays: 1234,
-  genres: ['g', 'e', 'n', 'r', 'e', 's'],
-  moods: ['m', 'o', 'o', 's'],
-  instruments: ['i', 'n', 's', 't'],
+  views: 193,
+  plays: 1948,
+  genres: ['록', '실험', '월드뮤직', '힙합', '랩'],
+  moods: ['기쁨', '행복', 'o', 's'],
+  instruments: ['보컬', '키보드', '기타', '드럼'],
   musicUrl: 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3',
   coverUrl: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/freetime.jpg',
 };
