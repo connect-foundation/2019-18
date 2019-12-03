@@ -1,14 +1,14 @@
 import React from 'react';
 import * as S from './styles';
 import IMusic from './types';
-import Card from '../../components/Card';
+import MusicCard from '../Card/MusicCard';
 import { getShortId } from '../../utils';
 
 const FeedMusics: React.FC = () => {
-  const dd:IMusic = {
+  const dd:IMusic[] = [{
     _id: '123',
     ownerId: '123',
-    url: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/freetime.jpg',
+    url: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/21751720_1497560586995026_8895703824676526156_n.jpg',
     creator: {
       _id: '123',
       name: '123',
@@ -17,19 +17,65 @@ const FeedMusics: React.FC = () => {
     title: 'asd',
     numOfComments: '123',
     views: '123',
-  };
+  },
+  {
+    _id: '123',
+    ownerId: '123',
+    url: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/21751720_1497560586995026_8895703824676526156_n.jpg',
+    creator: {
+      _id: '123',
+      name: '123',
+      email: '123',
+    },
+    title: 'asd',
+    numOfComments: '123',
+    views: '123',
+  },
+  {
+    _id: '123',
+    ownerId: '123',
+    url: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/21751720_1497560586995026_8895703824676526156_n.jpg',
+    creator: {
+      _id: '123',
+      name: '123',
+      email: '123',
+    },
+    title: 'asd',
+    numOfComments: '123',
+    views: '123',
+  },
+  {
+    _id: '123',
+    ownerId: '123',
+    url: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/21751720_1497560586995026_8895703824676526156_n.jpg',
+    creator: {
+      _id: '123',
+      name: '123',
+      email: '123',
+    },
+    title: 'asd',
+    numOfComments: '123',
+    views: '123',
+  }];
   return (
     <S.Container>
-      <Card
-        _id={dd._id}
-        ownerId={dd.ownerId}
-        imgUrl={dd.url}
-        creator={dd.creator}
-        key={getShortId()}
-        title={dd.title}
-        numOfComments={dd.numOfComments}
-        views={dd.views}
-      />
+      {
+        dd.map(({
+          _id, ownerId, url, creator, title, numOfComments, views,
+        }) => (
+          <MusicCard
+            _id={_id}
+            ownerId={ownerId}
+            imgUrl={url}
+            creator={creator}
+            key={getShortId()}
+            title={title}
+            numOfComments={numOfComments}
+            views={views}
+          />
+        ))
+      }
+
     </S.Container>
   );
 };

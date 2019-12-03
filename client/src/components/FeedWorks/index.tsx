@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Card from '../Card';
+import WorksCard from '../Card/WorksCard';
 import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';
@@ -26,7 +26,7 @@ const FeedWorks:React.FC = () => {
               data.map(({
                 _id, ownerId, url, creator, title, numOfComments, views,
               }) => (
-                <Card
+                <WorksCard
                   _id={_id}
                   ownerId={ownerId}
                   imgUrl={url}

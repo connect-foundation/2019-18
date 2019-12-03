@@ -1,28 +1,14 @@
 import React from 'react';
 
-import H3 from '../../basics/H3';
-import TextWithImg from '../../commons/TextWithImg';
+import TextWithImg from '../../../commons/TextWithImg';
 import * as S from './styles';
+import H3 from '../../../basics/H3';
 
-import StyledLink from '../../basics/StyledLink';
+import StyledLink from '../../../basics/StyledLink';
+import CardFooter from '../CardFooter';
+import WorksCardProp from './types';
 
-import CardFooter from './CardFooter';
-
-interface CardProp{
-  _id: string,
-  ownerId: string,
-  imgUrl: string;
-  title: string;
-  numOfComments: string;
-  views: string;
-  creator: {
-    _id: string,
-    email: string,
-    name: string,
-  };
-}
-
-const Card: React.FC<CardProp> = ({
+const WorksCard: React.FC<WorksCardProp> = ({
   _id, ownerId, imgUrl, creator, title, numOfComments, views,
 }) => (
   <S.Container>
@@ -48,4 +34,4 @@ const Card: React.FC<CardProp> = ({
   </S.Container>
 );
 
-export default Card;
+export default WorksCard;

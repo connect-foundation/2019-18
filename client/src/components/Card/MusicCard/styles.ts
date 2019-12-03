@@ -1,15 +1,12 @@
 import styled from 'styled-components';
-import Img from '../../basics/Img';
-import { theme } from '../../style/theme';
-import Smile from '../../assets/smile.png';
-import View from '../../assets/view.png';
-import Comment from '../../assets/comment.png';
+import Img from '../../../basics/Img';
+import { theme } from '../../../style/theme';
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 15rem;
-    height: 20rem;
+    width: 20rem;
+    height: fit-content;
     margin: 1rem;
     border-radius: 10px;
     border: 0px solid black;
@@ -17,11 +14,13 @@ export const Container = styled.div`
 `;
 
 export const CardImgContainer = styled.div`
+    display: flex;
     width: 100%;
-    height: 10rem;
+    height: 13rem;
 `;
 
 export const CardImg = styled(Img)`
+    display: flex;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -31,6 +30,7 @@ export const CardImg = styled(Img)`
 `;
 
 export const CardHeader = styled.div`
+    display: flex;
     padding: 0 1rem;
 `;
 
@@ -39,17 +39,3 @@ export const CardBody = styled.div`
     padding: 0 1rem;
     border-bottom: 1px ${theme.BORDER_GRAY} solid;
 `;
-
-export const CardFooter = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin: auto;
-    padding: 0 1rem;
-`;
-
-export {
-  Smile,
-  View,
-  Comment,
-};
