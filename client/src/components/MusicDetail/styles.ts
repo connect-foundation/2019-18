@@ -44,7 +44,7 @@ export const ControlButton = styled(Button)`
 export const PlayerFooter = styled.div`
     display: flex;
     width: 100%;
-    height: 5rem;
+    height: 100%;
     border: 1px ${theme.CRA_PURPLE} solid;
     align-items: center;
 `;
