@@ -43,3 +43,12 @@ export const ccloptions = [
   { value: 'CCBY-NC-SA', label: 'CC BY-NC-SA (저작자표시-비영리-동일조건변경허락)' },
   { value: 'CCBY-NC-ND', label: 'CC BY-NC-ND (저작자표시-비영리-변경금지)' },
 ];
+
+export const LOGIN = {
+  ID_NOT_VALID: '아이디를 이메일 형식으로 해주세요.',
+};
+
+export const JOIN = {
+  ID_NOT_VALID: '아이디를 이메일 형식으로 해주세요.',
+  PASSWORD_DO_NOT_MATCH: '비밀번호가 동일하지 않습니다',
+};

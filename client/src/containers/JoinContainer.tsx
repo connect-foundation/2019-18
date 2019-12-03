@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Join from '../components/Join';
-import { API_SERVER } from '../utils/constants';
+import { API_SERVER, JOIN } from '../utils/constants';
+
 
 const S = {
   JoinContainer: styled.div`
@@ -11,6 +12,12 @@ const S = {
   justify-items: center;
   justify-content: center;
 `,
+};
+const isEmailForm = (input:string) => {
+  const eamilRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+  // chromium에서 돌아가는 코드에서 빼온거라고 함
+  return eamilRegExp.test(input);
 };
 
 const Content:React.FC = () => {
@@ -22,7 +29,12 @@ const Content:React.FC = () => {
   const onJoin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (pwd !== pwdCheck) {
       return setJoinSuccess({
-        result: false, message: '비밀번호 확인과 비밀번호가 같지 않습니다.',
+        result: false, message: JOIN.PASSWORD_DO_NOT_MATCH,
+      });
+    }
+    if (!isEmailForm(email)) {
+      return setJoinSuccess({
+        result: false, message: JOIN.ID_NOT_VALID,
       });
     }
 
