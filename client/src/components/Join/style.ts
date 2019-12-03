@@ -10,11 +10,9 @@ export const Screen = styled.div`
   justify-items: center;
   justify-content: center;
 `;
-export const CrafolioLogoContainer = styled.div`
-  display: flex;
+export const CrafolioLogoContainer = styled(StyledLink)`
   height: 15rem;
-  width: 100%;
-  justify-content: center;
+  margin: 0 auto;
 `;
 export const CrafolioLogo = styled.img`
   background-image: url(${(props) => props.src})

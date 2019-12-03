@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import * as S from './style';
 
@@ -31,7 +31,7 @@ const Join:React.FC<JoinProp> = ({
     ? (<Redirect to="/login" />)
     : (
       <S.Join>
-        <S.CrafolioLogoContainer>
+        <S.CrafolioLogoContainer to="/">
           <S.CrafolioLogo src={CrafolioIcon} />
         </S.CrafolioLogoContainer>
         <LoginInput onChange={onChangeemail} value={email} placeholder="이메일을 입력하세요" />

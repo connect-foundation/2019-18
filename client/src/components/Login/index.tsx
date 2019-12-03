@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import * as S from './style';
 
@@ -26,7 +26,7 @@ const Login:React.FC<LoginProp> = ({
     ? (<Redirect to="/" />)
     : (
       <S.LoginBox>
-        <S.CrafolioLogoContainer>
+        <S.CrafolioLogoContainer to="/">
           <S.CrafolioLogo src={CrafolioIcon} />
         </S.CrafolioLogoContainer>
         <LoginInput onChange={onChangeid} value={id} placeholder="이메일을 입력하세요" />
