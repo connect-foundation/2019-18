@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Img from '../../../basics/Img';
 import { theme } from '../../../style/theme';
+import H3 from '../../../basics/H3';
 
 export const Container = styled.div`
     display: flex;
@@ -30,8 +31,12 @@ export const CardImg = styled(Img)`
 `;
 
 export const CardHeader = styled.div`
-    display: flex;
     padding: 0 1rem;
+    margin-top: 1rem;
+`;
+
+export const Title = styled(H3)`
+    margin: 0;
 `;
 
 export const CardBody = styled.div`

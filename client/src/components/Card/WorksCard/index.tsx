@@ -2,7 +2,6 @@ import React from 'react';
 
 import TextWithImg from '../../../commons/TextWithImg';
 import * as S from './styles';
-import H3 from '../../../basics/H3';
 
 import StyledLink from '../../../basics/StyledLink';
 import CardFooter from '../CardFooter';
@@ -17,7 +16,7 @@ const WorksCard: React.FC<WorksCardProp> = ({
     </S.CardImgContainer>
     <S.CardHeader>
       <StyledLink to={`/home/detail-image/${ownerId}`}>
-        <H3>{title}</H3>
+        <S.Title>{title}</S.Title>
       </StyledLink>
     </S.CardHeader>
     <S.CardBody id={creator._id}>

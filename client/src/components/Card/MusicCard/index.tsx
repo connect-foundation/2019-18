@@ -3,7 +3,6 @@ import * as S from './styles';
 import StyledLink from '../../../basics/StyledLink';
 import { TextWithImg } from '../CardFooter/styles';
 import CardFooter from '../CardFooter';
-import H3 from '../../../basics/H3';
 import MusicCardProp from './types';
 
 const MusicCard: React.FC<MusicCardProp> = ({
@@ -16,7 +15,7 @@ const MusicCard: React.FC<MusicCardProp> = ({
 
     <S.CardHeader>
       <StyledLink to={`/home/detail-music/${ownerId}`}>
-        <H3>{title}</H3>
+        <S.Title>{title}</S.Title>
       </StyledLink>
     </S.CardHeader>
 
