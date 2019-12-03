@@ -6,4 +6,5 @@ export const FEED = {
 
 export const LOGIN = {
   ID_NOT_MATCH: '존재하지 않는 아이디입니다.',
+  LOGIN_FAILURE: '아이디 또는 비밀번호를 확인해주세요',
 };

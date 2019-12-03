@@ -70,8 +70,6 @@ const Content:React.FC = () => {
   const onChangeemail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-  console.log('render');
-  console.log(joinSuccess);
   return (
     <S.JoinContainer>
       <Join
