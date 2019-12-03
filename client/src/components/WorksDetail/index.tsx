@@ -11,7 +11,13 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
     : (
       <S.Container>
         <S.Title>{data.title}</S.Title>
-        <S.Creator>{`by ${data.owner.name} | 2019.11.26 | 조회${data.views}`}</S.Creator>
+        <S.HeaderMeta>
+          <span>by</span>
+          &nbsp;
+          <S.Strong>{data.owner.name}</S.Strong>
+          &nbsp;
+          <span>{`| 2019.11.26 | 조회 ${data.views}`}</span>
+        </S.HeaderMeta>
 
         {data.content.map((content, idx) => {
           if (content.type === 'description') {
