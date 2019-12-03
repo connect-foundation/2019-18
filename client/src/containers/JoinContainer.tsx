@@ -51,10 +51,11 @@ const Content:React.FC = () => {
     });
 
     const responseJson = await response.json();
+
     if (responseJson.success) {
       return setJoinSuccess({ result: true, message: '' });
     }
-    return setJoinSuccess({ result: false, message: responseJson.message });
+    return setJoinSuccess({ result: false, message: responseJson.data.message });
   };
 
   const onChangename = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +70,8 @@ const Content:React.FC = () => {
   const onChangeemail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+  console.log('render');
+  console.log(joinSuccess);
   return (
     <S.JoinContainer>
       <Join
