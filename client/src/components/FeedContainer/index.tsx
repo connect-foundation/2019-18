@@ -11,10 +11,12 @@ import FeedNavigator from '../FeedNavigator';
 import NotFound from '../../components/NotFound';
 
 import WorkDetailContainer from '../../containers/WorkDetailContainer';
+import MusicDetailContainer from '../../containers/MusicDetailContainer';
 
 const Content = ({ match }: RouteComponentProps) => (
   <Switch>
     <Route path={`${match.path}/detail-image/:id`} component={WorkDetailContainer} />
+    <Route path={`${match.path}/detail-music/:id`} component={MusicDetailContainer} />
     <Route path={`${match.path}`}>
       <Route path={`${match.path}`} component={FeedNavigator} />
       <Switch>
