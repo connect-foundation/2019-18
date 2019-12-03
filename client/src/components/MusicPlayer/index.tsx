@@ -2,13 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as S from './styles';
 import { theme } from '../../style/theme';
 import VolumeSlider from '../VolumeSlider';
-
-interface MusicPlayerProp {
-    title: string;
-    author: string;
-    coverUrl: string;
-    musicUrl: string;
-}
+import MusicPlayerProp from './types';
 
 const MusicPlayer:React.FC<MusicPlayerProp> = ({
   title, author, musicUrl, coverUrl,

@@ -2,19 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import * as S from './styles';
 import MusicPlayer from '../MusicPlayer';
-
-interface MusicDetailProp {
-    title: string;
-    author: string;
-    date: string;
-    views: number;
-    plays: number;
-    genres: string[];
-    moods: string[];
-    instruments: string[];
-    coverUrl: string;
-    musicUrl: string;
-  }
+import MusicDetailProp from './types';
 
 const MusicDetail: React.FC<MusicDetailProp> = ({
   title, author, date, views, plays, genres, moods, instruments, coverUrl, musicUrl,

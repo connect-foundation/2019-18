@@ -58,18 +58,6 @@ export const PlayerTitle = styled.div`
     user-select: none;
 `;
 
-export const Controller = styled.div`
-    display: flex;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-`;
-
-
-export const ControllerItem = styled.div`
-    margin-left: 1rem;
-`;
-
 export const Title = styled(H3)`
     margin: 0;
     margin-bottom: 1rem;
@@ -82,6 +70,17 @@ export const Author = styled(H4)`
 export const AudioLength = styled(Span)`
     font-size: 0.8rem;
     margin: 0 1rem;
+`;
+
+export const Controller = styled.div`
+    display: flex;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+`;
+
+export const ControllerItem = styled.div`
+    margin-left: 1rem;
 `;
 
 interface MusicCoverProp{
