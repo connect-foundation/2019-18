@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Join from '../components/Join';
 import { API_SERVER, JOIN } from '../utils/constants';
+import PopupWarn from '../commons/Popup_warn';
 
 
 const S = {
@@ -25,17 +26,18 @@ const Content:React.FC = () => {
   const [pwd, setPwd] = useState('');
   const [pwdCheck, setPwdCheck] = useState('');
   const [name, setName] = useState('');
-  const [joinSuccess, setJoinSuccess] = useState({ result: false, message: '' });
+  const [joinSuccess, setJoinSuccess] = useState(false);
+  const [showPopupWARN, setShowPopupWARN] = useState(false);
+  const [popupTEXT, setPopupTEXT] = useState('');
+
   const onJoin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (pwd !== pwdCheck) {
-      return setJoinSuccess({
-        result: false, message: JOIN.PASSWORD_DO_NOT_MATCH,
-      });
+      setPopupTEXT(JOIN.PASSWORD_DO_NOT_MATCH);
+      return setShowPopupWARN(true);
     }
     if (!isEmailForm(email)) {
-      return setJoinSuccess({
-        result: false, message: JOIN.ID_NOT_VALID,
-      });
+      setPopupTEXT(JOIN.ID_NOT_VALID);
+      return setShowPopupWARN(true);
     }
 
     const body = {
@@ -53,9 +55,12 @@ const Content:React.FC = () => {
     const responseJson = await response.json();
 
     if (responseJson.success) {
-      return setJoinSuccess({ result: true, message: '' });
+      setShowPopupWARN(false);
+      return setJoinSuccess(true);
     }
-    return setJoinSuccess({ result: false, message: responseJson.data.message });
+
+    setPopupTEXT(responseJson.data.message);
+    return setShowPopupWARN(true);
   };
 
   const onChangename = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +74,9 @@ const Content:React.FC = () => {
   };
   const onChangeemail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+  };
+  const togglePopup = () => {
+    setShowPopupWARN(false);
   };
   return (
     <S.JoinContainer>
@@ -84,6 +92,7 @@ const Content:React.FC = () => {
         name={name}
         joinSuccess={joinSuccess}
       />
+      {showPopupWARN && <PopupWarn text={popupTEXT} closePopup={togglePopup} />}
     </S.JoinContainer>
   );
 };

@@ -19,37 +19,26 @@ interface JoinProp{
     name: string;
     email: string;
     pwdcheck: string;
-    joinSuccess: {
-      result : boolean;
-      message : string;
-    }
+    joinSuccess: boolean
 
 }
 
 
 const Join:React.FC<JoinProp> = ({
   onJoin, onChangename, onChangepwdcheck, onChangepwd, onChangeemail, name, pwd, email, pwdcheck, joinSuccess,
-}) => {
-  useEffect(() => {
-    if (!joinSuccess.result && joinSuccess.message) {
-      alert(joinSuccess.message);
-    }
-  }, [joinSuccess]);
-
-  return (
-    (joinSuccess.result)
-      ? (<Redirect to="/login" />)
-      : (
-        <S.Join>
-          <S.CrafolioLogoContainer>
-            <S.CrafolioLogo src={CrafolioIcon} />
-          </S.CrafolioLogoContainer>
-          <LoginInput onChange={onChangeemail} value={email} placeholder="이메일을 입력하세요" />
-          <LoginInput onChange={onChangename} value={name} placeholder="이름을 입력하세요" />
-          <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
-          <PasswordInput onChange={onChangepwdcheck} value={pwdcheck} placeholder="비밀번호를 다시 입력하세요" />
-          <SubmitButton onClick={onJoin}>제출</SubmitButton>
-        </S.Join>
-      ));
-};
+}) => (
+  (joinSuccess)
+    ? (<Redirect to="/login" />)
+    : (
+      <S.Join>
+        <S.CrafolioLogoContainer>
+          <S.CrafolioLogo src={CrafolioIcon} />
+        </S.CrafolioLogoContainer>
+        <LoginInput onChange={onChangeemail} value={email} placeholder="이메일을 입력하세요" />
+        <LoginInput onChange={onChangename} value={name} placeholder="이름을 입력하세요" />
+        <PasswordInput onChange={onChangepwd} value={pwd} placeholder="비밀번호를 입력하세요" />
+        <PasswordInput onChange={onChangepwdcheck} value={pwdcheck} placeholder="비밀번호를 다시 입력하세요" />
+        <SubmitButton onClick={onJoin}>제출</SubmitButton>
+      </S.Join>
+    ));
 export default Join;
