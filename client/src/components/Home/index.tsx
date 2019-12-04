@@ -11,7 +11,7 @@ import NotFound from '../../components/NotFound/index';
 const Home:React.FC = () => (
   <Router>
     <Switch>
-      <Redirect exact from="/" to="/home" />
+      <Redirect exact from="/" to="/home/works" />
       <Route path="/home">
         <Header />
         <Route path="/home" component={FeedContainer} />

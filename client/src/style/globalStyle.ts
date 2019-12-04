@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     background: ${theme.background};
-    font-family: "Helvetica Neue",Helvetica,Arial,"나눔고딕",NanumGothic,sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,"나눔고딕",NanumGothic,sans-serif !important;
   }
   div#root{
     height: 100%;
