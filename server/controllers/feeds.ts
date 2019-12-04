@@ -15,7 +15,6 @@ const getImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const images = await getImageFeeds(0, 10);
     const filteredFeed = images.map((image: any) => {
-      console.log(image);
       const newFeed = {
         id: image.id,
         url: `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`,
@@ -105,9 +104,37 @@ const addComment = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getWallpapersMore = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { num } = req.params;
+    const images = await get10Wallpapers(+num, 10);
+    const filteredFeed = images.map((image: any) => {
+      console.log(image);
+      const newFeed = {
+        id: image.id,
+        url: `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`,
+        ownerId: image.owner.id,
+        numOfComments: image.owner.comments.length,
+        views: image.owner.views,
+        title: image.owner.title,
+        creator: image.creator,
+      };
+
+      return newFeed;
+    });
+    console.log(filteredFeed);
+    return response(res, filteredFeed);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+};
+
+
 export {
   getImages,
   getWallpapers,
   getWorkImage,
   addComment,
+  getWallpapersMore,
 };
