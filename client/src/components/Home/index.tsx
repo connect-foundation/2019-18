@@ -7,14 +7,12 @@ import LoginContainer from '../../containers/LoginContainer';
 import Header from '../Header';
 import JoinContainer from '../../containers/JoinContainer';
 import NotFound from '../../components/NotFound/index';
-import HeaderTitle from '../../components/Header/HeaderTitle';
 
 const Home:React.FC = () => (
   <Router>
     <Switch>
       <Redirect exact from="/" to="/home/works" />
       <Route path="/home">
-        <HeaderTitle />
         <Header />
         <Route path="/home" component={FeedContainer} />
         {/* <FeedContainer /> */}

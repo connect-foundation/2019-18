@@ -13,14 +13,13 @@ export const HeaderContainer = styled.div`
 `;
 
 export const HeaderTitle = styled.div`
-  position: absolute;
-  top: 0;
-  width: 10rem;
-  display: flex;
-  height: 100%;
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  font-weight: 600;
+    position: absolute;
+    margin: auto;
+    width: 10rem;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 600;
 `;

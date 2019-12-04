@@ -3,25 +3,13 @@ import { NavLink } from 'react-router-dom';
 import { theme } from '../../style/theme';
 import Button from '../../basics/Button';
 
-const rotate = keyframes`
-  from {
-    transition: font-size: 1rem;
-  }
-
-  to {
-    transition: font-size: 2rem;
-  }
-`;
-
 export const Container = styled.div`
     display: flex;
     height: 4rem;
     justify-content: space-around;
-    /* border-top: ${theme.BORDER_GRAY} 1px solid;
-    border-bottom: ${theme.BORDER_GRAY} 1px solid; */
     position: sticky;
     top: 0;
-    background: none;
+    background: ${theme.background};
     width: fit-content;
     margin: 0 auto;
 `;
