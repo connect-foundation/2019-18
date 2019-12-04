@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import { theme } from '../../style/theme';
 import triangle from '../../assets/sort-down.svg';
 
+export const FieldOptionsBox = styled.div`
+    margin: 0 auto;
+    padding: 10px;
+    width: 500px; 
+`;
 export const PortfolioForm = styled.div`
     flex:1;
     display: flex;
@@ -24,11 +29,23 @@ export const InputArea = styled.div`
     width: 500px; 
     display: flex;
 `;
+export const SelectionArea = styled.div`
+    margin: 0 auto;
+    padding: 0 10px;
+    width: 500px; 
+    display: flex;
+`;
 export const InputTitle = styled.div`
     width: 20%;
     font-size: 14px;
     font-weight: bold;
     padding: 6px 0 0 10px;
+`;
+export const InputOptionsArea = styled.div`
+    width: 80%;
+    border: 1px ${theme.BORDER_GRAY} solid;
+    border-top: 0;
+    padding:2px;
 `;
 export const InputTextArea = styled.div`
     width: 80%;
