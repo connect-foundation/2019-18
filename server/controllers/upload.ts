@@ -4,11 +4,6 @@ import { workImageCreate, imageCreate, wallPaperCreate } from '../services/uploa
 
 interface MulterFile {
     key: string,
-    path: string,
-    mimetype: string
-    originalname: string
-    size: number,
-    screenShots: string,
 }
 
 const getUrl = async (req: Request & { files: MulterFile[] },

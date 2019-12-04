@@ -3,12 +3,13 @@ import React, {
 } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
-import { API_SERVER } from '../../utils/constants';
+import { API_SERVER, MAXSIZEOFUPLOADIMAGE } from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
 import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
 import { ContentObject, DetailObject } from './type';
+
 
 const initDetailObject = {
   commentsAllow: true,
@@ -25,16 +26,14 @@ function ImageUpload() {
   const [showPopupDETAIL, setShowPopupDETAIL] = useState<boolean>(false);
   const [detailInfo, setDetailInfo] = useState<DetailObject>(initDetailObject);
 
-  const onDropWallPaper = (file: File[]) => {
+  const updateContent = (type:string, file: File[]) => {
     const newfile = file[file.length - 1];
-    const tempDocuments:ContentObject[] = [...documents];
-    const obj:ContentObject = {
-      type: 'wallpapers',
+    const obj = {
+      type,
       content: '',
       file: newfile,
     };
-    tempDocuments.push(obj);
-    setDocumnets(tempDocuments);
+    setDocumnets((prevDocument) => [...prevDocument, obj]);
 
     const reader = new FileReader();
     reader.readAsDataURL(newfile);
@@ -45,24 +44,12 @@ function ImageUpload() {
     };
   };
 
-  const onDropImage = (file: File[]) => {
-    const newfile = file[file.length - 1];
-    const tempDocuments:ContentObject[] = [...documents];
-    const obj:ContentObject = {
-      type: 'images',
-      content: '',
-      file: newfile,
-    };
-    tempDocuments.push(obj);
-    setDocumnets(tempDocuments);
+  const onDropWallPaper = (file: File[]) => {
+    updateContent('wallpapers', file);
+  };
 
-    const reader = new FileReader();
-    reader.readAsDataURL(newfile);
-    reader.onloadend = (e) => {
-      if (typeof reader.result === 'string') {
-        setPreviews([...previews, reader.result]);
-      }
-    };
+  const onDropImage = (file: File[]) => {
+    updateContent('images', file);
   };
 
   const makeFormData = () => {
@@ -70,13 +57,13 @@ function ImageUpload() {
     let format:string;
 
     documents.forEach((element) => {
-      if (element.file !== null) {
-        if (element.file.type === 'image/jpeg') {
-          format = '.jpg';
-        } else {
-          format = '.png';
-        }
-        formdata.append('multi-files', element.file, element.type + format);
+      const { file, type } = element;
+      if (file !== null && file.type === 'image/jpeg') {
+        format = '.jpg';
+        formdata.append('multi-files', file, type + format);
+      } else if (file !== null) {
+        format = '.png';
+        formdata.append('multi-files', file, type + format);
       }
     });
     return formdata;
@@ -107,12 +94,9 @@ function ImageUpload() {
       return obj;
     });
     const obj = {
+      ...detailInfo,
       title,
       content: dbContent,
-      commentsAllow: detailInfo.commentsAllow,
-      ccl: detailInfo.ccl,
-      field: detailInfo.field,
-      public: detailInfo.public,
       tags: [],
     };
 
@@ -177,7 +161,7 @@ function ImageUpload() {
             buttonText="이미지"
             onChange={onDropImage}
             imgExtension={['.jpg', '.png', '.gif']}
-            maxFileSize={5242880}
+            maxFileSize={MAXSIZEOFUPLOADIMAGE}
             buttonStyles={S.customButton}
             singleImage
           />
@@ -189,8 +173,7 @@ function ImageUpload() {
             buttonText="배경화면"
             onChange={onDropWallPaper}
             imgExtension={['.jpg', '.png', '.gif']}
-            // 13.5MB = 13481938, MAX SIZE is 20MB
-            maxFileSize={20242880}
+            maxFileSize={MAXSIZEOFUPLOADIMAGE}
             buttonStyles={S.customButton}
             singleImage
           />
