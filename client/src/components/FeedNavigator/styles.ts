@@ -1,7 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { theme } from '../../style/theme';
-import Button from '../../basics/Button';
 
 export const Container = styled.div`
     display: flex;
