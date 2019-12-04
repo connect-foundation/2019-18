@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Img from '../../basics/Img';
 import { theme } from '../../style/theme';
+import triangle from '../../assets/sort-down.svg';
 
 export const PortfolioForm = styled.div`
     flex:1;
@@ -39,6 +39,7 @@ export const InputTextArea = styled.div`
 export const InputSelectArea = styled.div`
     width: 80%;
     border: 1px ${theme.BORDER_GRAY} solid;
+    padding:0  4px;
     height: 30px;
     display: flex;
     justify-content: space-between;
@@ -49,12 +50,13 @@ export const SelectedValue = styled.div`
     font-size : 14px;
     line-height: 30px;
 `;
-export const BelowTriangle = styled.img`
+export const BelowTriangle = styled.img.attrs({
+  src: triangle,
+})`
     display:block;
     height: 30px;
-    width: 30px;
-    background-size:cover;
-    background-position: center center;
+    width: 20px;
+    background-position: 0 20px;
 `;
 export const LongInputTextArea = styled.div`
     width: 80%;
