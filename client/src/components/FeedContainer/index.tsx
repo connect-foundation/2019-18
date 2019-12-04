@@ -17,13 +17,13 @@ const Content = ({ match }: RouteComponentProps) => (
   <Switch>
     <Route path={`${match.path}/detail-image/:id`} component={WorkDetailContainer} />
     <Route path={`${match.path}/detail-music/:id`} component={MusicDetailContainer} />
+    <Route path={`${match.path}/upload`} component={UploadMain} />
     <Route path={`${match.path}`}>
       <Route path={`${match.path}`} component={FeedNavigator} />
       <Switch>
         <Route exact path={`${match.path}/works`} component={FeedWorks} />
-        <Route exact path={`${match.path}/wallpaper`} component={FeedWallpapers} />
-        <Route exact path={`${match.path}/music`} component={FeedMusic} />
-        <Route exact path={`${match.path}/upload`} componnent={UploadMain} />
+        <Route path={`${match.path}/wallpaper`} component={FeedWallpapers} />
+        <Route path={`${match.path}/music`} component={FeedMusic} />
         <Route component={NotFound} />
       </Switch>
     </Route>

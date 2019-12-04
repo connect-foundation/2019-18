@@ -15,14 +15,15 @@ const rotate = keyframes`
 
 export const Container = styled.div`
     display: flex;
-    width: 100%;
     height: 4rem;
     justify-content: space-around;
-    border-top: ${theme.BORDER_GRAY} 1px solid;
-    border-bottom: ${theme.BORDER_GRAY} 1px solid;
+    /* border-top: ${theme.BORDER_GRAY} 1px solid;
+    border-bottom: ${theme.BORDER_GRAY} 1px solid; */
     position: sticky;
     top: 0;
     background: none;
+    width: fit-content;
+    margin: 0 auto;
 `;
 
 export const HeaderTitle = styled.div`
