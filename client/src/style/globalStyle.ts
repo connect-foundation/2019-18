@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     background: ${theme.background};
-    font-family: "Helvetica Neue",Helvetica,Arial,"나눔고딕",NanumGothic,sans-serif !important;
+    font-family: SFProText, SFProText, "Apple SD Gothic Neo", AppleSDGothicNeo, "Malgun Gothic", "맑은 고딕", sans-serif;
   }
   div#root{
     height: 100%;

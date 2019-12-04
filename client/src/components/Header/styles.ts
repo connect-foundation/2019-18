@@ -8,11 +8,14 @@ export const HeaderContainer = styled.div`
     justify-content: center;
     justify-items: center;
     border-bottom: 1px ${theme.BORDER_GRAY} solid;
-    position: relative;
+    /* position: relative; */
+    position: sticky;
+    top: 0;
+    background: white;
 `;
 
 export const HeaderTitle = styled.div`
-position: absolute;
+  position: absolute;
   width: 10rem;
   display: flex;
   height: 100%;

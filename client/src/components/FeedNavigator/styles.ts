@@ -18,8 +18,11 @@ export const Container = styled.div`
     width: 100%;
     height: 4rem;
     justify-content: space-around;
-
     border-bottom: ${theme.BORDER_GRAY} 1px solid;
+    position: sticky;
+    top: 0;
+    background: none;
+    /* box-shadow: ${theme.BOX_SHADOW_BOTTOM}; */
 `;
 
 export const Navigator = styled.div`
@@ -27,6 +30,7 @@ export const Navigator = styled.div`
     width: 30%;
     justify-content: inherit;
     font-weight: ${theme.WEIGHT.STRONG};
+    background: white;
 `;
 
 
