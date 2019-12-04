@@ -109,7 +109,6 @@ const getWallpapersMore = async (req: Request, res: Response, next: NextFunction
     const { fixedNum, skippedNum } = req.params;
     const images = await get10Wallpapers(+skippedNum, +fixedNum);
     const filteredFeed = images.map((image: any) => {
-      console.log(image);
       const newFeed = {
         id: image.id,
         url: `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`,
@@ -122,10 +121,31 @@ const getWallpapersMore = async (req: Request, res: Response, next: NextFunction
 
       return newFeed;
     });
-    console.log(filteredFeed);
     return response(res, filteredFeed);
   } catch (e) {
-    console.log(e);
+    next(e);
+  }
+};
+
+const getImagesMore = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { fixedNum, skippedNum } = req.params;
+    const images = await get10Images(+skippedNum, +fixedNum);
+    const filteredFeed = images.map((image: any) => {
+      const newFeed = {
+        id: image.id,
+        url: `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`,
+        ownerId: image.owner.id,
+        numOfComments: image.owner.comments.length,
+        views: image.owner.views,
+        title: image.owner.title,
+        creator: image.creator,
+      };
+
+      return newFeed;
+    });
+    return response(res, filteredFeed);
+  } catch (e) {
     next(e);
   }
 };
@@ -137,4 +157,5 @@ export {
   getWorkImage,
   addComment,
   getWallpapersMore,
+  getImagesMore,
 };

@@ -28,20 +28,20 @@ const FeedWallpapers: React.FC = () => {
   return (
     <S.Container>
       {
-              data.map(({
-                _id, ownerId, url, creator, title, numOfComments, views,
-              }) => (
-                <Card
-                  _id={_id}
-                  ownerId={ownerId}
-                  imgUrl={url}
-                  creator={creator}
-                  key={shortid.generate()}
-                  title={title}
-                  numOfComments={numOfComments}
-                  views={views}
-                />
-              ))
+        data.map(({
+          _id, ownerId, url, creator, title, numOfComments, views,
+        }) => (
+          <Card
+            _id={_id}
+            ownerId={ownerId}
+            imgUrl={url}
+            creator={creator}
+            key={shortid.generate()}
+            title={title}
+            numOfComments={numOfComments}
+            views={views}
+          />
+        ))
     }
       <S.Progress>
         {isLoading && <CircularProgress color="inherit" />}
