@@ -9,7 +9,7 @@ export const HeaderContainer = styled.div`
     justify-items: center;
     position: sticky;
     top: 0;
-    background: white;
+    background: ${theme.background};
 `;
 
 export const HeaderTitle = styled.div`

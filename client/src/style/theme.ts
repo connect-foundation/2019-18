@@ -2,7 +2,7 @@ import baseStyled, { ThemedStyledInterface } from 'styled-components';
 
 export const theme = {
   // / colors
-  background: '#ffffff',
+  background: '#F1EFEA',
   green: '#5FCD8B',
   LIGHT_GREENISH_BLUE: '#55efc4',
   FADED_POSTER: '#81ecec',

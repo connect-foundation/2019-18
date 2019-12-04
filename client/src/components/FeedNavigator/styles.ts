@@ -43,7 +43,7 @@ export const Navigator = styled.div`
     width: 30%;
     justify-content: space-around;
     font-weight: ${theme.WEIGHT.STRONG};
-    background: white;
+    background: ${theme.background};
 `;
 
 
@@ -59,7 +59,7 @@ export const StyledNavLink = styled(NavLink)`
 `;
 export const TabButton = styled.div`
     border: none;
-    background: white;
+    background: ${theme.background};
     width: 7rem;
     height: 3rem;
     padding: none;
