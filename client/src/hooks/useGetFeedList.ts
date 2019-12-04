@@ -25,7 +25,6 @@ const useFetch = <T>(initData:T[])
           setIsError(false);
         }
       } catch (e) {
-        console.log(e);
         setIsError(true);
       }
     };

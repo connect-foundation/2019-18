@@ -3,20 +3,8 @@ import Card from '../Card';
 import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';
+import { IImage } from './type';
 
-interface IImage{
-  _id: string;
-  ownerId: string;
-  creator:{
-    _id: string,
-    name: string,
-    email: string,
-  };
-  url: string;
-  title:string;
-  numOfComments:string;
-  views: string;
-}
 const FeedWorks:React.FC = () => {
   const [{
     data, isLoading, isError,
@@ -25,8 +13,6 @@ const FeedWorks:React.FC = () => {
   useEffect(() => {
     doFetch(`${API_SERVER}/feed/images`);
   }, [data]);
-
-  console.log(data);
 
   return (
     <S.Container>

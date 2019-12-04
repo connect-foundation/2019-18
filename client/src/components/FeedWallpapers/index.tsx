@@ -2,6 +2,7 @@ import React, {
   useEffect, useState, useRef, useCallback,
 } from 'react';
 import shortid from 'shortid';
+import { CircularProgress } from '@material-ui/core';
 import Card from '../Card';
 import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
@@ -32,7 +33,6 @@ const FeedWallpapers: React.FC = () => {
       const scrollTop = window.scrollY;
       const { clientHeight } = document.documentElement;
       const { scrollHeight } = document.body;
-      // console.log('scrolll', scrollTop, clientHeight, scrollHeight);
       if ((scrollTop + clientHeight) === scrollHeight) {
         setSkippedNum(skippedNum + fixedNum.current);
       }
@@ -64,7 +64,9 @@ const FeedWallpapers: React.FC = () => {
                 />
               ))
     }
-      <div id="isLoading" />
+      <div>
+        {isLoading && <CircularProgress />}
+      </div>
     </S.Container>
 
   );

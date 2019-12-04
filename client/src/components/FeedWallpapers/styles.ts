@@ -6,4 +6,9 @@ export const Container = styled.div`
     justify-content: space-between;
     width: 60%;
     margin: auto;
+
+    div{
+        margin: auto auto;
+        margin-top: 20px;
+    }
 `;
