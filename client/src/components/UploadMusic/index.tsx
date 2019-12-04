@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
 // import ReactQuill from 'react-quill'; // Typescript
 import ReactQuill from 'react-quill';
+import shortId from 'shortid';
+import MusicPlayer from '../MusicPlayer';
 import * as S from './styles';
 import 'react-quill/dist/quill.snow.css';
-import shortId from 'shortid';
 
-interface ITexts{
-  text: string;
-  setText: React.Dispatch<string>;
+interface IMusic{
+  title: string;
+  author: string;
+  musicUrl: string;
+  coverUrl: string;
 }
 
-const docuinit = [
+interface IDocu{
+  key: string;
+  type: string;
+  content: string | IMusic;
+}
+const docuinit:IDocu[] = [
   {
     key: shortId.generate(),
     type: 'description',
@@ -20,6 +28,16 @@ const docuinit = [
     key: shortId.generate(),
     type: 'description',
     content: '',
+  },
+  {
+    key: shortId.generate(),
+    type: 'music',
+    content: {
+      title: 'this is title',
+      author: 'this is author',
+      coverUrl: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/freetime.jpg',
+      musicUrl: 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3',
+    },
   },
 ];
 
@@ -76,12 +94,12 @@ const UploadMusic = () => {
       </S.EditorWrapper> */}
 
       {
-        docu.map((el) => {
+        docu.map((el:IDocu) => {
           if (el.type === 'description') {
             return (
-              <S.EditorWrapper key={el.key}>
+              <S.ContentWrapper key={el.key}>
                 <ReactQuill
-                  value={el.content}
+                  value={el.content as string}
                   onChange={(e) => {
                     el.content = e;
                     // console.log(docu);
@@ -103,7 +121,20 @@ const UploadMusic = () => {
                     }));
                   }}
                 />
-              </S.EditorWrapper>
+              </S.ContentWrapper>
+            );
+          }
+          if (el.type === 'music') {
+            const content = el.content as IMusic;
+            return (
+              <S.ContentWrapper key={el.key}>
+                <MusicPlayer
+                  title={content.title}
+                  author={content.author}
+                  musicUrl={content.musicUrl}
+                  coverUrl={content.coverUrl}
+                />
+              </S.ContentWrapper>
             );
           }
         })

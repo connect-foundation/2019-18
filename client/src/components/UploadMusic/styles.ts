@@ -35,7 +35,7 @@ export const TitleInput = styled.input`
   }
 `;
 
-export const EditorWrapper = styled.div`
+export const ContentWrapper = styled.div`
   width: 750px;
   margin: auto;
 `;
