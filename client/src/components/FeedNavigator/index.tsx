@@ -6,7 +6,8 @@ import * as S from './styles';
 const FeedNavigator:React.FC = () => (
   <S.FeedNavigatorContainer>
     <StyledLink to="/home/">
-      <S.TabButton>작품</S.TabButton>
+      작품
+      {/* <S.TabButton>작품</S.TabButton> */}
     </StyledLink>
     <StyledLink to="/home/wallpaper">
       <S.TabButton>배경화면</S.TabButton>

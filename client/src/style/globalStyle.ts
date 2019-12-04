@@ -1,34 +1,21 @@
 import { createGlobalStyle } from 'styled-components';
 import { theme } from './theme';
-import RobotoLightWoff from './fonts/RobotoLight.woff';
-import RobotoLightWoff2 from './fonts/RobotoLight.woff2';
-import NoteworthyLightWoff from './fonts/NoteworthyLight.woff';
-import NoteworthyLightWoff2 from './fonts/NoteworthyLight.woff2';
-import BebasNeueRegular from './fonts/BebasNeueRegular.ttf';
+import BebasNeueRegularTtf from './fonts/BebasNeueRegular.ttf';
+import DoHyeonRegularTtf from './fonts/DoHyeonRegular.ttf';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: 'Roboto Light';
-    src: local('Roboto Light'), local('RobotoLight'),
-    url(${RobotoLightWoff}) format('woff'),
-    url(${RobotoLightWoff2}) format('woff2');
-    font-weight: 300;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Noteworthy Light';
-    src: local('Noteworthy Light'), local('NoteworthyLight'),
-    url(${NoteworthyLightWoff}) format('woff'),
-    url(${NoteworthyLightWoff2}) format('woff2');
-    font-weight: 300;
-    font-style: normal;
-  }
-
-  @font-face {
     font-family: 'Bebas Neue';
     src: local('Bebas Neue'), local('Bebas Neue'),
-    url(${BebasNeueRegular}) format('truetype');
+    url(${BebasNeueRegularTtf}) format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Do Hyeon';
+    src: local('Do Hyeon'), local('Do Hyeon'),
+    url(${DoHyeonRegularTtf}) format('truetype');
     font-weight: 300;
     font-style: normal;
   }
@@ -37,7 +24,12 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     background: ${theme.background};
-    font-family: 'Bebas Neue', "NoteWorthy Light", 'Roboto Light';
+    font-family: "Helvetica Neue",Helvetica,Arial,"나눔고딕",NanumGothic,sans-serif;
+  }
+  div#root{
+    height: 100%;
+    display:flex;
+    flex-direction: column;
   }
 
 `;

@@ -11,6 +11,7 @@ dotenv.config();
 
 const App:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
   useUserState(props);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
