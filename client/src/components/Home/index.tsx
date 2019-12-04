@@ -9,7 +9,7 @@ import Header from '../Header';
 import JoinContainer from '../../containers/JoinContainer';
 import CreatorContainer from '../../containers/CreatorContainer';
 import NotFound from '../../components/NotFound/index';
-import PortfolioForm from '../PortfolioForm';
+import PortfolioFormContainer from '../../containers/PortfolioFormContainer';
 import useUserState from '../../hooks/useUserState';
 
 const Home:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
@@ -26,7 +26,7 @@ const Home:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
         <Route path="/creator">
           <Header />
           <Switch>
-            <Route path="/creator/form" component={PortfolioForm} />
+            <Route path="/creator/form" component={PortfolioFormContainer} />
             <Route path="/creator" component={CreatorContainer} />
           </Switch>
         </Route>

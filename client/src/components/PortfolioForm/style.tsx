@@ -8,11 +8,6 @@ export const FieldOptionsBox = styled.div`
     width: 500px; 
 `;
 export const PortfolioForm = styled.div`
-    flex:1;
-    display: flex;
-    background-color: ${theme.WARN_GRAY};
-`;
-export const InputContainer = styled.div`
     background-color: white;
     margin: 0 auto;
     margin-top: 40px;

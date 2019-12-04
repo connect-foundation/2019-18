@@ -1,50 +1,71 @@
 import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { fieldoptions } from '../../utils/constants';
 
 import * as S from './style';
 import TextInput from '../../basics/Input/TextInput';
 
-const makeFieldSelects = (value:string, label:string) => (
-  <FormControlLabel
-    control={
-      <Checkbox checked={false} onChange={alert} value={value} />
-      }
-    label={label}
-  />
-);
+interface PortfolioProp{
+    introSimple: string;
+    introDetail: string;
+    showOption: boolean;
+    onChangeintroSimple :(e: React.ChangeEvent<HTMLTextAreaElement>)=> void;
+    onChangeintroDetail :(e: React.ChangeEvent<HTMLTextAreaElement>)=> void;
+    onClickShowOption : (e: React.MouseEvent<HTMLDivElement>)=>void;
+    onChangeActiveFields:(e: React.ChangeEvent<HTMLInputElement>) => void;
+    activeField: any;
+}
 
 
-const PortfolioForm = () => (
-  <S.PortfolioForm>
-    <S.InputContainer>
+const PortfolioForm:React.FC<PortfolioProp> = (
+  {
+    introSimple, introDetail, showOption, onChangeintroSimple, onChangeintroDetail, onClickShowOption,
+    onChangeActiveFields, activeField,
+  },
+) => {
+  const makeFieldSelects = (value:string, label:string, checked:boolean) => (
+    <FormControlLabel
+      control={
+        <Checkbox checked={checked} onChange={onChangeActiveFields} value={value} />
+            }
+      label={label}
+    />
+  );
+  const fieldString = activeField.filter((option:any) => option.checked)
+    .map((option:any) => option.value).join(', ');
+  return (
+    <S.PortfolioForm>
       <S.InputArea>
         <S.InputTitle>한 줄 소개</S.InputTitle>
         <S.InputTextArea>
-          <TextInput placeholder="한줄소개" />
+          <TextInput placeholder="한줄소개" value={introSimple} onChange={onChangeintroSimple} />
         </S.InputTextArea>
       </S.InputArea>
       <S.SelectionArea>
         <S.InputTitle>활동 분야</S.InputTitle>
-        <S.InputSelectArea>
-          <S.SelectedValue>활동 분야를 선택해주세요.(최대 2개)</S.SelectedValue>
+        <S.InputSelectArea onClick={onClickShowOption}>
+          <S.SelectedValue>
+            { (fieldString === '') ? '활동 분야를 선택해주세요.(최대 2개)' : fieldString}
+          </S.SelectedValue>
           <S.BelowTriangle></S.BelowTriangle>
         </S.InputSelectArea>
       </S.SelectionArea>
-      <S.SelectionArea>
-        <S.InputTitle></S.InputTitle>
-        <S.InputOptionsArea>
-          {(fieldoptions.map((option) => makeFieldSelects(option.value, option.label)))}
-        </S.InputOptionsArea>
-      </S.SelectionArea>
+      {showOption
+    && (
+    <S.SelectionArea>
+      <S.InputTitle></S.InputTitle>
+      <S.InputOptionsArea>
+        {(activeField.map((option:any) => makeFieldSelects(option.value, option.label, option.checked)))}
+      </S.InputOptionsArea>
+    </S.SelectionArea>
+    )}
       <S.InputArea>
         <S.InputTitle>상세 소개</S.InputTitle>
         <S.LongInputTextArea>
-          <TextInput placeholder="상세 소개입니다" />
+          <TextInput placeholder="상세 소개입니다" value={introDetail} onChange={onChangeintroDetail} />
         </S.LongInputTextArea>
       </S.InputArea>
-    </S.InputContainer>
-  </S.PortfolioForm>
-);
+    </S.PortfolioForm>
+  );
+};
 export default PortfolioForm;
