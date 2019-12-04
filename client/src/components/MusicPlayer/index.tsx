@@ -71,9 +71,6 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
     audio.loop = isRepeat;
   }, [isRepeat]);
 
-  const test = () => {
-    console.log('hi');
-  };
   return (
     <S.PlayingArea>
       <S.Player id="player" onMouseDown={musicSeekHandler}>

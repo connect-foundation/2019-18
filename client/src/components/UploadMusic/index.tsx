@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from 'react';
-// import ReactQuill from 'react-quill'; // Typescript
 import ReactQuill from 'react-quill';
 import shortId from 'shortid';
 import MusicPlayer from '../MusicPlayer';
 import * as S from './styles';
 import 'react-quill/dist/quill.snow.css';
+import {
+  IMusic,
+  IDocu,
+} from './types';
 
-interface IMusic{
-  title: string;
-  author: string;
-  musicUrl: string;
-  coverUrl: string;
-}
-
-interface IDocu{
-  key: string;
-  type: string;
-  content: string | IMusic;
-}
 const docuinit:IDocu[] = [
   {
     key: shortId.generate(),
@@ -43,8 +34,6 @@ const docuinit:IDocu[] = [
 
 const UploadMusic = () => {
   const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
-  const [editor, setEditor] = useState([]);
   const [docu, setDocu] = useState(docuinit);
 
 
@@ -70,10 +59,48 @@ const UploadMusic = () => {
       },
     ]);
   };
+  const makeDescription = (el: IDocu) => (
+    <S.ContentWrapper key={el.key}>
+      <ReactQuill
+        value={el.content as string}
+        onChange={(e) => {
+          el.content = e;
+          setDocu(docu.map((d) => {
+            if (d.key === el.key) {
+              return {
+                ...el,
+                content: e,
+              };
+            }
+            return d;
+          }));
+        }}
+      />
+    </S.ContentWrapper>
+  );
 
-  useEffect(() => {
-    console.log(text);
-  }, [text]);
+  const makeMusic = (el: IDocu) => {
+    const content = el.content as IMusic;
+    return (
+      <S.ContentWrapper key={el.key}>
+        <MusicPlayer
+          title={content.title}
+          author={content.author}
+          musicUrl={content.musicUrl}
+          coverUrl={content.coverUrl}
+        />
+      </S.ContentWrapper>
+    );
+  };
+
+  const makeContent = (el: IDocu) => {
+    if (el.type === 'description') {
+      return makeDescription(el);
+    }
+    if (el.type === 'music') {
+      return makeMusic(el);
+    }
+  };
 
   useEffect(() => {
     console.dir(docu);
@@ -88,56 +115,9 @@ const UploadMusic = () => {
         value={title}
         placeholder="제목을 입력해 주세요."
       />
-      {/*
-      <S.EditorWrapper>
-        <ReactQuill />
-      </S.EditorWrapper> */}
 
       {
-        docu.map((el:IDocu) => {
-          if (el.type === 'description') {
-            return (
-              <S.ContentWrapper key={el.key}>
-                <ReactQuill
-                  value={el.content as string}
-                  onChange={(e) => {
-                    el.content = e;
-                    // console.log(docu);
-
-                    // setDocu([
-                    //   ...docu,
-                    //   obj,
-                    // ]);
-
-                    setDocu(docu.map((d) => {
-                      if (d.key === el.key) {
-                        const obj = {
-                          ...el,
-                          content: e,
-                        };
-                        return obj;
-                      }
-                      return d;
-                    }));
-                  }}
-                />
-              </S.ContentWrapper>
-            );
-          }
-          if (el.type === 'music') {
-            const content = el.content as IMusic;
-            return (
-              <S.ContentWrapper key={el.key}>
-                <MusicPlayer
-                  title={content.title}
-                  author={content.author}
-                  musicUrl={content.musicUrl}
-                  coverUrl={content.coverUrl}
-                />
-              </S.ContentWrapper>
-            );
-          }
-        })
+        docu.map((el:IDocu) => makeContent(el))
       }
 
       <S.AddButtonList>

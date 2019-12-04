@@ -37,7 +37,7 @@ export const TitleInput = styled.input`
 
 export const ContentWrapper = styled.div`
   width: 750px;
-  margin: auto;
+  margin: 1rem auto;
 `;
 
 export const AddButtonList = styled.div`
