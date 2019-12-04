@@ -4,17 +4,15 @@ import { theme } from '../../style/theme';
 export const customButton = {
   width: '100px',
   height: '100px',
-  fontSize: '16px',
   borderRadius: '2px',
   fontWeight: '400',
+  cursor: 'pointer',
+  fontsize: '13px',
 };
 
-export const customFileContainer = {
-  border: '2px solid palevioletred',
-};
 
 export const SeleteBox = styled.div`
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   width: 600px;
   height: 200px;
   display: flex;
@@ -24,17 +22,14 @@ export const SeleteBox = styled.div`
 `;
 
 export const Box = styled.div`
-  border: 2px solid red;
+  border: solid 1px #dde1e5; 
   width: 100px;
   height: 100px;
   .fileContainer{
     padding: 0 0;
     box-shadow: none;
     margin: 0 0;
-  }
 
-  .fileContainer .chooseFileButton{
-    margin: 0 0;
   }
 
   .fileContainer .errorsContainer{
@@ -42,12 +37,19 @@ export const Box = styled.div`
   }
 
   .fileContainer .chooseFileButton{
-    background: #FFFFFF;
-    color: ${theme.DRACULA_ORCHID};
+    margin: 0 0;
+    width: '100px';
+    height: '100px';
+    background-color: white;
+    background: 'transparent';
+    transition: '0.5s all ease-out';
+    color: ${theme.CRA_PURPLE};
   }
 
   .fileContainer .chooseFileButton:hover{
-    background: ${theme.SMOOTHING_BREEZE};
+    color: white;
+    box-shadow: ${theme.BOX_SHADOW};
+    background: ${theme.PALE_CRA_PURPLE};
   }
 `;
 
@@ -57,16 +59,19 @@ export const Button = styled.button`
   padding: 1rem 2rem;
   margin: 0;
   text-decoration: none;
-  color: ${theme.DRACULA_ORCHID};
-  font-size: 16px;
+  color: ${theme.CRA_PURPLE};
+  font-size: 14px;
   cursor: pointer;
   text-align: center;
   width: 100%;
   height: 100%;
-  
+  background: transparent;
+  transition: 0.5s all ease-out;
   
   :hover{
-    background: ${theme.SMOOTHING_BREEZE};
+    background-color: ${theme.PALE_CRA_PURPLE};
+    color: white;
+    box-shadow: ${theme.BOX_SHADOW};
   }
 `;
 

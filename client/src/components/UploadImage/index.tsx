@@ -17,7 +17,6 @@ const initDetailObject = {
   public: true,
 };
 
-
 function ImageUpload() {
   const [previews, setPreviews] = useState<string[]>([]);
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
@@ -200,6 +199,7 @@ function ImageUpload() {
           <S.Button type="button" onClick={addDescription}>글씨 추가</S.Button>
         </S.Box>
       </S.SeleteBox>
+      <div> 업로드할 수 있는 사진의 최대 용량은 20MB입니다. </div>
       <S.UploadButton type="button" onClick={titleCheck}>업로드</S.UploadButton>
       {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
       {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setDetailInfo={setDetailInfo} />}
