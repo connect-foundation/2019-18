@@ -25,7 +25,7 @@ const FeedWallpapers: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    doFetch(`${API_SERVER}/feed/wallpapers/more/${skippedNum}`);
+    doFetch(`${API_SERVER}/feed/wallpapers/more/${fixedNum.current}/${skippedNum}`);
   }, [skippedNum]);
 
   const onInsert = useCallback(

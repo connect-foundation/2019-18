@@ -8,5 +8,5 @@ router.get('/images', getImages);
 router.get('/images/:id', getWorkImage);
 router.post('/images/:id/add-comment', addComment);
 router.get('/wallpapers', getWallpapers);
-router.get('/wallpapers/more/:num', getWallpapersMore);
+router.get('/wallpapers/more/:fixedNum/:skippedNum', getWallpapersMore);
 export default router;

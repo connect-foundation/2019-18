@@ -106,8 +106,8 @@ const addComment = async (req: Request, res: Response, next: NextFunction) => {
 
 const getWallpapersMore = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { num } = req.params;
-    const images = await get10Wallpapers(+num, 10);
+    const { fixedNum, skippedNum } = req.params;
+    const images = await get10Wallpapers(+skippedNum, +fixedNum);
     const filteredFeed = images.map((image: any) => {
       console.log(image);
       const newFeed = {
