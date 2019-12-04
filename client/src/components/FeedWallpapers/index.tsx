@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, useRef, useCallback,
+  useEffect,
 } from 'react';
 import shortid from 'shortid';
 import { CircularProgress } from '@material-ui/core';
@@ -11,11 +11,8 @@ import { IWallpaper } from './type';
 
 const FeedWallpapers: React.FC = () => {
   const [{
-    data, isLoading, isError,
-  }, doFetch] = useGetFeedList<IWallpaper>([]);
-
-  const [skippedNum, setSkippedNum] = useState(0);
-  const fixedNum = useRef(9);
+    data, isLoading, isError, skippedNum, fixedNum,
+  }, doFetch, onInsert] = useGetFeedList<IWallpaper>([]);
 
   useEffect(() => {
     window.addEventListener('scroll', onInsert);
@@ -28,27 +25,9 @@ const FeedWallpapers: React.FC = () => {
     doFetch(`${API_SERVER}/feed/wallpapers/more/${fixedNum.current}/${skippedNum}`);
   }, [skippedNum]);
 
-  const onInsert = useCallback(
-    (e) => {
-      const scrollTop = window.scrollY;
-      const { clientHeight } = document.documentElement;
-      const { scrollHeight } = document.body;
-      if ((scrollTop + clientHeight) === scrollHeight) {
-        setSkippedNum(skippedNum + fixedNum.current);
-      }
-    },
-    [],
-  );
-
   return (
-
     <S.Container>
       {
-        // isError
-        //   ? (<div>Something wrong...</div>)
-        //   : isLoading
-        //     ? (<div>Loadinng...</div>)
-        //     : (
               data.map(({
                 _id, ownerId, url, creator, title, numOfComments, views,
               }) => (

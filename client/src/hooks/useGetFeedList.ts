@@ -1,13 +1,28 @@
-import { useState, useEffect } from 'react';
+import {
+  useState, useEffect, useRef, useCallback,
+} from 'react';
 import axios from 'axios';
 
 const useFetch = <T>(initData:T[])
-  :[{data:T[], isLoading:boolean, isError:boolean}, (url:string)=>void ] => {
+  :[{data:T[], isLoading:boolean, isError:boolean, skippedNum:number, fixedNum:React.MutableRefObject<number>}, (url:string)=>void, ()=>void ] => {
   const [data, setData] = useState(initData);
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  // const [errorMsg, setErrorMsg] = useState('');
+  const [skippedNum, setSkippedNum] = useState(0);
+  const fixedNum = useRef(9);
+
+  const onInsert = useCallback(
+    () => {
+      const scrollTop = window.scrollY;
+      const { clientHeight } = document.documentElement;
+      const { scrollHeight } = document.body;
+      if ((scrollTop + clientHeight) === scrollHeight) {
+        setSkippedNum(skippedNum + fixedNum.current);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +47,8 @@ const useFetch = <T>(initData:T[])
   }, [url]);
 
   return [{
-    data, isLoading, isError,
-  }, setUrl];
+    data, isLoading, isError, skippedNum, fixedNum,
+  }, setUrl, onInsert];
 };
 
 export default useFetch;
