@@ -7,8 +7,6 @@ export const HeaderContainer = styled.div`
     height: 4rem;
     justify-content: center;
     justify-items: center;
-    border-bottom: 1px ${theme.BORDER_GRAY} solid;
-    /* position: relative; */
     position: sticky;
     top: 0;
     background: white;
@@ -16,6 +14,7 @@ export const HeaderContainer = styled.div`
 
 export const HeaderTitle = styled.div`
   position: absolute;
+  top: 0;
   width: 10rem;
   display: flex;
   height: 100%;

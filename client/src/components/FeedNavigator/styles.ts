@@ -18,17 +18,30 @@ export const Container = styled.div`
     width: 100%;
     height: 4rem;
     justify-content: space-around;
+    border-top: ${theme.BORDER_GRAY} 1px solid;
     border-bottom: ${theme.BORDER_GRAY} 1px solid;
     position: sticky;
     top: 0;
     background: none;
-    /* box-shadow: ${theme.BOX_SHADOW_BOTTOM}; */
+`;
+
+export const HeaderTitle = styled.div`
+    position: absolute;
+    top: -100%;
+    margin: auto;
+    width: 10rem;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 600;
 `;
 
 export const Navigator = styled.div`
     display: flex;
     width: 30%;
-    justify-content: inherit;
+    justify-content: space-around;
     font-weight: ${theme.WEIGHT.STRONG};
     background: white;
 `;
@@ -55,4 +68,9 @@ export const TabButton = styled.div`
     text-decoration: none;
     color: black;
     outline: none;
+    justify-content: center;
+    justify-items: center;
+    display: flex;
+    align-items: center;
+    background: none;
 `;
