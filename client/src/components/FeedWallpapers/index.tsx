@@ -64,9 +64,9 @@ const FeedWallpapers: React.FC = () => {
                 />
               ))
     }
-      <div>
-        {isLoading && <CircularProgress />}
-      </div>
+      <S.Progress>
+        {isLoading && <CircularProgress color="inherit" />}
+      </S.Progress>
     </S.Container>
 
   );

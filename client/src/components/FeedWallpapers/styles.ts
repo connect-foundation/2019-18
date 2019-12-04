@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { theme } from '../../style/theme';
 
 export const Container = styled.div`
     display: flex;
@@ -7,8 +8,10 @@ export const Container = styled.div`
     width: 60%;
     margin: auto;
 
-    div{
-        margin: auto auto;
-        margin-top: 20px;
-    }
+`;
+
+export const Progress = styled.div`
+    margin: auto auto;
+    margin-top: 20px;
+    color: ${theme.BORDER_GRAY};
 `;
