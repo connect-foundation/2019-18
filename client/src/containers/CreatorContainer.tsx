@@ -1,17 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { getDefaultWatermarks } from 'istanbul-lib-report';
-import useGetFeed from '../hooks/useGetFeed';
-import { API_SERVER, FEED_IMAGE_ADD_COMMENT } from '../utils/constants';
-import { IData } from '../components/WorksDetail/types';
-import WorksDetail from '../components/WorksDetail';
-import { Axios } from '../utils';
+import { API_SERVER } from '../utils/constants';
 import { theme } from '../style/theme';
 import FeedMyWorks from '../components/FeedMyWorks';
 import Portfolio from '../components/Portfolio';
 
-const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
 
 const S = {
   CreatorContainer: styled.div`
@@ -34,9 +27,7 @@ const initialPortfolio = {
   introDetail: '',
   activeFields: [''],
 };
-const CreatorContainer = ({ match }: RouteComponentProps<{id:string}>) => {
-  const follower = 10;
-  const following = 100;
+const CreatorContainer = () => {
   const [portfolio, setPortfolio] = useState({ ...initialPortfolio });
   useEffect(() => {
     const getData = async () => {
@@ -49,7 +40,6 @@ const CreatorContainer = ({ match }: RouteComponentProps<{id:string}>) => {
       if (!responseJson.success) {
         return null;
       }
-      console.log(responseJson.data);
       return responseJson.data;
     };
     getData().then((data:any) => {
