@@ -4,7 +4,7 @@ import React, {
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { API_SERVER, MAXSIZEOFUPLOADIMAGE } from '../../utils/constants';
+import { API_SERVER, MAXSIZE_OF_UPLOADIMAGE } from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
 import PopupWarn from '../../commons/Popup_warn';
@@ -184,7 +184,7 @@ function ImageUpload() {
             buttonText="이미지"
             onChange={onDropImage}
             imgExtension={['.jpg', '.png', '.gif']}
-            maxFileSize={MAXSIZEOFUPLOADIMAGE}
+            maxFileSize={MAXSIZE_OF_UPLOADIMAGE}
             buttonStyles={S.customButton}
             singleImage
           />
@@ -196,7 +196,7 @@ function ImageUpload() {
             buttonText="배경화면"
             onChange={onDropWallPaper}
             imgExtension={['.jpg', '.png', '.gif']}
-            maxFileSize={MAXSIZEOFUPLOADIMAGE}
+            maxFileSize={MAXSIZE_OF_UPLOADIMAGE}
             buttonStyles={S.customButton}
             singleImage
           />

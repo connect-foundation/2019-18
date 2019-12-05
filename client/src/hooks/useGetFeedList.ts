@@ -34,7 +34,9 @@ const useFetch = <T>(initData:T[])
           setIsLoading(false);
         } else {
           const images = result.data.data;
+
           const newData = data.concat(images);
+          console.log('GetReedLI @@@ : ', newData);
           setData(newData);
           setIsLoading(false);
           setIsError(false);

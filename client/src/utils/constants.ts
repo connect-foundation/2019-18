@@ -45,4 +45,4 @@ export const ccloptions = [
 ];
 
 // 13.5MB = 13481938, MAX SIZE is 20MB
-export const MAXSIZEOFUPLOADIMAGE = 5242880;
+export const MAXSIZE_OF_UPLOADIMAGE = 5242880;
