@@ -10,12 +10,15 @@ import UploadImage from '../UploadImage';
 import Basicbox from '../Basicbox';
 import * as S from './style';
 import circleWarn from '../../assets/circle_warn.png';
+import UploadMusic from '../UploadMusic';
+
 
 function UploadMain() {
   return (
     <ModalSwitch />
   );
 }
+
 
 function Home() {
   return (
@@ -51,7 +54,7 @@ function ModalSwitch() {
     <Switch>
       <Route exact path="/home/upload" component={Home} />
       <Route path="/home/upload/image" component={UploadImage} />
-      <Route path="/home/upload/music" component={Home} />
+      <Route path="/home/upload/music" component={UploadMusic} />
       <Route path="/home/upload/background" component={Home} />
     </Switch>
   );

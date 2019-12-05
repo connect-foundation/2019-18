@@ -27,7 +27,11 @@ const authByJWT = async (req: Request, res: Response, next: NextFunction) => {
     const userdata:any = await getUserFromToken(decoded);
     if (userdata) {
       req.decodedUser = {
-        id: userdata.id, email: userdata.email, name: userdata.name, originUrl: userdata.originUrl, thumbnailUrl: userdata.thumbnailUrl,
+        id: userdata.id,
+        email: userdata.email,
+        name: userdata.name,
+        originUrl: userdata.originUrl,
+        thumbnailUrl: userdata.thumbnailUrl,
       };
     }
     next();

@@ -1,7 +1,8 @@
+
 interface Checker {
-    msg: ()=> string;
-    check: (str:string)=>boolean;
-  }
+  msg: ()=> string;
+  check: (str:string)=>boolean;
+}
 
 export const CommentChecker = {
   minLen: 5,

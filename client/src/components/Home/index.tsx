@@ -21,7 +21,6 @@ const Home:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
         <Route path="/home">
           <Header />
           <Route path="/home" component={FeedContainer} />
-          {/* <FeedContainer /> */}
         </Route>
         <Route path="/creator">
           <Header />

@@ -2,6 +2,7 @@ export interface ContentObject {
     type: string,
     content: string,
     file: File | null,
+    preview: string,
 }
 
 export interface DetailObject {

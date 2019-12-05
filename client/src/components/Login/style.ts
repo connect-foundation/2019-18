@@ -9,7 +9,7 @@ export const CrafolioLogoContainer = styled(StyledLink)`
   padding: 0;
 `;
 export const CrafolioLogo = styled.img`
-  background-image: url(${(props) => props.src})
+  background-image: url(${(props) => props.src});
   width: 10rem; 
   height: 13rem;
 `;
@@ -60,6 +60,6 @@ export const OauthContent = styled.div`
 export const JoinLink = styled(StyledLink)`
    line-height: 2.5rem;
    text-decoration: none;
-   margin : auto
+   margin : auto;
    color: white;
 `;
