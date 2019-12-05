@@ -19,17 +19,22 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 300;
     font-style: normal;
   }
+    height: 100%;
 
   body{
     padding: 0;
     margin: 0;
     background: ${theme.background};
     font-family: SFProText, SFProText, "Apple SD Gothic Neo", AppleSDGothicNeo, "Malgun Gothic", "맑은 고딕", sans-serif;
+    height: 100%;
   }
   div#root{
     height: 100%;
     display:flex;
     flex-direction: column;
+  }
+  html{
+    height : 100%;
   }
 
 `;
