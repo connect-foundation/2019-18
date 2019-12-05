@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { optionCSS } from 'react-select/src/components/Option';
+import { useSelector } from 'react-redux';
 import PortfolioForm from '../components/PortfolioForm';
 import { theme } from '../style/theme';
 import { fieldoptions, API_SERVER } from '../utils/constants';
+import { RootState } from '../modules';
 
 const S = {
   PortfolioFormContainer: styled.div`
+    flex:1;
     width:100%;
     display: flex;
     background-color: ${theme.WARN_GRAY};
@@ -20,6 +22,8 @@ const PortfolioFormContainer:React.FC = () => {
   const [introDetail, setIntroDetail] = useState('');
   const [activeField, setActiveFields] = useState(makeFirstStates);
   const [showOption, setShowOption] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(true);
+  const email = useSelector((state:RootState) => state.login.email);
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(`${API_SERVER}/profile`, {
@@ -44,9 +48,39 @@ const PortfolioFormContainer:React.FC = () => {
         return option;
       }));
     };
+    setShowOption(false);
     getData().then((result) => setForm(result));
-  }, []);
+    setSubmitSuccess(false);
+  }, [submitSuccess, setSubmitSuccess]);
 
+  const onSubmit = (e:React.MouseEvent<HTMLButtonElement>) => {
+    const submitData = async () => {
+      const params = {
+        email,
+        introSimple,
+        introDetail,
+        activeFields: activeField.filter((option:any) => option.checked).map((option:any) => option.value),
+      };
+      const response = await fetch(`${API_SERVER}/profile`, {
+        method: 'post',
+        body: JSON.stringify(params),
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const responseJson = await response.json();
+      if (!responseJson.success) {
+        alert('변경되지 않았습니다.');
+        return null;
+      }
+      alert('성공적으로 제출 되었습니다.');
+      return setSubmitSuccess(true);
+    };
+    setShowOption(false);
+    submitData();
+  };
+  const onCancel = (e:React.MouseEvent<HTMLButtonElement>) => {
+    setSubmitSuccess(true);
+  };
   const onChangeintroSimple = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIntroSimple(e.target.value);
   };
@@ -79,6 +113,8 @@ const PortfolioFormContainer:React.FC = () => {
         onChangeintroSimple={onChangeintroSimple}
         onChangeintroDetail={onChangeintroDetail}
         onClickShowOption={onClickShowOption}
+        onSubmit={onSubmit}
+        onCancel={onCancel}
       />
     </S.PortfolioFormContainer>
   );
