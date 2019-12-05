@@ -10,7 +10,7 @@ export const CrafolioLogoContainer = styled.div`
   justify-content: center;
 `;
 export const CrafolioLogo = styled.img`
-  background-image: url(${(props) => props.src})
+  background-image: url(${(props) => props.src});
   width: 10rem; 
   height: 13rem;
 `;

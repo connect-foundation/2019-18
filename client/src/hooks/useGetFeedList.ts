@@ -32,6 +32,10 @@ const useFetch = <T>(initData:T[])
     fetchData();
   }, [url]);
 
+  useEffect(()=>{
+    console.log(data);
+  },[data]);
+
   return [{
     data, isLoading, isError,
   }, setUrl];

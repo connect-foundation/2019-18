@@ -5,7 +5,6 @@ import Button from '../../basics/Button';
 
 export const CommentContainer = styled.div`
     width: auto;
-    /* max-height: fit-content; */
     min-height: 5rem;
     border: 1px solid black;
     padding: 1rem;

@@ -57,8 +57,19 @@ export const Button = styled.div`
   border: none;
 
   margin: auto 0.5rem;
+`;
+
+export const Span = styled.span`
+  overflow: hidden;
+  width: 2rem;
+  height: 1rem;
 
 `;
+
+export const Input = styled.input`
+  width: 1rem;
+`;
+
 export {
   ImageIcon,
   VolumeUpIcon,

@@ -4,6 +4,8 @@ import shortId from 'shortid';
 import MusicPlayer from '../MusicPlayer';
 import * as S from './styles';
 import 'react-quill/dist/quill.snow.css';
+import { getShortId } from '../../utils';
+
 import {
   IMusic,
   IDocu,
@@ -11,17 +13,17 @@ import {
 
 const docuinit:IDocu[] = [
   {
-    key: shortId.generate(),
+    key: getShortId(),
     type: 'description',
     content: '',
   },
   {
-    key: shortId.generate(),
+    key: getShortId(),
     type: 'description',
     content: '',
   },
   {
-    key: shortId.generate(),
+    key: getShortId(),
     type: 'music',
     content: {
       title: 'this is title',
@@ -42,11 +44,9 @@ const UploadMusic = () => {
   };
 
   const ImageButtonOnClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log('image');
   };
 
   const MusicButtonOnClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log('music');
   };
 
   const TextButtonOnCLickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -63,13 +63,13 @@ const UploadMusic = () => {
     <S.ContentWrapper key={el.key}>
       <ReactQuill
         value={el.content as string}
-        onChange={(e) => {
-          el.content = e;
+        onChange={(text) => {
+          el.content = text;
           setDocu(docu.map((d) => {
             if (d.key === el.key) {
               return {
                 ...el,
-                content: e,
+                content: text,
               };
             }
             return d;
@@ -102,10 +102,6 @@ const UploadMusic = () => {
     }
   };
 
-  useEffect(() => {
-    console.dir(docu);
-  }, [docu]);
-
   return (
     <S.Container>
       <S.TitleInput
@@ -126,11 +122,13 @@ const UploadMusic = () => {
         </S.Button>
         <S.Button onClick={MusicButtonOnClickHandler}>
           <S.VolumeUpIcon fontSize="large" />
+          <S.Input type="file" />
         </S.Button>
         <S.Button onClick={TextButtonOnCLickHandler}>
           <S.TextFieldsIcon fontSize="large" />
         </S.Button>
       </S.AddButtonList>
+
     </S.Container>
 
   );
