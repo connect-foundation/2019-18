@@ -70,7 +70,7 @@ const getWorkImage = async (req: Request, res: Response, next: NextFunction) => 
       }
       return { ...el, content: `${IMAGE_CDN}${el.type}/${el.content}${IMAGE_QUERY_HIGH}` };
     });
-
+    console.log(workImage.content);
     response(res, workImage);
   } catch (e) {
     next(e);

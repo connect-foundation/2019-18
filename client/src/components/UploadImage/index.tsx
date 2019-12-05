@@ -114,7 +114,6 @@ function ImageUpload() {
     }
   };
 
-
   const titleCheck = () => {
     if (title.length === 0) {
       setShowPopupWARN(true);
@@ -122,7 +121,6 @@ function ImageUpload() {
       setShowPopupDETAIL(true);
     }
   };
-
 
   const addDescription: ()=> void = () => {
     const obj:ContentObject = {

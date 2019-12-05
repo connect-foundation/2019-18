@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import createError from 'http-errors';
 import httpStatus from 'http-status';
 import { workImageCreate, imageCreate, wallPaperCreate } from '../services/upload';
-import { FEED, AUTH } from '../utils/messages';
+import { AUTH } from '../utils/messages';
 
 interface MulterFile {
     key: string,
