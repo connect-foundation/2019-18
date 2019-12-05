@@ -38,13 +38,13 @@ const PortfolioFormContainer:React.FC = () => {
       return responseJson.data;
     };
     const setForm = (result:any) => {
-      if (!result) {
+      if (!result.introDetail) {
         return;
       }
       setIntroSimple(result.introSimple);
       setIntroDetail(result.introDetail);
       setActiveFields(activeField.map((option) => {
-        if (result.activeFields.includes(option.value)) { return { ...option, checked: true }; }
+        if (result.activeField.includes(option.value)) { return { ...option, checked: true }; }
         return option;
       }));
     };
