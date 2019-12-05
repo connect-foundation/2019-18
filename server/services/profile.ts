@@ -20,8 +20,6 @@ const findProfileByUserId = async (id) => {
   return profile[0];
 };
 const setProfileByUserId = async (id, payload) => {
-  console.log(payload);
-  console.log(id);
   await Profile.update({ owner: id }, payload);
 };
 

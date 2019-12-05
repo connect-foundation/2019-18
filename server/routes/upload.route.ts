@@ -1,9 +1,9 @@
 import { getUrl, uploadWorkImage } from '../controllers/upload';
 import { multerUpload } from '../middleware/multer';
-import jwt from '../middleware/jwt';
+import authByJWT from '../middleware/authByJWT';
 
 const router = require('express').Router();
 
-router.post('/getImageUrl', jwt, multerUpload, getUrl);
-router.post('/works-image', jwt, uploadWorkImage);
+router.post('/getImageUrl', authByJWT, multerUpload, getUrl);
+router.post('/works-image', authByJWT, uploadWorkImage);
 export default router;

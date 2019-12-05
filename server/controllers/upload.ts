@@ -44,7 +44,7 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
     const { content } = req.body;
     const data = {
       ...req.body,
-      owner: user._id,
+      owner: user.id,
     };
     const result = await workImageCreate(data);
     const workImageId = result.id;
@@ -53,7 +53,7 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
       if (element.type === 'images') {
         const imagePayload = {
           owner: workImageId,
-          creator: user._id,
+          creator: user.id,
           public: req.body.public,
           ref: [],
           url: element.content,
@@ -62,7 +62,7 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
       } else if (element.type === 'wallpapers') {
         const wallpaperPayload = {
           owner: workImageId,
-          creator: user._id,
+          creator: user.id,
           public: req.body.public,
           url: element.content,
           downloads: 0,

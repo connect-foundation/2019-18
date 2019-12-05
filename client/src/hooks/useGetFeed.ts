@@ -18,7 +18,6 @@ const useGetFeed = <T>(initData:T)
         if (!result.data.success) {
           setIsLoading(false);
         } else {
-          console.log(result.data);
           setData(result.data.data);
           setIsLoading(false);
           setIsError(true);

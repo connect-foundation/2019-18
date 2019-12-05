@@ -36,7 +36,6 @@ const useFetch = <T>(initData:T[])
           const images = result.data.data;
 
           const newData = data.concat(images);
-          console.log('GetReedLI @@@ : ', newData);
           setData(newData);
           setIsLoading(false);
           setIsError(false);
@@ -48,9 +47,8 @@ const useFetch = <T>(initData:T[])
     fetchData();
   }, [url]);
 
-  useEffect(()=>{
-    console.log(data);
-  },[data]);
+  useEffect(() => {
+  }, [data]);
 
   return [{
     data, isLoading, isError, skippedNum, fixedNum,
