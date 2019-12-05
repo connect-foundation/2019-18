@@ -2,10 +2,10 @@ import {
   getMyProfile,
   setMyProfile,
 } from '../controllers/profile';
-import jwt from '../middleware/jwt';
+import authByJWT from '../middleware/authByJWT';
 
 const router = require('express').Router();
 
-router.get('/', jwt, getMyProfile);
-router.post('/', jwt, setMyProfile);
+router.get('/', authByJWT, getMyProfile);
+router.post('/', authByJWT, setMyProfile);
 export default router;

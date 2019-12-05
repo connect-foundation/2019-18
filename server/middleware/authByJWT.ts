@@ -18,7 +18,7 @@ declare global {
     }
 }
 
-const jwt = async (req: Request, res: Response, next: NextFunction) => {
+const authByJWT = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.cookies || !req.cookies.token) {
       next();
@@ -36,4 +36,4 @@ const jwt = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default jwt;
+export default authByJWT;
