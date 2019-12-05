@@ -2,7 +2,7 @@ import baseStyled, { ThemedStyledInterface } from 'styled-components';
 
 export const theme = {
   // / colors
-  background: '#ffffff',
+  background: '#F1EFEA',
   green: '#5FCD8B',
   LIGHT_GREENISH_BLUE: '#55efc4',
   FADED_POSTER: '#81ecec',
@@ -35,8 +35,15 @@ export const theme = {
 
   PALE_CRA_PURPLE: '#525d9c',
 
+  WEIGHT: {
+    NORMAL: 400,
+    MEDIUM: 600,
+    STRONG: 800,
+  },
+
   // box-shadow
   BOX_SHADOW: 'rgba(0, 0, 0, 0.2) 0px 5px 13px',
+  BOX_SHADOW_BOTTOM: 'rgba(0, 0, 0, 0.2) 0 2px 8px -2px',
 };
 
 export type Theme = typeof theme;

@@ -48,6 +48,10 @@ const useFetch = <T>(initData:T[])
     fetchData();
   }, [url]);
 
+  useEffect(()=>{
+    console.log(data);
+  },[data]);
+
   return [{
     data, isLoading, isError, skippedNum, fixedNum,
   }, setUrl, onInsert];

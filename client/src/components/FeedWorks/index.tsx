@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import shortid from 'shortid';
 import { CircularProgress } from '@material-ui/core';
-import Card from '../Card';
+import { getShortId } from '../../utils';
+import WorksCard from '../Card/WorksCard';
 import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';
@@ -29,12 +29,12 @@ const FeedWorks:React.FC = () => {
         data.map(({
           _id, ownerId, url, creator, title, numOfComments, views,
         }) => (
-          <Card
+          <WorksCard
             _id={_id}
             ownerId={ownerId}
             imgUrl={url}
             creator={creator}
-            key={shortid.generate()}
+            key={getShortId()}
             title={title}
             numOfComments={numOfComments}
             views={views}

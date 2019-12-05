@@ -1,4 +1,5 @@
 import axios from 'axios';
+import shortId from 'shortid';
 
 export const getTime = (s:number) => {
   function appendLeadingZeroes(n:number) {
@@ -12,6 +13,7 @@ export const getTime = (s:number) => {
   return formattedDate;
 };
 
+export const getShortId = () => shortId.generate();
 
 export const Axios = ({ method, url, data }:any) => axios({
   method,

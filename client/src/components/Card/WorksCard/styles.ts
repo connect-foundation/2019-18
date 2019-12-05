@@ -1,12 +1,13 @@
 import styled from 'styled-components';
-import Img from '../../basics/Img';
-import { theme } from '../../style/theme';
+import Img from '../../../basics/Img';
+import { theme } from '../../../style/theme';
+import H3 from '../../../basics/H3';
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 15rem;
-    height: 20rem;
+    width: 20rem;
+    height: fit-content;
     margin: 1rem;
     border-radius: 10px;
     border: 0px solid black;
@@ -15,7 +16,7 @@ export const Container = styled.div`
 
 export const CardImgContainer = styled.div`
     width: 100%;
-    height: 10rem;
+    height: 13rem;
 `;
 
 export const CardImg = styled(Img)`
@@ -29,18 +30,15 @@ export const CardImg = styled(Img)`
 
 export const CardHeader = styled.div`
     padding: 0 1rem;
+    margin-top: 1rem;
+`;
+
+export const Title = styled(H3)`
+    margin: 0;
 `;
 
 export const CardBody = styled.div`
     display: flex;
     padding: 0 1rem;
     border-bottom: 1px ${theme.BORDER_GRAY} solid;
-`;
-
-export const CardFooter = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin: auto;
-    padding: 0 1rem;
 `;
