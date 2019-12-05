@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { theme } from '../../style/theme';
 import triangle from '../../assets/sort-down.svg';
+import GreenButton from '../../basics/ReverseButton/Green';
+import RedButton from '../../basics/ReverseButton/Red';
 
 export const FieldOptionsBox = styled.div`
     margin: 0 auto;
@@ -23,6 +25,18 @@ export const InputArea = styled.div`
     padding: 10px;
     width: 500px; 
     display: flex;
+`;
+export const InputButtonArea = styled.div`
+    margin: 0 auto;
+    padding: 10px;
+    width: 500px; 
+    display: flex;
+    justify-content:center;
+`;
+export const RedSubmitButton = styled(RedButton)`
+    margin-left:10px;
+`;
+export const GreenSubmitButton = styled(GreenButton)`
 `;
 export const SelectionArea = styled.div`
     margin: 0 auto;

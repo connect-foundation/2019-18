@@ -13,6 +13,8 @@ interface PortfolioProp{
     onChangeintroDetail :(e: React.ChangeEvent<HTMLTextAreaElement>)=> void;
     onClickShowOption : (e: React.MouseEvent<HTMLDivElement>)=>void;
     onChangeActiveFields:(e: React.ChangeEvent<HTMLInputElement>) => void;
+    onSubmit:(e: React.MouseEvent<HTMLButtonElement>) => void;
+    onCancel:(e: React.MouseEvent<HTMLButtonElement>) => void;
     activeField: any;
 }
 
@@ -20,7 +22,7 @@ interface PortfolioProp{
 const PortfolioForm:React.FC<PortfolioProp> = (
   {
     introSimple, introDetail, showOption, onChangeintroSimple, onChangeintroDetail, onClickShowOption,
-    onChangeActiveFields, activeField,
+    onChangeActiveFields, activeField, onSubmit, onCancel,
   },
 ) => {
   const makeFieldSelects = (value:string, label:string, checked:boolean) => (
@@ -65,7 +67,13 @@ const PortfolioForm:React.FC<PortfolioProp> = (
           <TextInput placeholder="상세 소개입니다" value={introDetail} onChange={onChangeintroDetail} />
         </S.LongInputTextArea>
       </S.InputArea>
+      <S.InputButtonArea>
+        <S.InputTitle></S.InputTitle>
+        <S.GreenSubmitButton onClick={onSubmit}>제출</S.GreenSubmitButton>
+        <S.RedSubmitButton onClick={onCancel}>취소</S.RedSubmitButton>
+      </S.InputButtonArea>
     </S.PortfolioForm>
+
   );
 };
 export default PortfolioForm;
