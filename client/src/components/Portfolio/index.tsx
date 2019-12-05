@@ -1,5 +1,5 @@
 import React from 'react';
-import ReverseButton from '../../basics/ReverseButton';
+import EmptyButton from '../../basics/emptyButton';
 import * as S from './style';
 import StyledLink from '../../basics/StyledLink';
 
@@ -25,9 +25,9 @@ const Portfolio:React.FC<portfolioProp> = ({ introSimple, introDetail, activeFie
             <S.FollowNumber>{following}</S.FollowNumber>
           </S.FollowLine>
           <StyledLink to="/creator/form">
-            <ReverseButton>
+            <EmptyButton>
             프로필 수정
-            </ReverseButton>
+            </EmptyButton>
           </StyledLink>
         </S.PortfolioDetail>
         <S.PortfolioImage src={LOGIN_PROFILE_THUMBNAIL} />

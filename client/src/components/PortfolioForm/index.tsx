@@ -69,8 +69,8 @@ const PortfolioForm:React.FC<PortfolioProp> = (
       </S.InputArea>
       <S.InputButtonArea>
         <S.InputTitle></S.InputTitle>
-        <S.GreenSubmitButton onClick={onSubmit}>제출</S.GreenSubmitButton>
-        <S.RedSubmitButton onClick={onCancel}>취소</S.RedSubmitButton>
+        <S.GreenEmptyButton onClick={onSubmit}>제출</S.GreenEmptyButton>
+        <S.RedEmptyButton onClick={onCancel}>취소</S.RedEmptyButton>
       </S.InputButtonArea>
     </S.PortfolioForm>
 

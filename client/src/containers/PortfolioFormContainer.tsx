@@ -51,7 +51,7 @@ const PortfolioFormContainer:React.FC = () => {
     setShowOption(false);
     getData().then((result) => setForm(result));
     setSubmitSuccess(false);
-  }, [submitSuccess, setSubmitSuccess, activeField]);
+  }, [submitSuccess, setSubmitSuccess]);
 
   const onSubmit = (e:React.MouseEvent<HTMLButtonElement>) => {
     const submitData = async () => {
