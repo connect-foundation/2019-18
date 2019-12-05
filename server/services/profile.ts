@@ -4,7 +4,7 @@ import User from '../models/user';
 const intialProfile = {
   introSimple: '한줄소개',
   introDetail: '상세소개입니다',
-  activeFields: '',
+  activeFields: ['캘리그라피'],
 };
 
 const initProfile = (userId) => Profile.create(
@@ -21,9 +21,15 @@ const findProfileByUserId = async (emailId) => {
   if (profile.length === 0) return {};
   return profile[0];
 };
+const setProfileByUserId = async (emailId, payload) => {
+  const user = await User.find({ email: emailId }, { _id: 1 });
+  if (user.length === 0) return {};
+  await Profile.update({ owner: user[0]._id }, payload);
+};
 
 export {
   create,
   findProfileByUserId,
+  setProfileByUserId,
   initProfile,
 };
