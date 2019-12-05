@@ -29,40 +29,40 @@ interface ContentObject {
 }
 
 const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) => {
-  const { content } = req.body;
+  try {
+    const { content } = req.body;
+    const data = {
+      ...req.body,
+      owner: mongoose.Types.ObjectId(),
+    };
+    const result = await workImageCreate(data);
+    const workImageId = result.id;
 
-  const data = {
-    ...req.body,
-    owner: mongoose.Types.ObjectId(),
-  };
-  const result = await workImageCreate(data);
-  console.log(result.id);
-  const workImageId = result.id;
-  console.log(data);
-
-  content.forEach(async (element:ContentObject) => {
-    if (element.type === 'image') {
-      const imagePayload = {
-        owner: workImageId,
-        creator: mongoose.Types.ObjectId(),
-        public: req.body.public,
-        ref: [],
-        url: element.content,
-      };
-      const reqult2 = await imageCreate(imagePayload);
-      console.log(reqult2);
-    } else if (element.type === 'wallpaper') {
-      const wallpaperPayload = {
-        owner: workImageId,
-        creator: mongoose.Types.ObjectId(),
-        public: req.body.public,
-        url: element.content,
-        downloads: 0,
-      };
-      const reqult2 = await wallPaperCreate(wallpaperPayload);
-      console.log(reqult2);
-    }
-  });
+    content.forEach(async (element:ContentObject) => {
+      if (element.type === 'images') {
+        const imagePayload = {
+          owner: workImageId,
+          creator: mongoose.Types.ObjectId(),
+          public: req.body.public,
+          ref: [],
+          url: element.content,
+        };
+        await imageCreate(imagePayload);
+      } else if (element.type === 'wallpapers') {
+        const wallpaperPayload = {
+          owner: workImageId,
+          creator: mongoose.Types.ObjectId(),
+          public: req.body.public,
+          url: element.content,
+          downloads: 0,
+        };
+        await wallPaperCreate(wallpaperPayload);
+      }
+    });
+    res.json({ workImageId });
+  } catch (e) {
+    next(e);
+  }
 };
 
 export { getUrl, uploadWorkImage };

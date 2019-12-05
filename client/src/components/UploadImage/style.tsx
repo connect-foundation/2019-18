@@ -110,7 +110,7 @@ export const UploadButton = styled.button`
   display: inline-block;
   border: none;
   margin: 0;
-  margin-top: 10px;
+  margin-top: 30px;
   text-decoration: none;
   background: ${theme.CRA_PURPLE};
   color: #ffffff;

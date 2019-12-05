@@ -3,13 +3,13 @@ import React, {
 } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import { API_SERVER, MAXSIZEOFUPLOADIMAGE } from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
 import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
 import { ContentObject, DetailObject } from './type';
-
 
 const initDetailObject = {
   commentsAllow: true,
@@ -19,27 +19,27 @@ const initDetailObject = {
 };
 
 function ImageUpload() {
-  const [previews, setPreviews] = useState<string[]>([]);
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
   const [title, setTitle] = useState<string>('');
   const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
   const [showPopupDETAIL, setShowPopupDETAIL] = useState<boolean>(false);
   const [detailInfo, setDetailInfo] = useState<DetailObject>(initDetailObject);
+  const [canRedirect, setCanRedirect] = useState<boolean>(false);
+  const [workId, setWorkId] = useState<string>('');
 
   const updateContent = (type:string, file: File[]) => {
     const newfile = file[file.length - 1];
-    const obj = {
-      type,
-      content: '',
-      file: newfile,
-    };
-    setDocumnets((prevDocument) => [...prevDocument, obj]);
-
     const reader = new FileReader();
     reader.readAsDataURL(newfile);
     reader.onloadend = (e) => {
       if (typeof reader.result === 'string') {
-        setPreviews([...previews, reader.result]);
+        const obj = {
+          type,
+          content: '',
+          file: newfile,
+          preview: reader.result,
+        };
+        setDocumnets((prevDocument) => [...prevDocument, obj]);
       }
     };
   };
@@ -100,8 +100,19 @@ function ImageUpload() {
       tags: [],
     };
 
+    console.log(obj);
+
     const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
     // 업로드 완료후 작품 상세 페이지로 refirect
+    const { workImageId } = data;
+    setCanRedirect(true);
+    setWorkId(workImageId);
+  };
+
+  const renderRedirect = () => {
+    if (canRedirect) {
+      return <Redirect to={`/home/detail-image/${workId}`} />;
+    }
   };
 
 
@@ -119,6 +130,7 @@ function ImageUpload() {
       type: 'description',
       content: '아무말 아무말',
       file: null,
+      preview: '',
     };
     const temp2:ContentObject[] = [...documents];
     temp2.push(obj);
@@ -140,6 +152,9 @@ function ImageUpload() {
 
   return (
     <S.UploadMain>
+      <div>
+        {renderRedirect()}
+      </div>
       <S.Title>
         <S.TitleInput
           type="text"
@@ -150,7 +165,18 @@ function ImageUpload() {
         />
       </S.Title>
       <div>
-        {previews && previews.map((element) => <Preview src={element} />)}
+        {documents
+          && documents.map(({ type, content, preview }) => {
+            if (type === 'images' || type === 'wallpapers') {
+              return <Preview src={preview} />;
+            }
+            return (
+              <div>
+                {content}
+              </div>
+            );
+          })}
+        {/* {previews && previews.map((element) => <Preview src={element} />)} */}
       </div>
 
       <S.SeleteBox>
