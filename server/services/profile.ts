@@ -14,17 +14,15 @@ const initProfile = (userId) => Profile.create(
   },
 );
 const create = (payload) => Profile.create(payload);
-const findProfileByUserId = async (emailId) => {
-  const user = await User.find({ email: emailId }, { _id: 1 });
-  if (user.length === 0) return {};
-  const profile = await Profile.find({ owner: user[0]._id });
-  if (profile.length === 0) return {};
+const findProfileByUserId = async (id) => {
+  const profile = await Profile.find({ owner: id });
+  if (profile.length === 0) return undefined;
   return profile[0];
 };
-const setProfileByUserId = async (emailId, payload) => {
-  const user = await User.find({ email: emailId }, { _id: 1 });
-  if (user.length === 0) return {};
-  await Profile.update({ owner: user[0]._id }, payload);
+const setProfileByUserId = async (id, payload) => {
+  console.log(payload);
+  console.log(id);
+  await Profile.update({ owner: id }, payload);
 };
 
 export {
