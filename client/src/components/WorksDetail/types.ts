@@ -1,5 +1,10 @@
+import { IComment } from '../Comment/types';
+import { LoginUserState } from '../../modules/login/types';
+
 export interface WorksDetailProp{
     data: IData | null,
+    inputComment: string,
+    user:LoginUserState,
     isLoading: boolean,
     isError: boolean,
     commentRef: React.RefObject<HTMLTextAreaElement>,
@@ -13,17 +18,14 @@ export interface CommentProp{
     createdAt: string,
 }
 
+
 export interface IData {
     content:{
         type:string,
         content:string,
     }[],
     emoji: string[],
-    comments:{
-      owner: string,
-      content: string,
-      createdAt: number,
-    }[],
+    comments:IComment[],
     commentsAllow: boolean,
     public: boolean,
     tags:string[],

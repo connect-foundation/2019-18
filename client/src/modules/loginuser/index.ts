@@ -7,25 +7,22 @@ const initialState = {
   originUrl: '',
   isLogin: false,
 };
-const makeUserState = async (cookies:string, resolve:any) => {
+const makeUserState = async () => {
   const response = await fetch(`${API_SERVER}/login/whoAmI`, {
     method: 'get',
     credentials: 'include',
   });
   const responseData = await response.json();
 
-  if (!responseData.success) { return resolve(initialState); }
+  if (!responseData.success) { return initialState; }
 
   const { user } = responseData.data;
   const UserState = {
-    email: user.email,
-    name: user.name,
-    thumbnailUrl: user.thumbnailUrl,
-    originUrl: user.originUrl,
+    ...user,
     isLogin: true,
   };
 
-  resolve(UserState);
+  return UserState;
 };
 
 export default makeUserState;

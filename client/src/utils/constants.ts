@@ -1,4 +1,4 @@
-require('dotenv').config();
+import 'dotenv/config';
 
 export const API_SERVER:string = process.env.NODE_ENV === 'production'
   ? `${process.env.REACT_APP_URL}/api`
@@ -17,13 +17,8 @@ export const OAUTH_URL:string = `https://nid.naver.com/oauth2.0/authorize?respon
   STATE
 }`;
 
-export const FEED_IMAGE_ADD_COMMENT = (id:string) => {
-  const METHOD = 'POST';
-  const ADDR = `${API_SERVER}/feed/images/${id}/add-comment`;
-  return {
-    METHOD,
-    ADDR,
-  };
+export const API_ADDR = {
+  FEED_IMAGE_ADD_COMMENT: (id:string) => `${API_SERVER}/feed/images/${id}/add-comment`,
 };
 
 export const fieldoptions = [
@@ -43,3 +38,14 @@ export const ccloptions = [
   { value: 'CCBY-NC-SA', label: 'CC BY-NC-SA (저작자표시-비영리-동일조건변경허락)' },
   { value: 'CCBY-NC-ND', label: 'CC BY-NC-ND (저작자표시-비영리-변경금지)' },
 ];
+
+export const LOGIN = {
+  ID_NOT_VALID: '아이디를 이메일 형식으로 해주세요.',
+};
+
+export const JOIN = {
+  ID_NOT_VALID: '아이디를 이메일 형식으로 해주세요.',
+  PASSWORD_DO_NOT_MATCH: '비밀번호가 동일하지 않습니다',
+};
+// 13.5MB = 13481938, MAX SIZE is 20MB
+export const MAXSIZE_OF_UPLOADIMAGE = 5242880;

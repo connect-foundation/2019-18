@@ -9,6 +9,6 @@ margin-left: 5rem;
 `;
 
 export const LogoImg = styled(Img)`
-    width: 3rem;
-    height: 3rem;
+    width: 4rem;
+    height: auto;
 `;

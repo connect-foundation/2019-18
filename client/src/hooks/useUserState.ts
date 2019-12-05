@@ -10,13 +10,10 @@ const useUserState = (props:ReactCookieProps) => {
   const currentUserState = useSelector((state:RootState) => state.login);
   useEffect(() => {
     const token = props.cookies && props.cookies.get('token');
-    const UpdateUserState = new Promise<loginUser>((resolve) => {
-      makeUserState(token, resolve);
-    });
     if (token && currentUserState.name === '') {
-      UpdateUserState.then((userState:loginUser) => dispatch(setuser(userState)));
+      makeUserState().then((userState:loginUser) => dispatch(setuser(userState)));
     }
-  }, [currentUserState]);
+  }, [currentUserState, dispatch, props.cookies]);
 };
 
 export default useUserState;

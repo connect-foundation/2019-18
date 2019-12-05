@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Img from '../../../../basics/Img';
 
-
+const ProfileLink = styled(Link)`
+    text-decoration : none;
+    margin: auto;
+    margin-left: 1rem;
+`;
 const ProfileImg = styled(Img)`
     margin-left: 1rem;
 `;
@@ -14,7 +19,9 @@ const HeaderGreetingContainer = styled.div`
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
 const HeaderGreeting: React.FC = () => (
   <HeaderGreetingContainer>
-    <ProfileImg src={LOGIN_PROFILE_THUMBNAIL} />
+    <ProfileLink to="/creator">
+      <ProfileImg src={LOGIN_PROFILE_THUMBNAIL} />
+    </ProfileLink>
   </HeaderGreetingContainer>
 );
 
