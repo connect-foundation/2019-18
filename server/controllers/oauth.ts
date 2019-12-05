@@ -22,7 +22,6 @@ const getAccessToken = async (code, state) => {
     state,
   };
   const paramedOauthCallBackURI = `${oauthCallBackURI}?${Object.keys(oauthParams).map((key) => `${key}=${oauthParams[key]}`).join('&')}`;
-  console.log(paramedOauthCallBackURI);
   const responseToken = await fetch(paramedOauthCallBackURI, {
     method: 'GET',
     headers: { 'X-Naver-Client-Id': clientId, 'X-Naver-Client-Secret': clientSecret },
