@@ -4,19 +4,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import * as S from './style';
 import TextInput from '../../basics/Input/TextInput';
-
-interface PortfolioProp{
-    introSimple: string;
-    introDetail: string;
-    showOption: boolean;
-    onChangeintroSimple :(e: React.ChangeEvent<HTMLTextAreaElement>)=> void;
-    onChangeintroDetail :(e: React.ChangeEvent<HTMLTextAreaElement>)=> void;
-    onClickShowOption : (e: React.MouseEvent<HTMLDivElement>)=>void;
-    onChangeActiveFields:(e: React.ChangeEvent<HTMLInputElement>) => void;
-    onSubmit:(e: React.MouseEvent<HTMLButtonElement>) => void;
-    onCancel:(e: React.MouseEvent<HTMLButtonElement>) => void;
-    activeField: any;
-}
+import { PortfolioProp } from './types';
 
 
 const PortfolioForm:React.FC<PortfolioProp> = (
