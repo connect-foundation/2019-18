@@ -2,7 +2,7 @@ import React from 'react';
 import EmptyButton from '../../basics/emptyButton';
 import * as S from './style';
 import StyledLink from '../../basics/StyledLink';
-import { portfoiloProp } from './types';
+import { portfolioProp } from './types';
 
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
 

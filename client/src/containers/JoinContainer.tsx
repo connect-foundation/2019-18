@@ -63,16 +63,16 @@ const Content:React.FC = () => {
     return setShowPopupWARN(true);
   };
 
-  const onChangename = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeName = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
-  const onChangepwd = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPwd(e.target.value);
   };
-  const onChangepwdcheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePwdCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPwdCheck(e.target.value);
   };
-  const onChangeemail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   const togglePopup = () => {
@@ -82,13 +82,13 @@ const Content:React.FC = () => {
     <S.JoinContainer>
       <Join
         onJoin={onJoin}
-        onChangeemail={onChangeemail}
-        onChangepwdcheck={onChangepwdcheck}
-        onChangepwd={onChangepwd}
-        onChangename={onChangename}
+        onChangeEmail={onChangeEmail}
+        onChangePwdCheck={onChangePwdCheck}
+        onChangePwd={onChangePwd}
+        onChangeName={onChangeName}
         email={email}
         pwd={pwd}
-        pwdcheck={pwdCheck}
+        pwdCheck={pwdCheck}
         name={name}
         joinSuccess={joinSuccess}
       />
