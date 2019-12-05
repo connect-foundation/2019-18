@@ -15,7 +15,6 @@ const getImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const images = await getImageFeeds(0, 10);
     const filteredFeed = images.map((image: any) => {
-      console.log(image);
       const newFeed = {
         id: image.id,
         url: `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`,
@@ -71,7 +70,6 @@ const getWorkImage = async (req: Request, res: Response, next: NextFunction) => 
       }
       return { ...el, content: `${IMAGE_CDN}${el.type}/${el.content}${IMAGE_QUERY_HIGH}` };
     });
-
     response(res, workImage);
   } catch (e) {
     next(e);
@@ -105,9 +103,64 @@ const addComment = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getMoreWallpapers = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { fixedNum, skippedNum } = req.params;
+    if (typeof (+fixedNum) !== 'number' && typeof (+skippedNum) !== 'number') {
+      throw (new Error('type error'));
+    }
+    const images = await get10Wallpapers(+skippedNum, +fixedNum);
+    const filteredFeed = images.map((image: any) => {
+      const newFeed = {
+        id: image.id,
+        url: `${IMAGE_CDN}${WALLPAPERS}${image.url}${IMAGE_QUERY_LOW}`,
+        ownerId: image.owner.id,
+        numOfComments: image.owner.comments.length,
+        views: image.owner.views,
+        title: image.owner.title,
+        creator: image.creator,
+      };
+      return newFeed;
+    });
+    return response(res, filteredFeed);
+  } catch (e) {
+    next(e);
+  }
+};
+
+const getMoreImages = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { fixedNum, skippedNum } = req.params;
+    if (typeof (+fixedNum) !== 'number' && typeof (+skippedNum) !== 'number') {
+      throw (new Error('type error'));
+    }
+    const images = await get10Images(+skippedNum, +fixedNum);
+
+    const filteredFeed = images.map((image: any) => {
+      const newFeed = {
+        id: image.id,
+        url: `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`,
+        ownerId: image.owner.id,
+        numOfComments: image.owner.comments.length,
+        views: image.owner.views,
+        title: image.owner.title,
+        creator: image.creator,
+      };
+      return newFeed;
+    });
+    return response(res, filteredFeed);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+};
+
+
 export {
   getImages,
   getWallpapers,
   getWorkImage,
   addComment,
+  getMoreWallpapers,
+  getMoreImages,
 };

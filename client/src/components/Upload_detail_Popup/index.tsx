@@ -17,7 +17,7 @@ function Popup({
   const [field, setField] = useState('');
   const [ccl, setCcl] = useState('');
   const [ispublic, setIspublic] = useState(true);
-  const [commentsAllow, setCommemtsAllow] = useState(true);
+  const [canComments, setCanComments] = useState(true);
 
   const selectHandlerField = (selectedOption: ValueType<OptionType>) => {
     const { value } = selectedOption as OptionType;
@@ -31,20 +31,12 @@ function Popup({
 
   const radioHandlerComments = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    if (value === 'Y') {
-      setCommemtsAllow(true);
-    } else {
-      setCommemtsAllow(false);
-    }
+    setCanComments(value === 'Y');
   };
 
   const radioHandlerIspublic = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    if (value === 'Y') {
-      setIspublic(true);
-    } else {
-      setIspublic(false);
-    }
+    setIspublic(value === 'Y');
   };
 
   const composeAddtionalInfo = async () => {
@@ -52,7 +44,7 @@ function Popup({
       field,
       ccl,
       public: ispublic,
-      commentsAllow,
+      commentsAllow: canComments,
     };
     await setDetailInfo(obj);
     await aproveHandler();

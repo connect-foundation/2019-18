@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './styles';
 import Like from '../../commons/Like';
-import Content from '../FeedContainer';
+
 import { getTime } from '../../utils';
 import { CommentProp, WorksDetailProp } from './types';
 

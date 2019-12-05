@@ -19,7 +19,7 @@ const jwt = async (req: Request, res: Response, next: NextFunction) => {
     const userdata:any = await getUserFromToken(decoded);
     if (userdata) {
       req.decodedUser = {
-        email: userdata.email, name: userdata.name, originUrl: userdata.originUrl, thumbnailUrl: userdata.thumbnailUrl,
+        _id: userdata._id, email: userdata.email, name: userdata.name, originUrl: userdata.originUrl, thumbnailUrl: userdata.thumbnailUrl,
       };
     }
     next();

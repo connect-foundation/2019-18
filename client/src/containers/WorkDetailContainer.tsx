@@ -16,7 +16,7 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   const [inputComment, setInputComment] = useState('');
 
   useEffect(() => {
-    setUrl(`${API_SERVER}/feed/images/${id}`);
+    setUrl(`${API_SERVER}/feed/workimage/${id}`);
   }, [data]);
   const changeInputHandler = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputComment(e.target.value);

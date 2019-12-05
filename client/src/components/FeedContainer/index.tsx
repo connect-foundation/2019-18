@@ -21,7 +21,7 @@ const Content = ({ match }: RouteComponentProps) => (
         <Route exact path={`${match.path}`} component={FeedWorks} />
         <Route path={`${match.path}/wallpaper`} component={FeedWallpapers} />
         <Route path={`${match.path}/music`} component={FeedMusic} />
-        <Route path={`${match.path}/upload`} componnent={UploadMain} />
+        <Route path={`${match.path}/upload`} component={UploadMain} />
         <Route component={NotFound} />
       </Switch>
     </Route>

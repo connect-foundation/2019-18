@@ -1,57 +1,53 @@
-import React, { useEffect } from 'react';
+import React, {
+  useEffect,
+} from 'react';
+import shortid from 'shortid';
+import { CircularProgress } from '@material-ui/core';
 import Card from '../Card';
 import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';
-
-interface IWallpaper{
-  _id: string;
-  ownerId:string;
-  creator:{
-    _id: string,
-    name: string,
-    email: string,
-  };
-  url: string;
-  title:string;
-  numOfComments:string;
-  views: string;
-}
+import { IWallpaper } from './type';
 
 const FeedWallpapers: React.FC = () => {
   const [{
-    data, isLoading, isError,
-  }, doFetch] = useGetFeedList<IWallpaper>([]);
+    data, isLoading, isError, skippedNum, fixedNum,
+  }, doFetch, onInsert] = useGetFeedList<IWallpaper>([]);
 
   useEffect(() => {
-    doFetch(`${API_SERVER}/feed/images`);
+    window.addEventListener('scroll', onInsert);
+    return () => {
+      window.removeEventListener('scroll', onInsert);
+    };
   }, []);
-  return (
 
+  useEffect(() => {
+    doFetch(`${API_SERVER}/feed/wallpapers/more/${fixedNum.current}/${skippedNum}`);
+  }, [skippedNum]);
+
+  return (
     <S.Container>
       {
-        isError
-          ? (<div>Something wrong...</div>)
-          : isLoading
-            ? (<div>Loadinng...</div>)
-            : (
-              data.map(({
-                _id, ownerId, url, creator, title, numOfComments, views,
-              }) => (
-                <Card
-                  _id={_id}
-                  ownerId={ownerId}
-                  imgUrl={url}
-                  creator={creator}
-                  key={_id}
-                  title={title}
-                  numOfComments={numOfComments}
-                  views={views}
-                />
-              ))
-            )
-      }
+        data.map(({
+          _id, ownerId, url, creator, title, numOfComments, views,
+        }) => (
+          <Card
+            _id={_id}
+            ownerId={ownerId}
+            imgUrl={url}
+            creator={creator}
+            key={shortid.generate()}
+            title={title}
+            numOfComments={numOfComments}
+            views={views}
+          />
+        ))
+    }
+      <S.Progress>
+        {isLoading && <CircularProgress color="inherit" />}
+      </S.Progress>
     </S.Container>
+
   );
 };
 

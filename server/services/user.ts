@@ -8,8 +8,14 @@ const isExist = async (email) => {
   return true;
 };
 
+const findId = async (email) => {
+  const result = await User.findOne({ email });
+  return result;
+};
+
 export {
   create,
   remove,
   isExist,
+  findId,
 };
