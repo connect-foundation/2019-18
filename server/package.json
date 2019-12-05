@@ -6,6 +6,7 @@
     "dev": "nodemon --exec 'ts-node' ./bin/www.ts",
     "start": "NODE_ENV=development nodemon --exec 'ts-node' bin/www.ts",
     "seed": "NODE_ENV=development 'ts-node' seed/index.ts",
+    "seed:deploy": "NODE_ENV=production 'ts-node' seed/index.ts",
     "test": "NODE_ENV=development jest"
   },
   "dependencies": {
