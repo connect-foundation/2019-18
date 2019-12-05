@@ -18,7 +18,6 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const [inputComment, setInputComment] = useState('');
   const user = useSelector((state: RootState) => state.login);
-  console.log(data);
   useEffect(() => {
     setUrl(`${API_SERVER}/feed/workimage/${id}`);
   }, [data]);

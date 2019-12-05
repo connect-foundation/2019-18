@@ -20,11 +20,16 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
   }
 
+  html{
+    height : 100%;
+  }
+
   body{
     padding: 0;
     margin: 0;
     background: ${theme.background};
     font-family: SFProText, SFProText, "Apple SD Gothic Neo", AppleSDGothicNeo, "Malgun Gothic", "맑은 고딕", sans-serif;
+    height: 100%;
   }
   div#root{
     height: 100%;

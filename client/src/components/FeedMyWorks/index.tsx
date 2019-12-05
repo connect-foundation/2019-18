@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Card from '../Card';
+import Card from '../Card/WorksCard';
 import useGetFeedList from '../../hooks/useGetFeedList';
 import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';

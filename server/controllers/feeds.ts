@@ -85,7 +85,7 @@ const addComment = async (req: Request, res: Response, next: NextFunction) => {
     const workImageId = req.params.id;
     const { content } = req.body;
     const payload = {
-      owner: user._id,
+      owner: user.id,
       ownerThumbnail: user.thumbnailUrl,
       ownerName: user.name,
       content,

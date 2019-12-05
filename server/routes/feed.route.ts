@@ -1,12 +1,12 @@
 import {
   getImages, getWallpapers, getWorkImage, addComment, getMoreWallpapers, getMoreImages,
 } from '../controllers/feeds';
-import jwt from '../middleware/jwt';
+import authByJWT from '../middleware/authByJWT';
 
 const router = require('express').Router();
 
 router.get('/images', getImages);
-router.post('/images/:id/add-comment', jwt, addComment);
+router.post('/images/:id/add-comment', authByJWT, addComment);
 router.get('/images/more/:fixedNum/:skippedNum', getMoreImages);
 router.get('/workimage/:id', getWorkImage);
 router.get('/wallpapers', getWallpapers);
