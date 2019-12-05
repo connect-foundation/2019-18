@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { theme } from '../../style/theme';
 
 export const Container = styled.div`
     display: flex;
@@ -6,4 +7,10 @@ export const Container = styled.div`
     justify-content: space-between;
     width: 80%;
     margin: auto;
+`;
+
+export const Progress = styled.div`
+    margin: auto auto;
+    margin-top: 20px;
+    color: ${theme.BORDER_GRAY};
 `;

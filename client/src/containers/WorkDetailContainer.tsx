@@ -20,7 +20,7 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   const user = useSelector((state: RootState) => state.login);
   console.log(data);
   useEffect(() => {
-    setUrl(`${API_SERVER}/feed/images/${id}`);
+    setUrl(`${API_SERVER}/feed/workimage/${id}`);
   }, [data]);
 
   const changeInputHandler = (e:React.ChangeEvent<HTMLTextAreaElement>) => {

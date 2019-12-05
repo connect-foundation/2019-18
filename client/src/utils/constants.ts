@@ -38,3 +38,6 @@ export const ccloptions = [
   { value: 'CCBY-NC-SA', label: 'CC BY-NC-SA (저작자표시-비영리-동일조건변경허락)' },
   { value: 'CCBY-NC-ND', label: 'CC BY-NC-ND (저작자표시-비영리-변경금지)' },
 ];
+
+// 13.5MB = 13481938, MAX SIZE is 20MB
+export const MAXSIZE_OF_UPLOADIMAGE = 5242880;

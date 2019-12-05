@@ -4,10 +4,10 @@ import WorkImage from '../models/work_image';
 import User from '../models/user';
 
 const get10Images = (skip, limit) => Image.find()
-  .select({ creator: 1, url: 1 })
   .skip(skip)
   .limit(limit)
-  .populate('creator', 'name email');
+  .populate('creator', 'name thumbnailUrl')
+  .populate('owner', 'emoji comments views title');
 
 const get10Wallpapers = (skip, limit) => Wallpaper.find()
   .skip(skip)
