@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
+import createError from 'http-errors';
+import httpStatus from 'http-status';
 import { workImageCreate, imageCreate, wallPaperCreate } from '../services/upload';
+import { FEED, AUTH } from '../utils/messages';
 
 interface MulterFile {
     key: string,
@@ -9,6 +12,10 @@ interface MulterFile {
 const getUrl = async (req: Request & { files: MulterFile[] },
   res: Response, next: NextFunction) => {
   try {
+    const user = req.decodedUser;
+    if (!user) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    }
     const { files } = req;
     const objectStorageUrls = files.map(
       (element) => {
@@ -30,10 +37,14 @@ interface ContentObject {
 
 const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) => {
   try {
+    const user = req.decodedUser;
+    if (!user) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    }
     const { content } = req.body;
     const data = {
       ...req.body,
-      owner: mongoose.Types.ObjectId(),
+      owner: user._id,
     };
     const result = await workImageCreate(data);
     const workImageId = result.id;

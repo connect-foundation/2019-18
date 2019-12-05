@@ -11,6 +11,8 @@ import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
 import { ContentObject, DetailObject } from './type';
 
+axios.defaults.withCredentials = true;
+
 const initDetailObject = {
   commentsAllow: true,
   ccl: 'ALL',
@@ -99,8 +101,6 @@ function ImageUpload() {
       content: dbContent,
       tags: [],
     };
-
-    console.log(obj);
 
     const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
     // 업로드 완료후 작품 상세 페이지로 refirect
