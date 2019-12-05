@@ -1,30 +1,43 @@
 import React, { useState } from 'react';
-import dotenv from 'dotenv';
 import styled from 'styled-components';
 import Join from '../components/Join';
-import { API_SERVER } from '../utils/constants';
+import { API_SERVER, JOIN } from '../utils/constants';
+import PopupWarn from '../commons/Popup_warn';
 
-dotenv.config();
 
-const Screen = styled.div`
+const S = {
+  JoinContainer: styled.div`
   width:100%;
-  height:100%; 
+  height:100%;
   display: flex;
   justify-items: center;
   justify-content: center;
-`;
+`,
+};
+const isEmailForm = (input:string) => {
+  const eamilRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+  // chromium에서 돌아가는 코드에서 빼온거라고 함
+  return eamilRegExp.test(input);
+};
 
 const Content:React.FC = () => {
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const [pwdCheck, setPwdCheck] = useState('');
   const [name, setName] = useState('');
-  const [joinSuccess, setJoinSuccess] = useState({ result: false, message: '' });
+  const [joinSuccess, setJoinSuccess] = useState(false);
+  const [showPopupWARN, setShowPopupWARN] = useState(false);
+  const [popupTEXT, setPopupTEXT] = useState('');
+
   const onJoin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (pwd !== pwdCheck) {
-      return setJoinSuccess({
-        result: false, message: '비밀번호 확인과 비밀번호가 같지 않습니다.',
-      });
+      setPopupTEXT(JOIN.PASSWORD_DO_NOT_MATCH);
+      return setShowPopupWARN(true);
+    }
+    if (!isEmailForm(email)) {
+      setPopupTEXT(JOIN.ID_NOT_VALID);
+      return setShowPopupWARN(true);
     }
 
     const body = {
@@ -40,39 +53,47 @@ const Content:React.FC = () => {
     });
 
     const responseJson = await response.json();
+
     if (responseJson.success) {
-      return setJoinSuccess({ result: true, message: '' });
+      setShowPopupWARN(false);
+      return setJoinSuccess(true);
     }
-    return setJoinSuccess({ result: false, message: responseJson.message });
+
+    setPopupTEXT(responseJson.data.message);
+    return setShowPopupWARN(true);
   };
 
-  const onChangename = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeName = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
-  const onChangepwd = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPwd(e.target.value);
   };
-  const onChangepwdcheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePwdCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPwdCheck(e.target.value);
   };
-  const onChangeemail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+  const togglePopup = () => {
+    setShowPopupWARN(false);
+  };
   return (
-    <Screen>
+    <S.JoinContainer>
       <Join
         onJoin={onJoin}
-        onChangeemail={onChangeemail}
-        onChangepwdcheck={onChangepwdcheck}
-        onChangepwd={onChangepwd}
-        onChangename={onChangename}
+        onChangeEmail={onChangeEmail}
+        onChangePwdCheck={onChangePwdCheck}
+        onChangePwd={onChangePwd}
+        onChangeName={onChangeName}
         email={email}
         pwd={pwd}
-        pwdcheck={pwdCheck}
+        pwdCheck={pwdCheck}
         name={name}
         joinSuccess={joinSuccess}
       />
-    </Screen>
+      {showPopupWARN && <PopupWarn text={popupTEXT} closePopup={togglePopup} />}
+    </S.JoinContainer>
   );
 };
 

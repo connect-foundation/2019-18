@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { loginService, decodeJwt, getUserFromToken } from '../services/login';
 import response from '../utils/response';
+import { LOGIN } from '../utils/messages';
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -9,7 +10,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     if (result.token !== null) {
       res.cookie('token', result.token);
     }
-    return response(res, {}, result.status);
+    return response(res, { message: LOGIN.LOGIN_FAILURE }, result.status);
   } catch (e) {
     next(e);
   }

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { create, remove } from '../services/user';
+import { initProfile } from '../services/profile';
 import response from '../utils/response';
 
 const { validationResult } = require('express-validator');
@@ -15,6 +16,10 @@ const signup = async (req: Request, res: Response) => {
   };
   try {
     const user = await create(data);
+    if (!user) {
+      throw new Error('user가 정상적으로 생성되지 않음');
+    }
+    await initProfile(user.id);
     return response(res);
   } catch (e) {
     if (e.name === 'MongoError') {

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { theme } from '../../style/theme';
 
 export const Box = styled.div`
   position: fixed;
@@ -23,7 +24,7 @@ export const Inner = styled.div`
   position: absolute;
   width: 300px;
   height: auto;
-  background: white;
+  background: ${theme.background};
   padding: 30px 20px;
 
   label{
