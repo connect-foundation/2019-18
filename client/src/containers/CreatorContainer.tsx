@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import { getDefaultWatermarks } from 'istanbul-lib-report';
 import useGetFeed from '../hooks/useGetFeed';
 import { API_SERVER, FEED_IMAGE_ADD_COMMENT } from '../utils/constants';
 import { IData } from '../components/WorksDetail/types';
@@ -28,56 +29,47 @@ const S = {
     height: 100%;
   `,
 };
+const initialPortfolio = {
+  introSimple: '',
+  introDetail: '',
+  activeFields: [''],
+};
 const CreatorContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   const follower = 10;
   const following = 100;
-  //   const { id } = match.params;
-  //   const [{
-  //     data, setData, isLoading, isError,
-  //   }, setUrl] = useGetFeed<IData | null>(null);
-
-  //   const commentRef = useRef<HTMLTextAreaElement>(null);
-  //   const [inputComment, setInputComment] = useState('');
-
-  //   useEffect(() => {
-  //     setUrl(`${API_SERVER}/feed/images/${id}`);
-  //   }, [data]);
-  //   const changeInputHandler = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
-  //     setInputComment(e.target.value);
-  //   };
-
-  //   const addNewComment = () => {
-  //     if (data) {
-  //       if (inputComment.length < 5) {
-  //         alert('댓글은 5자 이상이어야 합니다.');
-  //         return;
-  //       }
-  //       const postData = {
-  //         content: inputComment,
-  //       };
-  //       const { METHOD, ADDR } = FEED_IMAGE_ADD_COMMENT(id);
-  //       Axios({
-  //         METHOD,
-  //         ADDR,
-  //         postData,
-  //       })
-  //         .then((response) => {
-  //           if (!response.data.success) {
-  //             console.error(response.data.msg);
-  //           } else {
-  //             setData(response.data.data);
-  //             if (commentRef.current) {
-  //               commentRef.current.value = '';
-  //             }
-  //           }
-  //         });
-  //     }
-  //   };
-
+  const [portfolio, setPortfolio] = useState({ ...initialPortfolio });
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(`${API_SERVER}/profile`, {
+        method: 'get',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const responseJson = await response.json();
+      if (!responseJson.success) {
+        return null;
+      }
+      console.log(responseJson.data);
+      return responseJson.data;
+    };
+    getData().then((data:any) => {
+      if (data) {
+        setPortfolio({
+          introDetail: data.introDetail,
+          introSimple: data.introSimple,
+          activeFields: data.activeFields,
+        });
+      }
+    });
+  }, []);
   return (
     <S.CreatorContainer>
       <S.PortfolioContainer>
-        <Portfolio />
+        <Portfolio
+          introDetail={portfolio.introDetail}
+          introSimple={portfolio.introSimple}
+          activeFields={portfolio.activeFields}
+        />
       </S.PortfolioContainer>
       <S.WorksContainer>
         <FeedMyWorks />

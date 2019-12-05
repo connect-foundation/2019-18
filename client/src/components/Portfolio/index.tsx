@@ -5,7 +5,12 @@ import StyledLink from '../../basics/StyledLink';
 
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
 
-const Portfolio = () => {
+interface portfolioProp{
+  introSimple: string;
+  introDetail: string;
+  activeFields: string[];
+}
+const Portfolio:React.FC<portfolioProp> = ({ introSimple, introDetail, activeFields }) => {
   const follower = 10;
   const following = 100;
   return (
@@ -30,15 +35,15 @@ const Portfolio = () => {
       <S.IntroduceBox>
         <S.Subject>한줄소개</S.Subject>
         <S.Content>
-                한줄소개
+          {introSimple}
         </S.Content>
         <S.Subject>활동분야</S.Subject>
         <S.Content>
-                활동분야
+          {activeFields && activeFields.join(', ')}
         </S.Content>
         <S.Subject>프로필</S.Subject>
         <S.Content>
-               상세소개입니다.
+          {introDetail}
         </S.Content>
       </S.IntroduceBox>
     </S.Portfolio>
