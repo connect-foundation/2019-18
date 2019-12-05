@@ -103,10 +103,9 @@ function ImageUpload() {
     };
 
     const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
-    // 업로드 완료후 작품 상세 페이지로 refirect
     const { workImageId } = data;
-    setCanRedirect(true);
     setWorkId(workImageId);
+    setCanRedirect(true);
   };
 
   const renderRedirect = () => {
