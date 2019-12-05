@@ -1,6 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
 import { decodeJwt, getUserFromToken } from '../services/login';
-import { User } from '../customType/user';
+
+type User={
+  id : mongoose.Types.ObjectId,
+  email: string,
+  name: string,
+  thumbnailUrl?: string,
+  originUrl?: string,
+};
 
 declare global {
     namespace Express {
@@ -10,7 +18,7 @@ declare global {
     }
 }
 
-const jwt = async (req: Request, res: Response, next: NextFunction) => {
+const authByJWT = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.cookies || !req.cookies.token) {
       next();
@@ -19,7 +27,7 @@ const jwt = async (req: Request, res: Response, next: NextFunction) => {
     const userdata:any = await getUserFromToken(decoded);
     if (userdata) {
       req.decodedUser = {
-        _id: userdata._id,
+        id: userdata.id,
         email: userdata.email,
         name: userdata.name,
         originUrl: userdata.originUrl,
@@ -32,4 +40,4 @@ const jwt = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default jwt;
+export default authByJWT;

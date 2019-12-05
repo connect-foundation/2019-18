@@ -1,4 +1,4 @@
-require('dotenv').config();
+import 'dotenv/config';
 
 export const API_SERVER:string = process.env.NODE_ENV === 'production'
   ? `${process.env.REACT_APP_URL}/api`
@@ -39,5 +39,13 @@ export const ccloptions = [
   { value: 'CCBY-NC-ND', label: 'CC BY-NC-ND (저작자표시-비영리-변경금지)' },
 ];
 
+export const LOGIN = {
+  ID_NOT_VALID: '아이디를 이메일 형식으로 해주세요.',
+};
+
+export const JOIN = {
+  ID_NOT_VALID: '아이디를 이메일 형식으로 해주세요.',
+  PASSWORD_DO_NOT_MATCH: '비밀번호가 동일하지 않습니다',
+};
 // 13.5MB = 13481938, MAX SIZE is 20MB
 export const MAXSIZE_OF_UPLOADIMAGE = 5242880;

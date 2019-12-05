@@ -3,11 +3,10 @@ import { theme } from '../../style/theme';
 import Line from '../../basics/Line';
 import StyledLink from '../../basics/StyledLink';
 
-export const CrafolioLogoContainer = styled.div`
-  display: flex;
+export const CrafolioLogoContainer = styled(StyledLink)`
   height: 13rem;
-  width: 100%;
-  justify-content: center;
+  margin: 20px auto;
+  padding: 0;
 `;
 export const CrafolioLogo = styled.img`
   background-image: url(${(props) => props.src});
@@ -24,9 +23,9 @@ export const LoginNaverLogo = styled.img`
 
 export const LoginBox = styled.div`
     margin-top : 6rem;
-    height : 33rem;
+    height : 35rem;
     width : 28rem;
-    padding : 20px 50px; 
+    padding : 0px 50px; 
     background-color :${theme.CRA_PURPLE};
     border:1px ${theme.CRA_PURPLE} solid;
     border-radius: 8px;
