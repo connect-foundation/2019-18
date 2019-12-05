@@ -2,14 +2,16 @@ import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
 import httpStatus from 'http-status';
 import response from '../utils/response';
+import { AUTH } from '../utils/messages';
 import {
   findProfileByUserId, setProfileByUserId,
 } from '../services/profile';
 
+
 const getMyProfile = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.decodedUser) {
-      return next(new Error('Not Login'));
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
     }
     const profile = await findProfileByUserId(req.decodedUser.id);
     return response(res, profile);
@@ -19,11 +21,8 @@ const getMyProfile = async (req: Request, res: Response, next: NextFunction) => 
 };
 const setMyProfile = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.decodedUser) {
-      return next(new Error('Not Login'));
-    }
-    if (req.decodedUser.email !== req.body.email) {
-      return next(new Error('비정상적인 접근입니다.'));
+    if (!req.decodedUser || req.decodedUser.email !== req.body.email) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
     }
     await setProfileByUserId(req.decodedUser.id, req.body);
     return response(res, {});
