@@ -10,11 +10,11 @@
 </p>
 
 <h1 align="center">💡 Crafolio🎶🎨 &nbsp</h1>
-
+<h3 align="center"><a href ="http://101.101.163.55/home"> 크라폴리오 접속하기 </a>&nbsp</h3>
 
 ------
 
-## What it is    ([크라폴리오 접속하기](http://101.101.163.55/home))
+## What it is 
 
 
 
