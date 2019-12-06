@@ -9,8 +9,8 @@
         </a>
 </p>
 
-<h1 align="center">💡 Crafolio🎶🎨 &nbsp</h1>
-<h3 align="center"><a href ="http://101.101.163.55/home"> 크라폴리오 접속하기 </a>&nbsp</h3>
+<h1 align="center">💡 Crafolio🎶🎨 </h1>
+<h3 align="center"> <a href ="http://101.101.163.55/home" style="color:#ffd400;"> 크라폴리오 접속 </a>&nbsp </h3>
 
 ------
 
