@@ -24,8 +24,8 @@ const FeedWorks:React.FC = () => {
   }, [skippedNum]);
 
   return (
-    <>
-      <S.Container>
+    <S.Container>
+      <S.FeedWrapper>
         {
           data.map(({
             _id, ownerId, url, creator, title, numOfComments, views,
@@ -42,12 +42,12 @@ const FeedWorks:React.FC = () => {
             />
           ))
         }
-      </S.Container>
+      </S.FeedWrapper>
 
       <S.Progress id="hi">
         {isLoading && <CircularProgress color="inherit" />}
       </S.Progress>
-    </>
+    </S.Container>
   );
 };
 
