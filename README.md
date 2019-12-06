@@ -10,13 +10,13 @@
 </p>
 
 <h1 align="center">💡 Crafolio🎶🎨 </h1>
-<h3 align="center"> <a href ="http://101.101.163.55/home" style="color:#ffd400;"> 크라폴리오 접속 </a>&nbsp </h3>
+
 
 ------
 
 ## What it is 
 
-
+#### [크라폴리오 접속하기](http://101.101.163.55/home)
 
 #### 사진 및 음악 콘텐츠 공유 커뮤니티 서비스
 
