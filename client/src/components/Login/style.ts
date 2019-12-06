@@ -10,6 +10,7 @@ export const CrafolioLogoContainer = styled(StyledLink)`
 `;
 export const CrafolioLogo = styled.img`
   background-image: url(${(props) => props.src});
+  background-repeat: round;
   width: 10rem; 
   height: 13rem;
 `;

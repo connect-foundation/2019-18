@@ -25,24 +25,26 @@ const FeedWorks:React.FC = () => {
 
   return (
     <S.Container>
-      {
-        data.map(({
-          _id, ownerId, url, creator, title, numOfComments, views,
-        }) => (
-          <WorksCard
-            _id={_id}
-            ownerId={ownerId}
-            imgUrl={url}
-            creator={creator}
-            key={getShortId()}
-            title={title}
-            numOfComments={numOfComments}
-            views={views}
-          />
-        ))
-      }
+      <S.FeedWrapper>
+        {
+          data.map(({
+            _id, ownerId, url, creator, title, numOfComments, views,
+          }) => (
+            <WorksCard
+              _id={_id}
+              ownerId={ownerId}
+              imgUrl={url}
+              creator={creator}
+              key={getShortId()}
+              title={title}
+              numOfComments={numOfComments}
+              views={views}
+            />
+          ))
+        }
+      </S.FeedWrapper>
 
-      <S.Progress>
+      <S.Progress id="hi">
         {isLoading && <CircularProgress color="inherit" />}
       </S.Progress>
     </S.Container>

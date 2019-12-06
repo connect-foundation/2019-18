@@ -4,7 +4,7 @@ import mongoose, {
 
 import User from './user';
 import WorkImage from './work_image';
-import IImage from '../interfaces/Image';
+import IImage from '../interfaces/image';
 
 export interface IImageModel extends IImage, Document{}
 

@@ -12,6 +12,7 @@ export const PlayingArea = styled.div`
     display: flex;
     width: 100%;
     height: 10rem;
+    min-height: 10rem;
     border: ${theme.BORDER_GRAY} 1px solid;
 `;
 

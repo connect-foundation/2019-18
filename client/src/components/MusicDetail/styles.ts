@@ -43,7 +43,7 @@ export const HeaderMeta = styled(Span)`
 export const PlayerFooter = styled.div`
     display: flex;
     width: 100%;
-    height: 100%;
+    height: fit-content;
     align-items: center;
 `;
 
