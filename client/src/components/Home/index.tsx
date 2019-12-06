@@ -18,7 +18,6 @@ const Home:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
     <Router>
       <Switch>
         <Redirect exact from="/" to="/home/works" />
-
         <Route path="/home">
           <Header />
           <Route path="/home" component={FeedContainer} />
