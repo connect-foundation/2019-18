@@ -47,6 +47,13 @@ export const AddButtonList = styled.div`
   justify-content: space-around;
 `;
 
+interface LabelProp {
+  htmlFor?:string;
+}
+
+export const Label = styled.label<LabelProp>`
+  cursor: pointer;
+`;
 export const Button = styled.div`
   display: flex;
   cursor: pointer;
@@ -59,6 +66,10 @@ export const Button = styled.div`
   margin: auto 0.5rem;
 `;
 
+export const ButtonWrapper = styled.div`
+
+`;
+
 export const Span = styled.span`
   overflow: hidden;
   width: 2rem;
@@ -67,7 +78,14 @@ export const Span = styled.span`
 `;
 
 export const Input = styled.input`
-  width: 1rem;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 `;
 
 export {
