@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ArrowDropDown } from '@material-ui/icons';
+import { ArrowDropDown, PlayCircleOutline } from '@material-ui/icons';
 import { theme } from '../../../style/theme';
 
 export const Container = styled.div`
@@ -131,4 +131,5 @@ export const DetailWrapper = styled.div`
 
 export {
   ArrowDropDown,
+  PlayCircleOutline,
 };

@@ -113,6 +113,7 @@ const UploadMusic = () => {
 
   const makeMusic = (el: IDocu) => {
     const content = el.content as string;
+    console.log(content);
     return (
       <S.ContentWrapper key={el.key}>
         <MusicUploader musicUrl={content} />

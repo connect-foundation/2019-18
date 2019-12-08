@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as S from './styles';
 import Modal from '../Modal';
 import { UploadSelection } from '../../../utils/constants';
+import MusicPlayerMini from '../../MusicPlayerMini';
 
 const initData2 = [
   '123', '234', '345',
@@ -56,7 +57,10 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
               <S.Input type="file" id="image" accept="image/*" />
             </S.CoverImageSelect>
           )
-      }
+        }
+
+        <MusicPlayerMini url={musicUrl} />
+
       </S.AlbumCoverWrapper>
       <S.DetailWrapper>
         <S.Detail>
