@@ -67,12 +67,16 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
           <S.Span>장르</S.Span>
           <S.DetailButtonWrapper>
             <S.DetailButton onClick={genresModalToggle}>
-              <span>{genres.join(', ')}</span>
+              {
+                genres.length > 0
+                  ? <span>{genres.join(', ')}</span>
+                  : <span>최대 5개 선택 가능합니다.</span>
+              }
+              <S.ArrowDropDown />
             </S.DetailButton>
             {
               isGenresModalOpen && <Modal lists={UploadSelection.genres} datas={genres} setter={setGenres} />
             }
-            <S.ArrowDropDown />
           </S.DetailButtonWrapper>
 
         </S.Detail>
@@ -80,24 +84,33 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
           <S.Span>무드</S.Span>
           <S.DetailButtonWrapper>
             <S.DetailButton onClick={moodsModalToggle}>
-              <span>{moods.join(', ')}</span>
+              {
+                moods.length > 0
+                  ? <span>{moods.join(', ')}</span>
+                  : <span>최대 5개 선택 가능합니다.</span>
+              }
+              <S.ArrowDropDown />
             </S.DetailButton>
             {
               isMoodsModalOpen && <Modal lists={UploadSelection.moods} datas={moods} setter={setMoods} />
             }
-            <S.ArrowDropDown />
           </S.DetailButtonWrapper>
         </S.Detail>
         <S.Detail>
           <S.Span>악기</S.Span>
           <S.DetailButtonWrapper>
             <S.DetailButton onClick={instrumentsModalToggle}>
-              <span>{instruments.join(', ')}</span>
+              {
+                instruments.length > 0
+                  ? <span>{instruments.join(', ')}</span>
+                  : <span>최대 5개 선택 가능합니다.</span>
+              }
+
+              <S.ArrowDropDown />
             </S.DetailButton>
             {
               isInstrumentsModalOpen && <Modal lists={UploadSelection.instruments} datas={instruments} setter={setInstruments} />
             }
-            <S.ArrowDropDown />
           </S.DetailButtonWrapper>
         </S.Detail>
       </S.DetailWrapper>

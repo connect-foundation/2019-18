@@ -109,6 +109,9 @@ export const DetailButton = styled.button`
   width: 100%;
   height: 1.5rem;
   
+  display: flex;
+  justify-content: space-between;
+
   text-align: start;
   outline: none;
   cursor: pointer;

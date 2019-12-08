@@ -18,6 +18,10 @@ const Modal: React.FC<ModalProp> = ({
     if (datas.indexOf(newData) !== -1) {
       setter(datas.filter((data) => data !== newData));
     } else {
+      if (datas.length > 4) {
+        alert('최대 5개 선택 가능합니다.');
+        return;
+      }
       setter([
         ...datas,
         e.currentTarget.innerHTML,
