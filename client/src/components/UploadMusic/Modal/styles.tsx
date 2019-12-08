@@ -20,12 +20,17 @@ export const Ul = styled.ul`
   margin: 1rem;
 `;
 
-export const Li = styled.li`
+interface LiProp {
+  selected?: boolean;
+}
+
+export const Li = styled.li<LiProp>`
   float: left;
   list-style-type: none;
   padding: 1px;
   cursor: pointer;
   margin: auto .5rem;
+  color: ${(props) => (props.selected ? 'green' : 'white')};
 `;
 
 export const Span = styled.span`

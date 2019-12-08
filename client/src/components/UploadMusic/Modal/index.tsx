@@ -29,7 +29,12 @@ const Modal: React.FC<ModalProp> = ({
     <S.DetailSelector>
       <S.Ul>
         {
-          lists.map((data) => <S.Li key={getShortId()} onClick={onClickHandler}>{ data }</S.Li>)
+          lists.map((data) => {
+            if (datas.indexOf(data) !== -1) {
+              return <S.Li key={getShortId()} onClick={onClickHandler} selected>{ data }</S.Li>;
+            }
+            return <S.Li key={getShortId()} onClick={onClickHandler}>{ data }</S.Li>;
+          })
         }
       </S.Ul>
     </S.DetailSelector>
