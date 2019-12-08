@@ -4,7 +4,7 @@ import { theme } from '../../../style/theme';
 
 export const Container = styled.div`
   display: flex;
-  width: 100%;
+  width: auto;
   height: 15rem;
   min-height: 10rem;
   max-height: 20rem;

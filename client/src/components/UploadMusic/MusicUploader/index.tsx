@@ -62,12 +62,10 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
         <S.Detail>
           <S.Span>곡명</S.Span>
           <S.TitleInput type="text" onChange={titleChangeHandler} />
-
         </S.Detail>
         <S.Detail>
           <S.Span>장르</S.Span>
           <S.DetailButtonWrapper>
-
             <S.DetailButton onClick={genresModalToggle}>
               <span>{genres.join(', ')}</span>
             </S.DetailButton>
@@ -76,7 +74,6 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
             }
             <S.ArrowDropDown />
           </S.DetailButtonWrapper>
-
 
         </S.Detail>
         <S.Detail>
@@ -89,7 +86,6 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
               isMoodsModalOpen && <Modal lists={UploadSelection.moods} datas={moods} setter={setMoods} />
             }
             <S.ArrowDropDown />
-
           </S.DetailButtonWrapper>
         </S.Detail>
         <S.Detail>
@@ -102,7 +98,6 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
               isInstrumentsModalOpen && <Modal lists={UploadSelection.instruments} datas={instruments} setter={setInstruments} />
             }
             <S.ArrowDropDown />
-
           </S.DetailButtonWrapper>
         </S.Detail>
       </S.DetailWrapper>
