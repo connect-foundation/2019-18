@@ -3,6 +3,7 @@ import * as S from './styles';
 import Modal from '../Modal';
 import { UploadSelection } from '../../../utils/constants';
 import MusicPlayerMini from '../../MusicPlayerMini';
+import { getFileUrl } from '../../../utils';
 
 const initData2 = [
   '123', '234', '345',
@@ -41,6 +42,19 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
     setIsInstrumentsModalOpen(!isInstrumentsModalOpen);
   };
 
+  const MusicFileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.currentTarget;
+    if (!target) {
+      return;
+    }
+    const { files } = target!;
+    const file = files![0];
+    const url = getFileUrl(file);
+    setImageUrl(url);
+
+    console.log(url);
+  };
+
   useEffect(() => {
     console.log(genres);
   }, [genres]);
@@ -50,11 +64,15 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
       <S.AlbumCoverWrapper>
         {
         imageUrl
-          ? <S.CoverImage src={imageUrl} />
+          ? (
+            <S.CoverImageWrapper>
+              <S.CoverImage src={imageUrl} />
+            </S.CoverImageWrapper>
+          )
           : (
-            <S.CoverImageSelect>
+            <S.CoverImageSelect htmlFor="image">
               <S.CoverImageLabel htmlFor="image">이미지를 선택해주세요.</S.CoverImageLabel>
-              <S.Input type="file" id="image" accept="image/*" />
+              <S.Input type="file" id="image" accept="image/*" onChange={MusicFileChangeHandler} />
             </S.CoverImageSelect>
           )
         }

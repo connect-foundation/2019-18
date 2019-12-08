@@ -20,31 +20,33 @@ export const AlbumCoverWrapper = styled.div`
   background: red;
 `;
 
-interface CoverImageProp {
-  src: string,
-}
-export const CoverImage = styled.img<CoverImageProp>`
+export const CoverImage = styled.img`
   src: ${(props) => props.src};
-  width: 5rem;
-  height: 7rem;
+  /* width: 5rem;
+  height: 7rem; */
   background: blue;
+  width: 100%;
+  height: 100%;
 `;
 
-export const CoverImageSelect = styled.div`
+export const CoverImageSelect = styled.label`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 100%;
+  width: 10rem;
   background: yellow;
 `;
 
+export const CoverImageWrapper = styled.div`
+  display: flex;
+  width: 10rem;
+  flex:1;
+`;
 
-interface CoverImageLabelProp{
-  htmlFor: string;
-}
-export const CoverImageLabel = styled.label<CoverImageLabelProp>`
+
+export const CoverImageLabel = styled.label`
   font-size: 0.5rem;
 `;
 

@@ -4,7 +4,7 @@ import shortId from 'shortid';
 // import MusicPlayer from '../MusicPlayer';
 import * as S from './styles';
 import 'react-quill/dist/quill.snow.css';
-import { getShortId } from '../../utils';
+import { getShortId, getFileUrl } from '../../utils';
 import MusicUploader from './MusicUploader';
 
 import {
@@ -56,8 +56,6 @@ const UploadMusic = () => {
   const MusicButtonOnClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     console.log('hi');
   };
-
-  const getFileUrl = (file: any) => window.URL.createObjectURL(file);
 
   const MusicFileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
