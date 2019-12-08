@@ -83,6 +83,7 @@ export const Span = styled.span`
 export const TitleInput = styled.input`
   width: 100%;
   height: 1.5rem;
+  outline: none;
 `;
 
 export const DetailButtonWrapper = styled.div`
@@ -111,6 +112,7 @@ export const DetailButton = styled.button`
   
   display: flex;
   justify-content: space-between;
+  line-height: 20px;
 
   text-align: start;
   outline: none;
