@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import ReactQuill from 'react-quill';
 import shortId from 'shortid';
-import MusicPlayer from '../MusicPlayer';
+// import MusicPlayer from '../MusicPlayer';
 import * as S from './styles';
 import 'react-quill/dist/quill.snow.css';
 import { getShortId } from '../../utils';
+import MusicUploader from './MusicUploader';
 
 import {
   IMusic,
@@ -25,14 +26,20 @@ const docuinit:IDocu[] = [
   {
     key: getShortId(),
     type: 'music',
-    content: {
-      title: 'this is title',
-      author: 'this is author',
-      coverUrl: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/freetime.jpg',
-      musicUrl: 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3',
-    },
+    content: 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3',
   },
+  // {
+  //   key: getShortId(),
+  //   type: 'music',
+  //   content: {
+  //     title: 'this is title',
+  //     author: 'this is author',
+  //     coverUrl: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/freetime.jpg',
+  //     musicUrl: 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3',
+  //   },
+  // },
 ];
+
 
 const UploadMusic = () => {
   const [title, setTitle] = useState('');
@@ -47,6 +54,31 @@ const UploadMusic = () => {
   };
 
   const MusicButtonOnClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    console.log('hi');
+  };
+
+  const getFileUrl = (file: any) => window.URL.createObjectURL(file);
+
+  const MusicFileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.currentTarget;
+    if (!target) {
+      return;
+    }
+    const { files } = target!;
+    const file = files![0];
+    const url = getFileUrl(file);
+    addMusicToDocu(url);
+  };
+
+  const addMusicToDocu = (url: string) => {
+    setDocu([
+      ...docu,
+      {
+        key: getShortId(),
+        type: 'music',
+        content: url,
+      },
+    ]);
   };
 
   const TextButtonOnCLickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -80,15 +112,10 @@ const UploadMusic = () => {
   );
 
   const makeMusic = (el: IDocu) => {
-    const content = el.content as IMusic;
+    const content = el.content as string;
     return (
       <S.ContentWrapper key={el.key}>
-        <MusicPlayer
-          title={content.title}
-          author={content.author}
-          musicUrl={content.musicUrl}
-          coverUrl={content.coverUrl}
-        />
+        <MusicUploader musicUrl={content} />
       </S.ContentWrapper>
     );
   };
@@ -121,8 +148,10 @@ const UploadMusic = () => {
           <S.ImageIcon fontSize="large" />
         </S.Button>
         <S.Button onClick={MusicButtonOnClickHandler}>
-          <S.VolumeUpIcon fontSize="large" />
-          <S.Input type="file" />
+          <S.Label htmlFor="musicfile">
+            <S.VolumeUpIcon fontSize="large" />
+          </S.Label>
+          <S.Input type="file" id="musicfile" accept="audio/*" onChange={MusicFileChangeHandler} />
         </S.Button>
         <S.Button onClick={TextButtonOnCLickHandler}>
           <S.TextFieldsIcon fontSize="large" />
