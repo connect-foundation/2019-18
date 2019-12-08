@@ -4,17 +4,27 @@ import Modal from '../Modal';
 import { UploadSelection } from '../../../utils/constants';
 import MusicPlayerMini from '../../MusicPlayerMini';
 import { getFileUrl } from '../../../utils';
+import { IMusic } from '../types';
 
 const initData2 = [
   '123', '234', '345',
 ];
 interface MusicUploaderProp{
-  musicUrl: string;
-
+  docuKey: string;
+  content: IMusic;
+  titleChangeHandler: (key:string)=>(e: React.ChangeEvent<HTMLInputElement>) => void;
+  genresChangeHandler: (key:string)=>(e: React.MouseEvent<HTMLLIElement>) => void;
+  moodsChangeHandler: (key: string) => (e: React.MouseEvent<HTMLLIElement>) => void;
+  instrumentsChangeHandler: (key: string) => (e:React.MouseEvent<HTMLLIElement>) => void;
 }
 
 const MusicUploader:React.FC<MusicUploaderProp> = ({
-  musicUrl,
+  docuKey,
+  content,
+  titleChangeHandler,
+  genresChangeHandler,
+  moodsChangeHandler,
+  instrumentsChangeHandler,
 }) => {
   const [imageUrl, setImageUrl] = useState();
   const [title, setTitle] = useState<string>();
@@ -26,9 +36,12 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
   const [isMoodsModalOpen, setIsMoodsModalOpen] = useState(false);
   const [isInstrumentsModalOpen, setIsInstrumentsModalOpen] = useState(false);
 
-  const titleChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
+  console.log(`받은 키 : ${docuKey}`);
+  console.log(content);
+  const onTitleChangeHandler = titleChangeHandler(docuKey);
+  const onGenresChangeHandler = genresChangeHandler(docuKey);
+  const onMoodsChangeHandler = moodsChangeHandler(docuKey);
+  const onInstrumentsChangeHandler = instrumentsChangeHandler(docuKey);
 
   const genresModalToggle = (e:React.MouseEvent<HTMLButtonElement>) => {
     setIsGenresModalopen(!isGenresModalOpen);
@@ -51,8 +64,6 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
     const file = files![0];
     const url = getFileUrl(file);
     setImageUrl(url);
-
-    console.log(url);
   };
 
   useEffect(() => {
@@ -77,27 +88,27 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
           )
         }
 
-        <MusicPlayerMini url={musicUrl} />
+        <MusicPlayerMini url={content.musicUrl} />
 
       </S.AlbumCoverWrapper>
       <S.DetailWrapper>
         <S.Detail>
           <S.Span>곡명</S.Span>
-          <S.TitleInput type="text" onChange={titleChangeHandler} />
+          <S.TitleInput type="text" onChange={onTitleChangeHandler} />
         </S.Detail>
         <S.Detail>
           <S.Span>장르</S.Span>
           <S.DetailButtonWrapper>
             <S.DetailButton onClick={genresModalToggle}>
               {
-                genres.length > 0
-                  ? <span>{genres.join(', ')}</span>
+                content.genres.length > 0
+                  ? <span>{content.genres.join(', ')}</span>
                   : <span>최대 5개 선택 가능합니다.</span>
               }
               <S.ArrowDropDown />
             </S.DetailButton>
             {
-              isGenresModalOpen && <Modal lists={UploadSelection.genres} datas={genres} setter={setGenres} />
+              isGenresModalOpen && <Modal lists={UploadSelection.genres} datas={content.genres} changeHandler={onGenresChangeHandler} />
             }
           </S.DetailButtonWrapper>
 
@@ -107,14 +118,14 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
           <S.DetailButtonWrapper>
             <S.DetailButton onClick={moodsModalToggle}>
               {
-                moods.length > 0
-                  ? <span>{moods.join(', ')}</span>
+                content.moods.length > 0
+                  ? <span>{content.moods.join(', ')}</span>
                   : <span>최대 5개 선택 가능합니다.</span>
               }
               <S.ArrowDropDown />
             </S.DetailButton>
             {
-              isMoodsModalOpen && <Modal lists={UploadSelection.moods} datas={moods} setter={setMoods} />
+              isMoodsModalOpen && <Modal lists={UploadSelection.moods} datas={content.moods} changeHandler={onMoodsChangeHandler} />
             }
           </S.DetailButtonWrapper>
         </S.Detail>
@@ -123,15 +134,15 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
           <S.DetailButtonWrapper>
             <S.DetailButton onClick={instrumentsModalToggle}>
               {
-                instruments.length > 0
-                  ? <span>{instruments.join(', ')}</span>
+                content.instruments.length > 0
+                  ? <span>{content.instruments.join(', ')}</span>
                   : <span>최대 5개 선택 가능합니다.</span>
               }
 
               <S.ArrowDropDown />
             </S.DetailButton>
             {
-              isInstrumentsModalOpen && <Modal lists={UploadSelection.instruments} datas={instruments} setter={setInstruments} />
+              isInstrumentsModalOpen && <Modal lists={UploadSelection.instruments} datas={content.instruments} changeHandler={onInstrumentsChangeHandler} />
             }
           </S.DetailButtonWrapper>
         </S.Detail>

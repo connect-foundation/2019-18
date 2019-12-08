@@ -1,11 +1,10 @@
 export interface IMusic{
-  // title: string;
-  // author: string;
-  // musicUrl: string;
-  // coverUrl: string;
-  key: string;
-  type: string;
-  content: string;
+  musicUrl:string;
+  imageUrl:string;
+  title: string;
+  genres: string[];
+  moods: string[];
+  instruments: string[];
 }
 
 export interface IDocu{

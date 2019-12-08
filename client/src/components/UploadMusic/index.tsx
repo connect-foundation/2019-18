@@ -26,26 +26,114 @@ const docuinit:IDocu[] = [
   {
     key: getShortId(),
     type: 'music',
-    content: 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3',
+    content: {
+      musicUrl: 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3',
+      imageUrl: '',
+      title: '',
+      genres: [],
+      moods: [],
+      instruments: [],
+    },
   },
-  // {
-  //   key: getShortId(),
-  //   type: 'music',
-  //   content: {
-  //     title: 'this is title',
-  //     author: 'this is author',
-  //     coverUrl: 'https://kr.object.ncloudstorage.com/crafolio/music-cover/freetime.jpg',
-  //     musicUrl: 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3',
-  //   },
-  // },
 ];
 
-
-const UploadMusic = () => {
+const UploadMusic:React.FC = () => {
   const [title, setTitle] = useState('');
-  const [docu, setDocu] = useState(docuinit);
+  const [docus, setDocus] = useState<IDocu[]>(docuinit);
+
+  const titleChangeHandler = (key: string) => (e:React.ChangeEvent<HTMLInputElement>) => {
+    const newTitle = e.target.value;
+    const docuKey = key;
+    setDocus(docus.map((docu) => {
+      const content = docu.content as IMusic;
+      if (docu.key === docuKey) {
+        content.title = newTitle;
+        return { ...docu, content };
+      }
+      return docu;
+    }));
+  };
+
+  const genresChangeHandler = (key: string) => (e:React.MouseEvent<HTMLLIElement>) => {
+    const newGenre = e.currentTarget.innerHTML;
+    const docuKey = key;
+    const newDocus = docus.map((docu) => {
+      if (docu.key === docuKey) {
+        const content = docu.content as IMusic;
+        const { genres } = content;
+
+        if (genres.indexOf(newGenre) !== -1) {
+          const newGenres = genres.filter((genre) => genre !== newGenre);
+          content.genres = newGenres;
+        } else {
+          if (content.genres.length > 4) {
+            alert('최대 5개 선택 가능합니다.');
+            return { ...docu, content };
+          }
+          content.genres = [...genres, newGenre];
+        }
+
+        return { ...docu, content };
+      }
+      return docu;
+    });
+    setDocus(newDocus);
+  };
+
+  const moodsChangeHandler = (key: string) => (e:React.MouseEvent<HTMLLIElement>) => {
+    const newMood = e.currentTarget.innerHTML;
+    const docuKey = key;
+    const newDocus = docus.map((docu) => {
+      if (docu.key === docuKey) {
+        const content = docu.content as IMusic;
+        const { moods } = content;
+
+        if (moods.indexOf(newMood) !== -1) {
+          const newMoods = moods.filter((mood) => mood !== newMood);
+          content.moods = newMoods;
+        } else {
+          if (content.moods.length > 4) {
+            alert('최대 5개 선택 가능합니다.');
+            return { ...docu, content };
+          }
+          content.moods = [...moods, newMood];
+        }
+        return { ...docu, content };
+      }
+      return docu;
+    });
+    setDocus(newDocus);
+  };
+
+  const instrumentsChangeHandler = (key: string) => (e:React.MouseEvent<HTMLLIElement>) => {
+    const newInstrument = e.currentTarget.innerHTML;
+    const docuKey = key;
+    const newDocus = docus.map((docu) => {
+      if (docu.key === docuKey) {
+        const content = docu.content as IMusic;
+        const { instruments } = content;
+
+        if (instruments.indexOf(newInstrument) !== -1) {
+          const newInstruments = instruments.filter((instrument) => instrument !== newInstrument);
+          content.instruments = newInstruments;
+        } else {
+          if (content.instruments.length > 4) {
+            alert('최대 5개 선택 가능합니다.');
+            return { ...docu, content };
+          }
+          content.instruments = [...instruments, newInstrument];
+        }
+        return { ...docu, content };
+      }
+      return docu;
+    });
+    setDocus(newDocus);
+  };
 
 
+  useEffect(() => {
+    console.log(docus);
+  }, [docus]);
   const onChangetitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -56,6 +144,7 @@ const UploadMusic = () => {
   const MusicButtonOnClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     console.log('hi');
   };
+
 
   const MusicFileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
@@ -69,19 +158,27 @@ const UploadMusic = () => {
   };
 
   const addMusicToDocu = (url: string) => {
-    setDocu([
-      ...docu,
+    const newMusic:IMusic = {
+      musicUrl: url,
+      imageUrl: '',
+      title: '',
+      genres: [],
+      moods: [],
+      instruments: [],
+    };
+    setDocus([
+      ...docus,
       {
         key: getShortId(),
         type: 'music',
-        content: url,
+        content: newMusic,
       },
     ]);
   };
 
   const TextButtonOnCLickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setDocu([
-      ...docu,
+    setDocus([
+      ...docus,
       {
         key: shortId.generate(),
         type: 'description',
@@ -95,7 +192,7 @@ const UploadMusic = () => {
         value={el.content as string}
         onChange={(text) => {
           el.content = text;
-          setDocu(docu.map((d) => {
+          setDocus(docus.map((d) => {
             if (d.key === el.key) {
               return {
                 ...el,
@@ -110,11 +207,18 @@ const UploadMusic = () => {
   );
 
   const makeMusic = (el: IDocu) => {
-    const content = el.content as string;
-    console.log(content);
+    const music = el.content as IMusic;
+    console.log(el);
     return (
       <S.ContentWrapper key={el.key}>
-        <MusicUploader musicUrl={content} />
+        <MusicUploader
+          docuKey={el.key}
+          content={music}
+          titleChangeHandler={titleChangeHandler}
+          genresChangeHandler={genresChangeHandler}
+          moodsChangeHandler={moodsChangeHandler}
+          instrumentsChangeHandler={instrumentsChangeHandler}
+        />
       </S.ContentWrapper>
     );
   };
@@ -139,7 +243,7 @@ const UploadMusic = () => {
       />
 
       {
-        docu.map((el:IDocu) => makeContent(el))
+        docus.map((el:IDocu) => makeContent(el))
       }
 
       <S.AddButtonList>
