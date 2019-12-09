@@ -218,6 +218,24 @@ const UploadMusic:React.FC = () => {
     ]);
   };
 
+  const makeFormData = () => {
+    const formData = new FormData();
+
+    docus.forEach((docu) => {
+      if (docu.type === 'music') {
+        const music = docu.content as IMusic;
+        const musicFile = music.musicFile as File;
+        const imageFile = music.imageFile as File;
+        const musicFileName = `musics.${musicFile.name}`;
+        const imageFileName = `musicCovers.${imageFile.name}`;
+
+        formData.append('multi-files', musicFileName, musicFileName);
+        formData.append('multi-files', imageFile, imageFileName);
+      }
+    });
+
+    return formData;
+  };
 
   const makeDescription = (el: IDocu) => (
     <S.ContentWrapper key={el.key}>
@@ -296,6 +314,7 @@ const UploadMusic:React.FC = () => {
         </S.Button>
       </S.AddButtonList>
 
+      <S.UploadButton>업로드</S.UploadButton>
     </S.Container>
 
   );

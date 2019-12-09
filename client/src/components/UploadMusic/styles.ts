@@ -88,6 +88,19 @@ export const Input = styled.input`
   border: 0;
 `;
 
+
+export const UploadButton = styled.button`
+  width: 5rem;
+  height: 3rem;
+  background: ${theme.CRA_PURPLE};
+  color: white;
+  outline: none;
+  cursor: pointer;
+  margin: auto;
+  width: 10rem;
+  height: 10rem;
+`;
+
 export {
   ImageIcon,
   VolumeUpIcon,
