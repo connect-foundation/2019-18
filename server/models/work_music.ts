@@ -6,11 +6,12 @@ import mongoose, {
 } from 'mongoose';
 
 import User from './user';
+import { IWorkMusic } from '../interfaces/workMusic';
 
 const { ObjectId } = Schema.Types;
-export interface IWorkMusicModel extends Document{}
+export interface IWorkMusicModel extends IWorkMusic, Document{}
 
-const workMusicSchame = new Schema({
+const workMusicSchema = new Schema({
   owner: {
     type: ObjectId, required: true, unique: true, ref: User,
   },
@@ -23,6 +24,8 @@ const workMusicSchame = new Schema({
   public: { type: String, required: true, default: true },
   tags: { type: [String], required: true, default: [] },
   views: { type: Number, required: true, default: 0 },
-}, {timestamps: {createdAt: 'createdAt', updatedAt: 'updatedAt'}});
+}, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } });
 
-const WorkMusic:Model<
+const WorkMusic:Model<IWorkMusicModel> = model<IWorkMusicModel>('WorkMusic', workMusicSchema);
+
+export default WorkMusic;
