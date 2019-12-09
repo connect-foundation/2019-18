@@ -151,7 +151,6 @@ const UploadMusic:React.FC = () => {
     });
 
     setDocus(newDocus);
-    // setImageUrl(url);
   };
 
   useEffect(() => {
@@ -166,7 +165,6 @@ const UploadMusic:React.FC = () => {
   };
 
   const MusicButtonOnClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log('hi');
   };
 
 
@@ -232,7 +230,6 @@ const UploadMusic:React.FC = () => {
 
   const makeMusic = (el: IDocu) => {
     const music = el.content as IMusic;
-    console.log(el);
     return (
       <S.ContentWrapper key={el.key}>
         <MusicUploader
