@@ -3,21 +3,11 @@ import * as S from './styles';
 import Modal from '../Modal';
 import { UploadSelection } from '../../../utils/constants';
 import MusicPlayerMini from '../../MusicPlayerMini';
-import { getFileUrl } from '../../../utils';
-import { IMusic } from '../types';
+import { MusicUploaderProp } from './types';
 
 const initData2 = [
   '123', '234', '345',
 ];
-interface MusicUploaderProp{
-  docuKey: string;
-  content: IMusic;
-  titleChangeHandler: (key:string)=>(e: React.ChangeEvent<HTMLInputElement>) => void;
-  genresChangeHandler: (key:string)=>(e: React.MouseEvent<HTMLLIElement>) => void;
-  moodsChangeHandler: (key: string) => (e: React.MouseEvent<HTMLLIElement>) => void;
-  instrumentsChangeHandler: (key: string) => (e:React.MouseEvent<HTMLLIElement>) => void;
-  imageUrlChangeHanldler: (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 const MusicUploader:React.FC<MusicUploaderProp> = ({
   docuKey,
