@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { LiProp } from './types';
 
 export const DetailSelector = styled.div`
   position: absolute;
@@ -19,10 +20,6 @@ export const Ul = styled.ul`
   margin-block-end: 0;
   margin: 1rem;
 `;
-
-interface LiProp {
-  selected?: boolean;
-}
 
 export const Li = styled.li<LiProp>`
   float: left;

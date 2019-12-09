@@ -1,12 +1,8 @@
 import React from 'react';
 import * as S from './styles';
 import { getShortId } from '../../../utils';
+import { ModalProp } from './types';
 
-interface ModalProp {
-  lists: string[];
-  datas: string[];
-  changeHandler: (e:React.MouseEvent<HTMLLIElement>)=>void;
-}
 
 const Modal: React.FC<ModalProp> = ({
   lists,
