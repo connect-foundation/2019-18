@@ -130,10 +130,34 @@ const UploadMusic:React.FC = () => {
     setDocus(newDocus);
   };
 
+  const imageUrlChangeHandler = (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const docuKey = key;
+    const target = e.currentTarget;
+
+    if (!target) {
+      return;
+    }
+    const { files } = target;
+    const file = files![0];
+    const newImageUrl = getFileUrl(file);
+
+    const newDocus = docus.map((docu) => {
+      const content = docu.content as IMusic;
+      if (docu.key === docuKey) {
+        content.imageUrl = newImageUrl;
+        return { ...docu, content };
+      }
+      return docu;
+    });
+
+    setDocus(newDocus);
+    // setImageUrl(url);
+  };
 
   useEffect(() => {
     console.log(docus);
   }, [docus]);
+
   const onChangetitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -218,6 +242,7 @@ const UploadMusic:React.FC = () => {
           genresChangeHandler={genresChangeHandler}
           moodsChangeHandler={moodsChangeHandler}
           instrumentsChangeHandler={instrumentsChangeHandler}
+          imageUrlChangeHanldler={imageUrlChangeHandler}
         />
       </S.ContentWrapper>
     );

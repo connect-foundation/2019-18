@@ -11,7 +11,7 @@ interface ModalProp {
 const Modal: React.FC<ModalProp> = ({
   lists,
   datas,
-  changeHandler: setter,
+  changeHandler,
 }) => (
   <S.DetailSelector>
     <S.Ul>
@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProp> = ({
         return (
           <S.Li
             key={getShortId()}
-            onClick={setter}
+            onClick={changeHandler}
             selected
           >
             { data }
@@ -31,7 +31,7 @@ const Modal: React.FC<ModalProp> = ({
       return (
         <S.Li
           key={getShortId()}
-          onClick={setter}
+          onClick={changeHandler}
         >
           { data }
         </S.Li>

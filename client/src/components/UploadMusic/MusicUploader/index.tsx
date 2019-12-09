@@ -16,6 +16,7 @@ interface MusicUploaderProp{
   genresChangeHandler: (key:string)=>(e: React.MouseEvent<HTMLLIElement>) => void;
   moodsChangeHandler: (key: string) => (e: React.MouseEvent<HTMLLIElement>) => void;
   instrumentsChangeHandler: (key: string) => (e:React.MouseEvent<HTMLLIElement>) => void;
+  imageUrlChangeHanldler: (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const MusicUploader:React.FC<MusicUploaderProp> = ({
@@ -25,23 +26,17 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
   genresChangeHandler,
   moodsChangeHandler,
   instrumentsChangeHandler,
+  imageUrlChangeHanldler,
 }) => {
-  const [imageUrl, setImageUrl] = useState();
-  const [title, setTitle] = useState<string>();
-  const [genres, setGenres] = useState<string[]>([]);
-  const [moods, setMoods] = useState<string[]>([]);
-  const [instruments, setInstruments] = useState<string[]>([]);
-
   const [isGenresModalOpen, setIsGenresModalopen] = useState(false);
   const [isMoodsModalOpen, setIsMoodsModalOpen] = useState(false);
   const [isInstrumentsModalOpen, setIsInstrumentsModalOpen] = useState(false);
 
-  console.log(`받은 키 : ${docuKey}`);
-  console.log(content);
   const onTitleChangeHandler = titleChangeHandler(docuKey);
   const onGenresChangeHandler = genresChangeHandler(docuKey);
   const onMoodsChangeHandler = moodsChangeHandler(docuKey);
   const onInstrumentsChangeHandler = instrumentsChangeHandler(docuKey);
+  const onImageUrlChangeHandler = imageUrlChangeHanldler(docuKey);
 
   const genresModalToggle = (e:React.MouseEvent<HTMLButtonElement>) => {
     setIsGenresModalopen(!isGenresModalOpen);
@@ -55,35 +50,20 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
     setIsInstrumentsModalOpen(!isInstrumentsModalOpen);
   };
 
-  const MusicFileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
-    if (!target) {
-      return;
-    }
-    const { files } = target!;
-    const file = files![0];
-    const url = getFileUrl(file);
-    setImageUrl(url);
-  };
-
-  useEffect(() => {
-    console.log(genres);
-  }, [genres]);
-
   return (
     <S.Container>
       <S.AlbumCoverWrapper>
         {
-        imageUrl
+        content.imageUrl
           ? (
             <S.CoverImageWrapper>
-              <S.CoverImage src={imageUrl} />
+              <S.CoverImage src={content.imageUrl} />
             </S.CoverImageWrapper>
           )
           : (
             <S.CoverImageSelect htmlFor="image">
               <S.CoverImageLabel htmlFor="image">이미지를 선택해주세요.</S.CoverImageLabel>
-              <S.Input type="file" id="image" accept="image/*" onChange={MusicFileChangeHandler} />
+              <S.Input type="file" id="image" accept="image/*" onChange={onImageUrlChangeHandler} />
             </S.CoverImageSelect>
           )
         }
