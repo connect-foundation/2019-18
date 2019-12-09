@@ -5,6 +5,8 @@ export interface IMusic{
   genres: string[];
   moods: string[];
   instruments: string[];
+  musicFile: File | null;
+  imageFile: File | null;
 }
 
 export interface IDocu{

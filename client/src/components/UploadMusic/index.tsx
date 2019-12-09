@@ -1,11 +1,11 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import shortId from 'shortid';
-// import MusicPlayer from '../MusicPlayer';
-import * as S from './styles';
 import 'react-quill/dist/quill.snow.css';
-import { getShortId, getFileUrl } from '../../utils';
 import MusicUploader from './MusicUploader';
+
+import { getShortId, getFileUrl } from '../../utils';
+import * as S from './styles';
 
 import {
   IMusic,
@@ -33,6 +33,8 @@ const docuinit:IDocu[] = [
       genres: [],
       moods: [],
       instruments: [],
+      musicFile: null,
+      imageFile: null,
     },
   },
 ];
@@ -141,10 +143,12 @@ const UploadMusic:React.FC = () => {
     const file = files![0];
     const newImageUrl = getFileUrl(file);
 
+
     const newDocus = docus.map((docu) => {
       const content = docu.content as IMusic;
       if (docu.key === docuKey) {
         content.imageUrl = newImageUrl;
+        content.imageFile = file;
         return { ...docu, content };
       }
       return docu;
@@ -152,6 +156,9 @@ const UploadMusic:React.FC = () => {
 
     setDocus(newDocus);
   };
+
+  // music file 객체 받아오는거 만들기
+  // cover image file 객체 받아오는거 만들기
 
   useEffect(() => {
     console.log(docus);
@@ -167,7 +174,6 @@ const UploadMusic:React.FC = () => {
   const MusicButtonOnClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
   };
 
-
   const MusicFileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
     if (!target) {
@@ -176,10 +182,11 @@ const UploadMusic:React.FC = () => {
     const { files } = target!;
     const file = files![0];
     const url = getFileUrl(file);
-    addMusicToDocu(url);
+
+    addMusicToDocu(url, file);
   };
 
-  const addMusicToDocu = (url: string) => {
+  const addMusicToDocu = (url: string, musicFile: File) => {
     const newMusic:IMusic = {
       musicUrl: url,
       imageUrl: '',
@@ -187,6 +194,8 @@ const UploadMusic:React.FC = () => {
       genres: [],
       moods: [],
       instruments: [],
+      musicFile,
+      imageFile: null,
     };
     setDocus([
       ...docus,
@@ -208,20 +217,23 @@ const UploadMusic:React.FC = () => {
       },
     ]);
   };
+
+
   const makeDescription = (el: IDocu) => (
     <S.ContentWrapper key={el.key}>
+      {/* <MyEditor /> */}
       <ReactQuill
         value={el.content as string}
         onChange={(text) => {
           el.content = text;
-          setDocus(docus.map((d) => {
-            if (d.key === el.key) {
+          setDocus(docus.map((docu) => {
+            if (docu.key === el.key) {
               return {
                 ...el,
                 content: text,
               };
             }
-            return d;
+            return docu;
           }));
         }}
       />
@@ -256,6 +268,7 @@ const UploadMusic:React.FC = () => {
 
   return (
     <S.Container>
+      {/* <MyEditor /> */}
       <S.TitleInput
         type="text"
         name="title"
