@@ -12,12 +12,13 @@ import NotFound from '../../components/NotFound';
 
 import WorkDetailContainer from '../../containers/WorkDetailContainer';
 import MusicDetailContainer from '../../containers/MusicDetailContainer';
+import UploadMainContainer from '../../containers/UploadMainContainer';
 
 const Content = ({ match }: RouteComponentProps) => (
   <Switch>
     <Route path={`${match.path}/detail-image/:id`} component={WorkDetailContainer} />
     <Route path={`${match.path}/detail-music/:id`} component={MusicDetailContainer} />
-    <Route path={`${match.path}/upload`} component={UploadMain} />
+    <Route path={`${match.path}/upload`} component={UploadMainContainer} />
     <Route path={`${match.path}`}>
       <Route path={`${match.path}`} component={FeedNavigator} />
       <Switch>

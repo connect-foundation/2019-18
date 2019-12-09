@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Link,
+  Redirect,
 } from 'react-router-dom';
 
 import UploadImage from '../UploadImage';
@@ -12,12 +13,22 @@ import * as S from './style';
 import circleWarn from '../../assets/circle_warn.png';
 import UploadMusic from '../UploadMusic';
 
-
-function UploadMain() {
-  return (
-    <ModalSwitch />
-  );
+interface UploadMainProp{
+  isLogin: boolean;
 }
+
+const UploadMain:React.FC<UploadMainProp> = ({ isLogin }) => (
+  (!isLogin)
+    ? (<Redirect to="/" />)
+    : (
+      <Switch>
+        <Route exact path="/home/upload" component={Home} />
+        <Route path="/home/upload/image" component={UploadImage} />
+        <Route path="/home/upload/music" component={UploadMusic} />
+        <Route path="/home/upload/background" component={Home} />
+      </Switch>
+    )
+);
 
 
 function Home() {
@@ -29,7 +40,6 @@ function Home() {
       <S.LinkBox>
         <Link to="/home/upload/image"><Basicbox name="이미지" /></Link>
         <Link to="/home/upload/music"><Basicbox name="음악" /></Link>
-        {/* <Link to="/home/upload/background"><Basicbox name="배경화면" /></Link> */}
       </S.LinkBox>
       <S.Warn>
         <span>
@@ -48,17 +58,5 @@ function Home() {
     </S.UploadMain>
   );
 }
-
-function ModalSwitch() {
-  return (
-    <Switch>
-      <Route exact path="/home/upload" component={Home} />
-      <Route path="/home/upload/image" component={UploadImage} />
-      <Route path="/home/upload/music" component={UploadMusic} />
-      <Route path="/home/upload/background" component={Home} />
-    </Switch>
-  );
-}
-
 
 export default UploadMain;

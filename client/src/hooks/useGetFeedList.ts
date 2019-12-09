@@ -47,8 +47,8 @@ const useFetch = <T>(initData:T[])
     fetchData();
   }, [url]);
 
-  useEffect(() => {
-  }, [data]);
+  // useEffect(() => {
+  // }, [data]);
 
   return [{
     data, isLoading, isError, skippedNum, fixedNum,
