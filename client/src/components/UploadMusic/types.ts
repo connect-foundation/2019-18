@@ -1,4 +1,4 @@
-export interface IMusic{
+export interface IMusic {
   musicUrl:string;
   imageUrl:string;
   title: string;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import ReactQuill from 'react-quill';
 import shortId from 'shortid';
 import 'react-quill/dist/quill.snow.css';
@@ -11,32 +12,33 @@ import {
   IMusic,
   IDocu,
 } from './types';
+import { API_SERVER } from '../../utils/constants';
 
 const docuinit:IDocu[] = [
-  {
-    key: getShortId(),
-    type: 'description',
-    content: '',
-  },
-  {
-    key: getShortId(),
-    type: 'description',
-    content: '',
-  },
-  {
-    key: getShortId(),
-    type: 'music',
-    content: {
-      musicUrl: 'https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3',
-      imageUrl: '',
-      title: '',
-      genres: [],
-      moods: [],
-      instruments: [],
-      musicFile: null,
-      imageFile: null,
-    },
-  },
+  // {
+  //   key: getShortId(),
+  //   type: 'description',
+  //   content: '',
+  // },
+  // {
+  //   key: getShortId(),
+  //   type: 'description',
+  //   content: '',
+  // },
+  // {
+  //   key: getShortId(),
+  //   type: 'music',
+  //   content: {
+  //     musicUrl: 'https://kr.object.ncloudstorage.com/crafolio-test-upload/musics/7aea9857-43dd-46d7-8c01-d47a584a097d.mp3',
+  //     imageUrl: '',
+  //     title: '',
+  //     genres: [],
+  //     moods: [],
+  //     instruments: [],
+  //     musicFile: null,
+  //     imageFile: null,
+  //   },
+  // },
 ];
 
 const UploadMusic:React.FC = () => {
@@ -226,15 +228,57 @@ const UploadMusic:React.FC = () => {
         const music = docu.content as IMusic;
         const musicFile = music.musicFile as File;
         const imageFile = music.imageFile as File;
-        const musicFileName = `musics.${musicFile.name}`;
-        const imageFileName = `musicCovers.${imageFile.name}`;
+        console.log(imageFile);
+        const musicFileName = 'musics.mp3';
+        const imageFileName = 'musicCovers.png';
 
-        formData.append('multi-files', musicFileName, musicFileName);
+        formData.append('multi-files', musicFile, musicFileName);
         formData.append('multi-files', imageFile, imageFileName);
       }
     });
 
     return formData;
+  };
+
+  const getMusicUrl = async () => {
+    const formData = makeFormData();
+    const { data } = await axios.post(`${API_SERVER}/upload/getImageUrl`, formData);
+    const { objectStorageUrls } = data;
+    return objectStorageUrls;
+  };
+
+  const UploadClickHandler = async (e:React.MouseEvent<HTMLButtonElement>) => {
+    const urls = await getMusicUrl();
+    console.log(urls);
+    const dbContent = docus.map((docu) => {
+      if (docu.type === 'music') {
+        const music = docu.content as IMusic;
+        const { musicFile, imageFile, ...contentData } = music;
+        contentData.musicUrl = urls.shift();
+        contentData.imageUrl = urls.shift();
+
+        const body = {
+          type: 'music',
+          content: contentData,
+        };
+        return body;
+      } if (docu.type === 'description') {
+        const contentData = docu.content as string;
+        const body = {
+          type: 'description',
+          content: contentData,
+        };
+        return body;
+      }
+      console.log('error');
+    });
+    const data = {
+      title,
+      content: dbContent,
+    };
+    console.log(dbContent);
+    const response = await axios.post(`${API_SERVER}/upload/music`, data);
+    console.log(response);
   };
 
   const makeDescription = (el: IDocu) => (
@@ -286,7 +330,6 @@ const UploadMusic:React.FC = () => {
 
   return (
     <S.Container>
-      {/* <MyEditor /> */}
       <S.TitleInput
         type="text"
         name="title"
@@ -314,11 +357,10 @@ const UploadMusic:React.FC = () => {
         </S.Button>
       </S.AddButtonList>
 
-      <S.UploadButton>업로드</S.UploadButton>
+      <S.UploadButton onClick={UploadClickHandler}>업로드</S.UploadButton>
     </S.Container>
 
   );
 };
-
 
 export default UploadMusic;

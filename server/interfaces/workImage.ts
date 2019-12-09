@@ -1,8 +1,20 @@
 import mongoose from 'mongoose';
 
+export interface IMusic {
+  title:string;
+  musicUrl: string;
+  imageUrl: string;
+  genres: string[];
+  moods: string[];
+  instruments: string[];
+}
+
 export interface IWorkImageContent {
   type: string,
-  content: string,
+  content: [{
+    type:string;
+    content: [IMusic | string];
+  }],
 }
 
 export interface IComments {
