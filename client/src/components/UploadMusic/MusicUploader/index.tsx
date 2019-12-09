@@ -5,10 +5,6 @@ import { UploadSelection } from '../../../utils/constants';
 import MusicPlayerMini from '../../MusicPlayerMini';
 import { MusicUploaderProp } from './types';
 
-const initData2 = [
-  '123', '234', '345',
-];
-
 const MusicUploader:React.FC<MusicUploaderProp> = ({
   docuKey,
   content,
