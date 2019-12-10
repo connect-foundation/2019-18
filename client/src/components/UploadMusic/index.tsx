@@ -27,9 +27,9 @@ const docuinit:IDocu[] = [
   // },
   // {
   //   key: getShortId(),
-  //   type: 'music',
+  //   type: 'musics',
   //   content: {
-  //     musicUrl: 'https://kr.object.ncloudstorage.com/crafolio-test-upload/musics/7aea9857-43dd-46d7-8c01-d47a584a097d.mp3',
+  //     musicUrl: 'https://kr.object.ncloudstorage.com/crafolio-test-upload/musics/5bd0f1ff-8377-4dee-bd44-cbedfdb36d6f.mp3',
   //     imageUrl: '',
   //     title: '',
   //     genres: [],
