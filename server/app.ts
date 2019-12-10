@@ -42,6 +42,9 @@ app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
     apiError = createError(err);
   }
 
+  if (process.env.NODE_ENV === 'development') {
+    console.error(apiError);
+  }
   // set locals, only providing error in development
   res.locals.message = apiError.message;
   res.locals.error = process.env.NODE_ENV === 'development' ? apiError : {};
