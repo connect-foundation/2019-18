@@ -7,7 +7,6 @@ import useGetFeedList from '../hooks/useGetFeedList';
 
 const FeedWorkContainer:React.FC = () => {
   const data = useSelector((state: RootState) => state.feed.data);
-
   const [{
     isLoading, isError, skippedNum, fixedNum,
   }, doFetch, onInsert] = useGetFeedList();
@@ -17,10 +16,9 @@ const FeedWorkContainer:React.FC = () => {
     return () => {
       window.removeEventListener('scroll', onInsert);
     };
-  }, []);
+  }, [skippedNum]);
 
   useEffect(() => {
-    console.log('not init?? [skippedNum]');
     doFetch(`${API_SERVER}/feed/images/more/${fixedNum.current}/${skippedNum}`);
   }, [skippedNum]);
 

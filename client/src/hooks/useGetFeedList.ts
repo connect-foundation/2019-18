@@ -1,11 +1,10 @@
 import {
-  useState, useEffect, useRef, useCallback,
+  useState, useEffect, useRef,
 } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { getWorkDataMore, getWorkData } from '../modules/feed';
+import { getWorkDataMore } from '../modules/feed';
 import { RootState } from '../modules';
-import { API_SERVER } from '../utils/constants';
 
 const useFetch = ()
   :[{isLoading:boolean, isError:boolean, fixedNum:React.MutableRefObject<number>, skippedNum:number}, (url:string)=>void, ()=>void] => {
@@ -16,38 +15,34 @@ const useFetch = ()
   const dispatch = useDispatch();
   const skippedNumG = useSelector((state: RootState) => state.feed.skippedNum);
   const [skippedNum, setSkippedNum] = useState(skippedNumG);
+  const isLoading2 = useRef(false);
 
+  const onInsert = () => {
+    const { scrollTop } = document.documentElement;
+    const { clientHeight } = document.documentElement;
+    const { scrollHeight } = document.body;
 
-  const onInsert = useCallback(
-    () => {
-      const scrollTop = window.scrollY;
-      const { clientHeight } = document.documentElement;
-      const { scrollHeight } = document.body;
-      if ((scrollTop + clientHeight) === scrollHeight) {
+    if ((scrollTop + clientHeight) === scrollHeight) {
+      if (isLoading2.current === false && skippedNumG >= skippedNum) {
         setSkippedNum(skippedNum + 9);
       }
-    },
-    [],
-  );
-
-  useEffect(() => {
-    console.log('useEffecctt!!!', skippedNumG);
-  }, [skippedNumG]);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
-      setIsLoading(true); try {
+      setIsLoading(true);
+      isLoading2.current = true;
+      try {
         const result = await axios(url);
         if (!result.data.success) {
           setIsLoading(false);
         } else {
           const images = result.data.data;
-          // const newData = data.concat(images);
-          // setData(newData);
-          console.log('fetch!!');
           dispatch(getWorkDataMore(images));
           setIsLoading(false);
+          isLoading2.current = false;
           setIsError(false);
         }
       } catch (e) {

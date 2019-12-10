@@ -23,8 +23,8 @@ function feed(state:FeedWorkState = initialState, action:FeedWorkAction) {
     case WORK_DATA_MORE:
       return {
         ...state,
-        skippedNum: state.skippedNum + 9,
         data: [...state.data, ...action.payload],
+        skippedNum: state.data.length + action.payload.length,
       };
     default:
       return state;
