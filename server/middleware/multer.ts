@@ -17,6 +17,7 @@ const multerUpload = multer({
       const customFileName = `${type}/${nameUuid}.${format}`;
       cb(null, customFileName);
     },
+    acl: 'public-read',
   }),
 }).array('multi-files', 10);
 
