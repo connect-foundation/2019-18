@@ -93,7 +93,7 @@ const getWorkMusic = async (req: Request, res: Response, next: NextFunction) => 
 
         return {
           ...el,
-          musicContent,
+          content: musicContent,
         };
       }
       return el;

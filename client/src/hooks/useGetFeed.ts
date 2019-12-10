@@ -9,10 +9,11 @@ const useGetFeed = <T>(initData:T)
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
+    // const { CancelToken } = axios;
+    // const source = CancelToken.source();
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
-
       try {
         const result = await axios(url);
         if (!result.data.success) {
@@ -23,11 +24,13 @@ const useGetFeed = <T>(initData:T)
           setIsError(true);
         }
       } catch (e) {
+        console.error(e);
         setIsError(e);
       }
     };
     fetchData();
   }, [url]);
+
 
   return [{
     data, setData, isLoading, isError,
