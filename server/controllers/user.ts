@@ -25,6 +25,7 @@ const signup = async (req: Request, res: Response) => {
     if (e.name === 'MongoError') {
       return response(res, { message: '이미 사용중인 이메일입니다' }, 500);
     }
+    console.log(e.message);
     return response(res, { message: 'unknown error' }, 500);
   }
 };
