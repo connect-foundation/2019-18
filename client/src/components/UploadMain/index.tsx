@@ -4,7 +4,6 @@ import {
   Switch,
   Route,
   Link,
-  Redirect,
 } from 'react-router-dom';
 
 import UploadImage from '../UploadImage';
@@ -12,14 +11,14 @@ import Basicbox from '../Basicbox';
 import * as S from './style';
 import circleWarn from '../../assets/circle_warn.png';
 import UploadMusic from '../UploadMusic';
-import PopupWARN from '../../commons/Popup_warn';
+
 
 const UploadMain:React.FC = () => (
   <Switch>
     <Route exact path="/home/upload" component={Home} />
     <Route path="/home/upload/image" component={UploadImage} />
     <Route path="/home/upload/music" component={UploadMusic} />
-    <Route path="/home/upload/background" component={Home} />
+    <Route path="/home/upload/wallpaper" component={Home} />
   </Switch>
 );
 

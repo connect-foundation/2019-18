@@ -2,15 +2,21 @@ import {
   useState, useEffect, useRef, useCallback,
 } from 'react';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { getWorkDataMore, getWorkData } from '../modules/feed';
+import { RootState } from '../modules';
+import { API_SERVER } from '../utils/constants';
 
-const useFetch = <T>(initData:T[])
-  :[{data:T[], isLoading:boolean, isError:boolean, skippedNum:number, fixedNum:React.MutableRefObject<number>}, (url:string)=>void, ()=>void ] => {
-  const [data, setData] = useState(initData);
+const useFetch = ()
+  :[{isLoading:boolean, isError:boolean, fixedNum:React.MutableRefObject<number>, skippedNum:number}, (url:string)=>void, ()=>void] => {
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [skippedNum, setSkippedNum] = useState(0);
   const fixedNum = useRef(9);
+  const dispatch = useDispatch();
+  const skippedNumG = useSelector((state: RootState) => state.feed.skippedNum);
+  const [skippedNum, setSkippedNum] = useState(skippedNumG);
+
 
   const onInsert = useCallback(
     () => {
@@ -18,25 +24,29 @@ const useFetch = <T>(initData:T[])
       const { clientHeight } = document.documentElement;
       const { scrollHeight } = document.body;
       if ((scrollTop + clientHeight) === scrollHeight) {
-        setSkippedNum(skippedNum + fixedNum.current);
+        setSkippedNum(skippedNum + 9);
       }
     },
     [],
   );
 
   useEffect(() => {
+    console.log('useEffecctt!!!', skippedNumG);
+  }, [skippedNumG]);
+
+  useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
-      setIsLoading(true);
-      try {
+      setIsLoading(true); try {
         const result = await axios(url);
         if (!result.data.success) {
           setIsLoading(false);
         } else {
           const images = result.data.data;
-
-          const newData = data.concat(images);
-          setData(newData);
+          // const newData = data.concat(images);
+          // setData(newData);
+          console.log('fetch!!');
+          dispatch(getWorkDataMore(images));
           setIsLoading(false);
           setIsError(false);
         }
@@ -47,11 +57,9 @@ const useFetch = <T>(initData:T[])
     fetchData();
   }, [url]);
 
-  // useEffect(() => {
-  // }, [data]);
 
   return [{
-    data, isLoading, isError, skippedNum, fixedNum,
+    isLoading, isError, fixedNum, skippedNum,
   }, setUrl, onInsert];
 };
 
