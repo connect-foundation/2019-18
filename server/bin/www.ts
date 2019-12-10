@@ -8,6 +8,7 @@ import ErrnoException = NodeJS.ErrnoException;
 require('dotenv').config();
 const debug = require('debug')('nodejs-express-typescript-sample:server');
 const http = require('http');
+const socketIo = require('socket.io');
 const app = require('../app');
 
 /**
@@ -23,6 +24,14 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
+/**
+ * Create socket server
+ */
+const io = socketIo(server);
+io.on('connection', (socket) => {
+  console.log('socket onononono');
+  console.log(socket.id);
+});
 /**
  * Listen on provided port, on all network interfaces.
  */
