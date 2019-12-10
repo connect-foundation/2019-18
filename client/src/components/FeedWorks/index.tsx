@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CircularProgress } from '@material-ui/core';
 import { getShortId } from '../../utils';
 import WorksCard from '../Card/WorksCard';

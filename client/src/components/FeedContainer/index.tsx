@@ -4,10 +4,10 @@ import {
 } from 'react-router-dom';
 //
 import FeedWorkContainer from '../../containers/FeedWorkContainer';
+import FeedWallpaperContainer from '../../containers/FeedWallpaperContainer';
 //
 // import FeedWallpapers from '../FeedWallpapers';
 import FeedMusic from '../FeedMusics';
-import FeedWorks from '../FeedWorks';
 import FeedNavigator from '../FeedNavigator';
 import NotFound from '../../components/NotFound';
 
@@ -24,7 +24,7 @@ const Content = ({ match }: RouteComponentProps) => (
       <Route path={`${match.path}`} component={FeedNavigator} />
       <Switch>
         <Route exact path={`${match.path}/works`} component={FeedWorkContainer} />
-        {/* <Route path={`${match.path}/wallpaper`} component={FeedWallpapers} /> */}
+        <Route path={`${match.path}/wallpaper`} component={FeedWallpaperContainer} />
         <Route path={`${match.path}/music`} component={FeedMusic} />
         <Route component={NotFound} />
       </Switch>

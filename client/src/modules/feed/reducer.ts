@@ -1,26 +1,34 @@
 import {
-  WORK_DATA_MORE,
+  WORK_DATA_MORE, WALLPAPER_DATA_MORE,
 } from './action';
 
 
 import {
-  FeedWorkAction, FeedWorkState,
+  FeedAction, FeedState,
 } from './types';
 
 
-const initialState: FeedWorkState = {
-  data: [],
-  skippedNum: 0,
+const initialState: FeedState = {
+  workData: [],
+  workSkippedNum: 0,
+  wallpaperData: [],
+  wallpaperSkippedNum: 0,
 };
 
 
-function feed(state:FeedWorkState = initialState, action:FeedWorkAction) {
+function feed(state:FeedState = initialState, action:FeedAction) {
   switch (action.type) {
     case WORK_DATA_MORE:
       return {
         ...state,
-        data: [...state.data, ...action.payload],
-        skippedNum: state.data.length + action.payload.length,
+        workData: [...state.workData, ...action.payload],
+        workSkippedNum: state.workData.length + action.payload.length,
+      };
+    case WALLPAPER_DATA_MORE:
+      return {
+        ...state,
+        wallpaperData: [...state.wallpaperData, ...action.payload],
+        wallpaperSkippedNum: state.wallpaperData.length + action.payload.length,
       };
     default:
       return state;

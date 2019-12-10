@@ -1,7 +1,8 @@
-import { getWorkDataMore } from './action';
+import { getWorkDataMore, getWallpaperDataMore } from './action';
 
-export type FeedWorkAction =
+export type FeedAction =
 | ReturnType<typeof getWorkDataMore>
+| ReturnType<typeof getWallpaperDataMore>
 
 export interface IImage{
     _id: string;
@@ -17,7 +18,24 @@ export interface IImage{
     views: string;
 }
 
-export type FeedWorkState = {
-  data: IImage[];
-  skippedNum: number;
+export interface IWallpaper{
+  _id: string;
+  ownerId:string;
+  creator:{
+    _id: string,
+    name: string,
+    email: string,
+  };
+  url: string;
+  title:string;
+  numOfComments:string;
+  views: string;
+}
+
+
+export type FeedState = {
+  workData: IImage[];
+  workSkippedNum: number;
+  wallpaperData: IWallpaper[];
+  wallpaperSkippedNum: number;
 }

@@ -1,56 +1,42 @@
-import React, { useEffect } from 'react';
-// import shortid from 'shortid';
-// import { CircularProgress } from '@material-ui/core';
-// import useGetFeedList from '../../hooks/useGetFeedList';
-// import { API_SERVER } from '../../utils/constants';
-// import * as S from './styles';
-// import { IWallpaper } from './type';
-// import WorksCard from '../Card/WorksCard';
+import React from 'react';
+import { CircularProgress } from '@material-ui/core';
+import { getShortId } from '../../utils';
+import WorksCard from '../Card/WorksCard';
+import * as S from './styles';
+import { IWallpaper } from './type';
 
-// const FeedWallpapers: React.FC = () => {
-//   const [{
-//     data, isLoading, isError, skippedNum, fixedNum,
-//   }, doFetch, onInsert] = useGetFeedList<IWallpaper>([]);
+type FeedWallpapersProps = {
+  data: IWallpaper[];
+  isLoading: boolean;
+};
 
-//   useEffect(() => {
-//     window.addEventListener('scroll', onInsert);
-//     return () => {
-//       window.removeEventListener('scroll', onInsert);
-//     };
-//   }, []);
+const FeedWallpapers:React.FC<FeedWallpapersProps> = ({
+  data, isLoading,
+}) => (
+  <S.Container>
+    <S.FeedWrapper>
+      {
+          data.map(({
+            _id, ownerId, url, creator, title, numOfComments, views,
+          }) => (
+            <WorksCard
+              _id={_id}
+              ownerId={ownerId}
+              imgUrl={url}
+              creator={creator}
+              key={getShortId()}
+              title={title}
+              numOfComments={numOfComments}
+              views={views}
+            />
+          ))
+        }
+    </S.FeedWrapper>
 
-//   useEffect(() => {
-//     doFetch(`${API_SERVER}/feed/wallpapers/more/${fixedNum.current}/${skippedNum}`);
-//   }, [skippedNum]);
+    <S.Progress id="hi">
+      {isLoading && <CircularProgress color="inherit" />}
+    </S.Progress>
+  </S.Container>
+);
 
-//   return (
-//     <S.Container>
-//       <S.FeedWrapper>
-//         {
-//           data.map(({
-//             _id, ownerId, url, creator, title, numOfComments, views,
-//           }) => (
-//             <WorksCard
-//               _id={_id}
-//               ownerId={ownerId}
-//               imgUrl={url}
-//               creator={creator}
-//               key={shortid.generate()}
-//               title={title}
-//               numOfComments={numOfComments}
-//               views={views}
-//             />
-//           ))
-//       }
-
-//       </S.FeedWrapper>
-//       <S.Progress>
-//         {isLoading && <CircularProgress color="inherit" />}
-//       </S.Progress>
-//     </S.Container>
-
-
-//   );
-// };
-
-// export default FeedWallpapers;
+export default FeedWallpapers;

@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 import FeedWorks from '../components/FeedWorks';
 import { RootState } from '../modules';
 import { API_SERVER } from '../utils/constants';
-import useGetFeedList from '../hooks/useGetFeedList';
+import useGetFeedWorkList from '../hooks/useGetFeedWorkList';
 
 const FeedWorkContainer:React.FC = () => {
-  const data = useSelector((state: RootState) => state.feed.data);
+  const data = useSelector((state: RootState) => state.feed.workData);
   const [{
     isLoading, isError, skippedNum, fixedNum,
-  }, doFetch, onInsert] = useGetFeedList();
+  }, doFetch, onInsert] = useGetFeedWorkList();
 
   useEffect(() => {
     window.addEventListener('scroll', onInsert);
