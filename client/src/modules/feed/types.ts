@@ -1,9 +1,7 @@
-import { getWorkData, getWorkDataMore, increaseSkippedNum } from './action';
+import { getWorkDataMore } from './action';
 
 export type FeedWorkAction =
-| ReturnType<typeof getWorkData>
 | ReturnType<typeof getWorkDataMore>
-| ReturnType<typeof increaseSkippedNum>
 
 export interface IImage{
     _id: string;

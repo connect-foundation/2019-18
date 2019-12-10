@@ -1,5 +1,5 @@
 import {
-  WORK_DATA, WORK_DATA_MORE, INCREASE_SNUM,
+  WORK_DATA_MORE,
 } from './action';
 
 
@@ -16,10 +16,6 @@ const initialState: FeedWorkState = {
 
 function feed(state:FeedWorkState = initialState, action:FeedWorkAction) {
   switch (action.type) {
-    case WORK_DATA:
-      return {
-        ...state,
-      };
     case WORK_DATA_MORE:
       return {
         ...state,
