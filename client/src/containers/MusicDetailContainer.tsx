@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import MusicDetail from '../components/MusicDetail';
+import useGetFeed from '../hooks/useGetFeed';
+import { RootState } from '../modules';
+import { API_SERVER } from '../utils/constants';
+import { IData } from '../components/MusicDetail/types';
 
 const md = {
   title: 'face to face',
@@ -17,19 +22,20 @@ const md = {
 
 const MusicDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   const { id } = match.params;
+  const [{
+    data, setData, isLoading, isError,
+  }, setUrl] = useGetFeed<IData | null>(null);
+  const user = useSelector((state: RootState) => state.login);
+  useEffect(() => {
+    setUrl(`${API_SERVER}/feed/workmusic/${id}`);
+  }, [data]);
 
   return (
     <MusicDetail
-      title={md.title}
-      author={md.author}
-      date={md.date}
-      views={md.views}
-      plays={md.plays}
-      genres={md.genres}
-      moods={md.moods}
-      instruments={md.instruments}
-      musicUrl={md.musicUrl}
-      coverUrl={md.coverUrl}
+      data={data}
+      user={user}
+      isLoading={isLoading}
+      isError={isError}
     />
   );
 };

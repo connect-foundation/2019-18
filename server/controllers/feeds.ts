@@ -77,6 +77,35 @@ const getWorkImage = async (req: Request, res: Response, next: NextFunction) => 
   }
 };
 
+const getWorkMusic = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+
+    const workMusic = await getWorkMusicById(id);
+    if (!workMusic) {
+      throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
+    }
+    workMusic.content = workMusic.content.map((el) => {
+      if (el.type === 'musics') {
+        const musicContent = el.content as IMusicContent;
+        musicContent.musicUrl = `${OS_TARGET_URL}${el.type}/${musicContent.musicUrl}`;
+        musicContent.imageUrl = `${IMAGE_CDN}musicCovers/${musicContent.imageUrl}${IMAGE_QUERY_LOW}`;
+
+        return {
+          ...el,
+          musicContent,
+        };
+      }
+      return el;
+    });
+
+    response(res, workMusic);
+  } catch (e) {
+    next(e);
+  }
+};
+
+
 const addComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = req.decodedUser;
@@ -161,41 +190,6 @@ const getMoreImages = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-
-const getWorkMusic = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { id } = req.params;
-
-    const workMusic = await getWorkMusicById(id);
-    if (!workMusic) {
-      throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
-    }
-    workMusic.content = workMusic.content.map((el) => {
-      if (el.type === 'musics') {
-        const musicContent = el.content as IMusicContent;
-        musicContent.musicUrl = `${OS_TARGET_URL}${el.type}/${musicContent.musicUrl}`;
-        musicContent.imageUrl = `${IMAGE_CDN}musicCovers/${musicContent.imageUrl}${IMAGE_QUERY_LOW}`;
-
-        return {
-          ...el,
-          musicContent,
-        };
-        // return {
-        //   ...el,
-        //   content: {
-        //     musicUrl: `${IMAGE_CDN}${el.type}/${musicContent.musicUrl}${IMAGE_QUERY_LOW}`,
-        //     imageUrl: `${IMAGE_CDN}musicCovers/${musicContent.imageUrl}${IMAGE_QUERY_LOW}`,
-        //   },
-        // };
-      }
-      return el;
-    });
-
-    response(res, workMusic);
-  } catch (e) {
-    next(e);
-  }
-};
 
 export {
   getImages,
