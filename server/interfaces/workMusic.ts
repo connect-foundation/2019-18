@@ -12,7 +12,7 @@ export interface IMusicContent {
 
 export interface IWorkMusicContent {
   type: string;
-  content: IMusicContent[] | string;
+  content: IMusicContent | string;
 }
 
 export interface IComments {
