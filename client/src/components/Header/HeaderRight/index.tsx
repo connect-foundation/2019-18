@@ -20,6 +20,7 @@ const HeaderRight: React.FC = () => {
         )
         : (
           <S.LoginContainer>
+            <S.UploadButton><S.UploadLink to="/home/upload">업로드</S.UploadLink></S.UploadButton>
             <Alarm />
             <HeaderGreeting />
           </S.LoginContainer>
