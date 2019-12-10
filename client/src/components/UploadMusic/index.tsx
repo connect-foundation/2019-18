@@ -203,7 +203,7 @@ const UploadMusic:React.FC = () => {
       ...docus,
       {
         key: getShortId(),
-        type: 'music',
+        type: 'musics',
         content: newMusic,
       },
     ]);
@@ -224,11 +224,10 @@ const UploadMusic:React.FC = () => {
     const formData = new FormData();
 
     docus.forEach((docu) => {
-      if (docu.type === 'music') {
+      if (docu.type === 'musics') {
         const music = docu.content as IMusic;
         const musicFile = music.musicFile as File;
         const imageFile = music.imageFile as File;
-        console.log(imageFile);
         const musicFileName = 'musics.mp3';
         const imageFileName = 'musicCovers.png';
 
@@ -249,16 +248,15 @@ const UploadMusic:React.FC = () => {
 
   const UploadClickHandler = async (e:React.MouseEvent<HTMLButtonElement>) => {
     const urls = await getMusicUrl();
-    console.log(urls);
     const dbContent = docus.map((docu) => {
-      if (docu.type === 'music') {
+      if (docu.type === 'musics') {
         const music = docu.content as IMusic;
         const { musicFile, imageFile, ...contentData } = music;
         contentData.musicUrl = urls.shift();
         contentData.imageUrl = urls.shift();
 
         const body = {
-          type: 'music',
+          type: 'musics',
           content: contentData,
         };
         return body;
@@ -272,11 +270,11 @@ const UploadMusic:React.FC = () => {
       }
       console.log('error');
     });
+    console.log(dbContent);
     const data = {
       title,
       content: dbContent,
     };
-    console.log(dbContent);
     const response = await axios.post(`${API_SERVER}/upload/music`, data);
     console.log(response);
   };
@@ -323,7 +321,7 @@ const UploadMusic:React.FC = () => {
     if (el.type === 'description') {
       return makeDescription(el);
     }
-    if (el.type === 'music') {
+    if (el.type === 'musics') {
       return makeMusic(el);
     }
   };
