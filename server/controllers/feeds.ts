@@ -4,12 +4,13 @@ import createError from 'http-errors';
 import httpStatus from 'http-status';
 import response from '../utils/response';
 import {
-  get10Images, get10Wallpapers, getImageFeeds, getWorkImageById, addCommentToWorkImage,
+  get10Images, get10Wallpapers, getImageFeeds, getWorkImageById, addCommentToWorkImage, getWorkMusicById,
 } from '../services/feed';
 import {
-  IMAGE_CDN, IMAGES, WALLPAPERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH,
+  IMAGE_CDN, IMAGES, WALLPAPERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
 } from '../utils/constant';
 import { FEED, AUTH } from '../utils/messages';
+import { IMusicContent } from '../interfaces/workMusic';
 
 const getImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -161,6 +162,41 @@ const getMoreImages = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 
+const getWorkMusic = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+
+    const workMusic = await getWorkMusicById(id);
+    if (!workMusic) {
+      throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
+    }
+    workMusic.content = workMusic.content.map((el) => {
+      if (el.type === 'musics') {
+        const musicContent = el.content as IMusicContent;
+        musicContent.musicUrl = `${OS_TARGET_URL}${el.type}/${musicContent.musicUrl}`;
+        musicContent.imageUrl = `${IMAGE_CDN}musicCovers/${musicContent.imageUrl}${IMAGE_QUERY_LOW}`;
+
+        return {
+          ...el,
+          musicContent,
+        };
+        // return {
+        //   ...el,
+        //   content: {
+        //     musicUrl: `${IMAGE_CDN}${el.type}/${musicContent.musicUrl}${IMAGE_QUERY_LOW}`,
+        //     imageUrl: `${IMAGE_CDN}musicCovers/${musicContent.imageUrl}${IMAGE_QUERY_LOW}`,
+        //   },
+        // };
+      }
+      return el;
+    });
+
+    response(res, workMusic);
+  } catch (e) {
+    next(e);
+  }
+};
+
 export {
   getImages,
   getWallpapers,
@@ -168,4 +204,5 @@ export {
   addComment,
   getMoreWallpapers,
   getMoreImages,
+  getWorkMusic,
 };
