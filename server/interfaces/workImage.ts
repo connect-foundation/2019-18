@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export interface IMusic {
+export interface IMusicContent {
   title:string;
   musicUrl: string;
   imageUrl: string;
@@ -11,10 +11,7 @@ export interface IMusic {
 
 export interface IWorkImageContent {
   type: string,
-  content: [{
-    type:string;
-    content: [IMusic | string];
-  }],
+  content: string;
 }
 
 export interface IComments {
