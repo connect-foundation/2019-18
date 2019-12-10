@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import Quill from 'react-quill';
 import * as S from './styles';
 import MusicPlayer from '../MusicPlayer';
 import { MusicDetailProp } from './types';
@@ -13,8 +14,26 @@ const MusicDetail: React.FC<MusicDetailProp> = ({
   user,
   isLoading,
   isError,
-}) => (
-  isLoading || data === null
+}) => {
+  useEffect(() => {
+    console.log('use effect in music detail');
+    console.log('---------isLoading---------');
+    console.log(isLoading);
+    console.log('---------data------------');
+    console.log(data);
+  }, []);
+
+  useEffect(() => {
+    console.log('isLoading is changed in Music Detail');
+    console.log(isLoading);
+  }, [isLoading]);
+
+  useEffect(() => {
+    console.log('data is changed in Music Detail');
+    console.log(data);
+  }, [data]);
+
+  return (isLoading || data === null
     ? (<div>Loading...</div>)
     : (
       <S.Container>
@@ -29,9 +48,12 @@ const MusicDetail: React.FC<MusicDetailProp> = ({
           </S.HeaderMeta>
         </S.Header>
         {
-          (data.content as IMusicContent[]).map((content) => {
+          (data.content as IMusicContent[]).map((content, index) => {
+            console.log('loop map in music detail');
             if (content.type === 'musics') {
               const music = content.content as IMusic;
+              console.log('the content is music1!');
+              console.log(music);
               return (
                 <div key={getShortId()}>
                   <MusicPlayer
@@ -49,10 +71,18 @@ const MusicDetail: React.FC<MusicDetailProp> = ({
                 </div>
               );
             }
+            return (
+              <Quill
+                value={content.content as string}
+                theme="bubble"
+                readOnly
+              />
+            );
           })
         }
       </S.Container>
     )
-);
+  );
+};
 
 export default MusicDetail;
