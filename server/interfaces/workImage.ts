@@ -1,13 +1,5 @@
 import mongoose from 'mongoose';
 
-export interface IMusicContent {
-  title:string;
-  musicUrl: string;
-  imageUrl: string;
-  genres: string[];
-  moods: string[];
-  instruments: string[];
-}
 
 export interface IWorkImageContent {
   type: string,
