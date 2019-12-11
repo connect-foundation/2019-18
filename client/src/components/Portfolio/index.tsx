@@ -7,7 +7,9 @@ import { portfolioProp } from './types';
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
 
 
-const Portfolio:React.FC<portfolioProp> = ({ introSimple, introDetail, activeFields }) => {
+const Portfolio:React.FC<portfolioProp> = ({
+  introSimple, introDetail, activeFields, isMyPortfolio,
+}) => {
   const follower = 10;
   const following = 100;
   return (

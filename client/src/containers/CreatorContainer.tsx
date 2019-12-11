@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { API_SERVER } from '../utils/constants';
 import { theme } from '../style/theme';
 import FeedMyWorks from '../components/FeedMyWorks';
 import Portfolio from '../components/Portfolio';
+import { RootState } from '../modules';
 
 
 const S = {
@@ -27,11 +30,17 @@ const initialPortfolio = {
   introDetail: '',
   activeFields: [''],
 };
-const CreatorContainer = () => {
+interface matchParams {
+  profileId: string;
+}
+const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }) => {
   const [portfolio, setPortfolio] = useState({ ...initialPortfolio });
+  const loginedUserProfileId = useSelector((state:RootState) => state.login.profile);
+  const isMyPortfolio = (!match.params.profileId || (match.params.profileId === loginedUserProfileId));
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(`${API_SERVER}/profile`, {
+      const profileId = match.params.profileId || '';
+      const response = await fetch(`${API_SERVER}/profile/${profileId}`, {
         method: 'get',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -56,6 +65,7 @@ const CreatorContainer = () => {
     <S.CreatorContainer>
       <S.PortfolioContainer>
         <Portfolio
+          isMyPortfolio={isMyPortfolio}
           introDetail={portfolio.introDetail}
           introSimple={portfolio.introSimple}
           activeFields={portfolio.activeFields}
@@ -67,4 +77,4 @@ const CreatorContainer = () => {
     </S.CreatorContainer>
   );
 };
-export default CreatorContainer;
+export default withRouter(CreatorContainer);
