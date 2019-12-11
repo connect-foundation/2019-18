@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
+import socketOpen from 'socket.io';
 import index from './routes';
 import response from './utils/response';
 
@@ -11,7 +12,9 @@ import bodyParser = require('body-parser');
 import connect = require('./config/mongo');
 import createError = require('http-errors');
 
+
 const app = express();
+
 app.set('jwt-secret', process.env.JWT_SECRET);
 
 app.use(logger('dev'));
