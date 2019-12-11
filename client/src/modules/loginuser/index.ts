@@ -5,6 +5,7 @@ const initialState = {
   name: '',
   thumbnailUrl: '',
   originUrl: '',
+  profile: '',
   isLogin: false,
 };
 const makeUserState = async () => {
