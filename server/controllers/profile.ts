@@ -22,6 +22,16 @@ const getMyProfile = async (req: Request, res: Response, next: NextFunction) => 
     next(e);
   }
 };
+const getProfileById = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.params.id) {
+    throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+  }
+  const profile = await findProfile(req.params.id);
+  if (!profile) {
+    throw (createError(httpStatus.INTERNAL_SERVER_ERROR, ''));
+  }
+  return response(res, profile);
+};
 const setMyProfile = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.decodedUser || req.decodedUser.email !== req.body.email) {
@@ -33,4 +43,4 @@ const setMyProfile = async (req: Request, res: Response, next: NextFunction) => 
     next(e);
   }
 };
-export { getMyProfile, setMyProfile };
+export { getMyProfile, setMyProfile, getProfileById };
