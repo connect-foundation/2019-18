@@ -10,6 +10,7 @@ import * as S from './style';
 import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
 import { ContentObject, DetailObject } from './type';
+import { getShortId } from '../../utils';
 
 axios.defaults.withCredentials = true;
 
@@ -165,7 +166,7 @@ function ImageUpload() {
         {documents
           && documents.map(({ type, content, preview }) => {
             if (type === 'images' || type === 'wallpapers') {
-              return <Preview src={preview} />;
+              return <Preview key={getShortId()} src={preview} />;
             }
             return (
               <div>
@@ -199,6 +200,8 @@ function ImageUpload() {
             maxFileSize={MAXSIZE_OF_UPLOADIMAGE}
             buttonStyles={S.customButton}
             singleImage
+            fileTypeError="is not supported file extension"
+            // errorStyle={S.errorS}
           />
         </S.Box>
         <S.Box>
