@@ -1,5 +1,4 @@
 import React from 'react';
-import EmptyButton from '../../basics/emptyButton';
 import * as S from './style';
 import StyledLink from '../../basics/StyledLink';
 import { portfolioProp } from './types';
@@ -23,15 +22,26 @@ const Portfolio:React.FC<portfolioProp> = ({
 팔로잉
             <S.FollowNumber>{following}</S.FollowNumber>
           </S.FollowLine>
-          <StyledLink to="/creator/form">
-            <EmptyButton>
-            프로필 수정
-            </EmptyButton>
-          </StyledLink>
+
         </S.PortfolioDetail>
         <S.PortfolioImage src={LOGIN_PROFILE_THUMBNAIL} />
       </S.PortfolioBox>
       <S.IntroduceBox>
+        {isMyPortfolio
+          ? (
+            <StyledLink to="/creator/form">
+              <S.LongEmptyButton>
+            프로필 수정
+              </S.LongEmptyButton>
+            </StyledLink>
+          )
+          : (
+            <StyledLink to="">
+              <S.LongEmptyButton>
+              팔로우 하기
+              </S.LongEmptyButton>
+            </StyledLink>
+          )}
         <S.Subject>한줄소개</S.Subject>
         <S.Content>
           {introSimple}
