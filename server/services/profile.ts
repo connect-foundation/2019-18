@@ -1,13 +1,10 @@
 import Profile from '../models/profile';
-import User from '../models/user';
 
 const intialProfile = {
   activeFields: [],
 };
-
-const initProfile = (userId) => Profile.create(
+const initProfile = () => Profile.create(
   {
-    owner: userId,
     ...intialProfile,
   },
 );

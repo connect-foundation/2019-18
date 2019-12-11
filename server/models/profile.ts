@@ -10,7 +10,6 @@ export interface IProfileModel extends IProfile, Document{}
 const { ObjectId } = Schema.Types;
 
 const profileSchema = new Schema({
-  owner: { type: ObjectId, required: true, ref: User },
   follower: { type: [ObjectId], required: false, ref: User },
   following: { type: [ObjectId], required: false, ref: User },
   introSimple: { type: String, required: false, default: '' },
