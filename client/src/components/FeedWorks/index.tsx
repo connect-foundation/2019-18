@@ -1,32 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CircularProgress } from '@material-ui/core';
 import { getShortId } from '../../utils';
 import WorksCard from '../Card/WorksCard';
-import useGetFeedList from '../../hooks/useGetFeedList';
-import { API_SERVER } from '../../utils/constants';
 import * as S from './styles';
 import { IImage } from './type';
 
-const FeedWorks:React.FC = () => {
-  const [{
-    data, isLoading, isError, skippedNum, fixedNum,
-  }, doFetch, onInsert] = useGetFeedList<IImage>([]);
+type FeedWorksProps = {
+  data: IImage[];
+  isLoading: boolean;
+};
 
-  useEffect(() => {
-    window.addEventListener('scroll', onInsert);
-    return () => {
-      window.removeEventListener('scroll', onInsert);
-    };
-  }, []);
-
-  useEffect(() => {
-    doFetch(`${API_SERVER}/feed/images/more/${fixedNum.current}/${skippedNum}`);
-  }, [skippedNum]);
-
-  return (
-    <S.Container>
-      <S.FeedWrapper>
-        {
+const FeedWorks:React.FC<FeedWorksProps> = ({
+  data, isLoading,
+}) => (
+  <S.Container>
+    <S.FeedWrapper>
+      {
           data.map(({
             _id, ownerId, url, creator, title, numOfComments, views,
           }) => (
@@ -42,13 +31,12 @@ const FeedWorks:React.FC = () => {
             />
           ))
         }
-      </S.FeedWrapper>
+    </S.FeedWrapper>
 
-      <S.Progress id="hi">
-        {isLoading && <CircularProgress color="inherit" />}
-      </S.Progress>
-    </S.Container>
-  );
-};
+    <S.Progress id="hi">
+      {isLoading && <CircularProgress color="inherit" />}
+    </S.Progress>
+  </S.Container>
+);
 
 export default FeedWorks;

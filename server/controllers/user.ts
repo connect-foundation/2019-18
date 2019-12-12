@@ -19,7 +19,6 @@ const signup = async (req: Request, res: Response) => {
     if (!user) {
       throw new Error('user가 정상적으로 생성되지 않음');
     }
-    await initProfile(user.id);
     return response(res);
   } catch (e) {
     if (e.name === 'MongoError') {

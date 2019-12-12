@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { API_SERVER } from '../utils/constants';
 import { theme } from '../style/theme';
-import FeedMyWorks from '../components/FeedMyWorks';
+// import FeedMyWorks from '../components/FeedMyWorks';
 import Portfolio from '../components/Portfolio';
 
 
@@ -62,7 +62,7 @@ const CreatorContainer = () => {
         />
       </S.PortfolioContainer>
       <S.WorksContainer>
-        <FeedMyWorks />
+        {/* <FeedMyWorks /> */}
       </S.WorksContainer>
     </S.CreatorContainer>
   );

@@ -8,6 +8,7 @@ type User={
   name: string,
   thumbnailUrl?: string,
   originUrl?: string,
+  profile : mongoose.Types.ObjectId,
 };
 
 declare global {
@@ -32,6 +33,7 @@ const authByJWT = async (req: Request, res: Response, next: NextFunction) => {
         name: userdata.name,
         originUrl: userdata.originUrl,
         thumbnailUrl: userdata.thumbnailUrl,
+        profile: userdata.profile,
       };
     }
     next();

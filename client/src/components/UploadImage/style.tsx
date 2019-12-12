@@ -67,6 +67,7 @@ export const Button = styled.button`
   height: 100%;
   background: transparent;
   transition: 0.5s all ease-out;
+  background-color: #ffffff;
   
   :hover{
     background-color: ${theme.PALE_CRA_PURPLE};
@@ -90,6 +91,7 @@ export const TitleInput = styled.input`
   border-left-style: hidden;
   border-bottom-style: groove;
   margin-bottom: 30px;
+  background-color: ${theme.background};
   ::placeholder {
       color : ${theme.PALE_TEXT};
       font-size : 20px;
@@ -124,4 +126,14 @@ export const UploadButton = styled.button`
     background: ${theme.PALE_CRA_PURPLE};
   }
 
+`;
+
+export const NotiText = styled.div`
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  .tyep-error{
+    color:red;
+    margin-top: 20px;
+  }
 `;

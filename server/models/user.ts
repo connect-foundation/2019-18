@@ -11,6 +11,7 @@ import {
 } from '../utils/constant';
 
 export interface IUserModel extends IUser, Document{}
+const { ObjectId } = Schema.Types;
 
 const userSchema = new Schema({
   email: {
@@ -20,6 +21,7 @@ const userSchema = new Schema({
   name: { type: String, required: true },
   thumbnailUrl: { type: String, required: true, default: DEFAULT_THUMBNAIL_URL },
   originUrl: { type: String, required: true, default: DEFAULT_ORIGIN_URL },
+  profile: { type: ObjectId, required: true, ref: 'Profile' },
 }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } });
 
 userSchema.path('email').validate((value) => validator.isEmail(value), 'invalid email');
