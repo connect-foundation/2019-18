@@ -209,7 +209,6 @@ function ImageUpload() {
             buttonStyles={S.customButton}
             singleImage
             fileTypeError="is not supported file extension"
-            // errorStyle={S.errorS}
           />
         </S.Box>
         <S.Box>
