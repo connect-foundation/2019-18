@@ -26,16 +26,15 @@ const findProfileId = async (_id) => {
 
 const findProfileFollowing = async (_id) => {
   const result = await Profile.findOne({ _id });
-  console.log(result);
   return result;
 };
-const followingUpdate = async (id, following) => {
-  const result = Profile.findOneAndUpdate({ id }, { following });
+const followingUpdate = async (_id, following) => {
+  const result = await Profile.findOneAndUpdate({ _id }, { following });
   return result;
 };
 
-const followerUpdate = async (id, follower) => {
-  const result = Profile.findOneAndUpdate({ id }, { follower });
+const followerUpdate = async (_id, follower) => {
+  const result = await Profile.findOneAndUpdate({ _id }, { follower });
   return result;
 };
 

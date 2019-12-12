@@ -4,15 +4,13 @@ import {
 } from '../services/user';
 
 const addFollowing = async (req: Request, res: Response, next: NextFunction) => {
-  const myId = '0000000378d0d3339413995e';
+  const myId = '5df1992c3f9892105636735a';
   // const targetId = req.params.id;
-  const targetId = '0000000278d0d3339413995d';
+  const targetId = '5df19bd2e947f714a40eb9dd';
+  const myProfileId = '5df1992c3f98921056367359';
+
   try {
-    const user = await findProfileId(myId);
-    if (user === null) {
-      throw Error('NULL type1');
-    }
-    const profile = await findProfileFollowing(user.profile);
+    const profile = await findProfileFollowing(myProfileId);
     if (profile === null) {
       throw Error('NULL type');
     }
@@ -20,7 +18,7 @@ const addFollowing = async (req: Request, res: Response, next: NextFunction) => 
       ...profile.following,
       targetId,
     ];
-    await followingUpdate(profile.id, newFollowing);
+    await followingUpdate(myProfileId, newFollowing);
 
     const targetUser = await findProfileId(targetId);
     if (targetUser === null) {
@@ -35,6 +33,7 @@ const addFollowing = async (req: Request, res: Response, next: NextFunction) => 
       myId,
     ];
     await followerUpdate(targetProfile.id, newFollwer);
+    res.json({ success: true });
   } catch (e) {
     next(e);
   }
