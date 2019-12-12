@@ -1,7 +1,9 @@
-import { addFollowing } from '../controllers/follow';
+import { addFollowing, deleteFollowing, getAllFollow } from '../controllers/follow';
 
 const router = require('express').Router();
 
 router.post('/add/:id', addFollowing);
+router.post('/delete/:id', deleteFollowing);
+router.get('/', getAllFollow);
 
 export default router;

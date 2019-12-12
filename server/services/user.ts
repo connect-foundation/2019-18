@@ -19,13 +19,13 @@ const findId = async (email) => {
   return result;
 };
 
-const findProfileId = async (_id) => {
+const findById = async (_id) => {
   const result = await User.findOne({ _id });
   return result;
 };
 
-const findProfileFollowing = async (_id) => {
-  const result = await Profile.findOne({ _id });
+const findProfile = async (_id) => {
+  const result = await Profile.findById({ _id });
   return result;
 };
 const followingUpdate = async (_id, following) => {
@@ -38,13 +38,20 @@ const followerUpdate = async (_id, follower) => {
   return result;
 };
 
+const findProfilePopulate = async (_id) => {
+  const result = await Profile.findById({ _id })
+    .populate('following');
+  return result;
+};
+
 export {
   create,
   remove,
   isExist,
   findId,
-  findProfileFollowing,
-  findProfileId,
+  findProfile,
+  findById,
   followingUpdate,
   followerUpdate,
+  findProfilePopulate,
 };
