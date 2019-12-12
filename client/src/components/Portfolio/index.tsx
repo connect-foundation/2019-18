@@ -8,7 +8,7 @@ const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/us
 
 
 const Portfolio:React.FC<portfolioProp> = ({
-  introSimple, introDetail, activeFields, isMyPortfolio,
+  introSimple, introDetail, activeFields, isMyPortfolio, PortfolioOwnerId, isLogin, LoginedId,
 }) => {
   const follower = 10;
   const following = 100;
@@ -22,11 +22,12 @@ const Portfolio:React.FC<portfolioProp> = ({
   const closeMyFollowingsPopup = () => { setShowMyFollwings(false); };
   const showMyFollowingsPopup = () => { setShowMyFollwings(true); };
 
+
   return (
     <S.Portfolio>
-      {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} />)}
-      {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} />)}
-      {showMyFollowings && (<PopupFollowers text="내 팔로잉" closePopup={closeMyFollowingsPopup} />)}
+      {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} loginedId={PortfolioOwnerId} />)}
+      {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} loginedId={PortfolioOwnerId} />)}
+      {showMyFollowings && (<PopupFollowers text="내 팔로잉" closePopup={closeMyFollowingsPopup} loginedId={LoginedId} />)}
       <S.PortfolioBox>
         <S.PortfolioDetail>
           <S.Name>아이유</S.Name>
@@ -41,7 +42,8 @@ const Portfolio:React.FC<portfolioProp> = ({
         <S.PortfolioImage src={LOGIN_PROFILE_THUMBNAIL} />
       </S.PortfolioBox>
       <S.IntroduceBox>
-        {isMyPortfolio
+        {isLogin
+        && (isMyPortfolio
           ? (
             <StyledLink to="/creator/form">
               <S.LongEmptyButton>
@@ -53,7 +55,7 @@ const Portfolio:React.FC<portfolioProp> = ({
             <S.LongEmptyButton onClick={showMyFollowingsPopup}>
               팔로우 하기
             </S.LongEmptyButton>
-          )}
+          ))}
         <S.Subject>한줄소개</S.Subject>
         <S.Content>
           {introSimple}

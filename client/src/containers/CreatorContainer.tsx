@@ -35,11 +35,12 @@ interface matchParams {
 }
 const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }) => {
   const [portfolio, setPortfolio] = useState({ ...initialPortfolio });
+  const { isLogin, id: LoginedId } = useSelector((root:RootState) => root.login);
   const isMyPortfolio = (!match.params.Id);
   useEffect(() => {
     const getData = async () => {
-      const profileId = match.params.Id || '';
-      const response = await fetch(`${API_SERVER}/profile/${profileId}`, {
+      const Id = match.params.Id || '';
+      const response = await fetch(`${API_SERVER}/profile/${Id}`, {
         method: 'get',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -68,6 +69,9 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
           introDetail={portfolio.introDetail}
           introSimple={portfolio.introSimple}
           activeFields={portfolio.activeFields}
+          isLogin={isLogin}
+          LoginedId={LoginedId}
+          PortfolioOwnerId={match.params.Id || LoginedId}
         />
       </S.PortfolioContainer>
       <S.WorksContainer>

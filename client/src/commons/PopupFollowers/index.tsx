@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './style';
+import { API_SERVER } from '../../utils/constants';
 
 type PopupProps ={
   text: string,
   closePopup: (e: React.MouseEvent<HTMLButtonElement>)=>void;
+  loginedId: string,
 }
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
 const initialFollowList = [
@@ -27,8 +29,9 @@ const initialFollowList = [
   },
 ];
 
-const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup }) => {
+const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup, loginedId }) => {
   const [followers, setFollowers] = useState(initialFollowList);
+  const followDeleteURL = `${API_SERVER}/follow/Delete`;
 
   const toggleFollow = (id:string) => {
     setFollowers(followers.map((value) => {
@@ -40,11 +43,23 @@ const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup }) => {
     toggleFollow(id);
   };
 
+  const SyncFollowers = (followers:any) => {
+    followers.forEach((value:any) => {
+      console.log(value.follow);
+      if (!value.follow) {
+        console.log(followDeleteURL);
+      }
+    });
+  };
+  const SyncandClose = (e:React.MouseEvent<HTMLButtonElement>) => {
+    SyncFollowers(followers);
+    closePopup(e);
+  };
   return (
     <S.Box>
       <S.Inner>
         <S.Header>
-          <S.ShortPurpleButton onClick={closePopup}>X</S.ShortPurpleButton>
+          <S.ShortPurpleButton onClick={SyncandClose}>X</S.ShortPurpleButton>
         </S.Header>
         <S.SubjectArea>
           <S.Subject>{text}</S.Subject>
