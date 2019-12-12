@@ -13,7 +13,6 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
   const [curTime, setCurTime] = useState(0);
   const [volume, setVolume] = useState(30);
   const [isRepeat, setIsRepeat] = useState(false);
-  // const [audio, setAudio] = useState<HTMLAudioElement>();
   const audioRef = useRef() as React.MutableRefObject<HTMLAudioElement>;
 
   const getLength = (time:number) => {
