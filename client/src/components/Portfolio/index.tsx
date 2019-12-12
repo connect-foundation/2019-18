@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
 import StyledLink from '../../basics/StyledLink';
+import PopupFollowers from '../../commons/PopupFollowers';
 import { portfolioProp } from './types';
 
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
@@ -11,8 +12,12 @@ const Portfolio:React.FC<portfolioProp> = ({
 }) => {
   const follower = 10;
   const following = 100;
+  const [showFollowers, setShowFollwers] = useState(false);
+  const closePopup = () => { setShowFollwers(false); };
+  const showPopup = () => { setShowFollwers(true); };
   return (
     <S.Portfolio>
+      {showFollowers && (<PopupFollowers text="aaa" closePopup={closePopup} />)}
       <S.PortfolioBox>
         <S.PortfolioDetail>
           <S.Name>아이유</S.Name>
@@ -36,11 +41,9 @@ const Portfolio:React.FC<portfolioProp> = ({
             </StyledLink>
           )
           : (
-            <StyledLink to="">
-              <S.LongEmptyButton>
+            <S.LongEmptyButton onClick={showPopup}>
               팔로우 하기
-              </S.LongEmptyButton>
-            </StyledLink>
+            </S.LongEmptyButton>
           )}
         <S.Subject>한줄소개</S.Subject>
         <S.Content>
