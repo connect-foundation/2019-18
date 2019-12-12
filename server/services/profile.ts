@@ -11,7 +11,14 @@ const initProfile = () => Profile.create(
 );
 const create = (payload) => Profile.create(payload);
 const findProfile = (id) => Profile.findOne({ _id: id });
+const findProfileByUserId = async (id) => {
+  const user = await User.findOne({ _id: id });
+  if (!user) return null;
+  const profile = await Profile.findOne({ _id: user.profile });
+  return profile;
+};
 const setProfile = (id, payload) => Profile.update({ _id: id }, payload);
+
 /*
 const findProfileByUserId = async (id) => {
   const user = await User.findOne({ email: id });
@@ -24,6 +31,7 @@ const findProfileByUserId = async (id) => {
 export {
   create,
   findProfile,
+  findProfileByUserId,
   setProfile,
   initProfile,
 };

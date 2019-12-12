@@ -12,4 +12,5 @@ export type LoginUserState = {
     thumbnailUrl: string;
     originUrl: string;
     profile: string;
+    id: string;
 };

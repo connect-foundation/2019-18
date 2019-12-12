@@ -31,15 +31,14 @@ const initialPortfolio = {
   activeFields: [''],
 };
 interface matchParams {
-  profileId: string;
+  Id: string;
 }
 const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }) => {
   const [portfolio, setPortfolio] = useState({ ...initialPortfolio });
-  const loginedUserProfileId = useSelector((state:RootState) => state.login.profile);
-  const isMyPortfolio = (!match.params.profileId || (match.params.profileId === loginedUserProfileId));
+  const isMyPortfolio = (!match.params.Id);
   useEffect(() => {
     const getData = async () => {
-      const profileId = match.params.profileId || '';
+      const profileId = match.params.Id || '';
       const response = await fetch(`${API_SERVER}/profile/${profileId}`, {
         method: 'get',
         credentials: 'include',

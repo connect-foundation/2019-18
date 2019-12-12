@@ -13,6 +13,7 @@ const initialState = {
   thumbnailUrl: '',
   originUrl: '',
   profile: '',
+  id: '',
 };
 
 function login(state:LoginUserState = initialState, action:LoginUserAction) {
