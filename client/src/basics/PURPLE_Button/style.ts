@@ -14,8 +14,7 @@ export const Button = styled.button`
   text-align: center;
   width: 180px;
   height: 40px;
-
   :hover{
     background: ${theme.PALE_CRA_PURPLE};
-  }
+  };
 `;

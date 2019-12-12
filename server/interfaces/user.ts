@@ -6,7 +6,8 @@ export interface IUser{
     name: string,
     thumbnailUrl?: string,
     originUrl?: string,
-    profile: mongoose.Types.ObjectId,
+    profile?: mongoose.Types.ObjectId,
+
 }
 export type User={
     email: string,
@@ -14,5 +15,6 @@ export type User={
     name: string,
     thumbnailUrl?: string,
     originUrl?: string,
-    profile: mongoose.Types.ObjectId,
+    profile?: mongoose.Types.ObjectId,
+
 };

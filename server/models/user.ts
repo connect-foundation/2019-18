@@ -10,6 +10,9 @@ import {
   DEFAULT_THUMBNAIL_URL,
 } from '../utils/constant';
 
+
+const { ObjectId } = Schema.Types;
+
 export interface IUserModel extends IUser, Document{}
 const { ObjectId } = Schema.Types;
 

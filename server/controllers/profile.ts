@@ -4,7 +4,8 @@ import httpStatus from 'http-status';
 import response from '../utils/response';
 import { AUTH } from '../utils/messages';
 import {
-  setProfile, findProfile,
+  setProfile, findProfile, findProfileByUserId,
+
 } from '../services/profile';
 
 
@@ -26,7 +27,9 @@ const getProfileById = async (req: Request, res: Response, next: NextFunction) =
   if (!req.params.id) {
     throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
   }
-  const profile = await findProfile(req.params.id);
+
+  const profile = await findProfileByUserId(req.params.id);
+
   if (!profile) {
     throw (createError(httpStatus.INTERNAL_SERVER_ERROR, ''));
   }

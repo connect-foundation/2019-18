@@ -9,6 +9,8 @@ const ProfileLink = styled(Link)`
     margin-left: 1rem;
 `;
 const ProfileImg = styled(Img)`
+    height: 2.5rem;
+    width: 2.5rem;
     margin-left: 1rem;
 `;
 const HeaderGreetingContainer = styled.div`
