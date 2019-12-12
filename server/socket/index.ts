@@ -23,4 +23,5 @@ const connect = (server: any) => {
     });
   });
 };
+
 export default connect;

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
+
 require('dotenv').config();
-//
+
+// eslint-disable-next-line import/first
 import connect from '../socket';
 
 import ErrnoException = NodeJS.ErrnoException;
