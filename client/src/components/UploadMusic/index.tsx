@@ -14,36 +14,9 @@ import {
 } from './types';
 import { API_SERVER } from '../../utils/constants';
 
-const docuinit:IDocu[] = [
-  // {
-  //   key: getShortId(),
-  //   type: 'description',
-  //   content: '',
-  // },
-  // {
-  //   key: getShortId(),
-  //   type: 'description',
-  //   content: '',
-  // },
-  // {
-  //   key: getShortId(),
-  //   type: 'musics',
-  //   content: {
-  //     musicUrl: 'https://kr.object.ncloudstorage.com/crafolio-test-upload/musics/5bd0f1ff-8377-4dee-bd44-cbedfdb36d6f.mp3',
-  //     imageUrl: '',
-  //     title: '',
-  //     genres: [],
-  //     moods: [],
-  //     instruments: [],
-  //     musicFile: null,
-  //     imageFile: null,
-  //   },
-  // },
-];
-
 const UploadMusic:React.FC = () => {
   const [title, setTitle] = useState('');
-  const [docus, setDocus] = useState<IDocu[]>(docuinit);
+  const [docus, setDocus] = useState<IDocu[]>([]);
 
   const titleChangeHandler = (key: string) => (e:React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
@@ -159,13 +132,6 @@ const UploadMusic:React.FC = () => {
     setDocus(newDocus);
   };
 
-  // music file 객체 받아오는거 만들기
-  // cover image file 객체 받아오는거 만들기
-
-  useEffect(() => {
-    console.log(docus);
-  }, [docus]);
-
   const onChangetitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -268,15 +234,12 @@ const UploadMusic:React.FC = () => {
         };
         return body;
       }
-      console.log('error');
     });
-    console.log(dbContent);
     const data = {
       title,
       content: dbContent,
     };
     const response = await axios.post(`${API_SERVER}/upload/music`, data);
-    console.log(response);
   };
 
   const makeDescription = (el: IDocu) => (
