@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './style';
 import StyledLink from '../../basics/StyledLink';
 import PopupFollowers from '../../commons/PopupFollowers';
 import { portfolioProp } from './types';
+import { API_SERVER } from '../../utils/constants';
 
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
 const initialFollowList = [
@@ -29,18 +30,35 @@ const initialFollowList = [
 const Portfolio:React.FC<portfolioProp> = ({
   introSimple, introDetail, activeFields, isMyPortfolio, PortfolioOwnerId, isLogin, LoginedId,
 }) => {
-  const follower = 10;
-  const following = 100;
-  const [showFollowers, setShowFollwers] = useState(false);
-  const [showFollowings, setShowFollwings] = useState(false);
-  const [showMyFollowings, setShowMyFollwings] = useState(false);
-  const closeFollowersPopup = () => { setShowFollwers(false); };
-  const showFollowersPopup = () => { setShowFollwers(true); };
-  const closeFollowingsPopup = () => { setShowFollwings(false); };
-  const showFollowingsPopup = () => { setShowFollwings(true); };
-  const closeMyFollowingsPopup = () => { setShowMyFollwings(false); };
-  const showMyFollowingsPopup = () => { setShowMyFollwings(true); };
+  const getFollowListURL = `${API_SERVER}/follow`;
+  const follower = 0;
+  const following = 0;
 
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowings, setShowFollowings] = useState(false);
+  const [showMyFollowings, setShowMyFollowings] = useState(false);
+  const closeFollowersPopup = () => { setShowFollowers(false); };
+  const showFollowersPopup = () => { setShowFollowers(true); };
+  const closeFollowingsPopup = () => { setShowFollowings(false); };
+  const showFollowingsPopup = () => { setShowFollowings(true); };
+  const closeMyFollowingsPopup = () => { setShowMyFollowings(false); };
+  const showMyFollowingsPopup = () => { setShowMyFollowings(true); };
+
+  useEffect(
+    () => {
+      const portofolioFollowList = fetch(`${getFollowListURL}/${PortfolioOwnerId}`, {
+        method: 'get',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const myFollowList = fetch(`${getFollowListURL}/`, {
+        method: 'get',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }, [],
+  );
 
   return (
     <S.Portfolio>

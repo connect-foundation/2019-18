@@ -27,7 +27,7 @@ const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup, initialFollowLi
     followers.forEach((value:any) => {
       if (!value.follow) {
         fetch(`${followDeleteURL}/${value.id}`, {
-          method: 'get',
+          method: 'post',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
         });
