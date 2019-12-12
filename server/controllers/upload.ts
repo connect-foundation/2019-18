@@ -122,8 +122,6 @@ const uploadMusicFeed = async (req: Request, res: Response, next: NextFunction) 
         };
 
         const newMusic = await createMusic(newMusicData);
-      } else {
-        throw (createError(httpStatus[400], '잘못된 요청입니다.'));
       }
     });
 

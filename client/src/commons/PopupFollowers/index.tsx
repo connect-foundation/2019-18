@@ -11,7 +11,7 @@ const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/us
 
 const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup, initialFollowList }) => {
   const [followers, setFollowers] = useState(initialFollowList);
-  const followDeleteURL = `${API_SERVER}/follow/Delete`;
+  const followDeleteURL = `${API_SERVER}/follow/delete`;
 
   const toggleFollow = (id:string) => {
     setFollowers(followers.map((value:any) => {
