@@ -12,6 +12,8 @@ const initialState = {
   name: '',
   thumbnailUrl: '',
   originUrl: '',
+  profile: '',
+  id: '',
 };
 
 function login(state:LoginUserState = initialState, action:LoginUserAction) {

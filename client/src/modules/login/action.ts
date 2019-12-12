@@ -8,6 +8,8 @@ export interface loginUser {
     name: string;
     thumbnailUrl: string;
     originUrl: string;
+    profile: string;
+    id: string;
 }
 
 export const setuser = (user: loginUser) => ({

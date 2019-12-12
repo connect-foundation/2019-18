@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import Img from '../../basics/Img';
 import H3 from '../../basics/H3';
 import { theme } from '../../style/theme';
+import EmptyButton from '../../basics/emptyButton';
 
+export const LongEmptyButton = styled(EmptyButton)`
+  width:100%;
+`;
 export const Portfolio = styled.div``;
 export const PortfolioBox = styled.div`
   display:flex;

@@ -1,5 +1,5 @@
 import React, {
-  useState,
+  useState, useRef,
 } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
@@ -10,13 +10,14 @@ import * as S from './style';
 import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
 import { ContentObject, DetailObject } from './type';
+import { getShortId } from '../../utils';
 
 axios.defaults.withCredentials = true;
 
 const initDetailObject = {
   commentsAllow: true,
-  ccl: 'ALL',
-  field: '회화',
+  ccl: '',
+  field: '',
   public: true,
 };
 
@@ -28,8 +29,16 @@ function ImageUpload() {
   const [detailInfo, setDetailInfo] = useState<DetailObject>(initDetailObject);
   const [canRedirect, setCanRedirect] = useState<boolean>(false);
   const [workId, setWorkId] = useState<string>('');
+  const [fileTypeWarn, setFileTypeWarn] = useState<string>('');
+  const errorCheck = useRef(0);
 
   const updateContent = (type:string, file: File[]) => {
+    if (file.length === errorCheck.current) {
+      setFileTypeWarn('지원하지 않은 파일 형식입니다.');
+      return;
+    }
+    setFileTypeWarn('');
+    errorCheck.current += 1;
     const newfile = file[file.length - 1];
     const reader = new FileReader();
     reader.readAsDataURL(newfile);
@@ -165,7 +174,7 @@ function ImageUpload() {
         {documents
           && documents.map(({ type, content, preview }) => {
             if (type === 'images' || type === 'wallpapers') {
-              return <Preview src={preview} />;
+              return <Preview key={getShortId()} src={preview} />;
             }
             return (
               <div>
@@ -199,13 +208,17 @@ function ImageUpload() {
             maxFileSize={MAXSIZE_OF_UPLOADIMAGE}
             buttonStyles={S.customButton}
             singleImage
+            fileTypeError="is not supported file extension"
           />
         </S.Box>
         <S.Box>
           <S.Button type="button" onClick={addDescription}>글씨 추가</S.Button>
         </S.Box>
       </S.SeleteBox>
-      <div> 업로드할 수 있는 사진의 최대 용량은 20MB입니다. </div>
+      <S.NotiText>
+        <div> 업로드할 수 있는 사진의 최대 용량은 20MB입니다. </div>
+        <div className="tyep-error">{fileTypeWarn}</div>
+      </S.NotiText>
       <S.UploadButton type="button" onClick={titleCheck}>업로드</S.UploadButton>
       {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
       {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setDetailInfo={setDetailInfo} />}

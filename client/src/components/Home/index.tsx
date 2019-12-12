@@ -26,6 +26,7 @@ const Home:React.FC<ReactCookieProps> = (props:ReactCookieProps) => {
           <Header />
           <Switch>
             <Route path="/creator/form" component={PortfolioFormContainer} />
+            <Route path="/creator/:Id" component={CreatorContainer} />
             <Route path="/creator" component={CreatorContainer} />
           </Switch>
         </Route>

@@ -1,32 +1,21 @@
-import React, { useEffect } from 'react';
-import shortid from 'shortid';
+import React from 'react';
 import { CircularProgress } from '@material-ui/core';
-import useGetFeedList from '../../hooks/useGetFeedList';
-import { API_SERVER } from '../../utils/constants';
+import { getShortId } from '../../utils';
+import WorksCard from '../Card/WorksCard';
 import * as S from './styles';
 import { IWallpaper } from './type';
-import WorksCard from '../Card/WorksCard';
 
-const FeedWallpapers: React.FC = () => {
-  const [{
-    data, isLoading, isError, skippedNum, fixedNum,
-  }, doFetch, onInsert] = useGetFeedList<IWallpaper>([]);
+type FeedWallpapersProps = {
+  data: IWallpaper[];
+  isLoading: boolean;
+};
 
-  useEffect(() => {
-    window.addEventListener('scroll', onInsert);
-    return () => {
-      window.removeEventListener('scroll', onInsert);
-    };
-  }, []);
-
-  useEffect(() => {
-    doFetch(`${API_SERVER}/feed/wallpapers/more/${fixedNum.current}/${skippedNum}`);
-  }, [skippedNum]);
-
-  return (
-    <S.Container>
-      <S.FeedWrapper>
-        {
+const FeedWallpapers:React.FC<FeedWallpapersProps> = ({
+  data, isLoading,
+}) => (
+  <S.Container>
+    <S.FeedWrapper>
+      {
           data.map(({
             _id, ownerId, url, creator, title, numOfComments, views,
           }) => (
@@ -35,22 +24,19 @@ const FeedWallpapers: React.FC = () => {
               ownerId={ownerId}
               imgUrl={url}
               creator={creator}
-              key={shortid.generate()}
+              key={getShortId()}
               title={title}
               numOfComments={numOfComments}
               views={views}
             />
           ))
-      }
+        }
+    </S.FeedWrapper>
 
-      </S.FeedWrapper>
-      <S.Progress>
-        {isLoading && <CircularProgress color="inherit" />}
-      </S.Progress>
-    </S.Container>
-
-
-  );
-};
+    <S.Progress id="hi">
+      {isLoading && <CircularProgress color="inherit" />}
+    </S.Progress>
+  </S.Container>
+);
 
 export default FeedWallpapers;
