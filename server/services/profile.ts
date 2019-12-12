@@ -2,30 +2,28 @@ import Profile from '../models/profile';
 import User from '../models/user';
 
 const intialProfile = {
-  introSimple: '한줄소개',
-  introDetail: '상세소개입니다',
-  activeFields: ['캘리그라피'],
+  activeFields: [],
 };
-
-const initProfile = (userId) => Profile.create(
+const initProfile = () => Profile.create(
   {
-    owner: userId,
     ...intialProfile,
   },
 );
 const create = (payload) => Profile.create(payload);
+const findProfile = (id) => Profile.findOne({ _id: id });
 const findProfileByUserId = async (id) => {
-  const profile = await Profile.find({ owner: id });
-  if (profile.length === 0) return undefined;
-  return profile[0];
+  const user = await User.findOne({ _id: id });
+  if (!user) return null;
+  const profile = await Profile.findOne({ _id: user.profile });
+  return profile;
 };
-const setProfileByUserId = async (id, payload) => {
-  await Profile.update({ owner: id }, payload);
-};
+const setProfile = (id, payload) => Profile.update({ _id: id }, payload);
+
 
 export {
   create,
+  findProfile,
   findProfileByUserId,
-  setProfileByUserId,
+  setProfile,
   initProfile,
 };

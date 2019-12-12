@@ -16,7 +16,6 @@ interface ContinuousSliderProp{
 
 const ContinuousSlider:React.FC<ContinuousSliderProp> = ({ volume, handleChange }) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState<number>(30);
 
   return (
     <div className={classes.root}>

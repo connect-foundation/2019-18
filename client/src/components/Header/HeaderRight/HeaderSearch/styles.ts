@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 import Img from '../../../../basics/Img';
 import Input from '../../../../basics/Input';
-import Button from '../../../../basics/Button';
 
 export const HeaderSearchContainer = styled.div`
     display: flex;

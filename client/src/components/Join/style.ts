@@ -62,3 +62,15 @@ export const JoinLink = styled(StyledLink)`
    margin : auto
    color: white;
 `;
+export const HomeMidLine = styled.div`
+    display: flex;
+    font-size: 0.8rem;
+    font-style: bold;
+    color: ${theme.CRA_YELLOW};
+`;
+export const HomeLink = styled(StyledLink)`
+   line-height: 2.5rem;
+   text-decoration: none;
+   margin : auto;
+   color: white;
+`;

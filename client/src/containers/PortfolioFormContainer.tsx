@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import PortfolioForm from '../components/PortfolioForm';
-import { theme } from '../style/theme';
 import { fieldoptions, API_SERVER } from '../utils/constants';
 import { RootState } from '../modules';
 
@@ -11,7 +10,6 @@ const S = {
     flex:1;
     width:100%;
     display: flex;
-    background-color: ${theme.WARN_GRAY};
 `,
 };
 const makeFirstStates = () => fieldoptions.map((option) => ({ ...option, checked: false }));

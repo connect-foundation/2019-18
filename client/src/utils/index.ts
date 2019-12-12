@@ -15,8 +15,4 @@ export const getTime = (s:number) => {
 
 export const getShortId = () => shortId.generate();
 
-export const Axios = ({ method, url, data }:any) => axios({
-  method,
-  url,
-  data,
-});
+export const getFileUrl = (file:File) => window.URL.createObjectURL(file);

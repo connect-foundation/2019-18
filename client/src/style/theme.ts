@@ -1,7 +1,7 @@
 import baseStyled, { ThemedStyledInterface } from 'styled-components';
 
 export const theme = {
-  // / colors
+  //  colors
   background: '#F1EFEA',
   green: '#5FCD8B',
   LIGHT_GREENISH_BLUE: '#55efc4',
@@ -32,7 +32,9 @@ export const theme = {
   // Color in Crafolio logo
   CRA_PURPLE: '#343E7A',
   CRA_YELLOW: '#FBE99E',
-
+  CRA_MINT_FIRST: '#7CC7C4',
+  CRA_MINT_SECOND: '#85D5D3',
+  CRA_MINT_THIRD: '#93ECE9',
   PALE_CRA_PURPLE: '#525d9c',
 
   WEIGHT: {

@@ -1,9 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import mongoose from 'mongoose';
 import createError from 'http-errors';
 import httpStatus from 'http-status';
-import { workImageCreate, imageCreate, wallPaperCreate } from '../services/upload';
+import {
+  workImageCreate,
+  imageCreate,
+  wallPaperCreate,
+  createMusic,
+  createWorkMusic,
+} from '../services/upload';
 import { AUTH } from '../utils/messages';
+import { IMusicContent } from '../interfaces/workMusic';
+import response from '../utils/response';
+import { newWorksNotification } from '../socket';
 
 interface MulterFile {
     key: string,
@@ -70,10 +78,60 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
         await wallPaperCreate(wallpaperPayload);
       }
     });
+    newWorksNotification(user, result, []);
     res.json({ workImageId });
   } catch (e) {
     next(e);
   }
 };
 
-export { getUrl, uploadWorkImage };
+
+const uploadMusicFeed = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = req.decodedUser;
+    if (!user) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    }
+
+    const { title } = req.body;
+    const { content } = req.body;
+    const workMusicData = {
+      title,
+      content,
+      owner: user.id,
+      comments: [],
+      commentsAllow: true,
+      ccl: 'All Rights Reserved',
+      field: '음악',
+      public: true,
+      tags: [],
+      views: 0,
+    };
+
+    const newWorkMusic = await createWorkMusic(workMusicData);
+    newWorkMusic.content.forEach(async (newMusicContent) => {
+      if (newMusicContent.type === 'musics') {
+        const musicContent = newMusicContent.content as IMusicContent;
+
+        const newMusicData = {
+          owner: newWorkMusic.id,
+          creator: user.id,
+          public: true,
+          ref: [],
+          ...musicContent,
+        };
+
+        const newMusic = await createMusic(newMusicData);
+      }
+    });
+
+    response(res, newWorkMusic);
+  } catch (e) {
+    next(e);
+  }
+};
+export {
+  getUrl,
+  uploadWorkImage,
+  uploadMusicFeed,
+};
