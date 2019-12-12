@@ -28,7 +28,6 @@ const corsConfig = {
 };
 app.use(cors(corsConfig));
 
-
 connect();
 
 app.use('/', index);

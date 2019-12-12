@@ -12,6 +12,7 @@ import {
 import { AUTH } from '../utils/messages';
 import { IMusicContent } from '../interfaces/workMusic';
 import response from '../utils/response';
+import { newWorksNotification } from '../socket';
 
 interface MulterFile {
     key: string,
@@ -78,6 +79,7 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
         await wallPaperCreate(wallpaperPayload);
       }
     });
+    newWorksNotification(user, result, []);
     res.json({ workImageId });
   } catch (e) {
     next(e);
@@ -94,7 +96,6 @@ const uploadMusicFeed = async (req: Request, res: Response, next: NextFunction) 
 
     const { title } = req.body;
     const { content } = req.body;
-    console.dir(content);
     const workMusicData = {
       title,
       content,
@@ -107,8 +108,6 @@ const uploadMusicFeed = async (req: Request, res: Response, next: NextFunction) 
       tags: [],
       views: 0,
     };
-    console.log('-------------data-------------');
-    console.log(workMusicData);
 
     const newWorkMusic = await createWorkMusic(workMusicData);
     newWorkMusic.content.forEach(async (newMusicContent) => {
@@ -124,7 +123,6 @@ const uploadMusicFeed = async (req: Request, res: Response, next: NextFunction) 
         };
 
         const newMusic = await createMusic(newMusicData);
-        console.log(newMusic);
       } else {
         throw (createError(httpStatus[400], '잘못된 요청입니다.'));
       }

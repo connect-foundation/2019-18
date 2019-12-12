@@ -4,7 +4,7 @@
 require('dotenv').config();
 
 // eslint-disable-next-line import/first
-import connect from '../socket';
+import { connect } from '../socket';
 
 import ErrnoException = NodeJS.ErrnoException;
 
@@ -33,7 +33,6 @@ const server = http.createServer(app);
  * Create socket server
  */
 connect(server);
-
 /**
  * Listen on provided port, on all network interfaces.
  */
