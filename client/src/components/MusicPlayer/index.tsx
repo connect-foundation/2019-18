@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import * as S from './styles';
 import { theme } from '../../style/theme';
@@ -9,12 +9,11 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
   title, author, musicUrl, coverUrl,
 }) => {
   const [duration, setDuration] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [curTime, setCurTime] = useState(0);
   const [volume, setVolume] = useState(30);
   const [isRepeat, setIsRepeat] = useState(false);
-
-  let audio = document.getElementById('myaudio') as HTMLAudioElement;
+  const audioRef = useRef() as React.MutableRefObject<HTMLAudioElement>;
 
   const getLength = (time:number) => {
     let m:number | string = Math.floor(time / 60);
@@ -26,20 +25,28 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
   };
 
   const handleChange = (event: any, newValue: number | number[]) => {
+    if (!audioRef) {
+      return;
+    }
     setVolume(newValue as number);
-    audio.volume = newValue as number / 100;
+    if (audioRef.current !== null) {
+      audioRef.current.volume = newValue as number / 100;
+    }
   };
 
   const togglePlay = () => {
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
     setIsPlaying(!isPlaying);
   };
 
-  const toggleRepeact = () => {
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  const toggleRepeat = () => {
     setIsRepeat(!isRepeat);
   };
 
@@ -50,25 +57,39 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
     const { clientX } = e;
     const { offsetWidth, offsetLeft } = e.currentTarget;
     const toPlay = ((clientX - offsetLeft) / offsetWidth) * 100;
-    audio.currentTime = (duration * toPlay) / 100;
+
+    if (audioRef.current !== null) {
+      audioRef.current.currentTime = (duration * toPlay) / 100;
+    }
   };
 
+  const updateDuration = () => {
+    if (audioRef && audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const updateCurTime = () => {
+    if (audioRef && audioRef.current) {
+      setCurTime(audioRef.current.currentTime);
+    }
+  };
 
   useEffect(() => {
-    audio = document.getElementById('myaudio') as HTMLAudioElement;
-    audio.loop = isRepeat;
-    audio.addEventListener('loadeddata', () => setDuration(audio.duration));
-    audio.addEventListener('timeupdate', () => setCurTime(audio.currentTime));
-    audio.volume = volume / 100;
-
+    if (audioRef.current !== null) {
+      audioRef.current.loop = isRepeat;
+      audioRef.current.addEventListener('loadeddata', updateDuration);
+      audioRef.current.addEventListener('timeupdate', () => updateCurTime);
+      audioRef.current.volume = volume / 100;
+    }
     return () => {
-      audio.removeEventListener('loadeddata', () => setDuration(audio.duration));
-      audio.removeEventListener('timeupdate', () => setCurTime(audio.currentTime));
+      audioRef.current.removeEventListener('loadeddata', () => updateDuration);
+      audioRef.current.removeEventListener('timeupdate', () => updateCurTime);
     };
   }, []);
 
   useEffect(() => {
-    audio.loop = isRepeat;
+    audioRef.current.loop = isRepeat;
   }, [isRepeat]);
 
   return (
@@ -102,17 +123,18 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
           <S.ControllerItem>
             {
               isRepeat
-                ? <S.RepeatIcon fontSize="small" style={{ color: theme.CRA_PURPLE }} onClick={toggleRepeact} />
-                : <S.RepeatIcon fontSize="small" style={{ color: 'black' }} onClick={toggleRepeact} />
+                ? <S.RepeatIcon fontSize="small" style={{ color: theme.CRA_PURPLE }} onClick={toggleRepeat} />
+                : <S.RepeatIcon fontSize="small" style={{ color: 'black' }} onClick={toggleRepeat} />
             }
           </S.ControllerItem>
         </S.Controller>
       </S.Player>
       <S.MusicCover src={coverUrl} />
       <audio
-        id="myaudio"
-        src="https://kr.object.ncloudstorage.com/crafolio/music/Happy_Haunts.mp3"
-        autoPlay
+        ref={audioRef}
+        src={musicUrl}
+        onLoadedData={updateDuration}
+        onTimeUpdate={updateCurTime}
       >
         <track kind="captions" src="" srcLang="en" label="English" />
       </audio>

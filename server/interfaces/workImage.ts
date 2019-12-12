@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 
+
 export interface IWorkImageContent {
   type: string,
-  content: string,
+  content: string;
 }
 
 export interface IComments {

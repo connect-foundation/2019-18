@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
 import { ReactCookieProps } from 'react-cookie';
 import { useDispatch, useSelector } from 'react-redux';
+import socket from 'socket.io-client';
 import { loginUser, setuser } from '../modules/login';
 import makeUserState from '../modules/loginuser';
 import { RootState } from '../modules';
+import { sendMySocketID } from '../socket';
+
+const io = socket('http://localhost:3050');
 
 const useUserState = (props:ReactCookieProps) => {
   const dispatch = useDispatch();
@@ -11,7 +15,11 @@ const useUserState = (props:ReactCookieProps) => {
   useEffect(() => {
     const token = props.cookies && props.cookies.get('token');
     if (token && currentUserState.name === '') {
-      makeUserState().then((userState:loginUser) => dispatch(setuser(userState)));
+      makeUserState().then((userState:loginUser) => {
+        // io.emit('userInfo', userState);
+        sendMySocketID(userState);
+        dispatch(setuser(userState));
+      });
     }
   }, [currentUserState, dispatch, props.cookies]);
 };

@@ -1,11 +1,17 @@
 #!/usr/bin/env node
 
+
+require('dotenv').config();
+
+// eslint-disable-next-line import/first
+import { connect } from '../socket';
+
 import ErrnoException = NodeJS.ErrnoException;
 
 /**
  * Module dependencies.
  */
-require('dotenv').config();
+
 const debug = require('debug')('nodejs-express-typescript-sample:server');
 const http = require('http');
 const app = require('../app');
@@ -23,6 +29,10 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
+/**
+ * Create socket server
+ */
+connect(server);
 /**
  * Listen on provided port, on all network interfaces.
  */

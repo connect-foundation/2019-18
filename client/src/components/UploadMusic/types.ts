@@ -1,8 +1,12 @@
-export interface IMusic{
+export interface IMusic {
+  musicUrl:string;
+  imageUrl:string;
   title: string;
-  author: string;
-  musicUrl: string;
-  coverUrl: string;
+  genres: string[];
+  moods: string[];
+  instruments: string[];
+  musicFile: File | null;
+  imageFile: File | null;
 }
 
 export interface IDocu{
