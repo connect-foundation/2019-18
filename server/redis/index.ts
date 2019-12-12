@@ -18,6 +18,11 @@ const setUserSocketId = (userId, socketId) => {
   redisClient.set(userId, socketId);
 };
 
+const deleteUserSocketId = (userId) => {
+  redisClient.del(userId);
+};
+
 export {
   setUserSocketId,
+  deleteUserSocketId,
 };
