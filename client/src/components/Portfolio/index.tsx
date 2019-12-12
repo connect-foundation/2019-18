@@ -13,19 +13,28 @@ const Portfolio:React.FC<portfolioProp> = ({
   const follower = 10;
   const following = 100;
   const [showFollowers, setShowFollwers] = useState(false);
-  const closePopup = () => { setShowFollwers(false); };
-  const showPopup = () => { setShowFollwers(true); };
+  const [showFollowings, setShowFollwings] = useState(false);
+  const [showMyFollowings, setShowMyFollwings] = useState(false);
+  const closeFollowersPopup = () => { setShowFollwers(false); };
+  const showFollowersPopup = () => { setShowFollwers(true); };
+  const closeFollowingsPopup = () => { setShowFollwings(false); };
+  const showFollowingsPopup = () => { setShowFollwings(true); };
+  const closeMyFollowingsPopup = () => { setShowMyFollwings(false); };
+  const showMyFollowingsPopup = () => { setShowMyFollwings(true); };
+
   return (
     <S.Portfolio>
-      {showFollowers && (<PopupFollowers text="aaa" closePopup={closePopup} />)}
+      {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} />)}
+      {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} />)}
+      {showMyFollowings && (<PopupFollowers text="내 팔로잉" closePopup={closeMyFollowingsPopup} />)}
       <S.PortfolioBox>
         <S.PortfolioDetail>
           <S.Name>아이유</S.Name>
           <S.FollowLine>
 팔로워
-            <S.FollowNumber>{follower}</S.FollowNumber>
+            <S.FollowNumber onClick={showFollowersPopup}>{follower}</S.FollowNumber>
 팔로잉
-            <S.FollowNumber>{following}</S.FollowNumber>
+            <S.FollowNumber onClick={showFollowingsPopup}>{following}</S.FollowNumber>
           </S.FollowLine>
 
         </S.PortfolioDetail>
@@ -41,7 +50,7 @@ const Portfolio:React.FC<portfolioProp> = ({
             </StyledLink>
           )
           : (
-            <S.LongEmptyButton onClick={showPopup}>
+            <S.LongEmptyButton onClick={showMyFollowingsPopup}>
               팔로우 하기
             </S.LongEmptyButton>
           )}

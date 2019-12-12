@@ -47,7 +47,7 @@ const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup }) => {
           <S.ShortPurpleButton onClick={closePopup}>X</S.ShortPurpleButton>
         </S.Header>
         <S.SubjectArea>
-          <S.Subject>팔로잉</S.Subject>
+          <S.Subject>{text}</S.Subject>
         </S.SubjectArea>
         <S.FollowArea>
           { initialFollowList.map(
