@@ -1,16 +1,23 @@
 import { Request, Response, NextFunction } from 'express';
+import createError from 'http-errors';
+import httpStatus from 'http-status';
 import {
   findById, findProfile, followingUpdate, followerUpdate, findProfilePopulate,
 } from '../services/user';
+import { AUTH } from '../utils/messages';
 
 const addFollowing = async (req: Request, res: Response, next: NextFunction) => {
-  const myId = '5df1992c3f9892105636735a';
-  // const targetId = req.params.id;
-  const targetId = '5df19bd2e947f714a40eb9dd';
-  const myProfileId = '5df1992c3f98921056367359';
-
+  const targetId = req.params.id;
+  // dev 용
+  // const myId = '5df1992c3f9892105636735a';
+  // const targetId = '5df19bd2e947f714a40eb9dd';
+  // const myProfileId = '5df1992c3f98921056367359';
   try {
-    const profile = await findProfile(myProfileId);
+    const user = req.decodedUser;
+    if (!user) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    }
+    const profile = await findProfile(user.profile);
     if (profile === null) {
       throw Error('NULL type');
     }
@@ -18,7 +25,7 @@ const addFollowing = async (req: Request, res: Response, next: NextFunction) => 
       ...profile.following,
       targetId,
     ];
-    await followingUpdate(myProfileId, newFollowing);
+    await followingUpdate(user.profile, newFollowing);
 
     const targetUser = await findById(targetId);
     if (targetUser === null) {
@@ -30,7 +37,7 @@ const addFollowing = async (req: Request, res: Response, next: NextFunction) => 
     }
     const newFollwer = [
       ...targetProfile.follower,
-      myId,
+      user.id,
     ];
     await followerUpdate(targetProfile.id, newFollwer);
     res.json({ success: true });
@@ -40,18 +47,22 @@ const addFollowing = async (req: Request, res: Response, next: NextFunction) => 
 };
 
 const deleteFollowing = async (req: Request, res:Response, next:NextFunction) => {
-  const myId = '5df1992c3f9892105636735a';
-  // const targetId = req.params.id;
-  const targetId = '5df19bd2e947f714a40eb9dd';
-  const myProfileId = '5df1992c3f98921056367359';
+  const targetId = req.params.id;
+  // const myId = '5df1992c3f9892105636735a';
+  // const targetId = '5df19bd2e947f714a40eb9dd';
+  // const myProfileId = '5df1992c3f98921056367359';
 
   try {
-    const profile = await findProfile(myProfileId);
+    const user = req.decodedUser;
+    if (!user) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    }
+    const profile = await findProfile(user.profile);
     if (profile === null) {
       throw Error('NULL type');
     }
     const newFollowing = profile.following.filter((e) => !e.equals(targetId));
-    await followingUpdate(myProfileId, newFollowing);
+    await followingUpdate(user.profile, newFollowing);
 
     const targetUser = await findById(targetId);
     if (targetUser === null) {
@@ -61,7 +72,7 @@ const deleteFollowing = async (req: Request, res:Response, next:NextFunction) =>
     if (targetProfile === null) {
       throw Error('NULL type');
     }
-    const newFollwer = targetProfile.follower.filter((e) => !e.equals(myId));
+    const newFollwer = targetProfile.follower.filter((e) => !e.equals(user.id));
     await followerUpdate(targetProfile.id, newFollwer);
     res.json({ success: true });
   } catch (e) {
