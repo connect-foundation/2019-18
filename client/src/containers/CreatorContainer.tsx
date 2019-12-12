@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { API_SERVER } from '../utils/constants';
 import { theme } from '../style/theme';
-import FeedMyWorks from '../components/FeedMyWorks';
+// import FeedMyWorks from '../components/FeedMyWorks';
 import Portfolio from '../components/Portfolio';
 import { RootState } from '../modules';
 
@@ -75,7 +75,7 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
         />
       </S.PortfolioContainer>
       <S.WorksContainer>
-        <FeedMyWorks />
+        {/* <FeedMyWorks /> */}
       </S.WorksContainer>
     </S.CreatorContainer>
   );

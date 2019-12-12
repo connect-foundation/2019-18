@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Select from 'react-select';
 
 import * as S from './style';
@@ -7,8 +7,9 @@ import {
   PopupProps, ValueType, OptionType,
 } from './type';
 import { fieldoptions, ccloptions } from '../../utils/constants';
+import PopupWarn from '../../commons/Popup_warn';
 
-function Popup({
+function PopupDetail({
   text,
   cancleHandler,
   aproveHandler,
@@ -18,6 +19,8 @@ function Popup({
   const [ccl, setCcl] = useState('');
   const [ispublic, setIspublic] = useState(true);
   const [canComments, setCanComments] = useState(true);
+  const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
+  const msg = useRef('분야는 필수 입력사항 입니다.');
 
   const selectHandlerField = (selectedOption: ValueType<OptionType>) => {
     const { value } = selectedOption as OptionType;
@@ -40,6 +43,15 @@ function Popup({
   };
 
   const composeAddtionalInfo = async () => {
+    if (field.length === 0) {
+      setShowPopupWARN(true);
+      return;
+    }
+    if (ccl.length === 0) {
+      msg.current = 'CCL라이선스 은 필수 입력사항 입니다.';
+      setShowPopupWARN(true);
+      return;
+    }
     const obj = {
       field,
       ccl,
@@ -48,6 +60,11 @@ function Popup({
     };
     await setDetailInfo(obj);
     await aproveHandler();
+  };
+
+
+  const togglePopup = () => {
+    setShowPopupWARN(false);
   };
 
   return (
@@ -96,8 +113,9 @@ function Popup({
           <PurpleButton clickHandler={composeAddtionalInfo} buttonText="확인" />
         </S.Buttons>
       </S.Inner>
+      {showPopupWARN && <PopupWarn text={msg.current} closePopup={togglePopup} />}
     </S.Box>
   );
 }
 
-export default Popup;
+export default PopupDetail;

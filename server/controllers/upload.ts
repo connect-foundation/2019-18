@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import mongoose from 'mongoose';
 import createError from 'http-errors';
 import httpStatus from 'http-status';
 import { workImageCreate, imageCreate, wallPaperCreate } from '../services/upload';

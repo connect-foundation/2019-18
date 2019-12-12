@@ -19,14 +19,6 @@ const findProfileByUserId = async (id) => {
 };
 const setProfile = (id, payload) => Profile.update({ _id: id }, payload);
 
-/*
-const findProfileByUserId = async (id) => {
-  const user = await User.findOne({ email: id });
-
-  if (profile.length === 0) return undefined;
-  return profile[0];
-};
-*/
 
 export {
   create,

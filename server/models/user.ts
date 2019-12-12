@@ -14,6 +14,7 @@ import {
 const { ObjectId } = Schema.Types;
 
 export interface IUserModel extends IUser, Document{}
+const { ObjectId } = Schema.Types;
 
 const userSchema = new Schema({
   email: {
