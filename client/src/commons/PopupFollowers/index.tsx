@@ -3,38 +3,18 @@ import * as S from './style';
 import { API_SERVER } from '../../utils/constants';
 
 type PopupProps ={
-  text: string,
   closePopup: (e: React.MouseEvent<HTMLButtonElement>)=>void;
-  loginedId: string,
+  initialFollowList: any,
+  text:string,
 }
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
-const initialFollowList = [
-  {
-    name: 'IU',
-    id: 'oid1',
-    thumbnailUrl: LOGIN_PROFILE_THUMBNAIL,
-    follow: true,
-  },
-  {
-    name: 'IU2',
-    id: 'oid2',
-    thumbnailUrl: LOGIN_PROFILE_THUMBNAIL,
-    follow: true,
-  },
-  {
-    name: 'IU3',
-    id: 'oid3',
-    thumbnailUrl: LOGIN_PROFILE_THUMBNAIL,
-    follow: true,
-  },
-];
 
-const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup, loginedId }) => {
+const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup, initialFollowList }) => {
   const [followers, setFollowers] = useState(initialFollowList);
   const followDeleteURL = `${API_SERVER}/follow/Delete`;
 
   const toggleFollow = (id:string) => {
-    setFollowers(followers.map((value) => {
+    setFollowers(followers.map((value:any) => {
       if (id === value.id) { return ({ ...value, follow: !value.follow }); }
       return value;
     }));
@@ -45,9 +25,12 @@ const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup, loginedId }) =>
 
   const SyncFollowers = (followers:any) => {
     followers.forEach((value:any) => {
-      console.log(value.follow);
       if (!value.follow) {
-        console.log(followDeleteURL);
+        fetch(`${followDeleteURL}/${value.id}`, {
+          method: 'get',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+        });
       }
     });
   };
@@ -66,7 +49,7 @@ const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup, loginedId }) =>
         </S.SubjectArea>
         <S.FollowArea>
           { initialFollowList.map(
-            (value) => (
+            (value:any) => (
               <S.FollowMember key={value.id}>
                 <S.ProfileImage src={value.thumbnailUrl} />
                 <S.FollowName>

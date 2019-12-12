@@ -5,7 +5,26 @@ import PopupFollowers from '../../commons/PopupFollowers';
 import { portfolioProp } from './types';
 
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
-
+const initialFollowList = [
+  {
+    name: 'IU',
+    id: 'oid1',
+    thumbnailUrl: LOGIN_PROFILE_THUMBNAIL,
+    follow: true,
+  },
+  {
+    name: 'IU2',
+    id: 'oid2',
+    thumbnailUrl: LOGIN_PROFILE_THUMBNAIL,
+    follow: true,
+  },
+  {
+    name: 'IU3',
+    id: 'oid3',
+    thumbnailUrl: LOGIN_PROFILE_THUMBNAIL,
+    follow: true,
+  },
+];
 
 const Portfolio:React.FC<portfolioProp> = ({
   introSimple, introDetail, activeFields, isMyPortfolio, PortfolioOwnerId, isLogin, LoginedId,
@@ -25,9 +44,9 @@ const Portfolio:React.FC<portfolioProp> = ({
 
   return (
     <S.Portfolio>
-      {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} loginedId={PortfolioOwnerId} />)}
-      {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} loginedId={PortfolioOwnerId} />)}
-      {showMyFollowings && (<PopupFollowers text="내 팔로잉" closePopup={closeMyFollowingsPopup} loginedId={LoginedId} />)}
+      {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} initialFollowList={initialFollowList} />)}
+      {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} initialFollowList={initialFollowList} />)}
+      {showMyFollowings && (<PopupFollowers text="내 팔로잉" closePopup={closeMyFollowingsPopup} initialFollowList={initialFollowList} />)}
       <S.PortfolioBox>
         <S.PortfolioDetail>
           <S.Name>아이유</S.Name>
