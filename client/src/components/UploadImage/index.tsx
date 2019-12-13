@@ -14,19 +14,17 @@ import { getShortId } from '../../utils';
 
 axios.defaults.withCredentials = true;
 
-const initDetailObject = {
-  commentsAllow: true,
-  ccl: '',
-  field: '',
-  public: true,
-};
-
 function ImageUpload() {
   const [documents, setDocumnets] = useState<ContentObject[]>([]);
   const [title, setTitle] = useState<string>('');
   const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
   const [showPopupDETAIL, setShowPopupDETAIL] = useState<boolean>(false);
-  const [detailInfo, setDetailInfo] = useState<DetailObject>(initDetailObject);
+
+  const [field, setField] = useState('');
+  const [ccl, setCcl] = useState('');
+  const [ispublic, setIspublic] = useState(true);
+  const [canComments, setCanComments] = useState(true);
+
   const [canRedirect, setCanRedirect] = useState<boolean>(false);
   const [workId, setWorkId] = useState<string>('');
   const [fileTypeWarn, setFileTypeWarn] = useState<string>('');
@@ -105,7 +103,10 @@ function ImageUpload() {
       return obj;
     });
     const obj = {
-      ...detailInfo,
+      field,
+      ccl,
+      ispublic,
+      canComments,
       title,
       content: dbContent,
       tags: [],
@@ -182,7 +183,6 @@ function ImageUpload() {
               </div>
             );
           })}
-        {/* {previews && previews.map((element) => <Preview src={element} />)} */}
       </div>
 
       <S.SeleteBox>
@@ -221,7 +221,7 @@ function ImageUpload() {
       </S.NotiText>
       <S.UploadButton type="button" onClick={titleCheck}>업로드</S.UploadButton>
       {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
-      {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setDetailInfo={setDetailInfo} />}
+      {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setField={setField} setCcl={setCcl} setIspublic={setIspublic} setCanComments={setCanComments} field={field} ccl={ccl} />}
     </S.UploadMain>
   );
 }

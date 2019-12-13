@@ -11,14 +11,15 @@ import PopupWarn from '../../commons/Popup_warn';
 
 function PopupDetail({
   text,
+  field,
+  ccl,
   cancleHandler,
   aproveHandler,
-  setDetailInfo,
+  setField,
+  setCcl,
+  setIspublic,
+  setCanComments,
 }: PopupProps) {
-  const [field, setField] = useState('');
-  const [ccl, setCcl] = useState('');
-  const [ispublic, setIspublic] = useState(true);
-  const [canComments, setCanComments] = useState(true);
   const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
   const msg = useRef('분야는 필수 입력사항 입니다.');
 
@@ -52,13 +53,6 @@ function PopupDetail({
       setShowPopupWARN(true);
       return;
     }
-    const obj = {
-      field,
-      ccl,
-      public: ispublic,
-      commentsAllow: canComments,
-    };
-    await setDetailInfo(obj);
     await aproveHandler();
   };
 
