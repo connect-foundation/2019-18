@@ -7,7 +7,9 @@ import * as S from './styles';
 const Header: React.FC = () => (
   <S.HeaderContainer>
     <HeaderLeft />
-    <S.HeaderTitle>CRAFOLIO</S.HeaderTitle>
+    <S.HeaderTitle>
+      <S.StyledLink to="/">CRAFOLIO</S.StyledLink>
+    </S.HeaderTitle>
     <HeaderRight />
   </S.HeaderContainer>
 );

@@ -11,6 +11,7 @@ export const Container = styled.div`
     background: ${theme.background};
     width: fit-content;
     margin: 0 auto;
+    user-select: none;
 `;
 
 export const HeaderTitle = styled.div`
