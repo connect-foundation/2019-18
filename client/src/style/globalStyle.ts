@@ -31,6 +31,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: SFProText, SFProText, "Apple SD Gothic Neo", AppleSDGothicNeo, "Malgun Gothic", "맑은 고딕", sans-serif;
     height: 100%;
   }
+  .swal2-header{
+    font-size: 0.5rem;
+  }
   div#root{
     height: fit-content;
     display:flex;
