@@ -21,7 +21,7 @@ export const CommentHeader = styled.div`
     width: 100%;
     box-sizing: border-box;
     padding: .5rem;
-    background: white;
+    background: ${theme.background};
     border-top-left-radius: .5rem;
     border-top-right-radius: .5rem;
 `;
@@ -29,6 +29,7 @@ export const CommentHeader = styled.div`
 export const CommentInput = styled(Textarea)`
     display: inline-block;
     width: -webkit-fill-available; 
+    background: ${theme.background};
     height: 5rem;
     border:none;
     padding: .5rem;

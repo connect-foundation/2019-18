@@ -31,7 +31,13 @@ const Comment: React.FC<CommentProp> = ({
       }
       {
       commentsAllow
-        ? <S.CommentInput onChange={changeInputHandler} value={inputComment} />
+        ? (
+          <S.CommentInput
+            onChange={changeInputHandler}
+            value={inputComment}
+            placeholder="주제와 무관한 댓글, 악플은 삭제될 수 있습니다."
+          />
+        )
         : <S.CommentInput readOnly value="댓글이 허용되지 않는 게시물 입니다." />
       }
 
