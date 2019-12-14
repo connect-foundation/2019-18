@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './styles';
 import Comment from '../Comment';
 import Like from '../../commons/Like';
-import { getTime } from '../../utils';
+import { getTimeSimple } from '../../utils';
 import { CommentProp, WorksDetailProp } from './types';
 
 
@@ -19,7 +19,9 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
           &nbsp;
           <S.Strong>{data.owner.name}</S.Strong>
           &nbsp;
-          <span>{`| 2019.11.26 | 조회 ${data.views}`}</span>
+          <span>{`| ${getTimeSimple(data.createdAt)}`}</span>
+          &nbsp;
+          <span>{`| 조회 ${data.views}`}</span>
         </S.HeaderMeta>
 
         {data.content.map((content, idx) => {

@@ -154,6 +154,8 @@ const getMoreWallpapers = async (req: Request, res: Response, next: NextFunction
         views: image.owner.views,
         title: image.owner.title,
         creator: image.creator,
+        createdAt: image.createdAt,
+        updatedAt: image.updatedAt,
       };
       return newFeed;
     });
@@ -170,7 +172,7 @@ const getMoreImages = async (req: Request, res: Response, next: NextFunction) =>
       throw (new Error('type error'));
     }
     const images = await get10Images(+skippedNum, +fixedNum);
-
+    console.log(images);
     const filteredFeed = images.map((image: any) => {
       const newFeed = {
         id: image.id,
@@ -180,6 +182,8 @@ const getMoreImages = async (req: Request, res: Response, next: NextFunction) =>
         views: image.owner.views,
         title: image.owner.title,
         creator: image.creator,
+        createdAt: image.createdAt,
+        updatedAt: image.updatedAt,
       };
       return newFeed;
     });
