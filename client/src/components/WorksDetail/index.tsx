@@ -31,6 +31,8 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
           );
         })}
 
+        <S.CopyRight>{`Copyright © ${data.owner.name} All Rights Reserved`}</S.CopyRight>
+
         <Comment
           comments={data.comments}
           commentsAllow={data.commentsAllow}
@@ -40,7 +42,6 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
           addNewComment={addNewComment}
         />
 
-        <S.CopyRight>{`Copyright © ${data.owner.name} All Rights Reserved`}</S.CopyRight>
       </S.Container>
     )
 );
