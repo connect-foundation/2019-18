@@ -7,13 +7,9 @@ import Button from '../../basics/Button';
 export const CommentContainer = styled.div`
     width: auto;
     min-height: 5rem;
-    /* border: 1px solid ${theme.BORDER_GRAY}; */
     border-radius: .5rem;
     padding: 0;
     border: none;
-    /* border: 1px solid ${theme.BORDER_GRAY}; */
-    /* border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem; */
 `;
 
 export const CommentInputWrapper = styled.div`
@@ -28,7 +24,6 @@ export const CommentHeader = styled.div`
     background: white;
     border-top-left-radius: .5rem;
     border-top-right-radius: .5rem;
-    /* background: ${theme.CHI_CONG}; */
 `;
 
 export const CommentInput = styled(Textarea)`
@@ -37,14 +32,12 @@ export const CommentInput = styled(Textarea)`
     height: 5rem;
     border:none;
     padding: .5rem;
-    /* background: ${theme.CRA_YELLOW}; */
 `;
 
 export const CommentFooter = styled.div`
     display: flex;
     width: 100%;
     height: fit-content;
-    /* background: ${theme.EXODUS_FRUIT}; */
     align-items: center;
     margin-top: -.3rem;
 `;
@@ -67,22 +60,23 @@ export const Mention = styled.span`
 export const Comment = styled.div`
     width: 100%;
     height: fit-content;
-    /* background: ${theme.FIRST_DATA}; */
     margin: 0.5rem auto;
 `;
 
 export const CommentOwner = styled.div`
-    /* background: ${theme.ROBINS_EGG_BLUE}; */
+    font-weight: ${theme.WEIGHT.STRONG};
+    cursor: pointer;
 `;
 
 export const CommentContent = styled.div`
     padding: 1rem;
+    padding-left: 0;
 `;
 
 export const CommentTimestamp = styled.span`
     display: block;
     font-size: 0.8rem;
-    margin-left: 1rem;
+    color: ${theme.AMERICAN_RIVER};
 `;
 
 export const Right = styled.div`
