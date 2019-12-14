@@ -19,27 +19,37 @@ const Comment: React.FC<CommentProp> = ({
   comments, commentsAllow, user, inputComment, changeInputHandler, addNewComment,
 }) => (
   <S.CommentContainer>
-    {
-      user.isLogin
-        ? <S.CommentHeader>{user.name}</S.CommentHeader>
-        : <S.CommentHeader>로그인 해주세요</S.CommentHeader>
-    }
-    {
-    commentsAllow
-      ? <S.CommentInput onChange={changeInputHandler} value={inputComment} />
-      : <S.CommentInput readOnly value="댓글이 허용되지 않는 게시물 입니다." />
-    }
-
-    <S.CommentFooter>
-      <S.Mention>멘션</S.Mention>
-      <S.Mention>비밀 댓글</S.Mention>
+    <S.CommentInputWrapper>
       {
-        commentsAllow
-          ? <S.SubmitButton onClick={addNewComment}>등록</S.SubmitButton>
-          : <S.SubmitButton>등록</S.SubmitButton>
+        user.isLogin
+          ? <S.CommentHeader>{user.name}</S.CommentHeader>
+          : (
+            <S.CommentHeader>
+              <S.WeakText>댓글을 남기시려면 </S.WeakText>
+              <S.SLink to="/login">로그인</S.SLink>
+              <S.WeakText> 해주세요</S.WeakText>
+            </S.CommentHeader>
+          )
+      }
+      {
+      commentsAllow
+        ? <S.CommentInput onChange={changeInputHandler} value={inputComment} />
+        : <S.CommentInput readOnly value="댓글이 허용되지 않는 게시물 입니다." />
       }
 
-    </S.CommentFooter>
+      <S.CommentFooter>
+        <S.Mention>멘션</S.Mention>
+        <S.Mention>비밀 댓글</S.Mention>
+        {
+          commentsAllow
+            ? <S.SubmitButton onClick={addNewComment}>등록</S.SubmitButton>
+            : <S.SubmitButton>등록</S.SubmitButton>
+        }
+
+      </S.CommentFooter>
+    </S.CommentInputWrapper>
+
+    <S.Hr></S.Hr>
 
     {commentsAllow
       && (
