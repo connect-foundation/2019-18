@@ -172,7 +172,6 @@ const getMoreImages = async (req: Request, res: Response, next: NextFunction) =>
       throw (new Error('type error'));
     }
     const images = await get10Images(+skippedNum, +fixedNum);
-    console.log(images);
     const filteredFeed = images.map((image: any) => {
       const newFeed = {
         id: image.id,
