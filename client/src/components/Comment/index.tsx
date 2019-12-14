@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './styles';
 import { CommentProp, CommentListProp } from './types';
 import Like from '../../commons/Like';
-import { getTime, getShortId } from '../../utils';
+import { getShortId, getTimeFromNow } from '../../utils';
 
 const CommentList:React.FC<CommentListProp> = ({ owner, comment, createdAt }) => (
   <S.Comment>
@@ -12,6 +12,7 @@ const CommentList:React.FC<CommentListProp> = ({ owner, comment, createdAt }) =>
     <S.Right>
       <Like initCount={10} />
     </S.Right>
+    <S.Hr />
   </S.Comment>
 );
 
@@ -49,7 +50,7 @@ const Comment: React.FC<CommentProp> = ({
       </S.CommentFooter>
     </S.CommentInputWrapper>
 
-    <S.Hr></S.Hr>
+    <S.Hr />
 
     {commentsAllow
       && (
@@ -57,7 +58,7 @@ const Comment: React.FC<CommentProp> = ({
           <CommentList
             owner={comment.ownerName}
             comment={comment.content}
-            createdAt={getTime(comment.createdAt)}
+            createdAt={getTimeFromNow(comment.createdAt)}
             key={getShortId()}
           />
         ))
