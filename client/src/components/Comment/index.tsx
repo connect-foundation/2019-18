@@ -9,9 +9,6 @@ const CommentList:React.FC<CommentListProp> = ({ owner, comment, createdAt }) =>
     <S.CommentOwner>{owner}</S.CommentOwner>
     <S.CommentContent>{comment}</S.CommentContent>
     <S.CommentTimestamp>{createdAt}</S.CommentTimestamp>
-    <S.Right>
-      <Like initCount={10} />
-    </S.Right>
     <S.Hr />
   </S.Comment>
 );
