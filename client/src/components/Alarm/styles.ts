@@ -35,3 +35,7 @@ export const AlarmOverNums = styled.div`
     top: 32px;
     left: 28px;
 `;
+
+export const AlarmWrapper = styled.button`
+    display: hidden;
+`;
