@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import AlarmImg from '../../assets/alarm.png';
 import AlarmColorImg from '../../assets/alarm_color.png';
 import Notifications from './Notifications';
-
+import { INotification } from '../../modules/notification';
 import * as S from './styles';
 
-const Alarm: React.FC = () => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+interface AlarmProp {
+  notifications: INotification;
+}
+const Alarm: React.FC<AlarmProp> = ({
+  notifications,
+}) => {
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(
     null,
   );
 
@@ -19,13 +24,10 @@ const Alarm: React.FC = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-
   const alarmNum = 5;
   const img = alarmNum > 0 ? AlarmColorImg : AlarmImg;
-
 
   return (
     <S.AlarmContainer>

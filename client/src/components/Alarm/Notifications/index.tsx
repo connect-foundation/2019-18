@@ -7,59 +7,13 @@ import { RootState } from '../../../modules';
 import useFetch from '../../../hooks/useFetch';
 import { getShortId } from '../../../utils';
 
-interface INoti {
-  isRead: boolean;
-  createdAt: number;
-  _id: string;
-  sender: string;
-  ref: string;
-  type: string;
-}
-
-interface IData {
-  _id: string,
-  notifications:INoti[];
-}
 
 const Notifications: React.FC = () => {
-  const user = useSelector((state:RootState) => state.login);
-  const {
-    data, isLoading, isError, setUrl,
-  } = useFetch<IData>();
-
-
-  useEffect(() => {
-    setUrl(`${API_SERVER}/user/notifications/${user.id}`);
-  }, []);
-
-  if (!data) {
-    return (
-      <S.Container>
-        <p>알림이 없습니다.</p>
-      </S.Container>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <S.Container>
-        <div>Loading...</div>
-      </S.Container>
-    );
-  }
-
-  if (isError) {
-    return (
-      <S.Container>
-        <div>something wrong...</div>
-      </S.Container>
-    );
-  }
-
+  const notifications = useSelector((state:RootState) => state.notification.notifications);
   return (
     <S.Container>
       {
-        data.notifications.map((noti) => (
+        notifications.map((noti) => (
           <div key={getShortId()}>
             <div>{noti.sender}</div>
             <div>{noti.ref}</div>
