@@ -3,11 +3,12 @@ import {
 } from 'express';
 import createError from 'http-errors';
 import httpStatus from 'http-status';
+import mongoose from 'mongoose';
 import {
   findById, findProfile, followingUpdate, followerUpdate, findProfilePopulate, findFollower, findFollowing,
 } from '../services/user';
 import response from '../utils/response';
-import { AUTH, LOGIN } from '../utils/messages';
+import { AUTH, LOGIN, PARAMS } from '../utils/messages';
 
 const addFollowing = async (req: Request, res: Response, next: NextFunction) => {
   const targetId = req.params.id;
@@ -100,6 +101,9 @@ const getAllFollow = async (req: Request, res: Response, next: NextFunction) => 
 const getFollowers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      throw (createError(httpStatus.BAD_REQUEST, PARAMS.NOT_CORRECT_PARAMS));
+    }
     const result = await findFollower(id);
     if (!result) {
       throw (createError(httpStatus.NOT_FOUND, LOGIN.ID_NOT_MATCH));
@@ -123,11 +127,13 @@ const getFollowers = async (req: Request, res: Response, next: NextFunction) => 
 const getFollowing = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      throw (createError(httpStatus.BAD_REQUEST, PARAMS.NOT_CORRECT_PARAMS));
+    }
     const result = await findFollowing(id);
     if (!result) {
-      throw (createError(httpStatus.NOT_FOUND, LOGIN.ID_NOT_MATCH));
+      throw (createError(httpStatus.BAD_REQUEST, PARAMS.NOT_CORRECT_PARAMS));
     }
-    console.log(result);
     const { following } = result.profile! as any;
     const filteredFollowings = following.map((user) => {
       const {
