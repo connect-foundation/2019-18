@@ -9,10 +9,10 @@ import { AUTH, PROFILE, USER } from '../utils/messages';
 
 const addFollowing = async (req: Request, res: Response, next: NextFunction) => {
   // dev 용
-  const targetId = '5df671d31bf9dc2bb1e940c8';
+  const targetId = '5df671be1bf9dc2bb1e940c6';
   const user = {
-    profile: '5df671be1bf9dc2bb1e940c5',
-    id: '5df671be1bf9dc2bb1e940c6',
+    profile: '5df676bf688d0e3471bdfa0a',
+    id: '5df676bf688d0e3471bdfa0b',
   };
   try {
     // const user = req.decodedUser;
@@ -96,7 +96,7 @@ const getAllFollow = async (req: Request, res: Response, next: NextFunction) => 
     if (profile === null) {
       throw Error(PROFILE.NOT_MATCH);
     }
-    res.json({ result: profile });
+    res.json({ profile });
   } catch (e) {
     next(e);
   }

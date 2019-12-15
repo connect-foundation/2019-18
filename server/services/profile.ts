@@ -25,9 +25,15 @@ const followingUpdate = (_id, following) => Profile.findOneAndUpdate({ _id }, { 
 const followerUpdate = async (_id, follower) => Profile.findOneAndUpdate({ _id }, { follower });
 
 const findProfilePopulate = async (_id) => Profile.findById({ _id })
-  .populate({
+  .populate([{
     path: 'following',
-  });
+    select: '_id thumbnailUrl name',
+  },
+  {
+    path: 'follower',
+    select: '_id thumbnailUrl name',
+  },
+  ]);
 
 export {
   create,
