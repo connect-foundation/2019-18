@@ -12,3 +12,11 @@ export const LOGIN = {
   ID_NOT_MATCH: '존재하지 않는 아이디입니다.',
   LOGIN_FAILURE: '아이디 또는 비밀번호를 확인해주세요',
 };
+
+export const PROFILE = {
+  NOT_MATCH: '프로필을 불러올 수 없습니다.' as const,
+};
+
+export const USER = {
+  NOT_MATCH: '유저를 불러올 수 없습니다.' as const,
+};

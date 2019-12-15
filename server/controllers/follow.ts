@@ -4,22 +4,24 @@ import httpStatus from 'http-status';
 import {
   findById, findProfile, followingUpdate, followerUpdate, findProfilePopulate,
 } from '../services/user';
-import { AUTH } from '../utils/messages';
+import { AUTH, PROFILE, USER } from '../utils/messages';
 
 const addFollowing = async (req: Request, res: Response, next: NextFunction) => {
-  const targetId = req.params.id;
   // dev 용
-  // const myId = '5df1992c3f9892105636735a';
-  // const targetId = '5df19bd2e947f714a40eb9dd';
-  // const myProfileId = '5df1992c3f98921056367359';
+  const targetId = '5df63958782a547f4e401ba9';
+  const user = {
+    profile: '5df63909782a547f4e401ba4',
+    id: '5df63909782a547f4e401ba5',
+  };
   try {
-    const user = req.decodedUser;
-    if (!user) {
-      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
-    }
+    // const user = req.decodedUser;
+    // if (!user) {
+    //   throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    // }
+    // const targetId = req.params.id;
     const profile = await findProfile(user.profile);
     if (profile === null) {
-      throw Error('NULL type');
+      throw Error(PROFILE.NOT_MATCH);
     }
     const newFollowing = [
       ...profile.following,
@@ -29,11 +31,11 @@ const addFollowing = async (req: Request, res: Response, next: NextFunction) => 
 
     const targetUser = await findById(targetId);
     if (targetUser === null) {
-      throw Error('NULL type');
+      throw Error(USER.NOT_MATCH);
     }
     const targetProfile = await findProfile(targetUser.profile);
     if (targetProfile === null) {
-      throw Error('NULL type');
+      throw Error(PROFILE.NOT_MATCH);
     }
     const newFollwer = [
       ...targetProfile.follower,
@@ -47,30 +49,32 @@ const addFollowing = async (req: Request, res: Response, next: NextFunction) => 
 };
 
 const deleteFollowing = async (req: Request, res:Response, next:NextFunction) => {
-  const targetId = req.params.id;
-  // const myId = '5df1992c3f9892105636735a';
-  // const targetId = '5df19bd2e947f714a40eb9dd';
-  // const myProfileId = '5df1992c3f98921056367359';
-
+  // dev 용
+  const targetId = '5df63958782a547f4e401ba9';
+  const user = {
+    profile: '5df63909782a547f4e401ba4',
+    id: '5df63909782a547f4e401ba5',
+  };
   try {
-    const user = req.decodedUser;
-    if (!user) {
-      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
-    }
+    // const user = req.decodedUser;
+    // if (!user) {
+    //   throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    // }
+    // const targetId = req.params.id;
     const profile = await findProfile(user.profile);
     if (profile === null) {
-      throw Error('NULL type');
+      throw Error(PROFILE.NOT_MATCH);
     }
     const newFollowing = profile.following.filter((e) => !e.equals(targetId));
     await followingUpdate(user.profile, newFollowing);
 
     const targetUser = await findById(targetId);
     if (targetUser === null) {
-      throw Error('NULL type');
+      throw Error(USER.NOT_MATCH);
     }
     const targetProfile = await findProfile(targetUser.profile);
     if (targetProfile === null) {
-      throw Error('NULL type');
+      throw Error(PROFILE.NOT_MATCH);
     }
     const newFollwer = targetProfile.follower.filter((e) => !e.equals(user.id));
     await followerUpdate(targetProfile.id, newFollwer);
@@ -86,7 +90,7 @@ const getAllFollow = async (req: Request, res: Response, next: NextFunction) => 
   try {
     const profile = await findProfilePopulate(myProfileId);
     if (profile === null) {
-      throw Error('NULL type');
+      throw Error(PROFILE.NOT_MATCH);
     }
     res.json({ result: profile });
   } catch (e) {
