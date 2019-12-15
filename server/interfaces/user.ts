@@ -18,3 +18,10 @@ export type User={
     profile?: mongoose.Types.ObjectId,
 
 };
+
+export interface INotifications {
+    sender: mongoose.Types.ObjectId,
+    ref: mongoose.Types.ObjectId,
+    type: 'works' | 'wallpapers' | 'musics' | 'comment'
+    createdAt: mongoose.Schema.Types.Date,
+}
