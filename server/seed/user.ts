@@ -20,6 +20,7 @@ const users = [
       sender: userId[0],
       ref: workImageId[0],
       type: 'works',
+      isRead: false,
     }],
   },
   {

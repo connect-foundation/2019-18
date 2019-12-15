@@ -15,6 +15,7 @@ const Noti = new Schema({
   ref: { type: Schema.Types.ObjectId },
   type: { type: String, enum: ['works', 'wallpapers', 'musics', 'comments'] },
   createdAt: { type: mongoose.Schema.Types.Date, default: Date.now },
+  isRead: { type: Boolean, required: true, default: false },
 });
 
 export interface IUserModel extends IUser, Document{}
