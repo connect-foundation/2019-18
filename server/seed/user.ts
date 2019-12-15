@@ -1,4 +1,5 @@
-import { user as userId, profile as profileId } from './ids';
+import mongoose from 'mongoose';
+import { user as userId, profile as profileId, workImage as workImageId } from './ids';
 
 const users = [
   {
@@ -7,6 +8,7 @@ const users = [
     pwd: '1234',
     name: '신철헌',
     profile: profileId[0],
+    notifications: [],
   },
   {
     _id: userId[1],
@@ -14,6 +16,11 @@ const users = [
     pwd: '1234',
     name: 'junow',
     profile: profileId[1],
+    notifications: [{
+      sender: userId[0],
+      ref: workImageId[0],
+      type: 'works',
+    }],
   },
   {
     _id: userId[2],
@@ -21,6 +28,7 @@ const users = [
     pwd: '1234',
     name: '조민지',
     profile: profileId[2],
+    notifications: [],
   },
 ];
 
