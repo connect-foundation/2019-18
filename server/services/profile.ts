@@ -24,11 +24,10 @@ const followingUpdate = (_id, following) => Profile.findOneAndUpdate({ _id }, { 
 
 const followerUpdate = async (_id, follower) => Profile.findOneAndUpdate({ _id }, { follower });
 
-const findProfilePopulate = async (_id) => {
-  const result = await Profile.findById({ _id })
-    .populate('following');
-  return result;
-};
+const findProfilePopulate = async (_id) => Profile.findById({ _id })
+  .populate({
+    path: 'following',
+  });
 
 export {
   create,

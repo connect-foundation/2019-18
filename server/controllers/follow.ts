@@ -9,10 +9,10 @@ import { AUTH, PROFILE, USER } from '../utils/messages';
 
 const addFollowing = async (req: Request, res: Response, next: NextFunction) => {
   // dev 용
-  const targetId = '5df638f6782a547f4e401ba3';
+  const targetId = '5df671d31bf9dc2bb1e940c8';
   const user = {
-    profile: '5df63909782a547f4e401ba4',
-    id: '5df63909782a547f4e401ba5',
+    profile: '5df671be1bf9dc2bb1e940c5',
+    id: '5df671be1bf9dc2bb1e940c6',
   };
   try {
     // const user = req.decodedUser;
@@ -51,10 +51,10 @@ const addFollowing = async (req: Request, res: Response, next: NextFunction) => 
 
 const deleteFollowing = async (req: Request, res:Response, next:NextFunction) => {
   // dev 용
-  const targetId = '5df638f6782a547f4e401ba3';
+  const targetId = '5df671d31bf9dc2bb1e940c8';
   const user = {
-    profile: '5df63909782a547f4e401ba4',
-    id: '5df63909782a547f4e401ba5',
+    profile: '5df671be1bf9dc2bb1e940c5',
+    id: '5df671be1bf9dc2bb1e940c6',
   };
   try {
     // const user = req.decodedUser;
@@ -87,10 +87,10 @@ const deleteFollowing = async (req: Request, res:Response, next:NextFunction) =>
 
 const getAllFollow = async (req: Request, res: Response, next: NextFunction) => {
   const user = {
-    profile: '5df63909782a547f4e401ba4',
-    id: '5df63909782a547f4e401ba5',
+    profile: '5df671be1bf9dc2bb1e940c5',
+    id: '5df671be1bf9dc2bb1e940c6',
   };
-
+  // 더미 민지 2
   try {
     const profile = await findProfilePopulate(user.profile);
     if (profile === null) {

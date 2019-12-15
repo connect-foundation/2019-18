@@ -18,10 +18,7 @@ const findId = async (email) => {
   return result;
 };
 
-const findById = async (_id) => {
-  const result = await User.findOne({ _id });
-  return result;
-};
+const findById = async (_id) => User.findOne({ _id });
 
 
 export {
