@@ -1,10 +1,13 @@
-import { Request, Response, NextFunction } from 'express';
+import {
+  Request, Response, NextFunction,
+} from 'express';
 import createError from 'http-errors';
 import httpStatus from 'http-status';
 import {
-  findById, findProfile, followingUpdate, followerUpdate, findProfilePopulate,
+  findById, findProfile, followingUpdate, followerUpdate, findProfilePopulate, findFollower, findFollowing,
 } from '../services/user';
-import { AUTH } from '../utils/messages';
+import response from '../utils/response';
+import { AUTH, LOGIN } from '../utils/messages';
 
 const addFollowing = async (req: Request, res: Response, next: NextFunction) => {
   const targetId = req.params.id;
@@ -94,8 +97,57 @@ const getAllFollow = async (req: Request, res: Response, next: NextFunction) => 
   }
 };
 
+const getFollowers = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const result = await findFollower(id);
+    if (!result) {
+      throw (createError(httpStatus.NOT_FOUND, LOGIN.ID_NOT_MATCH));
+    }
+    const { follower } = result.profile! as any;
+    const filteredFollowers = follower.map((user) => {
+      const {
+        _id, email, name, thumbnailUrl, ...rest
+      } = user;
+
+      return {
+        _id, email, name, thumbnailUrl,
+      };
+    });
+    response(res, filteredFollowers);
+  } catch (e) {
+    next(e);
+  }
+};
+
+const getFollowing = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const result = await findFollowing(id);
+    if (!result) {
+      throw (createError(httpStatus.NOT_FOUND, LOGIN.ID_NOT_MATCH));
+    }
+    console.log(result);
+    const { following } = result.profile! as any;
+    const filteredFollowings = following.map((user) => {
+      const {
+        _id, email, name, thumbnailUrl, ...rest
+      } = user;
+
+      return {
+        _id, email, name, thumbnailUrl,
+      };
+    });
+    response(res, filteredFollowings);
+  } catch (e) {
+    next(e);
+  }
+};
+
 export {
   addFollowing,
   deleteFollowing,
   getAllFollow,
+  getFollowers,
+  getFollowing,
 };
