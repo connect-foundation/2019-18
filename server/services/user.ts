@@ -55,6 +55,8 @@ const findFollowing = async (_id) => User.findById(_id).populate({
   populate: { path: 'following' },
 });
 
+const getNotifications = async (_id) => User.findById(_id).select('notifications');
+
 export {
   create,
   remove,
@@ -67,4 +69,5 @@ export {
   findProfilePopulate,
   findFollower,
   findFollowing,
+  getNotifications,
 };
