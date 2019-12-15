@@ -2,13 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
 import httpStatus from 'http-status';
 import {
-  findById, findProfile, followingUpdate, followerUpdate, findProfilePopulate,
-} from '../services/user';
+  findProfile, followingUpdate, followerUpdate, findProfilePopulate,
+} from '../services/profile';
+import { findById } from '../services/user';
 import { AUTH, PROFILE, USER } from '../utils/messages';
 
 const addFollowing = async (req: Request, res: Response, next: NextFunction) => {
   // dev 용
-  const targetId = '5df63958782a547f4e401ba9';
+  const targetId = '5df638f6782a547f4e401ba3';
   const user = {
     profile: '5df63909782a547f4e401ba4',
     id: '5df63909782a547f4e401ba5',
@@ -50,7 +51,7 @@ const addFollowing = async (req: Request, res: Response, next: NextFunction) => 
 
 const deleteFollowing = async (req: Request, res:Response, next:NextFunction) => {
   // dev 용
-  const targetId = '5df63958782a547f4e401ba9';
+  const targetId = '5df638f6782a547f4e401ba3';
   const user = {
     profile: '5df63909782a547f4e401ba4',
     id: '5df63909782a547f4e401ba5',
@@ -85,10 +86,13 @@ const deleteFollowing = async (req: Request, res:Response, next:NextFunction) =>
 };
 
 const getAllFollow = async (req: Request, res: Response, next: NextFunction) => {
-  const myProfileId = '5df1992c3f98921056367359';
+  const user = {
+    profile: '5df63909782a547f4e401ba4',
+    id: '5df63909782a547f4e401ba5',
+  };
 
   try {
-    const profile = await findProfilePopulate(myProfileId);
+    const profile = await findProfilePopulate(user.profile);
     if (profile === null) {
       throw Error(PROFILE.NOT_MATCH);
     }
