@@ -12,7 +12,7 @@ const createMusic = (payload) => Music.create(payload);
 const createWorkMusic = (payload) => WorkMusic.create(payload);
 
 const addNewNotification = (
-  id, sender, ref, type, createdAt, isRead,
+  id, sender, ref, type, createdAt, isRead, onModel,
 ) => User.findByIdAndUpdate(id, {
   $push: {
     notifications: {
@@ -21,6 +21,7 @@ const addNewNotification = (
       type,
       createdAt,
       isRead,
+      onModel,
     },
   },
 });

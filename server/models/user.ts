@@ -11,11 +11,16 @@ import {
 } from '../utils/constant';
 
 const Noti = new Schema({
-  sender: { type: Schema.Types.ObjectId },
-  ref: { type: Schema.Types.ObjectId },
+  sender: { type: Schema.Types.ObjectId, ref: 'User' },
+  ref: { type: Schema.Types.ObjectId, refPath: 'notifications.onModel' },
   type: { type: String, enum: ['works', 'wallpapers', 'musics', 'comments'] },
   createdAt: { type: mongoose.Schema.Types.Date, default: Date.now },
   isRead: { type: Boolean, required: true, default: false },
+  onModel: {
+    type: String,
+    required: true,
+    enum: ['WorkImage', 'WorkMusic'],
+  },
 });
 
 export interface IUserModel extends IUser, Document{}
@@ -30,7 +35,7 @@ const userSchema = new Schema({
   thumbnailUrl: { type: String, required: true, default: DEFAULT_THUMBNAIL_URL },
   originUrl: { type: String, required: true, default: DEFAULT_ORIGIN_URL },
   profile: { type: ObjectId, required: true, ref: 'Profile' },
-  notifications: [{ type: Noti, required: true }],
+  notifications: [{ type: Noti }],
 }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } });
 
 userSchema.path('email').validate((value) => validator.isEmail(value), 'invalid email');

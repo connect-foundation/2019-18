@@ -21,6 +21,7 @@ const users = [
       ref: workImageId[0],
       type: 'works',
       isRead: false,
+      onModel: 'WorkImage',
     }],
   },
   {

@@ -34,8 +34,14 @@ const newWorksNotification = (
         creator, works, workType, createdAt,
       });
     }
-
-    await addNewNotification(receiverId, senderId, ref, workType, createdAt, isRead);
+    let onModel = '';
+    if (workType === 'works' || workType === 'wallpapers') {
+      onModel = 'WorkImage';
+    }
+    if (workType === 'musics') {
+      onModel = 'WorkMusic';
+    }
+    await addNewNotification(receiverId, senderId, ref, workType, createdAt, isRead, onModel);
   });
 };
 
