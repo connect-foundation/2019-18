@@ -12,3 +12,9 @@ export const WALLPAPERS: string = 'wallpapers/';
 export const IMAGE_QUERY_LOW: string = '?type=w&w=200&quality=90';
 export const IMAGE_QUERY_HIGH: string = '?type=w&w=750&quality=90' as const;
 export const IMAGES: string = 'images/';
+export const NOTIFICATION_TYPE = {
+  WORKS: 'works' as const,
+  WALLPAPERS: 'wallpapers' as const,
+  MUSICS: 'musics' as const,
+  COMMENTS: 'comments' as const,
+};

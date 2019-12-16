@@ -44,6 +44,28 @@ const findProfilePopulate = async (_id) => {
   return result;
 };
 
+const findFollower = (_id) => User.findById(_id).populate({
+  path: 'profile',
+  populate: { path: 'follower' },
+});
+
+
+const findFollowing = async (_id) => User.findById(_id).populate({
+  path: 'profile',
+  populate: { path: 'following' },
+});
+
+const getNotifications = async (_id) => User.findById(_id)
+  .select('notifications')
+  .populate({
+    path: 'notifications.sender',
+    populate: 'sender',
+  })
+  .populate({
+    path: 'notifications.ref',
+    populate: 'ref',
+  });
+
 export {
   create,
   remove,
@@ -54,4 +76,7 @@ export {
   followingUpdate,
   followerUpdate,
   findProfilePopulate,
+  findFollower,
+  findFollowing,
+  getNotifications,
 };

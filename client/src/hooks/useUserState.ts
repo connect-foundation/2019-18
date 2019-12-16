@@ -7,8 +7,6 @@ import makeUserState from '../modules/loginuser';
 import { RootState } from '../modules';
 import { sendMySocketID } from '../socket';
 
-const io = socket('http://localhost:3050');
-
 const useUserState = (props:ReactCookieProps) => {
   const dispatch = useDispatch();
   const currentUserState = useSelector((state:RootState) => state.login);
