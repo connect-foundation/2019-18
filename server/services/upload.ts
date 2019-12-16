@@ -24,7 +24,7 @@ const addNewNotification = (
       onModel,
     },
   },
-});
+}, { new: true });
 
 export {
   workImageCreate,
