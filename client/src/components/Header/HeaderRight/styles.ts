@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Button from '../../../basics/Button';
 import Img from '../../../basics/Img/index';
+import A from '../../../basics/A';
 import { theme } from '../../../style/theme';
 
 export const HeaderRightContainer = styled.div`
