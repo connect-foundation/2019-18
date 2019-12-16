@@ -13,15 +13,13 @@ export const HeaderRightContainer = styled.div`
 `;
 
 export const LoginButton = styled(Button)`
-    margin: auto;
-    margin-left: 1rem;
     font-size: 0.8rem;
     background-color:${theme.CRA_MINT_FIRST};
 `;
 
 export const LoginLink = styled(Link)`
-    width: 100%; 
-    height: 100%;
+    margin: auto;
+    margin-left: 1rem;
     text-decoration : none;
     color: ${theme.background};
 `;

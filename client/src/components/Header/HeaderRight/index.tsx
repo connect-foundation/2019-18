@@ -15,7 +15,9 @@ const HeaderRight: React.FC = () => {
       {!LoginUser.isLogin
         ? (
           <S.LoginContainer>
-            <S.LoginButton><S.LoginLink to="/login">로그인</S.LoginLink></S.LoginButton>
+            <S.LoginLink to="/login">
+              <S.LoginButton>로그인</S.LoginButton>
+            </S.LoginLink>
           </S.LoginContainer>
         )
         : (
