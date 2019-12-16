@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 import { theme } from './theme';
 import BebasNeueRegularTtf from './fonts/BebasNeueRegular.ttf';
 import DoHyeonRegularTtf from './fonts/DoHyeonRegular.ttf';
+import 'animate.css';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
