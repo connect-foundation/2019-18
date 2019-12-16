@@ -9,18 +9,12 @@ function sendMySocketID(userState:loginUser) {
 }
 
 interface newWorksNotificationProp{
-  creator: any;
-  works: any;
-  workType: any;
-  createdAt: string;
+  newNotifications: any;
 }
 socket.on('newWorksNotification', ({
-  creator, works, workType, createdAt,
+  newNotifications,
 }:newWorksNotificationProp) => {
-  console.log(creator);
-  console.log(works);
-  console.log(workType);
-  console.log(createdAt);
+  console.log(newNotifications);
 });
 
 export {

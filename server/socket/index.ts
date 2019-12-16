@@ -29,11 +29,6 @@ const newWorksNotification = (
   followers.forEach(async (follower) => {
     const receiverId = follower._id;
     const receiverSocketId = await getUserSocketId(receiverId);
-    if (receiverSocketId) {
-      global.io.to(receiverSocketId).emit('newWorksNotification', {
-        creator, works, workType, createdAt,
-      });
-    }
     let onModel = '';
     if (workType === 'works' || workType === 'wallpapers') {
       onModel = 'WorkImage';
@@ -41,7 +36,15 @@ const newWorksNotification = (
     if (workType === 'musics') {
       onModel = 'WorkMusic';
     }
-    await addNewNotification(receiverId, senderId, ref, workType, createdAt, isRead, onModel);
+    const newNotifications = await addNewNotification(receiverId, senderId, ref, workType, createdAt, isRead, onModel);
+    if (receiverSocketId) {
+      global
+        .io
+        .to(receiverSocketId)
+        .emit('newWorksNotification', {
+          newNotifications,
+        });
+    }
   });
 };
 
