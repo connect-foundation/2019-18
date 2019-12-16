@@ -9,7 +9,7 @@ import Preview from '../Preview';
 import * as S from './style';
 import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
-import { ContentObject, DetailObject } from './type';
+import { ContentObject } from './type';
 import { getShortId } from '../../utils';
 
 axios.defaults.withCredentials = true;
@@ -43,6 +43,7 @@ function ImageUpload() {
     reader.onloadend = (e) => {
       if (typeof reader.result === 'string') {
         const obj = {
+          key: getShortId(),
           type,
           content: '',
           file: newfile,
@@ -134,6 +135,7 @@ function ImageUpload() {
 
   const addDescription: ()=> void = () => {
     const obj:ContentObject = {
+      key: getShortId(),
       type: 'description',
       content: '아무말 아무말',
       file: null,
