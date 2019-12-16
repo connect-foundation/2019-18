@@ -1,13 +1,16 @@
 export default interface MusicCardProp{
-  _id: string,
-  ownerId: string,
-  imgUrl: string;
+  _id: string;
+  imageUrl: string;
+  musicUrl: string;
   title: string;
-  numOfComments: string;
-  views: string;
   creator: {
     _id: string,
-    email: string,
     name: string,
+    thumbnailUrl: string,
   };
+  ownerId: string;
+  numOfComments: number;
+  views: number;
+  createdAt: string;
+  updatedAt: string;
 }

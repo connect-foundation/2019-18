@@ -7,12 +7,12 @@ import MusicCardProp from './types';
 import MusicPlayerMini from '../../MusicPlayerMini';
 
 const MusicCard: React.FC<MusicCardProp> = ({
-  _id, ownerId, imgUrl, creator, title, numOfComments, views,
+  _id, imageUrl, musicUrl, title, creator, ownerId, numOfComments, views,
 }) => (
   <S.Container>
     <StyledLink to={`/home/detail-music/${ownerId}`}>
       <S.CardImgContainer>
-        <S.CardImg src={imgUrl} />
+        <S.CardImg src={imageUrl} />
       </S.CardImgContainer>
 
       <S.CardHeader>
@@ -26,12 +26,12 @@ const MusicCard: React.FC<MusicCardProp> = ({
         />
       </S.CardBody>
 
-      <MusicPlayerMini uri={uri} />
+      <MusicPlayerMini url={musicUrl} />
 
       <CardFooter
         smiles="20"
-        comments={numOfComments}
-        views={views}
+        comments={numOfComments.toString()}
+        views={views.toString()}
       />
     </StyledLink>
   </S.Container>
