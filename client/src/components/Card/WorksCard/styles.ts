@@ -26,6 +26,7 @@ export const CardImg = styled(Img)`
     margin-bottom: auto;
     border-top-left-radius:10px;
     border-top-right-radius: 10px;
+    background: no-repeat;
 `;
 
 export const CardHeader = styled.div`

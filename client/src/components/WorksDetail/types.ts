@@ -38,4 +38,6 @@ export interface IData {
     title: string,
     ccl: string,
     field: string,
+    createdAt: number;
+    updatedAt: number;
 }

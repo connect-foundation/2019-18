@@ -16,6 +16,8 @@ export interface IImage{
     title:string;
     numOfComments:string;
     views: string;
+    createdAt: number;
+    updatedAt: number;
 }
 
 export interface IWallpaper{
@@ -30,6 +32,8 @@ export interface IWallpaper{
   title:string;
   numOfComments:string;
   views: string;
+  createdAt: number;
+  updatedAt: number;
 }
 
 
