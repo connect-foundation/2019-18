@@ -49,6 +49,7 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
       if (!responseJson.success) {
         return null;
       }
+      console.log(responseJson);
       return responseJson.data;
     };
     getData().then((data:any) => {
