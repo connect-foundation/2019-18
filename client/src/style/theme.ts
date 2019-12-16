@@ -43,6 +43,8 @@ export const theme = {
     STRONG: 800,
   },
 
+  WEAK_TEXT: '#969696',
+
   // box-shadow
   BOX_SHADOW: 'rgba(0, 0, 0, 0.2) 0px 5px 13px',
   BOX_SHADOW_BOTTOM: 'rgba(0, 0, 0, 0.2) 0 2px 8px -2px',

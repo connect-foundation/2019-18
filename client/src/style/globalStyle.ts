@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 import { theme } from './theme';
 import BebasNeueRegularTtf from './fonts/BebasNeueRegular.ttf';
 import DoHyeonRegularTtf from './fonts/DoHyeonRegular.ttf';
+import 'animate.css';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -30,6 +31,9 @@ const GlobalStyle = createGlobalStyle`
     background: ${theme.background};
     font-family: SFProText, SFProText, "Apple SD Gothic Neo", AppleSDGothicNeo, "Malgun Gothic", "맑은 고딕", sans-serif;
     height: 100%;
+  }
+  .swal2-header{
+    font-size: 0.5rem;
   }
   div#root{
     height: fit-content;

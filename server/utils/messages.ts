@@ -9,8 +9,12 @@ export const AUTH = {
 };
 
 export const LOGIN = {
-  ID_NOT_MATCH: '존재하지 않는 아이디입니다.',
-  LOGIN_FAILURE: '아이디 또는 비밀번호를 확인해주세요',
+  ID_NOT_MATCH: '존재하지 않는 아이디입니다.' as const,
+  LOGIN_FAILURE: '아이디 또는 비밀번호를 확인해주세요' as const,
+};
+
+export const PARAMS = {
+  NOT_CORRECT_PARAMS: '비정상적인 접근입니다.' as const,
 };
 
 export const PROFILE = {

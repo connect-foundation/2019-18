@@ -1,4 +1,6 @@
-import { addFollowing, deleteFollowing, getAllFollow } from '../controllers/follow';
+import {
+  addFollowing, deleteFollowing, getAllFollow,
+} from '../controllers/follow';
 import authByJWT from '../middleware/authByJWT';
 
 const router = require('express').Router();

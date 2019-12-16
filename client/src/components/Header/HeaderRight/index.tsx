@@ -5,7 +5,7 @@ import HeaderSearch from './HeaderSearch';
 import HeaderGreeting from './HeaderGreeting';
 import Alarm from '../../Alarm';
 import * as S from './styles';
-
+import NotificationContainer from '../../../containers/NotificationContainer';
 
 const HeaderRight: React.FC = () => {
   const LoginUser = useSelector((state:RootState) => state.login);
@@ -21,7 +21,7 @@ const HeaderRight: React.FC = () => {
         : (
           <S.LoginContainer>
             <S.UploadButton><S.UploadLink to="/home/upload">업로드</S.UploadLink></S.UploadButton>
-            <Alarm />
+            <NotificationContainer />
             <HeaderGreeting />
           </S.LoginContainer>
         )}

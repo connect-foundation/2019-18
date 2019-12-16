@@ -1,5 +1,11 @@
 import openSocket from 'socket.io';
-import { setUserSocketId } from '../redis';
+import { setUserSocketId, getUserSocketId } from '../redis';
+import { addNewNotification } from '../services/upload';
+import { IUserModel } from '../models/user';
+import { IWorkImageModel } from '../models/work_image';
+import { IWorkMusicModel } from '../models/work_music';
+import { IWallpaperModel } from '../models/wallpaper';
+
 
 declare global {
   namespace NodeJS {
@@ -10,16 +16,38 @@ declare global {
   }
 }
 
-
-const newWorksNotification = (creator, works, followers) => {
-  global.io.emit('newWorksNotification', { creator: 'creator', works: 'works' });
-  followers.forEach((follower) => {
+const newWorksNotification = (
+  creator:IUserModel,
+  works: IWorkImageModel | IWorkMusicModel | IWallpaperModel,
+  followers: IUserModel[],
+  workType: string,
+) => {
+  const senderId = creator.id;
+  const ref = works.id;
+  const createdAt = Date.now();
+  const isRead = false;
+  followers.forEach(async (follower) => {
+    const receiverId = follower._id;
+    const receiverSocketId = await getUserSocketId(receiverId);
+    if (receiverSocketId) {
+      global.io.to(receiverSocketId).emit('newWorksNotification', {
+        creator, works, workType, createdAt,
+      });
+    }
+    let onModel = '';
+    if (workType === 'works' || workType === 'wallpapers') {
+      onModel = 'WorkImage';
+    }
+    if (workType === 'musics') {
+      onModel = 'WorkMusic';
+    }
+    await addNewNotification(receiverId, senderId, ref, workType, createdAt, isRead, onModel);
   });
 };
 
 const userInfo = (socket) => {
-  socket.on('userInfo', (userInfo) => {
-    const userId = userInfo.id;
+  socket.on('userInfo', (user) => {
+    const userId = user.id;
     const socketId = socket.id;
     setUserSocketId(userId, socketId);
   });

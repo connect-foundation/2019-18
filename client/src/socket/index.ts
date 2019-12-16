@@ -1,18 +1,26 @@
 import socketOpen from 'socket.io-client';
 import { loginUser } from '../modules/login';
+import { socketUrl } from '../utils/constants';
 
-const socket = socketOpen('http://localhost:3050');
+const socket = socketOpen(socketUrl!, { transports: ['websocket'] });
 
 function sendMySocketID(userState:loginUser) {
   socket.emit('userInfo', userState);
 }
 
-interface test{
+interface newWorksNotificationProp{
   creator: any;
   works: any;
+  workType: any;
+  createdAt: string;
 }
-socket.on('newWorksNotification', ({ creator, works }:test) => {
-  console.log(creator, works);
+socket.on('newWorksNotification', ({
+  creator, works, workType, createdAt,
+}:newWorksNotificationProp) => {
+  console.log(creator);
+  console.log(works);
+  console.log(workType);
+  console.log(createdAt);
 });
 
 export {

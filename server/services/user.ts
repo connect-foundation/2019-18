@@ -21,10 +21,35 @@ const findId = async (email) => {
 const findById = async (_id) => User.findOne({ _id });
 
 
+const findFollower = (_id) => User.findById(_id).populate({
+  path: 'profile',
+  populate: { path: 'follower' },
+});
+
+
+const findFollowing = async (_id) => User.findById(_id).populate({
+  path: 'profile',
+  populate: { path: 'following' },
+});
+
+const getNotifications = async (_id) => User.findById(_id)
+  .select('notifications')
+  .populate({
+    path: 'notifications.sender',
+    populate: 'sender',
+  })
+  .populate({
+    path: 'notifications.ref',
+    populate: 'ref',
+  });
+
 export {
   create,
   remove,
   isExist,
   findId,
   findById,
+  findFollower,
+  findFollowing,
+  getNotifications,
 };

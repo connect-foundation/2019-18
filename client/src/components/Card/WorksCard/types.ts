@@ -10,4 +10,6 @@ export default interface WorksCardProp{
     email: string,
     name: string,
   };
+  createdAt: number;
+  updatedAt: number;
 }

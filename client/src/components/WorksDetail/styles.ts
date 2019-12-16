@@ -45,7 +45,8 @@ export const ContentImg = styled(Img)`
 `;
 
 export const CopyRight = styled.div`
-    margin-right:auto;
+    margin: 5rem 0;
+    color: ${theme.AMERICAN_RIVER};
 `;
 
 export const CommentContainer = styled.div`

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { theme } from '../../style/theme';
 import Textarea from '../../basics/Textarea';
 import Button from '../../basics/Button';
@@ -6,29 +7,40 @@ import Button from '../../basics/Button';
 export const CommentContainer = styled.div`
     width: auto;
     min-height: 5rem;
-    border: 1px solid black;
-    padding: 1rem;
-    background: ${theme.CITY_LIGHT};
+    border-radius: .5rem;
+    padding: 0;
+    border: none;
+`;
+
+export const CommentInputWrapper = styled.div`
+    border: 1px solid ${theme.BORDER_GRAY};
+    border-radius: .5rem;
 `;
 
 export const CommentHeader = styled.div`
     width: 100%;
-    background: ${theme.CHI_CONG};
+    box-sizing: border-box;
+    padding: .5rem;
+    background: ${theme.background};
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
 `;
 
 export const CommentInput = styled(Textarea)`
     display: inline-block;
     width: -webkit-fill-available; 
+    background: ${theme.background};
     height: 5rem;
-    background: ${theme.CRA_YELLOW};
+    border:none;
+    padding: .5rem;
 `;
 
 export const CommentFooter = styled.div`
     display: flex;
     width: 100%;
     height: fit-content;
-    background: ${theme.EXODUS_FRUIT};
     align-items: center;
+    margin-top: -.3rem;
 `;
 
 export const SubmitButton = styled(Button)`
@@ -37,6 +49,8 @@ export const SubmitButton = styled(Button)`
     border-radius:0;
     height: 3rem;
     width: 5rem;
+    background: ${theme.CRA_MINT_FIRST};
+    border-bottom-right-radius: .5rem;
 `;
 
 export const Mention = styled.span`
@@ -47,25 +61,40 @@ export const Mention = styled.span`
 export const Comment = styled.div`
     width: 100%;
     height: fit-content;
-    background: ${theme.FIRST_DATA};
     margin: 0.5rem auto;
 `;
 
 export const CommentOwner = styled.div`
-    background: ${theme.ROBINS_EGG_BLUE};
+    font-weight: ${theme.WEIGHT.STRONG};
+    cursor: pointer;
 `;
 
 export const CommentContent = styled.div`
     padding: 1rem;
+    padding-left: 0;
 `;
 
 export const CommentTimestamp = styled.span`
     display: block;
     font-size: 0.8rem;
-    margin-left: 1rem;
+    color: ${theme.AMERICAN_RIVER};
 `;
 
 export const Right = styled.div`
     display: flex;
     justify-content: flex-end;
+`;
+
+export const SLink = styled(Link)`
+    text-decoration:none;
+    color: black;
+`;
+
+export const WeakText = styled.span`
+    color:${theme.WEAK_TEXT};
+`;
+
+export const Hr = styled.hr`
+    border: .03rem ${theme.BORDER_GRAY} solid;
+    margin: 2rem 0;
 `;
