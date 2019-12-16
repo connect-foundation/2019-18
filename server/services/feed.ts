@@ -1,5 +1,6 @@
 import Image from '../models/image';
 import Wallpaper from '../models/wallpaper';
+import Music from '../models/music';
 import WorkImage from '../models/work_image';
 import WorkMusic from '../models/work_music';
 
@@ -21,6 +22,12 @@ const getImageFeeds = (skip, limit) => Image.find()
   .populate('creator', 'name thumbnailUrl')
   .populate('owner', 'emoji comments views title');
 
+const get10Musics = (skip, limit) => Music.find()
+  .skip(skip)
+  .limit(limit)
+  .populate('creator', 'name thumbnailUrl')
+  .populate('owner', 'comments views');
+
 const getWorkImageById = (id) => WorkImage.findById(id).populate('owner', 'name');
 
 const getWorkMusicById = (id) => WorkMusic.findById(id).populate('owner', 'name');
@@ -34,6 +41,7 @@ const addCommentToWorkImage = (id, payload) => WorkImage.findOneAndUpdate(
 export {
   get10Images,
   get10Wallpapers,
+  get10Musics,
   getImageFeeds,
   getWorkImageById,
   addCommentToWorkImage,

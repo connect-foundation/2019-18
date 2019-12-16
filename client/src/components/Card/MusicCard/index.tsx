@@ -4,6 +4,7 @@ import StyledLink from '../../../basics/StyledLink';
 import { TextWithImg } from '../CardFooter/styles';
 import CardFooter from '../CardFooter';
 import MusicCardProp from './types';
+import MusicPlayerMini from '../../MusicPlayerMini';
 
 const MusicCard: React.FC<MusicCardProp> = ({
   _id, ownerId, imgUrl, creator, title, numOfComments, views,
@@ -24,6 +25,8 @@ const MusicCard: React.FC<MusicCardProp> = ({
           text={creator.name}
         />
       </S.CardBody>
+
+      <MusicPlayerMini uri={uri} />
 
       <CardFooter
         smiles="20"
