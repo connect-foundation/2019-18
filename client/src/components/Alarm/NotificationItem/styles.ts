@@ -4,20 +4,20 @@ import { theme } from '../../../style/theme';
 
 export const Container = styled.div`
   display: flex;
-  margin: 1rem auto;
+  padding: 1rem;
+  border-top: 1px solid ${theme.BORDER_GRAY};
 `;
 
 export const Thumbnail = styled.img`
   width: 2rem;
   border-radius: 3rem;
-  margin: auto .5rem;
-  margin-bottom : 0.25rem;
+  margin: auto 1rem;
+  margin-left: 0;
 `;
 
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-
 `;
 
 export const Content = styled.div`

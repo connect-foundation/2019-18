@@ -1,6 +1,13 @@
 import styled from 'styled-components';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Img from '../../basics/Img/index';
 import { theme } from '../../style/theme';
+
+export const useStyles = makeStyles((materialTheme: Theme) => createStyles({
+  paper: {
+    background: theme.background,
+  },
+}));
 
 export const Alarm = styled(Img)`
     height: 2.5rem;
@@ -8,6 +15,7 @@ export const Alarm = styled(Img)`
     position: absolute;
     top: 10px;
 `;
+
 export const AlarmContainer = styled.div`
     position: relative;
     margin-right:20px;
@@ -23,6 +31,7 @@ export const AlarmNums = styled.div`
     top: 32px;
     left: 28px;
 `;
+
 export const AlarmOverNums = styled.div`
 
     padding:0px 5px; 

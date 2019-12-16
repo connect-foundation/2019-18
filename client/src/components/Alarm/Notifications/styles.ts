@@ -17,6 +17,8 @@ export const Header = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: ${theme.WEIGHT.STRONG};
+  border-bottom: 1px solid ${theme.BORDER_GRAY};
+  padding: 1rem 0;
 `;
 
 export { TextWithImg };

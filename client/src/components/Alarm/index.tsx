@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AlarmImg from '../../assets/alarm.png';
 import AlarmColorImg from '../../assets/alarm_color.png';
 import Notifications from './Notifications';
 import { INotification } from '../../modules/notification';
 import * as S from './styles';
+
 
 interface AlarmProp {
   notifications: INotification;
@@ -13,6 +15,7 @@ interface AlarmProp {
 const Alarm: React.FC<AlarmProp> = ({
   notifications,
 }) => {
+  const classes = S.useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(
     null,
   );
@@ -50,6 +53,9 @@ const Alarm: React.FC<AlarmProp> = ({
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
+        }}
+        classes={{
+          paper: classes.paper,
         }}
       >
         <Notifications />
