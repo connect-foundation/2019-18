@@ -4,18 +4,23 @@ import React, {
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { API_SERVER, MAXSIZE_OF_UPLOADIMAGE } from '../../utils/constants';
+import ReactQuill from 'react-quill';
+import {
+  API_SERVER, MAXSIZE_OF_UPLOADIMAGE, UPLOAD, IMAGEFORMAT,
+} from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
 import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
-import { ContentObject } from './type';
+import { DocumentObject } from './type';
 import { getShortId } from '../../utils';
+import 'react-quill/dist/quill.snow.css';
+
 
 axios.defaults.withCredentials = true;
 
 function ImageUpload() {
-  const [documents, setDocumnets] = useState<ContentObject[]>([]);
+  const [documents, setDocumnets] = useState<DocumentObject[]>([]);
   const [title, setTitle] = useState<string>('');
   const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
   const [showPopupDETAIL, setShowPopupDETAIL] = useState<boolean>(false);
@@ -32,7 +37,7 @@ function ImageUpload() {
 
   const updateContent = (type:string, file: File[]) => {
     if (file.length === errorCheck.current) {
-      setFileTypeWarn('지원하지 않은 파일 형식입니다.');
+      setFileTypeWarn(UPLOAD.UNSUPPORTED_TYPE);
       return;
     }
     setFileTypeWarn('');
@@ -55,11 +60,11 @@ function ImageUpload() {
   };
 
   const onDropWallPaper = (file: File[]) => {
-    updateContent('wallpapers', file);
+    updateContent(UPLOAD.WALLPAPER, file);
   };
 
   const onDropImage = (file: File[]) => {
-    updateContent('images', file);
+    updateContent(UPLOAD.IMAGE, file);
   };
 
   const makeFormData = () => {
@@ -68,12 +73,12 @@ function ImageUpload() {
 
     documents.forEach((element) => {
       const { file, type } = element;
-      if (file !== null && file.type === 'image/jpeg') {
-        format = '.jpg';
-        formdata.append('multi-files', file, type + format);
+      if (file !== null && file.type === IMAGEFORMAT.JPEG) {
+        format = IMAGEFORMAT._JPG;
+        formdata.append(UPLOAD.MULTER_KEY, file, type + format);
       } else if (file !== null) {
-        format = '.png';
-        formdata.append('multi-files', file, type + format);
+        format = IMAGEFORMAT._PNG;
+        formdata.append(UPLOAD.MULTER_KEY, file, type + format);
       }
     });
     return formdata;
@@ -90,7 +95,7 @@ function ImageUpload() {
     setShowPopupDETAIL(false);
     const urls = await getImageUrl();
     const dbContent = documents.map((element2) => {
-      if (element2.type === 'images' || element2.type === 'wallpapers') {
+      if (element2.type === UPLOAD.IMAGE || element2.type === UPLOAD.WALLPAPER) {
         const obj = {
           type: element2.type,
           content: urls.shift(),
@@ -134,14 +139,14 @@ function ImageUpload() {
   };
 
   const addDescription: ()=> void = () => {
-    const obj:ContentObject = {
+    const obj:DocumentObject = {
       key: getShortId(),
-      type: 'description',
-      content: '아무말 아무말',
+      type: UPLOAD.DESCRIPTION,
+      content: '',
       file: null,
       preview: '',
     };
-    const temp2:ContentObject[] = [...documents];
+    const temp2:DocumentObject[] = [...documents];
     temp2.push(obj);
     setDocumnets(temp2);
   };
@@ -156,6 +161,37 @@ function ImageUpload() {
 
   const togglePopupDetail = () => {
     setShowPopupDETAIL(false);
+  };
+
+  const makeContent = (el: DocumentObject) => {
+    if (el.type === UPLOAD.IMAGE || el.type === UPLOAD.WALLPAPER) {
+      return (
+        <S.ContentWrapper key={el.key}>
+          <Preview src={el.preview} />
+        </S.ContentWrapper>
+      );
+    }
+    if (el.type === UPLOAD.DESCRIPTION) {
+      return (
+        <S.ContentWrapper key={el.key}>
+          <ReactQuill
+            value={el.content as string}
+            onChange={(text) => {
+              el.content = text;
+              setDocumnets(documents.map((docu) => {
+                if (docu.key === el.key) {
+                  return {
+                    ...el,
+                    content: text,
+                  };
+                }
+                return docu;
+              }));
+            }}
+          />
+        </S.ContentWrapper>
+      );
+    }
   };
 
 
@@ -174,19 +210,9 @@ function ImageUpload() {
         />
       </S.Title>
       <div>
-        {documents
-          && documents.map(({
-            key, type, content, preview,
-          }) => {
-            if (type === 'images' || type === 'wallpapers') {
-              return <Preview key={key} src={preview} />;
-            }
-            return (
-              <div key={key}>
-                {content}
-              </div>
-            );
-          })}
+        {
+          documents.map((el:DocumentObject) => makeContent(el))
+        }
       </div>
 
       <S.SeleteBox>

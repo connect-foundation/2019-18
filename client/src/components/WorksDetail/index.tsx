@@ -1,10 +1,11 @@
 import React from 'react';
+import Quill from 'react-quill';
 import * as S from './styles';
 import Comment from '../Comment';
 import Like from '../../commons/Like';
-import { getTimeSimple } from '../../utils';
+import { getTimeSimple, getShortId } from '../../utils';
 import { CommentProp, WorksDetailProp } from './types';
-
+import { UPLOAD } from '../../utils/constants';
 
 const WorksDetail:React.FC<WorksDetailProp> = ({
   data, inputComment, user, isLoading, isError, changeInputHandler, addNewComment,
@@ -25,8 +26,15 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
         </S.HeaderMeta>
 
         {data.content.map((content, idx) => {
-          if (content.type === 'description') {
-            return <p key={idx}>{content.content}</p>;
+          if (content.type === UPLOAD.DESCRIPTION) {
+            return (
+              <Quill
+                key={getShortId()}
+                value={content.content as string}
+                theme="bubble"
+                readOnly
+              />
+            );
           }
           return (
             <S.ContentImg src={content.content} key={idx} />

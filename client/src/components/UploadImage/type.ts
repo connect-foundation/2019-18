@@ -1,4 +1,4 @@
-export interface ContentObject {
+export interface DocumentObject {
     key: string,
     type: string,
     content: string,
