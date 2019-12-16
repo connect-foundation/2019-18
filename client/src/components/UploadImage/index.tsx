@@ -175,12 +175,14 @@ function ImageUpload() {
       </S.Title>
       <div>
         {documents
-          && documents.map(({ type, content, preview }) => {
+          && documents.map(({
+            key, type, content, preview,
+          }) => {
             if (type === 'images' || type === 'wallpapers') {
-              return <Preview key={getShortId()} src={preview} />;
+              return <Preview key={key} src={preview} />;
             }
             return (
-              <div>
+              <div key={key}>
                 {content}
               </div>
             );
