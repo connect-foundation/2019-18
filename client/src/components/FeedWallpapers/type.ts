@@ -10,4 +10,6 @@ export interface IWallpaper{
     title:string;
     numOfComments:string;
     views: string;
+    createdAt: number;
+    updatedAt: number;
   }

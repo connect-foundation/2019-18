@@ -3,7 +3,7 @@ import { CircularProgress } from '@material-ui/core';
 import { getShortId } from '../../utils';
 import WorksCard from '../Card/WorksCard';
 import * as S from './styles';
-import { IWallpaper } from './type';
+import { IWallpaper } from '../../modules/feed/types';
 
 type FeedWallpapersProps = {
   data: IWallpaper[];
@@ -17,7 +17,7 @@ const FeedWallpapers:React.FC<FeedWallpapersProps> = ({
     <S.FeedWrapper>
       {
           data.map(({
-            _id, ownerId, url, creator, title, numOfComments, views,
+            _id, ownerId, url, creator, title, numOfComments, views, createdAt, updatedAt,
           }) => (
             <WorksCard
               _id={_id}
@@ -28,6 +28,8 @@ const FeedWallpapers:React.FC<FeedWallpapersProps> = ({
               title={title}
               numOfComments={numOfComments}
               views={views}
+              createdAt={createdAt}
+              updatedAt={updatedAt}
             />
           ))
         }

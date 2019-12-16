@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+import 'animate.css';
 
 interface Checker {
   msg: ()=> string;
@@ -6,7 +8,7 @@ interface Checker {
 
 export const CommentChecker = {
   minLen: 5,
-  maxLen: 100,
+  maxLen: 1000,
   msg: () => `댓글은 ${CommentChecker.minLen}자 이상, ${CommentChecker.maxLen}자 이하여야 합니다.`,
   check: (str: string) => (str.length >= CommentChecker.minLen && str.length <= CommentChecker.maxLen),
 };
@@ -20,7 +22,16 @@ export const IdChecker = {
 
 export const CheckStringLength = (checker:Checker) => (str: string) => {
   if (!checker.check(str)) {
-    alert(checker.msg());
+    Swal.fire({
+      position: 'top',
+      title: checker.msg(),
+      showClass: {
+        popup: 'animated fadeInDown faster',
+      },
+      hideClass: {
+        popup: 'animated fadeOutUp faster',
+      },
+    });
     return false;
   }
   return true;
