@@ -201,13 +201,15 @@ const getMoreMusics = async (req: Request, res: Response, next: NextFunction) =>
     const musics = await get10Musics(+skippedNum, +fixedNum);
     const filteredFeed = musics.map((music: any) => {
       const newFeed = {
-        id: music._id,
+        _id: music._id,
         imageUrl: `${IMAGE_CDN}${IMAGES}${music.imageUrl}${IMAGE_QUERY_LOW}`,
         musicUrl: `${OS_TARGET_URL}${MUSICS}${music.musicUrl}`,
         title: music.title,
-        creatorId: music.creator._id,
-        creatorName: music.creator.name,
-        creatorThumbnailUrl: music.creator.thumbnailUrl,
+        creator: {
+          _id: music.creator._id,
+          name: music.creator.name,
+          thumbnailUrl: music.creator.thumbnailUrl,
+        },
         ownerId: music.owner._id,
         numOfComments: music.owner.comments.length,
         views: music.owner.views,
