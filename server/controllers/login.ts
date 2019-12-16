@@ -16,6 +16,14 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const logout = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.clearCookie('token');
+    return response(res);
+  } catch (e) {
+    next(e);
+  }
+};
 
 const whoAmI = async (req: Request, res: Response, next: NextFunction) => {
   let userdata;
@@ -25,4 +33,4 @@ const whoAmI = async (req: Request, res: Response, next: NextFunction) => {
   return (userdata) ? response(res, userdata) : response(res, {}, 404);
 };
 
-export { login, whoAmI };
+export { login, whoAmI, logout };
