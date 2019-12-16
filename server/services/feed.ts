@@ -1,7 +1,6 @@
 import Image from '../models/image';
 import Wallpaper from '../models/wallpaper';
 import WorkImage from '../models/work_image';
-import User from '../models/user';
 import WorkMusic from '../models/work_music';
 
 const get10Images = (skip, limit) => Image.find()
