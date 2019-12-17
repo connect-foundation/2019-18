@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ContactSupportOutlined } from '@material-ui/icons';
 import * as S from './style';
 import { API_SERVER } from '../../utils/constants';
 
@@ -49,6 +50,7 @@ const PopupFollowers:React.FC<PopupProps> = ({
     // SyncFollowers(followers);
     closePopup(e);
   };
+  console.log(followers);
   return (
     <S.Box>
       <S.Inner>
@@ -59,14 +61,16 @@ const PopupFollowers:React.FC<PopupProps> = ({
           <S.Subject>{text}</S.Subject>
         </S.SubjectArea>
         <S.FollowArea>
-          { initialFollowList.map(
+          { followers.map(
             (value:any) => (
               <S.FollowMember key={value.id}>
                 <S.ProfileImage src={value.thumbnailUrl} />
                 <S.FollowName>
                   {value.name}
                 </S.FollowName>
-                <S.FollowButton value={value.id} onClick={returnToggleFollow(value.id)}>팔로우</S.FollowButton>
+                {value.follow
+                  ? <S.UnFollowButton value={value.id} onClick={returnToggleFollow(value.id)}>언팔로우</S.UnFollowButton>
+                  : <S.FollowButton value={value.id} onClick={returnToggleFollow(value.id)}>팔로우</S.FollowButton>}
               </S.FollowMember>
             ),
           )}
