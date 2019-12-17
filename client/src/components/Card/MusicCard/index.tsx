@@ -26,14 +26,13 @@ const MusicCard: React.FC<MusicCardProp> = ({
         />
       </S.CardBody>
 
-      <MusicPlayerMini url={musicUrl} />
-
       <CardFooter
         smiles="20"
         comments={numOfComments.toString()}
         views={views.toString()}
       />
     </StyledLink>
+    <MusicPlayerMini url={musicUrl} />
   </S.Container>
 );
 

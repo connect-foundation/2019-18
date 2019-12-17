@@ -7,7 +7,7 @@ import {
   get10Images, get10Wallpapers, getImageFeeds, getWorkImageById, addCommentToWorkImage, getWorkMusicById, get10Musics,
 } from '../services/feed';
 import {
-  IMAGE_CDN, IMAGES, WALLPAPERS, MUSICS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
+  IMAGE_CDN, IMAGES, WALLPAPERS, MUSICS, MUSIC_COVERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
 } from '../utils/constant';
 import { FEED, AUTH } from '../utils/messages';
 import { IMusicContent } from '../interfaces/workMusic';
@@ -202,7 +202,7 @@ const getMoreMusics = async (req: Request, res: Response, next: NextFunction) =>
     const filteredFeed = musics.map((music: any) => {
       const newFeed = {
         _id: music._id,
-        imageUrl: `${IMAGE_CDN}${IMAGES}${music.imageUrl}${IMAGE_QUERY_LOW}`,
+        imageUrl: `${IMAGE_CDN}${MUSIC_COVERS}${music.imageUrl}${IMAGE_QUERY_LOW}`,
         musicUrl: `${OS_TARGET_URL}${MUSICS}${music.musicUrl}`,
         title: music.title,
         creator: {
