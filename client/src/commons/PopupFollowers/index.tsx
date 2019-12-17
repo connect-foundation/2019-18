@@ -5,17 +5,28 @@ import { API_SERVER } from '../../utils/constants';
 type PopupProps ={
   closePopup: (e: React.MouseEvent<HTMLButtonElement>)=>void;
   initialFollowList: any,
+  myFollow: any,
   text:string,
 }
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
 
-const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup, initialFollowList }) => {
+const PopupFollowers:React.FC<PopupProps> = ({
+  text, closePopup, initialFollowList, myFollow,
+}) => {
   const [followers, setFollowers] = useState(initialFollowList);
   const followDeleteURL = `${API_SERVER}/follow/delete`;
 
+  useEffect(() => {
+    setFollowers(initialFollowList.map((initF:any) => {
+      if (myFollow.some((myF:any) => (myF._id === initF._id))) {
+        return { ...initF, follow: true };
+      }
+      return { ...initF, follow: false };
+    }));
+  }, []);
   const toggleFollow = (id:string) => {
     setFollowers(followers.map((value:any) => {
-      if (id === value.id) { return ({ ...value, follow: !value.follow }); }
+      if (id === value._id) { return ({ ...value, follow: !value.follow }); }
       return value;
     }));
   };
@@ -35,7 +46,7 @@ const PopupFollowers:React.FC<PopupProps> = ({ text, closePopup, initialFollowLi
     });
   };
   const SyncandClose = (e:React.MouseEvent<HTMLButtonElement>) => {
-    SyncFollowers(followers);
+    // SyncFollowers(followers);
     closePopup(e);
   };
   return (

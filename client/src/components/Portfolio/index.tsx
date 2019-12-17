@@ -4,41 +4,15 @@ import StyledLink from '../../basics/StyledLink';
 import PopupFollowers from '../../commons/PopupFollowers';
 import { portfolioProp } from './types';
 import { API_SERVER } from '../../utils/constants';
-import { FollowMember } from '../../commons/PopupFollowers/style';
 
 const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
-const initialFollowList = [
-  {
-    name: 'IU',
-    id: 'oid1',
-    thumbnailUrl: LOGIN_PROFILE_THUMBNAIL,
-    follow: true,
-  },
-  {
-    name: 'IU2',
-    id: 'oid2',
-    thumbnailUrl: LOGIN_PROFILE_THUMBNAIL,
-    follow: true,
-  },
-  {
-    name: 'IU3',
-    id: 'oid3',
-    thumbnailUrl: LOGIN_PROFILE_THUMBNAIL,
-    follow: true,
-  },
-];
-
 const follow = (id:string) => {
-  console.log('fetch');
-  console.log(id);
   fetch(`${API_SERVER}/follow/add/${id}`, {
     method: 'post',
     credentials: 'include',
   });
 };
 const unfollow = (id:string) => {
-  console.log('fetch');
-  console.log(id);
   fetch(`${API_SERVER}/follow/delete/${id}`, {
     method: 'post',
     credentials: 'include',
@@ -98,8 +72,8 @@ const Portfolio:React.FC<portfolioProp> = ({
 
   return (
     <S.Portfolio>
-      {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} initialFollowList={initialFollowList} />)}
-      {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} initialFollowList={initialFollowList} />)}
+      {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} initialFollowList={portfolioFollower.follower} myFollow={myFollower.follower} />)}
+      {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} initialFollowList={portfolioFollower.following} myFollow={myFollower.following} />)}
       <S.PortfolioBox>
         <S.PortfolioDetail>
           <S.Name>아이유</S.Name>
@@ -124,6 +98,7 @@ const Portfolio:React.FC<portfolioProp> = ({
         </StyledLink>
         )}
         {isLogin
+         && !isMyPortfolio
          && (followable
            ? (
              <S.LongEmptyButton onClick={onClickFollow}>
