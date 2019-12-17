@@ -37,11 +37,17 @@ export const Creator = styled(H4)`
     margin-right: auto;
 `;
 
-export const ContentImg = styled(Img)`
-    width: auto;
-    max-width: 70%;
-    height: auto;
-    margin: 1rem auto;
+export const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    img{
+        width: auto;
+        max-width: 70%;
+        height: auto;
+        margin: 1rem auto;
+    }
 `;
 
 export const CopyRight = styled.div`

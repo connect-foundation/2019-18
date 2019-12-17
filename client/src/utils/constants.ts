@@ -78,3 +78,6 @@ export const IMAGEFORMAT = {
   PNG: 'image/png' as const,
   _PNG: '.png' as const,
 };
+
+// export const OBJECT_STORAGE_WALLPAPER = `${process.env.OS_TARGET_URL}wallpapers/`;
+export const OBJECT_STORAGE_WALLPAPER = 'https://kr.object.ncloudstorage.com/crafolio-test-upload/wallpapers/';
