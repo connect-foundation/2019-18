@@ -37,7 +37,7 @@ const HeaderRight: React.FC = () => {
         )
         : (
           <S.LoginContainer>
-            <S.LoginLink to="/home">
+            <S.LoginLink to="/">
               <S.LoginButton onClick={onLogout}>로그아웃</S.LoginButton>
             </S.LoginLink>
             <S.UploadButton><S.UploadLink to="/home/upload">업로드</S.UploadLink></S.UploadButton>
