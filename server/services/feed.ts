@@ -32,11 +32,18 @@ const getWorkImageById = (id) => WorkImage.findById(id).populate('owner', 'name'
 
 const getWorkMusicById = (id) => WorkMusic.findById(id).populate('owner', 'name');
 
-const addCommentToWorkImage = (id, payload) => WorkImage.findOneAndUpdate(
-  { _id: id },
+const addCommentToWorkImage = (_id, payload) => WorkImage.findOneAndUpdate(
+  { _id },
   { $push: { comments: payload } },
   { new: true },
 );
+
+const updateWorkImageView = (_id) => WorkImage.findOneAndUpdate(
+  { _id },
+  { $inc: { views: 1 } },
+  { new: true },
+);
+
 
 export {
   get10Images,
@@ -46,4 +53,5 @@ export {
   getWorkImageById,
   addCommentToWorkImage,
   getWorkMusicById,
+  updateWorkImageView,
 };

@@ -4,7 +4,14 @@ import createError from 'http-errors';
 import httpStatus from 'http-status';
 import response from '../utils/response';
 import {
-  get10Images, get10Wallpapers, getImageFeeds, getWorkImageById, addCommentToWorkImage, getWorkMusicById, get10Musics,
+  get10Images,
+  get10Wallpapers,
+  getImageFeeds,
+  getWorkImageById,
+  updateWorkImageView,
+  addCommentToWorkImage,
+  getWorkMusicById,
+  get10Musics,
 } from '../services/feed';
 import {
   IMAGE_CDN, IMAGES, WALLPAPERS, MUSICS, MUSIC_COVERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
@@ -60,7 +67,7 @@ const getWallpapers = async (req: Request, res: Response, next: NextFunction) =>
 const getWorkImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-
+    await updateWorkImageView(id);
     const workImage = await getWorkImageById(id);
     if (!workImage) {
       throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
