@@ -49,15 +49,14 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
       if (!responseJson.success) {
         return null;
       }
-      console.log(responseJson);
       return responseJson.data;
     };
     getData().then((data:any) => {
       if (data) {
         setPortfolio({
-          introDetail: data.introDetail,
-          introSimple: data.introSimple,
-          activeFields: data.activeFields,
+          introDetail: data.profile.introDetail,
+          introSimple: data.profile.introSimple,
+          activeFields: data.profile.activeFields,
         });
       }
     });
