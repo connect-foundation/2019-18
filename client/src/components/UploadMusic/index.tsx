@@ -14,7 +14,6 @@ import {
 interface UploadMusicProp {
   title: string;
   docus: IDocu[],
-  setDocus: React.Dispatch<React.SetStateAction<IDocu[]>>,
   titleChangeHandler: (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => void,
   genresChangeHandler: (key: string) => (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void,
   moodsChangeHandler: (key: string) => (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void,
@@ -29,7 +28,6 @@ interface UploadMusicProp {
 const UploadMusic:React.FC<UploadMusicProp> = ({
   title,
   docus,
-  setDocus,
   titleChangeHandler,
   genresChangeHandler,
   moodsChangeHandler,

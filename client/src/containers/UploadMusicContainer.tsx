@@ -261,7 +261,6 @@ const UploadMusicContainer:React.FC<UploadMusicContainerProp> = () => {
     <UploadMusic
       title={title}
       docus={docus}
-      setDocus={setDocus}
       titleChangeHandler={titleChangeHandler}
       genresChangeHandler={genresChangeHandler}
       moodsChangeHandler={moodsChangeHandler}
