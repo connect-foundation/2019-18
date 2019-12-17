@@ -19,7 +19,7 @@ const unfollow = (id:string) => {
   });
 };
 const Portfolio:React.FC<portfolioProp> = ({
-  introSimple, introDetail, activeFields, isMyPortfolio, PortfolioOwnerId, isLogin, LoginedId, portfolioFollower,
+  introSimple, introDetail, activeFields, isMyPortfolio, PortfolioOwnerId, PortfolioOwnerName, isLogin, LoginedId, portfolioFollower,
 }) => {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowings, setShowFollowings] = useState(false);
@@ -76,12 +76,12 @@ const Portfolio:React.FC<portfolioProp> = ({
       {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} initialFollowList={portfolioFollower.following} myFollow={myFollower.following} />)}
       <S.PortfolioBox>
         <S.PortfolioDetail>
-          <S.Name>아이유</S.Name>
+          <S.Name>{PortfolioOwnerName}</S.Name>
           <S.FollowLine>
 팔로워
-            <S.FollowNumber onClick={showFollowersPopup}>{10}</S.FollowNumber>
+            <S.FollowNumber onClick={showFollowersPopup}>{portfolioFollower.follower.length}</S.FollowNumber>
 팔로잉
-            <S.FollowNumber onClick={showFollowingsPopup}>{100}</S.FollowNumber>
+            <S.FollowNumber onClick={showFollowingsPopup}>{portfolioFollower.following.length}</S.FollowNumber>
           </S.FollowLine>
 
         </S.PortfolioDetail>

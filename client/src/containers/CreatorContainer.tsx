@@ -29,6 +29,7 @@ const initialPortfolio = {
   introSimple: '',
   introDetail: '',
   activeFields: [''],
+  name: '',
   follower: { following: [''], follower: [''] },
 };
 interface matchParams {
@@ -64,6 +65,7 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
           introSimple: data.profile.introSimple,
           activeFields: data.profile.activeFields,
           follower: followerObject,
+          name: data.name,
         });
       }
     });
@@ -80,6 +82,7 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
           isLogin={isLogin}
           LoginedId={LoginedId}
           PortfolioOwnerId={match.params.Id || LoginedId}
+          PortfolioOwnerName={portfolio.name}
         />
       </S.PortfolioContainer>
       <S.WorksContainer>
