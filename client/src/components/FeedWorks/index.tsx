@@ -35,7 +35,7 @@ const FeedWorks:React.FC<FeedWorksProps> = ({
         }
     </S.FeedWrapper>
 
-    <S.Progress id="hi">
+    <S.Progress>
       {isLoading && <CircularProgress color="inherit" />}
     </S.Progress>
   </S.Container>

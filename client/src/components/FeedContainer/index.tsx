@@ -2,12 +2,12 @@ import React from 'react';
 import {
   Switch, Route, RouteComponentProps,
 } from 'react-router-dom';
-//
+
 import FeedWorkContainer from '../../containers/FeedWorkContainer';
 import FeedWallpaperContainer from '../../containers/FeedWallpaperContainer';
-//
-// import FeedWallpapers from '../FeedWallpapers';
-import FeedMusic from '../FeedMusics';
+import FeedMusicContainer from '../../containers/FeedMusicContainer';
+
+// import FeedMusic from '../FeedMusics';
 import FeedNavigator from '../FeedNavigator';
 import NotFound from '../../components/NotFound';
 
@@ -25,7 +25,7 @@ const Content = ({ match }: RouteComponentProps) => (
       <Switch>
         <Route exact path={`${match.path}/works`} component={FeedWorkContainer} />
         <Route path={`${match.path}/wallpaper`} component={FeedWallpaperContainer} />
-        <Route path={`${match.path}/music`} component={FeedMusic} />
+        <Route path={`${match.path}/music`} component={FeedMusicContainer} />
         <Route component={NotFound} />
       </Switch>
     </Route>

@@ -41,9 +41,9 @@ const MusicCard: React.FC<MusicCardProp> = ({
           views={views.toString()}
         />
       </StyledLink>
-      <label htmlFor="playbutton">
-        <button type="button" id="playbutton" onClick={playToggle} />
-      </label>
+      <S.PlayButton htmlFor={_id}>
+        <button type="button" id={_id} onClick={playToggle}><img alt="play-icon" src={S.PlayIcon} /></button>
+      </S.PlayButton>
       <MusicFeedPlayerMini url={musicUrl} isPlaying={isPlaying} playToggle={playToggle} audioRef={audioRef} />
     </S.Container>
   );
