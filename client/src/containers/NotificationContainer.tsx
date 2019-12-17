@@ -32,8 +32,8 @@ const NotificationContainer:React.FC = () => {
     if (!ref) {
       return;
     }
-    ref.classList.remove('animated', 'shake');
-    ref.classList.add('animated', 'shake');
+    ref.classList.remove('animated', 'bounceIn');
+    ref.classList.add('animated', 'bounceIn');
   };
 
   getNewNotis((newNotifications:INotification) => {
