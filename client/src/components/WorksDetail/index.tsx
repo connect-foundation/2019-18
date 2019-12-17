@@ -1,5 +1,6 @@
 import React from 'react';
 import Quill from 'react-quill';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import * as S from './styles';
 import Comment from '../Comment';
 import Like from '../../commons/Like';
@@ -47,7 +48,7 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
               return (
                 <S.Content key={idx}>
                   <img alt="wallpapers" src={content.content} />
-                  <a href={`${OBJECT_STORAGE_WALLPAPER}${splitFileName(content.content)}`} download>PDF 다운로드</a>
+                  <a href={`${OBJECT_STORAGE_WALLPAPER}${splitFileName(content.content)}`} download><GetAppIcon /></a>
                 </S.Content>
               );
             }
