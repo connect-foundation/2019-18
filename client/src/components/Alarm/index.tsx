@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
 import AlarmImg from '../../assets/alarm.png';
 import AlarmColorImg from '../../assets/alarm_color.png';
 import Notifications from './Notifications';
-import { INotification } from '../../modules/notification';
+import { INoti } from '../../modules/notification';
 import * as S from './styles';
 
-
 interface AlarmProp {
-  notifications: INotification;
+  notifications: INoti[];
 }
 const Alarm: React.FC<AlarmProp> = ({
   notifications,
@@ -19,7 +19,6 @@ const Alarm: React.FC<AlarmProp> = ({
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(
     null,
   );
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -34,9 +33,9 @@ const Alarm: React.FC<AlarmProp> = ({
 
   return (
     <S.AlarmContainer>
-      <button type="button" onClick={handleClick}>
+      <S.AlarmWrapper type="button" onClick={handleClick}>
         <NotificationsIcon fontSize="large" />
-      </button>
+      </S.AlarmWrapper>
       {/* <button type="button" onClick={handleClick}>
         <S.Alarm src={img} />
       </button> */}
@@ -58,7 +57,9 @@ const Alarm: React.FC<AlarmProp> = ({
           paper: classes.paper,
         }}
       >
-        <Notifications />
+        <Notifications
+          notifications={notifications}
+        />
       </Popover>
 
       {alarmNum < 10

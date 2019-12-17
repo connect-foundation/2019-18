@@ -19,7 +19,7 @@ export const Alarm = styled(Img)`
 export const AlarmContainer = styled.div`
     position: relative;
     margin-right:20px;
-
+    margin: auto;
 `;
 
 export const AlarmNums = styled.div`
@@ -32,8 +32,13 @@ export const AlarmNums = styled.div`
     left: 28px;
 `;
 
-export const AlarmOverNums = styled.div`
+export const AlarmWrapper = styled.button`
+    background: none;
+    border: none;
+    outline: none;
+`;
 
+export const AlarmOverNums = styled.div`
     padding:0px 5px; 
     padding-bottom:5px;
     border-radius: 20px;
@@ -43,8 +48,4 @@ export const AlarmOverNums = styled.div`
     font-weight: bold;
     top: 32px;
     left: 28px;
-`;
-
-export const AlarmWrapper = styled.button`
-    display: hidden;
 `;

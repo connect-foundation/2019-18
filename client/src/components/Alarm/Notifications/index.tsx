@@ -7,30 +7,28 @@ import { getShortId, getTimeSimple } from '../../../utils';
 import { INoti } from '../../../modules/notification';
 import NotificationItem from '../NotificationItem';
 
-const Notifications: React.FC = () => {
-  const notifications = useSelector((state:RootState) => state.notification.notifications);
 
-  useEffect(() => {
-    console.log(notifications);
-  }, [notifications]);
+interface NotificationsProp{
+  notifications: INoti[];
+}
 
-  return (
-    <S.Container>
-      <S.Header>
-        새로운 작품
-      </S.Header>
-      {
-        notifications.map((noti:INoti) => (
-          <NotificationItem
-            key={getShortId()}
-            sender={noti.sender}
-            type={noti.type}
-            createdAt={noti.createdAt}
-          />
-        ))
-      }
-    </S.Container>
-  );
-};
-
+const Notifications: React.FC<NotificationsProp> = ({
+  notifications,
+}) => (
+  <S.Container>
+    <S.Header>
+      새로운 작품
+    </S.Header>
+    {
+      notifications.map((noti:INoti) => (
+        <NotificationItem
+          key={getShortId()}
+          sender={noti.sender}
+          type={noti.type}
+          createdAt={noti.createdAt}
+        />
+      ))
+    }
+  </S.Container>
+);
 export default Notifications;

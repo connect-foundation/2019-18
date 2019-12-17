@@ -1,8 +1,7 @@
 import socketOpen from 'socket.io-client';
-import { useDispatch } from 'react-redux';
-import { setNotification } from '../modules/notification';
 import { loginUser } from '../modules/login';
 import { socketUrl } from '../utils/constants';
+import { INotification } from '../modules/notification';
 
 const socket = socketOpen(socketUrl!, { transports: ['websocket'] });
 
@@ -11,17 +10,23 @@ function sendMySocketID(userState:loginUser) {
 }
 
 interface newWorksNotificationProp{
-  newNotifications: any;
+  newNotifications: INotification;
 }
-socket.on('newWorksNotification', ({
-  newNotifications,
-}:newWorksNotificationProp) => {
-  console.log(newNotifications);
-  const dispatch = useDispatch();
+interface getNewNotisProp {
+  (newNotifications: INotification): void;
+}
 
-  dispatch(setNotification(newNotifications));
-});
+const getNewNotis = (
+  cb:getNewNotisProp,
+) => {
+  socket.on('newWorksNotification', ({
+    newNotifications,
+  }:newWorksNotificationProp) => {
+    cb(newNotifications);
+  });
+};
 
 export {
   sendMySocketID,
+  getNewNotis,
 };
