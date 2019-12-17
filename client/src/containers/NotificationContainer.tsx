@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Alarm from '../components/Alarm';
@@ -11,9 +11,9 @@ const NotificationContainer:React.FC = () => {
   const { notifications } = useSelector((state:RootState) => state.notification);
   const user = useSelector((state:RootState) => state.login);
   const dispatch = useDispatch();
-  getNewNotis((newNotifications:INotification) => {
-    dispatch(setNotification(newNotifications));
-  });
+  const alarmRef = useRef<HTMLButtonElement>(null);
+
+
   useEffect(() => {
     axios(`${API_SERVER}/user/notifications/${user.id}`)
       .then((result) => {
@@ -24,13 +24,28 @@ const NotificationContainer:React.FC = () => {
       });
   }, []);
 
-  useEffect(() => {
-    console.log(notifications);
-  }, [notifications]);
+  const newNotificationAnimation = () => {
+    if (!alarmRef) {
+      return;
+    }
+    const ref = alarmRef.current;
+    if (!ref) {
+      return;
+    }
+    ref.classList.remove('animated', 'shake');
+    ref.classList.add('animated', 'shake');
+  };
+
+  getNewNotis((newNotifications:INotification) => {
+    dispatch(setNotification(newNotifications));
+    newNotificationAnimation();
+  });
 
   return (
     <Alarm
       notifications={notifications}
+      alarmRef={alarmRef}
+      newNotificationAnimation={newNotificationAnimation}
     />
   );
 };
