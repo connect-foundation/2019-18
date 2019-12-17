@@ -28,7 +28,7 @@ export const AlarmNums = styled.div`
     color : ${theme.CRA_PURPLE};
     position: absolute;
     background-color: ${theme.CRA_YELLOW};
-    top: 32px;
+    top: 20px;
     left: 28px;
 `;
 

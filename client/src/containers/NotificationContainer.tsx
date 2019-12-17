@@ -8,11 +8,11 @@ import { INotification, setNotification } from '../modules/notification';
 import { getNewNotis } from '../socket';
 
 const NotificationContainer:React.FC = () => {
+  const [notiNum, setNotiNum] = useState(0);
   const { notifications } = useSelector((state:RootState) => state.notification);
   const user = useSelector((state:RootState) => state.login);
   const dispatch = useDispatch();
   const alarmRef = useRef<HTMLButtonElement>(null);
-
 
   useEffect(() => {
     axios(`${API_SERVER}/user/notifications/${user.id}`)
@@ -23,6 +23,10 @@ const NotificationContainer:React.FC = () => {
         console.error(e);
       });
   }, []);
+
+  useEffect(() => {
+    setNotiNum(notifications.length);
+  }, [notifications]);
 
   const newNotificationAnimation = () => {
     if (!alarmRef) {
@@ -45,7 +49,7 @@ const NotificationContainer:React.FC = () => {
     <Alarm
       notifications={notifications}
       alarmRef={alarmRef}
-      newNotificationAnimation={newNotificationAnimation}
+      notiNum={notiNum}
     />
   );
 };

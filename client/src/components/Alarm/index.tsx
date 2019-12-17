@@ -8,12 +8,12 @@ import * as S from './styles';
 interface AlarmProp {
   notifications: INoti[];
   alarmRef: React.RefObject<HTMLButtonElement>;
-  newNotificationAnimation: ()=>void;
+  notiNum: number;
 }
 const Alarm: React.FC<AlarmProp> = ({
   notifications,
   alarmRef,
-  newNotificationAnimation,
+  notiNum,
 }) => {
   const classes = S.useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(
@@ -62,10 +62,11 @@ const Alarm: React.FC<AlarmProp> = ({
         />
       </Popover>
 
-      {alarmNum < 10
-        ? <S.AlarmNums>{alarmNum}</S.AlarmNums>
-        : <S.AlarmOverNums>...</S.AlarmOverNums>}
-
+      <S.AlarmNums>
+        {notiNum < 100
+          ? notiNum
+          : '99+'}
+      </S.AlarmNums>
 
     </S.AlarmContainer>
   );
