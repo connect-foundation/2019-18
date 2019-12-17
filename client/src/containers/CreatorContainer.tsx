@@ -40,9 +40,9 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
   const { isLogin, id: LoginedId } = useSelector((root:RootState) => root.login);
 
   const isMyPortfolio = (!match.params.Id);
+  const Id = match.params.Id || '';
   useEffect(() => {
     const getData = async () => {
-      const Id = match.params.Id || '';
       const response = await fetch(`${API_SERVER}/profile/${Id}`, {
         method: 'get',
         credentials: 'include',
@@ -69,7 +69,7 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
         });
       }
     });
-  }, []);
+  }, [Id]);
   return (
     <S.CreatorContainer>
       <S.PortfolioContainer>
