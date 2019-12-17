@@ -11,13 +11,14 @@ import Basicbox from '../Basicbox';
 import * as S from './style';
 import circleWarn from '../../assets/circle_warn.png';
 import UploadMusic from '../UploadMusic';
+import UploadMusicContainer from '../../containers/UploadMusicContainer';
 
 
 const UploadMain:React.FC = () => (
   <Switch>
     <Route exact path="/home/upload" component={Home} />
     <Route path="/home/upload/image" component={UploadImage} />
-    <Route path="/home/upload/music" component={UploadMusic} />
+    <Route path="/home/upload/music" component={UploadMusicContainer} />
     <Route path="/home/upload/wallpaper" component={Home} />
   </Switch>
 );
