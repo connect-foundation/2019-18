@@ -18,7 +18,7 @@ import { API_SERVER } from '../../utils/constants';
 const UploadMusic:React.FC = () => {
   const [title, setTitle] = useState('');
   const [docus, setDocus] = useState<IDocu[]>([]);
-  const checker = CheckObjLength(musicUploaderChecker);
+  const objLengthChecker = CheckObjLength(musicUploaderChecker);
 
   const titleChangeHandler = (key: string) => (e:React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
@@ -45,7 +45,7 @@ const UploadMusic:React.FC = () => {
           const newGenres = genres.filter((genre) => genre !== newGenre);
           content.genres = newGenres;
         } else {
-          if (!checker(content.genres)) {
+          if (!objLengthChecker(content.genres)) {
             return { ...docu, content };
           }
           content.genres = [...genres, newGenre];
@@ -70,13 +70,9 @@ const UploadMusic:React.FC = () => {
           const newMoods = moods.filter((mood) => mood !== newMood);
           content.moods = newMoods;
         } else {
-          if (!checker(content.moods)) {
+          if (!objLengthChecker(content.moods)) {
             return { ...docu, content };
           }
-          // if (content.moods.length > 4) {
-          //   alert('최대 5개 선택 가능합니다.');
-          //   return { ...docu, content };
-          // }
           content.moods = [...moods, newMood];
         }
         return { ...docu, content };
@@ -98,13 +94,9 @@ const UploadMusic:React.FC = () => {
           const newInstruments = instruments.filter((instrument) => instrument !== newInstrument);
           content.instruments = newInstruments;
         } else {
-          if (!checker(content.instruments)) {
+          if (!objLengthChecker(content.instruments)) {
             return { ...docu, content };
           }
-          // if (content.instruments.length > 4) {
-          //   alert('최대 5개 선택 가능합니다.');
-          //   return { ...docu, content };
-          // }
           content.instruments = [...instruments, newInstrument];
         }
         return { ...docu, content };
