@@ -3,18 +3,20 @@ import { useSelector } from 'react-redux';
 import FeedWorks from '../components/FeedWorks';
 import { RootState } from '../modules';
 import { API_SERVER } from '../utils/constants';
-import useGetFeedWorkList from '../hooks/useGetFeedWorkList';
+import useGetFeedList from '../hooks/useGetFeedList';
+import { getWorkDataMore } from '../modules/feed';
 
 const FeedWorkContainer:React.FC = () => {
   const data = useSelector((state: RootState) => state.feed.workData);
+  const skippedNumG = useSelector((state: RootState) => state.feed.workSkippedNum);
   const [{
     isLoading, isError, skippedNum, fixedNum,
-  }, doFetch, onInsert] = useGetFeedWorkList();
+  }, doFetch, onInsert] = useGetFeedList(skippedNumG, getWorkDataMore);
 
   useEffect(() => {
-    window.addEventListener('scroll', onInsert);
+    document.addEventListener('scroll', onInsert);
     return () => {
-      window.removeEventListener('scroll', onInsert);
+      document.removeEventListener('scroll', onInsert);
     };
   }, [skippedNum]);
 
