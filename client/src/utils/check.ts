@@ -6,6 +6,11 @@ interface Checker {
   check: (str:string)=>boolean;
 }
 
+interface ObjChecker {
+  msg: ()=> string;
+  check: (obj: any[]) => boolean;
+}
+
 export const CommentChecker = {
   minLen: 5,
   maxLen: 1000,
@@ -20,8 +25,31 @@ export const IdChecker = {
   check: (str: string) => (str.length >= IdChecker.minLen && str.length <= IdChecker.maxLen),
 };
 
+export const musicUploaderChecker = {
+  max: 5,
+  msg: () => `최대 ${musicUploaderChecker.max} 개 선택 가능합니다.`,
+  check: (objs: any[]) => objs.length <= musicUploaderChecker.max - 1,
+};
 export const CheckStringLength = (checker:Checker) => (str: string) => {
   if (!checker.check(str)) {
+    Swal.fire({
+      position: 'top',
+      title: checker.msg(),
+      showClass: {
+        popup: 'animated fadeInDown faster',
+      },
+      hideClass: {
+        popup: 'animated fadeOutUp faster',
+      },
+    });
+    return false;
+  }
+  return true;
+};
+
+export const CheckObjLength = (checker: ObjChecker) => (objs: any[]) => {
+  console.log(objs);
+  if (!checker.check(objs)) {
     Swal.fire({
       position: 'top',
       title: checker.msg(),
