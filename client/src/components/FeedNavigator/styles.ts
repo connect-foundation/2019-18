@@ -12,6 +12,7 @@ export const Container = styled.div`
     width: fit-content;
     margin: 0 auto;
     user-select: none;
+    z-index: 11;
 `;
 
 export const HeaderTitle = styled.div`
