@@ -27,52 +27,78 @@ const initialFollowList = [
   },
 ];
 
+const follow = (id:string) => {
+  console.log('fetch');
+  console.log(id);
+  fetch(`${API_SERVER}/follow/add/${id}`, {
+    method: 'post',
+    credentials: 'include',
+  });
+};
+const unfollow = (id:string) => {
+  console.log('fetch');
+  fetch(`${API_SERVER}/follow/delete/${id}`, {
+    method: 'post',
+    credentials: 'include',
+  });
+};
 const Portfolio:React.FC<portfolioProp> = ({
-  introSimple, introDetail, activeFields, isMyPortfolio, PortfolioOwnerId, isLogin, LoginedId,
+  introSimple, introDetail, activeFields, isMyPortfolio, PortfolioOwnerId, isLogin, LoginedId, portfolioFollower,
 }) => {
-  const getFollowListURL = `${API_SERVER}/follow`;
-  const follower = 0;
-  const following = 0;
-
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowings, setShowFollowings] = useState(false);
-  const [showMyFollowings, setShowMyFollowings] = useState(false);
+  const [followable, setFollowable] = useState(false);
+  const [myFollower, setMyFollower] = useState({ following: [], follower: [] });
   const closeFollowersPopup = () => { setShowFollowers(false); };
   const showFollowersPopup = () => { setShowFollowers(true); };
   const closeFollowingsPopup = () => { setShowFollowings(false); };
   const showFollowingsPopup = () => { setShowFollowings(true); };
-  const closeMyFollowingsPopup = () => { setShowMyFollowings(false); };
-  const showMyFollowingsPopup = () => { setShowMyFollowings(true); };
+  const onClickFollow = () => {
+    follow(PortfolioOwnerId);
+  };
 
   useEffect(
     () => {
-      const portofolioFollowList = fetch(`${getFollowListURL}/${PortfolioOwnerId}`, {
-        method: 'get',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      const myFollowList = fetch(`${getFollowListURL}/`, {
-        method: 'get',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }, [],
+      if (isLogin && !isMyPortfolio) {
+        const getData = async () => {
+          const response = await fetch(`${API_SERVER}/profile/${LoginedId}`, {
+            method: 'get',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+          });
+          const responseJson = await response.json();
+          if (!responseJson.success) {
+            return null;
+          }
+          return responseJson.data;
+        };
+        getData().then((data:any) => {
+          if (data) {
+            setMyFollower({
+              following: data.profile.following,
+              follower: data.profile.follower,
+            });
+          }
+        });
+      }
+    }, [isLogin, PortfolioOwnerId, LoginedId],
   );
-
+  console.log('myfollower');
+  console.log(myFollower);
+  console.log('portfolioFollower');
+  console.log(portfolioFollower);
   return (
     <S.Portfolio>
       {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} initialFollowList={initialFollowList} />)}
       {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} initialFollowList={initialFollowList} />)}
-      {showMyFollowings && (<PopupFollowers text="내 팔로잉" closePopup={closeMyFollowingsPopup} initialFollowList={initialFollowList} />)}
       <S.PortfolioBox>
         <S.PortfolioDetail>
           <S.Name>아이유</S.Name>
           <S.FollowLine>
 팔로워
-            <S.FollowNumber onClick={showFollowersPopup}>{follower}</S.FollowNumber>
+            <S.FollowNumber onClick={showFollowersPopup}>{10}</S.FollowNumber>
 팔로잉
-            <S.FollowNumber onClick={showFollowingsPopup}>{following}</S.FollowNumber>
+            <S.FollowNumber onClick={showFollowingsPopup}>{100}</S.FollowNumber>
           </S.FollowLine>
 
         </S.PortfolioDetail>
@@ -89,7 +115,7 @@ const Portfolio:React.FC<portfolioProp> = ({
             </StyledLink>
           )
           : (
-            <S.LongEmptyButton onClick={showMyFollowingsPopup}>
+            <S.LongEmptyButton onClick={onClickFollow}>
               팔로우 하기
             </S.LongEmptyButton>
           ))}

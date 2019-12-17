@@ -29,6 +29,7 @@ const initialPortfolio = {
   introSimple: '',
   introDetail: '',
   activeFields: [''],
+  follower: { following: [''], follower: [''] },
 };
 interface matchParams {
   Id: string;
@@ -36,6 +37,7 @@ interface matchParams {
 const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }) => {
   const [portfolio, setPortfolio] = useState({ ...initialPortfolio });
   const { isLogin, id: LoginedId } = useSelector((root:RootState) => root.login);
+
   const isMyPortfolio = (!match.params.Id);
   useEffect(() => {
     const getData = async () => {
@@ -53,10 +55,15 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
     };
     getData().then((data:any) => {
       if (data) {
+        const followerObject = {
+          following: [...data.profile.following],
+          follower: [...data.profile.follower],
+        };
         setPortfolio({
           introDetail: data.profile.introDetail,
           introSimple: data.profile.introSimple,
           activeFields: data.profile.activeFields,
+          follower: followerObject,
         });
       }
     });
@@ -69,6 +76,7 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
           introDetail={portfolio.introDetail}
           introSimple={portfolio.introSimple}
           activeFields={portfolio.activeFields}
+          portfolioFollower={portfolio.follower}
           isLogin={isLogin}
           LoginedId={LoginedId}
           PortfolioOwnerId={match.params.Id || LoginedId}
