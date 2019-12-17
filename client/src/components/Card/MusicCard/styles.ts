@@ -1,8 +1,8 @@
 import styled from 'styled-components';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Img from '../../../basics/Img';
 import { theme } from '../../../style/theme';
 import H3 from '../../../basics/H3';
-import MusicFeedPlayIcon from '../../../assets/MusicFeedPlayIcon.png';
 
 export const Container = styled.div`
     display: flex;
@@ -52,20 +52,31 @@ export const CardBody = styled.div`
     border-bottom: 1px ${theme.BORDER_GRAY} solid;
 `;
 
-export const PlayIcon = MusicFeedPlayIcon;
+export const PlayIcon = PlayArrowIcon;
+
+export const CroppedCardImg = styled(Img)`
+    position: absolute;
+    top: 55px;
+    right: 110px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    box-shadow: ${theme.BOX_SHADOW_BOTTOM};
+    filter: grayscale(10%);
+`;
 
 export const PlayButton = styled.label`
         position: absolute;
-        top: 85px;
-        right: 135px;
+        top: 80px;
+        right: 116px;
         button{
-            width: 50px;
+            width: 90px;
             border: none;
             background: none;
             text-decoration: none;
-            img{
-                max-width:100%;
-                height:auto;
+            color: white;
+            .MuiSvgIcon-root {
+                font-size: 3rem;
             }
         }
         button:focus {
