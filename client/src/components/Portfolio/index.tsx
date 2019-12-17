@@ -40,7 +40,7 @@ const Portfolio:React.FC<portfolioProp> = ({
 
   useEffect(
     () => {
-      if (isLogin && !isMyPortfolio) {
+      if (isLogin) {
         const getData = async () => {
           const response = await fetch(`${API_SERVER}/profile/${LoginedId}`, {
             method: 'get',
@@ -72,7 +72,7 @@ const Portfolio:React.FC<portfolioProp> = ({
 
   return (
     <S.Portfolio>
-      {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} initialFollowList={portfolioFollower.follower} myFollow={myFollower.follower} />)}
+      {showFollowers && (<PopupFollowers text="팔로워" closePopup={closeFollowersPopup} initialFollowList={portfolioFollower.follower} myFollow={myFollower.following} />)}
       {showFollowings && (<PopupFollowers text="팔로잉" closePopup={closeFollowingsPopup} initialFollowList={portfolioFollower.following} myFollow={myFollower.following} />)}
       <S.PortfolioBox>
         <S.PortfolioDetail>

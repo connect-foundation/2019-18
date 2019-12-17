@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { ContactSupportOutlined } from '@material-ui/icons';
 import * as S from './style';
 import { API_SERVER } from '../../utils/constants';
 
@@ -19,6 +18,8 @@ const PopupFollowers:React.FC<PopupProps> = ({
 
   useEffect(() => {
     setFollowers(initialFollowList.map((initF:any) => {
+      console.log('myFollow');
+      console.log(myFollow);
       if (myFollow.some((myF:any) => (myF._id === initF._id))) {
         return { ...initF, follow: true };
       }
