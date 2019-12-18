@@ -55,6 +55,12 @@ export const FollowButton = styled(EmptyButton)`
   margin:auto 0;
   margin-left:auto;
 `;
+export const UnFollowButton = styled(EmptyButton)`
+  margin:auto 0;
+  margin-left:auto;
+  color:red;
+  border-color:red;
+`;
 export const ProfileImage = styled(Img)`
   width: 30px;
   height: 30px; 

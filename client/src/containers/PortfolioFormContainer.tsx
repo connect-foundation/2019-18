@@ -18,7 +18,7 @@ const makeFirstStates = () => fieldoptions.map((option) => ({ ...option, checked
 const PortfolioFormContainer:React.FC = () => {
   const [introSimple, setIntroSimple] = useState('');
   const [introDetail, setIntroDetail] = useState('');
-  const [activeField, setActiveFields] = useState(makeFirstStates);
+  const [activeFields, setActiveFields] = useState(makeFirstStates);
   const [showOption, setShowOption] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(true);
   const email = useSelector((state:RootState) => state.login.email);
@@ -41,13 +41,13 @@ const PortfolioFormContainer:React.FC = () => {
       }
       setIntroSimple(result.introSimple);
       setIntroDetail(result.introDetail);
-      setActiveFields(activeField.map((option) => {
+      setActiveFields(activeFields.map((option) => {
         if (result.activeFields.includes(option.value)) { return { ...option, checked: true }; }
         return option;
       }));
     };
     setShowOption(false);
-    getData().then((result) => setForm(result));
+    getData().then((result) => setForm(result.profile));
     setSubmitSuccess(false);
   }, [submitSuccess, setSubmitSuccess]);
 
@@ -57,7 +57,7 @@ const PortfolioFormContainer:React.FC = () => {
         email,
         introSimple,
         introDetail,
-        activeFields: activeField.filter((option:any) => option.checked).map((option:any) => option.value),
+        activeFields: activeFields.filter((option:any) => option.checked).map((option:any) => option.value),
       };
       const response = await fetch(`${API_SERVER}/profile`, {
         method: 'post',
@@ -88,12 +88,12 @@ const PortfolioFormContainer:React.FC = () => {
   const onClickShowOption = (e: React.MouseEvent<HTMLDivElement>) => {
     setShowOption(!showOption);
   };
-  const countSelectedFields = () => activeField.filter((option) => option.checked).length;
+  const countSelectedFields = () => activeFields.filter((option) => option.checked).length;
   const onChangeActiveFields = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked && (countSelectedFields() >= 2)) {
       return;
     }
-    setActiveFields(activeField.map((option:any) => {
+    setActiveFields(activeFields.map((option:any) => {
       if (option.value === e.target.value) {
         return { ...option, checked: e.target.checked };
       }
@@ -106,7 +106,7 @@ const PortfolioFormContainer:React.FC = () => {
         introSimple={introSimple}
         introDetail={introDetail}
         showOption={showOption}
-        activeField={activeField}
+        activeFields={activeFields}
         onChangeActiveFields={onChangeActiveFields}
         onChangeintroSimple={onChangeintroSimple}
         onChangeintroDetail={onChangeintroDetail}

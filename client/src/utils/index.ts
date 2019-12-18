@@ -1,7 +1,7 @@
-import axios from 'axios';
 import shortId from 'shortid';
 import moment from 'moment';
 import 'moment/locale/ko';
+import Swal from 'sweetalert2';
 
 export const getTime = (t:number) => {
   function appendLeadingZeroes(n:number) {
@@ -32,3 +32,14 @@ export const getTimeFromNow = (t:number) => moment(t).fromNow();
 export const getShortId = () => shortId.generate();
 
 export const getFileUrl = (file:File) => window.URL.createObjectURL(file);
+
+export const Alert = (title: string) => Swal.fire({
+  position: 'top',
+  title,
+  showClass: {
+    popup: 'animated fadeInDown faster',
+  },
+  hideClass: {
+    popup: 'animated fadeOutUp faster',
+  },
+});

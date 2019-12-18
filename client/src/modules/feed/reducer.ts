@@ -1,5 +1,5 @@
 import {
-  WORK_DATA_MORE, WALLPAPER_DATA_MORE,
+  WORK_DATA_MORE, WALLPAPER_DATA_MORE, MUSIC_DATA_MORE,
 } from './action';
 
 
@@ -13,6 +13,8 @@ const initialState: FeedState = {
   workSkippedNum: 0,
   wallpaperData: [],
   wallpaperSkippedNum: 0,
+  musicData: [],
+  musicSkippedNum: 0,
 };
 
 
@@ -29,6 +31,12 @@ function feed(state:FeedState = initialState, action:FeedAction) {
         ...state,
         wallpaperData: [...state.wallpaperData, ...action.payload],
         wallpaperSkippedNum: state.wallpaperData.length + action.payload.length,
+      };
+    case MUSIC_DATA_MORE:
+      return {
+        ...state,
+        musicData: [...state.musicData, ...action.payload],
+        musicSkippedNum: state.musicData.length + action.payload.length,
       };
     default:
       return state;

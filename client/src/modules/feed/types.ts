@@ -1,8 +1,9 @@
-import { getWorkDataMore, getWallpaperDataMore } from './action';
+import { getWorkDataMore, getWallpaperDataMore, getMusicDataMore } from './action';
 
 export type FeedAction =
 | ReturnType<typeof getWorkDataMore>
 | ReturnType<typeof getWallpaperDataMore>
+| ReturnType<typeof getMusicDataMore>
 
 export interface IImage{
     _id: string;
@@ -36,10 +37,29 @@ export interface IWallpaper{
   updatedAt: number;
 }
 
+export interface IMusic{
+  _id: string;
+  imageUrl: string;
+  musicUrl: string;
+  title:string;
+  creator:{
+    _id: string,
+    name: string,
+    thumbnailUrl: string,
+  };
+  ownerId: string;
+  numOfComments:number;
+  views: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 
 export type FeedState = {
   workData: IImage[];
   workSkippedNum: number;
   wallpaperData: IWallpaper[];
   wallpaperSkippedNum: number;
+  musicData: IMusic[];
+  musicSkippedNum: number;
 }

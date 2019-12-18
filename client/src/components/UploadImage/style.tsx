@@ -137,3 +137,8 @@ export const NotiText = styled.div`
     margin-top: 20px;
   }
 `;
+
+export const ContentWrapper = styled.div`
+  width: 750px;
+  margin: 1rem auto;
+`;

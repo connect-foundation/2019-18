@@ -26,7 +26,6 @@ const WorksCard: React.FC<WorksCardProp> = ({
         />
       </S.CardBody>
       <CardFooter
-        smiles="20"
         comments={numOfComments}
         views={views}
       />

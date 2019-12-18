@@ -2,18 +2,17 @@ import {
   useState, useEffect, useRef,
 } from 'react';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { getWorkDataMore } from '../modules/feed';
-import { RootState } from '../modules';
+import { useDispatch } from 'react-redux';
+import { Axios, USE_GET_FEED_LIST } from '../utils/request';
 
-const useFetch = ()
+
+const useFetch = (skippedNumG: number, getDataMore: any)
 :[{isLoading:boolean, isError:boolean, fixedNum:React.MutableRefObject<number>, skippedNum:number}, (url:string)=>void, ()=>void] => {
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const fixedNum = useRef(9);
   const dispatch = useDispatch();
-  const skippedNumG = useSelector((state: RootState) => state.feed.workSkippedNum);
   const [skippedNum, setSkippedNum] = useState(skippedNumG);
   const isLoading2 = useRef(false);
 
@@ -35,12 +34,13 @@ const useFetch = ()
       setIsLoading(true);
       isLoading2.current = true;
       try {
-        const result = await axios(url);
+        const { method } = USE_GET_FEED_LIST(fixedNum.current, skippedNum);
+        const result = await Axios({ method, url });
         if (!result.data.success) {
           setIsLoading(false);
         } else {
-          const images = result.data.data;
-          dispatch(getWorkDataMore(images));
+          const datas = result.data.data;
+          dispatch(getDataMore(datas));
           setIsLoading(false);
           isLoading2.current = false;
           setIsError(false);

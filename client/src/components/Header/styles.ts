@@ -11,6 +11,7 @@ export const HeaderContainer = styled.div`
     position: sticky;
     top: 0;
     background: ${theme.background};
+    z-index: 10;
 `;
 
 export const HeaderTitle = styled.div`
