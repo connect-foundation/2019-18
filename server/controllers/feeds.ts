@@ -17,6 +17,7 @@ import {
 } from '../utils/constant';
 import { FEED, AUTH } from '../utils/messages';
 import { IMusicContent } from '../interfaces/workMusic';
+import { IWorkMusicModel } from '../models/work_music';
 
 const getImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -204,23 +205,22 @@ const getMoreMusics = async (req: Request, res: Response, next: NextFunction) =>
       throw (new Error('type error'));
     }
     const musics = await get10Musics(+skippedNum, +fixedNum);
-    const filteredFeed = musics.map((music: any) => {
+    const filteredFeed = musics.map(({
+      _id, imageUrl, musicUrl, title, creator, owner, createdAt, updatedAt,
+    }) => {
       const newFeed = {
-        _id: music._id,
-        imageUrl: `${IMAGE_CDN}${MUSIC_COVERS}${music.imageUrl}${IMAGE_QUERY_LOW}`,
-        musicUrl: `${OS_TARGET_URL}${MUSICS}${music.musicUrl}`,
-        title: music.title,
-        creator: {
-          _id: music.creator._id,
-          name: music.creator.name,
-          thumbnailUrl: music.creator.thumbnailUrl,
-        },
-        ownerId: music.owner._id,
-        numOfComments: music.owner.comments.length,
-        views: music.owner.views,
-        createdAt: music.createdAt,
-        updatedAt: music.updatedAt,
+        _id,
+        imageUrl: `${IMAGE_CDN}${MUSIC_COVERS}${imageUrl}${IMAGE_QUERY_LOW}`,
+        musicUrl: `${OS_TARGET_URL}${MUSICS}${musicUrl}`,
+        title,
+        creator,
+        ownerId: (owner as IWorkMusicModel).id,
+        numOfComments: (owner as IWorkMusicModel).comments.length,
+        views: (owner as IWorkMusicModel).views,
+        createdAt,
+        updatedAt,
       };
+      console.error(newFeed);
       return newFeed;
     });
     return response(res, filteredFeed);
@@ -236,6 +236,6 @@ export {
   addComment,
   getMoreWallpapers,
   getMoreImages,
-  getMoreMusics,
   getWorkMusic,
+  getMoreMusics,
 };
