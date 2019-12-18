@@ -228,7 +228,6 @@ const getMoreImages = async (req: Request, res: Response, next: NextFunction) =>
     });
     return response(res, filteredFeed);
   } catch (e) {
-    console.log(e);
     next(e);
   }
 };
