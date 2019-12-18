@@ -4,6 +4,10 @@ export const API_SERVER:string = process.env.NODE_ENV === 'production'
   ? `${process.env.REACT_APP_URL}/api`
   : 'http://localhost:3050/api';
 
+export const REACT_APP:string = process.env.NODE_ENV === 'production'
+  ? `${process.env.REACT_APP_URL}`
+  : 'http://localhost:3000';
+
 // OAUTH URL
 const CLIENT_ID = `${process.env.REACT_APP_clientID}`;
 const OAUTH_REDIRECT_URL:string = `${API_SERVER}/oauth/callback`;

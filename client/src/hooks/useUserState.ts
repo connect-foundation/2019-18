@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { ReactCookieProps } from 'react-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import socket from 'socket.io-client';
-import { loginUser, setuser } from '../modules/login';
+import { loginUser, setuser, unsetuser } from '../modules/login';
 import makeUserState from '../modules/loginuser';
 import { RootState } from '../modules';
 import { sendMySocketID } from '../socket';
@@ -18,6 +18,9 @@ const useUserState = (props:ReactCookieProps) => {
         sendMySocketID(userState);
         dispatch(setuser(userState));
       });
+    }
+    if (!token && currentUserState.isLogin) {
+      dispatch(unsetuser());
     }
   }, [currentUserState, dispatch, props.cookies]);
 };
