@@ -81,3 +81,7 @@ export const IMAGEFORMAT = {
 
 // export const OBJECT_STORAGE_WALLPAPER = `${process.env.OS_TARGET_URL}wallpapers/`;
 export const OBJECT_STORAGE_WALLPAPER = 'https://kr.object.ncloudstorage.com/crafolio-test-upload/wallpapers/';
+
+export const ERROR_MSG = {
+  AXIOS: '잠시후 다시 시도해 주세요.' as const,
+};

@@ -20,11 +20,9 @@ const viewUpdate = async (req: Request, res: Response, next: NextFunction) => {
 
     const user = req.decodedUser;
     if (!user) {
-      console.log('user not !');
       return next();
     }
     if (!req.cookies.read_content) {
-      console.log('??????');
       const content:readContentType = { key: id, value: new Date() };
       const documenet:readContentType[] = [content];
       await updateWorkImageView(id);

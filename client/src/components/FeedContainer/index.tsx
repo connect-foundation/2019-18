@@ -7,7 +7,6 @@ import FeedWorkContainer from '../../containers/FeedWorkContainer';
 import FeedWallpaperContainer from '../../containers/FeedWallpaperContainer';
 import FeedMusicContainer from '../../containers/FeedMusicContainer';
 
-// import FeedMusic from '../FeedMusics';
 import FeedNavigator from '../FeedNavigator';
 import NotFound from '../../components/NotFound';
 

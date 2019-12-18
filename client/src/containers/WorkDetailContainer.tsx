@@ -3,13 +3,14 @@ import { RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import useGetFeed from '../hooks/useGetFeed';
-import { API_SERVER, API_ADDR } from '../utils/constants';
+import { API_SERVER, API_ADDR, ERROR_MSG } from '../utils/constants';
 import { IData } from '../components/WorksDetail/types';
 import WorksDetail from '../components/WorksDetail';
 import {
   CheckStringLength, CommentChecker, CheckIsLogin, IsLoginChecker,
 } from '../utils/check';
 import { RootState } from '../modules';
+import { Alert } from '../utils';
 
 const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   const { id } = match.params;
@@ -50,7 +51,7 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
         setData(response.data.data);
         setInputComment('');
       }).catch((e) => {
-
+        Alert(ERROR_MSG.AXIOS);
       });
     }
   };

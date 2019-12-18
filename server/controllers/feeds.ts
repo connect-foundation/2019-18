@@ -65,10 +65,8 @@ const getWallpapers = async (req: Request, res: Response, next: NextFunction) =>
 
 const getWorkImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log('contorller. feed');
     const { id } = req.params;
     const workImage = await getWorkImageById(id);
-    console.log(workImage);
     if (!workImage) {
       throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
     }
@@ -80,7 +78,6 @@ const getWorkImage = async (req: Request, res: Response, next: NextFunction) => 
     });
     response(res, workImage);
   } catch (e) {
-    console.log(e);
     next(e);
   }
 };

@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import 'animate.css';
+import { Alert } from './index';
 
 interface Checker {
   msg: ()=> string;
@@ -32,16 +33,7 @@ export const IdChecker = {
 
 export const CheckStringLength = (checker:Checker) => (str: string) => {
   if (!checker.check(str)) {
-    Swal.fire({
-      position: 'top',
-      title: checker.msg(),
-      showClass: {
-        popup: 'animated fadeInDown faster',
-      },
-      hideClass: {
-        popup: 'animated fadeOutUp faster',
-      },
-    });
+    Alert(checker.msg());
     return false;
   }
   return true;

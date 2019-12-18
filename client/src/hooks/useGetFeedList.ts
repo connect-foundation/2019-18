@@ -3,6 +3,8 @@ import {
 } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { Axios, USE_GET_FEED_LIST } from '../utils/request';
+
 
 const useFetch = (skippedNumG: number, getDataMore: any)
 :[{isLoading:boolean, isError:boolean, fixedNum:React.MutableRefObject<number>, skippedNum:number}, (url:string)=>void, ()=>void] => {
@@ -32,7 +34,8 @@ const useFetch = (skippedNumG: number, getDataMore: any)
       setIsLoading(true);
       isLoading2.current = true;
       try {
-        const result = await axios(url);
+        const { method } = USE_GET_FEED_LIST(fixedNum.current, skippedNum);
+        const result = await Axios({ method, url });
         if (!result.data.success) {
           setIsLoading(false);
         } else {

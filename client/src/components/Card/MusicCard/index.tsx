@@ -30,13 +30,12 @@ const MusicCard: React.FC<MusicCardProp> = ({
 
         <S.CardBody id={creator._id}>
           <TextWithImg
-            src="https://kr.object.ncloudstorage.com/crafolio/user/thumbnail/user-profile-thumbnail.png"
+            src={creator.thumbnailUrl}
             text={creator.name}
           />
         </S.CardBody>
 
         <CardFooter
-          smiles="20"
           comments={numOfComments.toString()}
           views={views.toString()}
         />
