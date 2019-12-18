@@ -11,7 +11,7 @@ import {
   addCommentToWorkImage,
   getWorkMusicById,
   get10Musics,
-  addCommentToWorkMusic
+  addCommentToWorkMusic,
 } from '../services/feed';
 import {
   IMAGE_CDN, IMAGES, WALLPAPERS, MUSICS, MUSIC_COVERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
@@ -278,9 +278,6 @@ export {
   getMoreWallpapers,
   getMoreImages,
   getWorkMusic,
-<<<<<<< HEAD
   addMusicComment,
-=======
   getMoreMusics,
->>>>>>> 0e589e9d07aba17295a3461ca11127096fc42f93
 };
