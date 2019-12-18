@@ -17,7 +17,6 @@ const makeUserState = async () => {
   const responseData = await response.json();
 
   if (!responseData.success) { return initialState; }
-
   const { user } = responseData.data;
   const UserState = {
     ...user,
