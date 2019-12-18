@@ -4,7 +4,7 @@ import createError from 'http-errors';
 import httpStatus from 'http-status';
 import response from '../utils/response';
 import {
-  get10Images, get10Wallpapers, getImageFeeds, getWorkImageById, addCommentToWorkImage, getWorkMusicById,
+  get10Images, get10Wallpapers, getImageFeeds, getWorkImageById, addCommentToWorkImage, getWorkMusicById, addCommentToWorkMusic,
 } from '../services/feed';
 import {
   IMAGE_CDN, IMAGES, WALLPAPERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
@@ -138,6 +138,38 @@ const addComment = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const addMusicComment = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = req.decodedUser;
+    if (!user) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    }
+    const workMusicId = req.params.id;
+    const { content } = req.body;
+    const payload = {
+      owner: user.id,
+      ownerThumbnail: user.thumbnailUrl,
+      ownerName: user.name,
+      content,
+      createdAt: Date.now(),
+    };
+    const workMusic = await addCommentToWorkMusic(workMusicId, payload);
+    if (!workMusic) {
+      throw (createError(httpStatus.NOT_FOUND, FEED.NOT_ADD_COMMENT));
+    }
+    workMusic.content = workMusic.content.map((el) => {
+      if (el.type === 'description') {
+        return el;
+      }
+      return { ...el, content: `${IMAGE_CDN}${el.type}/${el.content}${IMAGE_QUERY_HIGH}` };
+    });
+
+    response(res, workMusic);
+  } catch (e) {
+    next(e);
+  }
+};
+
 const getMoreWallpapers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { fixedNum, skippedNum } = req.params;
@@ -202,4 +234,5 @@ export {
   getMoreWallpapers,
   getMoreImages,
   getWorkMusic,
+  addMusicComment,
 };

@@ -31,11 +31,18 @@ const addCommentToWorkImage = (id, payload) => WorkImage.findOneAndUpdate(
   { new: true },
 );
 
+const addCommentToWorkMusic = (id, payload) => WorkMusic.findOneAndUpdate(
+  { _id: id },
+  { $push: { comments: payload } },
+  { new: true },
+);
+
 export {
   get10Images,
   get10Wallpapers,
   getImageFeeds,
   getWorkImageById,
   addCommentToWorkImage,
+  addCommentToWorkMusic,
   getWorkMusicById,
 };
