@@ -19,6 +19,6 @@ router.get('/workimage/:id', getWorkImage);
 router.get('/workmusic/:id', getWorkMusic);
 router.get('/wallpapers', getWallpapers);
 router.get('/wallpapers/more/:fixedNum/:skippedNum', getMoreWallpapers);
-router.post('/musics:/:id/add-comment', authByJWT, addMusicComment);
+router.post('/musics/:id/add-comment', authByJWT, addMusicComment);
 
 export default router;

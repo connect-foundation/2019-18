@@ -154,14 +154,22 @@ const addMusicComment = async (req: Request, res: Response, next: NextFunction) 
       createdAt: Date.now(),
     };
     const workMusic = await addCommentToWorkMusic(workMusicId, payload);
+
     if (!workMusic) {
       throw (createError(httpStatus.NOT_FOUND, FEED.NOT_ADD_COMMENT));
     }
     workMusic.content = workMusic.content.map((el) => {
-      if (el.type === 'description') {
-        return el;
+      if (el.type === 'musics') {
+        const musicContent = el.content as IMusicContent;
+        musicContent.musicUrl = `${OS_TARGET_URL}${el.type}/${musicContent.musicUrl}`;
+        musicContent.imageUrl = `${IMAGE_CDN}musicCovers/${musicContent.imageUrl}${IMAGE_QUERY_LOW}`;
+
+        return {
+          ...el,
+          content: musicContent,
+        };
       }
-      return { ...el, content: `${IMAGE_CDN}${el.type}/${el.content}${IMAGE_QUERY_HIGH}` };
+      return el;
     });
 
     response(res, workMusic);
