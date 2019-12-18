@@ -14,7 +14,6 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
   const splitFileName = (url:string) => {
     const [path, _query] = url.split('?');
     const [_path, fileName] = path.split('wallpapers/');
-    console.log(fileName);
     return fileName;
   };
   return (
