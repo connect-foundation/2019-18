@@ -4,7 +4,6 @@ import H4 from '../../basics/H4';
 import { theme } from '../../style/theme';
 import Textarea from '../../basics/Textarea';
 import Button from '../../basics/Button';
-import Img from '../../basics/Img';
 import Span from '../../basics/Span';
 
 export const Container = styled.div`
@@ -37,11 +36,23 @@ export const Creator = styled(H4)`
     margin-right: auto;
 `;
 
-export const ContentImg = styled(Img)`
-    width: auto;
-    max-width: 70%;
-    height: auto;
-    margin: 1rem auto;
+export const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    img{
+        width: auto;
+        max-width: 70%;
+        height: auto;
+        margin: 1rem auto;
+    }
+    a{
+        color: black;
+        .MuiSvgIcon-root{
+            font-size: 3rem;
+        }
+    }
 `;
 
 export const CopyRight = styled.div`
@@ -51,7 +62,6 @@ export const CopyRight = styled.div`
 
 export const CommentContainer = styled.div`
     width: auto;
-    /* max-height: fit-content; */
     min-height: 5rem;
     border: 1px solid black;
     padding: 1rem;

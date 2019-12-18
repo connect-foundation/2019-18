@@ -81,23 +81,23 @@ function PopupDetail({
           />
           <span>댓글</span>
           <S.Radios>
-            <label htmlFor="comment">
-              <input type="radio" name="comments" value="Y" checked onChange={radioHandlerComments} />
+            <label htmlFor="comment_Y">
+              <input type="radio" id="comment_Y" name="comments" value="Y" checked onChange={radioHandlerComments} />
               허용
             </label>
-            <label htmlFor="comment">
-              <input type="radio" name="comments" value="N" onChange={radioHandlerComments} />
+            <label htmlFor="comment_N">
+              <input type="radio" id="comment_N" name="comments" value="N" onChange={radioHandlerComments} />
               비허용
             </label>
           </S.Radios>
           <span>공개설정</span>
           <S.Radios>
-            <label htmlFor="is1">
-              <input type="radio" name="ispublic" value="Y" checked onChange={radioHandlerIspublic} />
+            <label htmlFor="public_Y">
+              <input type="radio" id="public_Y" name="ispublic" value="Y" checked onChange={radioHandlerIspublic} />
               공개
             </label>
-            <label htmlFor="is2">
-              <input type="radio" name="ispublic" value="N" onChange={radioHandlerIspublic} />
+            <label htmlFor="public_N">
+              <input type="radio" id="public_N" name="ispublic" value="N" onChange={radioHandlerIspublic} />
               비공개
             </label>
           </S.Radios>

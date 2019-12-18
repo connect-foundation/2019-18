@@ -115,8 +115,7 @@ const uploadMusicFeed = async (req: Request, res: Response, next: NextFunction) 
       throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
     }
 
-    const { title } = req.body;
-    const { content } = req.body;
+    const { title, content } = req.body;
     const workMusicData = {
       title,
       content,

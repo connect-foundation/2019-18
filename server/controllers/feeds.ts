@@ -4,13 +4,20 @@ import createError from 'http-errors';
 import httpStatus from 'http-status';
 import response from '../utils/response';
 import {
-  get10Images, get10Wallpapers, getImageFeeds, getWorkImageById, addCommentToWorkImage, getWorkMusicById,
+  get10Images,
+  get10Wallpapers,
+  getImageFeeds,
+  getWorkImageById,
+  addCommentToWorkImage,
+  getWorkMusicById,
+  get10Musics,
 } from '../services/feed';
 import {
-  IMAGE_CDN, IMAGES, WALLPAPERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
+  IMAGE_CDN, IMAGES, WALLPAPERS, MUSICS, MUSIC_COVERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
 } from '../utils/constant';
 import { FEED, AUTH } from '../utils/messages';
 import { IMusicContent } from '../interfaces/workMusic';
+import { IWorkMusicModel } from '../models/work_music';
 
 const getImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -60,7 +67,6 @@ const getWallpapers = async (req: Request, res: Response, next: NextFunction) =>
 const getWorkImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-
     const workImage = await getWorkImageById(id);
     if (!workImage) {
       throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
@@ -188,11 +194,40 @@ const getMoreImages = async (req: Request, res: Response, next: NextFunction) =>
     });
     return response(res, filteredFeed);
   } catch (e) {
-    console.log(e);
     next(e);
   }
 };
 
+const getMoreMusics = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { fixedNum, skippedNum } = req.params;
+    if (typeof (+fixedNum) !== 'number' && typeof (+skippedNum) !== 'number') {
+      throw (new Error('type error'));
+    }
+    const musics = await get10Musics(+skippedNum, +fixedNum);
+    const filteredFeed = musics.map(({
+      _id, imageUrl, musicUrl, title, creator, owner, createdAt, updatedAt,
+    }) => {
+      const newFeed = {
+        _id,
+        imageUrl: `${IMAGE_CDN}${MUSIC_COVERS}${imageUrl}${IMAGE_QUERY_LOW}`,
+        musicUrl: `${OS_TARGET_URL}${MUSICS}${musicUrl}`,
+        title,
+        creator,
+        ownerId: (owner as IWorkMusicModel).id,
+        numOfComments: (owner as IWorkMusicModel).comments.length,
+        views: (owner as IWorkMusicModel).views,
+        createdAt,
+        updatedAt,
+      };
+      console.error(newFeed);
+      return newFeed;
+    });
+    return response(res, filteredFeed);
+  } catch (e) {
+    next(e);
+  }
+};
 
 export {
   getImages,
@@ -202,4 +237,5 @@ export {
   getMoreWallpapers,
   getMoreImages,
   getWorkMusic,
+  getMoreMusics,
 };

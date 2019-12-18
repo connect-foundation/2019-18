@@ -244,7 +244,6 @@ const UploadMusic:React.FC = () => {
 
   const makeDescription = (el: IDocu) => (
     <S.ContentWrapper key={el.key}>
-      {/* <MyEditor /> */}
       <ReactQuill
         value={el.content as string}
         onChange={(text) => {

@@ -31,5 +31,5 @@ export interface IWorkMusic {
   field: string,
   public: boolean,
   tags: string[],
-  view: number;
+  views: number;
 }

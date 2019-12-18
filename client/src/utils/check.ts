@@ -1,10 +1,21 @@
 import Swal from 'sweetalert2';
 import 'animate.css';
+import { Alert } from './index';
 
 interface Checker {
   msg: ()=> string;
   check: (str:string)=>boolean;
 }
+
+interface CheckerBoolen {
+  msg: ()=> string;
+  check: (is:boolean) => boolean;
+}
+
+export const IsLoginChecker = {
+  msg: () => '로그인이 필요한 서비스입니다.',
+  check: (isLogin: boolean) => (isLogin),
+};
 
 export const CommentChecker = {
   minLen: 5,
@@ -22,6 +33,14 @@ export const IdChecker = {
 
 export const CheckStringLength = (checker:Checker) => (str: string) => {
   if (!checker.check(str)) {
+    Alert(checker.msg());
+    return false;
+  }
+  return true;
+};
+
+export const CheckIsLogin = (checker: CheckerBoolen) => (isLogin: boolean) => {
+  if (!checker.check(isLogin)) {
     Swal.fire({
       position: 'top',
       title: checker.msg(),

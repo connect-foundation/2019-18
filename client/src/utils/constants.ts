@@ -67,3 +67,25 @@ export const UploadSelection = {
   ],
 };
 export const socketUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SOCKET_URL : process.env.REACT_APP_SOCKET_URL_DEV as string;
+
+export const UPLOAD = {
+  UNSUPPORTED_TYPE: '지원하지 않은 파일 형식입니다.' as const,
+  WALLPAPER: 'wallpapers' as const,
+  IMAGE: 'images' as const,
+  DESCRIPTION: 'description' as const,
+  MULTER_KEY: 'multi-files' as const,
+};
+
+export const IMAGEFORMAT = {
+  JPEG: 'image/jpeg' as const,
+  _JPG: '.jpg' as const,
+  PNG: 'image/png' as const,
+  _PNG: '.png' as const,
+};
+
+// export const OBJECT_STORAGE_WALLPAPER = `${process.env.OS_TARGET_URL}wallpapers/`;
+export const OBJECT_STORAGE_WALLPAPER = 'https://kr.object.ncloudstorage.com/crafolio-test-upload/wallpapers/';
+
+export const ERROR_MSG = {
+  AXIOS: '잠시후 다시 시도해 주세요.' as const,
+};

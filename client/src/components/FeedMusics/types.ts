@@ -1,4 +1,4 @@
-export default interface IMusic{
+export interface IMusic{
   _id: string;
   ownerId: string;
   creator:{
@@ -10,4 +10,21 @@ export default interface IMusic{
   title:string;
   numOfComments:string;
   views: string;
-};
+}
+
+export interface IMusic2{
+  _id: string;
+  imageUrl: string;
+  musicUrl: string;
+  title:string;
+  creator:{
+    _id: string,
+    name: string,
+    thumbnailUrl: string,
+  };
+  ownerId: string;
+  numOfComments:number;
+  views: number;
+  createdAt: string;
+  updatedAt: string;
+}
