@@ -29,6 +29,8 @@ const initialPortfolio = {
   introSimple: '',
   introDetail: '',
   activeFields: [''],
+  name: '',
+  follower: { following: [''], follower: [''] },
 };
 interface matchParams {
   Id: string;
@@ -36,10 +38,11 @@ interface matchParams {
 const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }) => {
   const [portfolio, setPortfolio] = useState({ ...initialPortfolio });
   const { isLogin, id: LoginedId } = useSelector((root:RootState) => root.login);
+
   const isMyPortfolio = (!match.params.Id);
+  const Id = match.params.Id || '';
   useEffect(() => {
     const getData = async () => {
-      const Id = match.params.Id || '';
       const response = await fetch(`${API_SERVER}/profile/${Id}`, {
         method: 'get',
         credentials: 'include',
@@ -49,19 +52,24 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
       if (!responseJson.success) {
         return null;
       }
-      console.log(responseJson);
       return responseJson.data;
     };
     getData().then((data:any) => {
       if (data) {
+        const followerObject = {
+          following: [...data.profile.following],
+          follower: [...data.profile.follower],
+        };
         setPortfolio({
-          introDetail: data.introDetail,
-          introSimple: data.introSimple,
-          activeFields: data.activeFields,
+          introDetail: data.profile.introDetail,
+          introSimple: data.profile.introSimple,
+          activeFields: data.profile.activeFields,
+          follower: followerObject,
+          name: data.name,
         });
       }
     });
-  }, []);
+  }, [Id]);
   return (
     <S.CreatorContainer>
       <S.PortfolioContainer>
@@ -70,9 +78,11 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
           introDetail={portfolio.introDetail}
           introSimple={portfolio.introSimple}
           activeFields={portfolio.activeFields}
+          portfolioFollower={portfolio.follower}
           isLogin={isLogin}
           LoginedId={LoginedId}
           PortfolioOwnerId={match.params.Id || LoginedId}
+          PortfolioOwnerName={portfolio.name}
         />
       </S.PortfolioContainer>
       <S.WorksContainer>

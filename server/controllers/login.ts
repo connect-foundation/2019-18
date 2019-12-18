@@ -8,7 +8,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const { email, pwd } = req.body;
     const result = await loginService(email, pwd);
     if (result.token !== null) {
-      res.cookie('token', result.token);
+      res.cookie('token', result.token, { expires: new Date(Date.now() + 900000), httpOnly: true });
     }
     return response(res, { message: LOGIN.LOGIN_FAILURE }, result.status);
   } catch (e) {
@@ -16,6 +16,14 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const logout = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.clearCookie('token');
+    return response(res);
+  } catch (e) {
+    next(e);
+  }
+};
 
 const whoAmI = async (req: Request, res: Response, next: NextFunction) => {
   let userdata;
@@ -25,4 +33,4 @@ const whoAmI = async (req: Request, res: Response, next: NextFunction) => {
   return (userdata) ? response(res, userdata) : response(res, {}, 404);
 };
 
-export { login, whoAmI };
+export { login, whoAmI, logout };

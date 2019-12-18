@@ -7,6 +7,11 @@ import EmptyButton from '../../basics/emptyButton';
 export const LongEmptyButton = styled(EmptyButton)`
   width:100%;
 `;
+export const RedLongEmptyButton = styled(EmptyButton)`
+  color: red;
+  border-color:red;
+  width:100%;
+`;
 export const Portfolio = styled.div``;
 export const PortfolioBox = styled.div`
   display:flex;
