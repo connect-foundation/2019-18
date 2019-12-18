@@ -7,11 +7,11 @@ interface readContentType {
 }
 
 function diffSeconds(dt2: Date, dt1: Date) {
-  const d1 = new Date(dt1);
-  const d2 = new Date(dt2);
-  const diff = (d2.getTime() - d1.getTime()) / 1000;
+  const startTime = new Date(dt1);
+  const endTime = new Date(dt2);
+  const diff = (endTime.getTime() - startTime.getTime()) / 1000;
   const diffRound = Math.abs(Math.round(diff));
-  return diffRound <= 10;
+  return diffRound <= 60;
 }
 
 const viewUpdate = async (req: Request, res: Response, next: NextFunction) => {
@@ -26,7 +26,7 @@ const viewUpdate = async (req: Request, res: Response, next: NextFunction) => {
       const content:readContentType = { key: id, value: new Date() };
       const documenet:readContentType[] = [content];
       await updateWorkImageView(id);
-      res.cookie('read_content', documenet, { maxAge: 10000, httpOnly: true });
+      res.cookie('read_content', documenet, { maxAge: 60000, httpOnly: true });
       return next();
     }
 
@@ -49,7 +49,7 @@ const viewUpdate = async (req: Request, res: Response, next: NextFunction) => {
         const content:readContentType = { key: id, value: now };
         const documenet:readContentType[] = [update, content];
         await updateWorkImageView(id);
-        res.cookie('read_content', documenet, { maxAge: 1000, httpOnly: true });
+        res.cookie('read_content', documenet, { maxAge: 60000, httpOnly: true });
       }
       next();
     }
