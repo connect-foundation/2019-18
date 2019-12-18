@@ -5,9 +5,13 @@ import { IMusic } from '../UploadMusic/types';
 
 export interface MusicDetailProp {
   data: IData | null;
+  inputComment: string,
   user: LoginUserState;
   isLoading: boolean,
   isError: boolean,
+  commentRef: React.RefObject<HTMLTextAreaElement>,
+  changeInputHandler: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
+  addNewComment: () => void,
 }
 
 export interface IMusicContent{
@@ -30,6 +34,6 @@ export interface IData{
   views: string;
   field: string,
   ccl: string;
-  createdAt: string,
-  updatedAt: string,
+  createdAt: number,
+  updatedAt: number,
 }
