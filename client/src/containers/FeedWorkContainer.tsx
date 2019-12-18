@@ -22,7 +22,7 @@ const FeedWorkContainer:React.FC = () => {
   }, [skippedNum]);
 
   useEffect(() => {
-    doFetch(USE_GET_FEED_LIST(fixedNum.current, skippedNum).url);
+    doFetch(USE_GET_FEED_LIST(fixedNum.current, skippedNum).url as string);
   }, [skippedNum]);
 
   return (
