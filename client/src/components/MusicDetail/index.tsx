@@ -7,13 +7,18 @@ import { MusicDetailProp } from './types';
 import PlayerFooter from './PlayerFooter';
 import { IMusicContent } from '../MusicDetail/types';
 import { IMusic } from '../UploadMusic/types';
-import { getShortId } from '../../utils';
+import { getShortId, getTimeSimple } from '../../utils';
+import Comment from '../Comment';
 
 const MusicDetail: React.FC<MusicDetailProp> = ({
   data,
+  inputComment,
   user,
   isLoading,
   isError,
+  commentRef,
+  changeInputHandler,
+  addNewComment,
 }) => (isLoading || data === null
   ? (<div>Loading...</div>)
   : (
@@ -22,10 +27,12 @@ const MusicDetail: React.FC<MusicDetailProp> = ({
         <S.HeaderTitle>{data.title}</S.HeaderTitle>
         <S.HeaderMeta>
           <span>by</span>
-        &nbsp;
+          &nbsp;
           <S.Strong>{data.owner.name}</S.Strong>
-        &nbsp;
-          <span>{`| ${data.createdAt} | 조회 ${data.views}`}</span>
+          &nbsp;
+          <span>{`| ${getTimeSimple(data.createdAt)}`}</span>
+          &nbsp;
+          <span>{`| 조회 ${data.views}`}</span>
         </S.HeaderMeta>
       </S.Header>
       {
@@ -59,6 +66,17 @@ const MusicDetail: React.FC<MusicDetailProp> = ({
           );
         })
       }
+
+      <S.CopyRight>{`Copyright © ${data.owner.name} All Rights Reserved`}</S.CopyRight>
+
+      <Comment
+        comments={data.comments}
+        commentsAllow={data.commentsAllow}
+        user={user}
+        inputComment={inputComment}
+        changeInputHandler={changeInputHandler}
+        addNewComment={addNewComment}
+      />
     </S.Container>
   )
 );

@@ -8,8 +8,9 @@ export const Container = styled.div`
   height: 15rem;
   min-height: 10rem;
   max-height: 20rem;
-  background: white;
+  background: ${theme.background};
   padding: 1rem;
+  border: 1px solid ${theme.BORDER_GRAY};
 `;
 
 export const AlbumCoverWrapper = styled.div`
@@ -17,14 +18,12 @@ export const AlbumCoverWrapper = styled.div`
   flex-direction: column;
   width: 10rem;
   height: 100%;
-  background: red;
+  background: none;
 `;
 
 export const CoverImage = styled.img`
   src: ${(props) => props.src};
-  /* width: 5rem;
-  height: 7rem; */
-  background: blue;
+  background: none;
   width: 100%;
   height: 100%;
 `;
@@ -36,7 +35,7 @@ export const CoverImageSelect = styled.label`
   align-items: center;
   height: 100%;
   width: 10rem;
-  background: yellow;
+  background: ${theme.background};
 `;
 
 export const CoverImageWrapper = styled.div`
@@ -48,6 +47,9 @@ export const CoverImageWrapper = styled.div`
 
 export const CoverImageLabel = styled.label`
   font-size: 0.5rem;
+  background: ${theme.background};
+  border: none;
+  box-sizing: border-box;
 `;
 
 export const Input = styled.input`
@@ -78,22 +80,27 @@ export const Span = styled.span`
   justify-content: center;
   width: fit-content;
   min-width: 3rem;
-  background: green;
-
+  background: none;
+  word-spacing: 1rem;
 `;
 
 export const TitleInput = styled.input`
   width: 100%;
   height: 1.5rem;
   outline: none;
+  background: none;
+  border: 1px solid lightgray;
+  margin-left: 1rem;
+  box-sizing: border-box;
 `;
 
 export const DetailButtonWrapper = styled.div`
   display: flex;
   position: relative;
-  background: lightblue;
+  background: none;
   width: 100%;
   height: fit-content;
+  margin-left: 1rem;
 `;
 
 export const DetailSelector = styled.div`
@@ -104,14 +111,14 @@ export const DetailSelector = styled.div`
   top:100%;
   left: 0;
   z-index: 10;
-  background: lightgrey;
+  background: none;
 `;
 
 export const DetailButton = styled.button`
-  background: white;  
+  background: none;  
   width: 100%;
   height: 1.5rem;
-  
+  border: 1px solid lightgray;
   display: flex;
   justify-content: space-between;
   line-height: 20px;
@@ -127,7 +134,7 @@ export const DetailWrapper = styled.div`
   width: 100%;
   height: 100%;
   flex-direction: column;
-  background: purple;
+  background: none;
   margin: auto 1rem;
 `;
 

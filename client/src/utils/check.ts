@@ -7,6 +7,11 @@ interface Checker {
   check: (str:string)=>boolean;
 }
 
+interface ObjChecker {
+  msg: ()=> string;
+  check: (obj: any[]) => boolean;
+}
+
 interface CheckerBoolen {
   msg: ()=> string;
   check: (is:boolean) => boolean;
@@ -31,6 +36,11 @@ export const IdChecker = {
   check: (str: string) => (str.length >= IdChecker.minLen && str.length <= IdChecker.maxLen),
 };
 
+export const musicUploaderChecker = {
+  max: 5,
+  msg: () => `최대 ${musicUploaderChecker.max} 개 선택 가능합니다.`,
+  check: (objs: any[]) => objs.length <= musicUploaderChecker.max - 1,
+};
 export const CheckStringLength = (checker:Checker) => (str: string) => {
   if (!checker.check(str)) {
     Alert(checker.msg());
@@ -41,16 +51,15 @@ export const CheckStringLength = (checker:Checker) => (str: string) => {
 
 export const CheckIsLogin = (checker: CheckerBoolen) => (isLogin: boolean) => {
   if (!checker.check(isLogin)) {
-    Swal.fire({
-      position: 'top',
-      title: checker.msg(),
-      showClass: {
-        popup: 'animated fadeInDown faster',
-      },
-      hideClass: {
-        popup: 'animated fadeOutUp faster',
-      },
-    });
+    Alert(checker.msg());
+    return false;
+  }
+  return true;
+};
+
+export const CheckObjLength = (checker: ObjChecker) => (objs: any[]) => {
+  if (!checker.check(objs)) {
+    Alert(checker.msg());
     return false;
   }
   return true;

@@ -6,6 +6,7 @@ import {
   getMoreWallpapers,
   getMoreImages,
   getWorkMusic,
+  addMusicComment,
   getMoreMusics,
 } from '../controllers/feeds';
 import authByJWT from '../middleware/authByJWT';
@@ -18,6 +19,7 @@ router.post('/images/:id/add-comment', authByJWT, addComment);
 router.get('/images/more/:fixedNum/:skippedNum', getMoreImages);
 router.get('/wallpapers', getWallpapers);
 router.get('/wallpapers/more/:fixedNum/:skippedNum', getMoreWallpapers);
+router.post('/musics/:id/add-comment', authByJWT, addMusicComment);
 router.get('/musics/more/:fixedNum/:skippedNum', getMoreMusics);
 
 router.get('/workimage/:id', authByJWT, viewUpdate, getWorkImage);

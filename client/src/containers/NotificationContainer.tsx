@@ -1,28 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Alarm from '../components/Alarm';
 import { RootState } from '../modules';
 import { API_SERVER } from '../utils/constants';
-import { setNotification, INotification } from '../modules/notification';
-
+import { INotification, setNotification } from '../modules/notification';
+import { getNewNotis } from '../socket';
 
 const NotificationContainer:React.FC = () => {
-  const notifications = useSelector((state:RootState) => state.notification);
+  const [notiNum, setNotiNum] = useState(0);
+  const { notifications } = useSelector((state:RootState) => state.notification);
   const user = useSelector((state:RootState) => state.login);
   const dispatch = useDispatch();
+  const alarmRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     axios(`${API_SERVER}/user/notifications/${user.id}`)
       .then((result) => {
         dispatch(setNotification(result.data.data));
       })
       .catch((e) => {
+        console.error(e);
       });
   }, []);
+
+  useEffect(() => {
+    setNotiNum(notifications.length);
+  }, [notifications]);
+
+  const newNotificationAnimation = () => {
+    if (!alarmRef) {
+      return;
+    }
+    const ref = alarmRef.current;
+    if (!ref) {
+      return;
+    }
+    ref.classList.remove('animated', 'bounceIn');
+    ref.classList.add('animated', 'bounceIn');
+  };
+
+  getNewNotis((newNotifications:INotification) => {
+    dispatch(setNotification(newNotifications));
+    newNotificationAnimation();
+  });
 
   return (
     <Alarm
       notifications={notifications}
+      alarmRef={alarmRef}
+      notiNum={notiNum}
     />
   );
 };

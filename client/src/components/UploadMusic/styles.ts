@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import ImageIcon from '@material-ui/icons/Image';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
 import { theme } from '../../style/theme';
+import Button from '../../basics/Button';
 
 export const Container = styled.div`
   display: flex;
@@ -40,32 +39,6 @@ export const ContentWrapper = styled.div`
   margin: 1rem auto;
 `;
 
-export const AddButtonList = styled.div`
-  display: flex;
-  width: fit-content;
-  margin: 1rem auto;
-  justify-content: space-around;
-`;
-
-interface LabelProp {
-  htmlFor?:string;
-}
-
-export const Label = styled.label<LabelProp>`
-  cursor: pointer;
-`;
-export const Button = styled.div`
-  display: flex;
-  cursor: pointer;
-  width: fit-content;
-  height: auto;
-
-  outline: none;
-  border: none;
-
-  margin: auto 0.5rem;
-`;
-
 export const ButtonWrapper = styled.div`
 
 `;
@@ -77,32 +50,18 @@ export const Span = styled.span`
 
 `;
 
-export const Input = styled.input`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-`;
 
-
-export const UploadButton = styled.button`
-  width: 5rem;
-  height: 3rem;
+export const UploadButton = styled(Button)`
+    width: 11rem;
+    height: 2.5rem;
   background: ${theme.CRA_PURPLE};
   color: white;
   outline: none;
   cursor: pointer;
   margin: auto;
-  width: 10rem;
-  height: 10rem;
+  border-radius: 0;
 `;
 
 export {
   ImageIcon,
-  VolumeUpIcon,
-  TextFieldsIcon,
 };

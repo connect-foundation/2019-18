@@ -2,27 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import * as S from './styles';
-import { API_SERVER } from '../../../utils/constants';
 import { RootState } from '../../../modules';
-import useFetch from '../../../hooks/useFetch';
-import { getShortId } from '../../../utils';
+import { getShortId, getTimeSimple } from '../../../utils';
+import { INoti } from '../../../modules/notification';
+import NotificationItem from '../NotificationItem';
 
 
-const Notifications: React.FC = () => {
-  const notifications = useSelector((state:RootState) => state.notification.notifications);
-  return (
-    <S.Container>
-      {
-        notifications.map((noti) => (
-          <div key={getShortId()}>
-            <div>{noti.sender}</div>
-            <div>{noti.ref}</div>
-            <div>{noti.type}</div>
-          </div>
-        ))
-      }
-    </S.Container>
-  );
-};
+interface NotificationsProp{
+  notifications: INoti[];
+}
 
+const Notifications: React.FC<NotificationsProp> = ({
+  notifications,
+}) => (
+  <S.Container>
+    <S.Header>
+      새로운 작품
+    </S.Header>
+    {
+      notifications.map((noti:INoti) => (
+        <NotificationItem
+          key={getShortId()}
+          sender={noti.sender}
+          type={noti.type}
+          createdAt={noti.createdAt}
+        />
+      ))
+    }
+  </S.Container>
+);
 export default Notifications;

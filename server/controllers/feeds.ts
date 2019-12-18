@@ -11,6 +11,7 @@ import {
   addCommentToWorkImage,
   getWorkMusicById,
   get10Musics,
+  addCommentToWorkMusic
 } from '../services/feed';
 import {
   IMAGE_CDN, IMAGES, WALLPAPERS, MUSICS, MUSIC_COVERS, IMAGE_QUERY_LOW, IMAGE_QUERY_HIGH, OS_TARGET_URL,
@@ -144,6 +145,46 @@ const addComment = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const addMusicComment = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = req.decodedUser;
+    if (!user) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    }
+    const workMusicId = req.params.id;
+    const { content } = req.body;
+    const payload = {
+      owner: user.id,
+      ownerThumbnail: user.thumbnailUrl,
+      ownerName: user.name,
+      content,
+      createdAt: Date.now(),
+    };
+    const workMusic = await addCommentToWorkMusic(workMusicId, payload);
+
+    if (!workMusic) {
+      throw (createError(httpStatus.NOT_FOUND, FEED.NOT_ADD_COMMENT));
+    }
+    workMusic.content = workMusic.content.map((el) => {
+      if (el.type === 'musics') {
+        const musicContent = el.content as IMusicContent;
+        musicContent.musicUrl = `${OS_TARGET_URL}${el.type}/${musicContent.musicUrl}`;
+        musicContent.imageUrl = `${IMAGE_CDN}musicCovers/${musicContent.imageUrl}${IMAGE_QUERY_LOW}`;
+
+        return {
+          ...el,
+          content: musicContent,
+        };
+      }
+      return el;
+    });
+
+    response(res, workMusic);
+  } catch (e) {
+    next(e);
+  }
+};
+
 const getMoreWallpapers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { fixedNum, skippedNum } = req.params;
@@ -237,5 +278,9 @@ export {
   getMoreWallpapers,
   getMoreImages,
   getWorkMusic,
+<<<<<<< HEAD
+  addMusicComment,
+=======
   getMoreMusics,
+>>>>>>> 0e589e9d07aba17295a3461ca11127096fc42f93
 };

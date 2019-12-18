@@ -63,3 +63,8 @@ export const FooterDd = styled.dd`
     display: inline-block;
     margin-inline-start: 1rem;
 `;
+
+export const CopyRight = styled.div`
+    margin: 5rem 0;
+    color: ${theme.AMERICAN_RIVER};
+`;

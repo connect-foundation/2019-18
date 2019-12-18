@@ -38,6 +38,12 @@ const addCommentToWorkImage = (_id, payload) => WorkImage.findOneAndUpdate(
   { new: true },
 );
 
+const addCommentToWorkMusic = (id, payload) => WorkMusic.findOneAndUpdate(
+  { _id: id },
+  { $push: { comments: payload } },
+  { new: true },
+);
+
 const updateWorkImageView = (_id) => WorkImage.findOneAndUpdate(
   { _id },
   { $inc: { views: 1 } },
@@ -52,6 +58,7 @@ export {
   getImageFeeds,
   getWorkImageById,
   addCommentToWorkImage,
+  addCommentToWorkMusic,
   getWorkMusicById,
   updateWorkImageView,
 };
