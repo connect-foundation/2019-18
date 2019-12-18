@@ -15,15 +15,14 @@ const PopupFollowers:React.FC<PopupProps> = ({
 }) => {
   const [followers, setFollowers] = useState(initialFollowList);
   const followDeleteURL = `${API_SERVER}/follow/delete`;
+  const followAddURL = `${API_SERVER}/follow/add`;
 
   useEffect(() => {
     setFollowers(initialFollowList.map((initF:any) => {
-      console.log('myFollow');
-      console.log(myFollow);
       if (myFollow.some((myF:any) => (myF._id === initF._id))) {
-        return { ...initF, follow: true };
+        return { ...initF, follow: true, originFollow: true };
       }
-      return { ...initF, follow: false };
+      return { ...initF, follow: false, originFollow: false };
     }));
   }, []);
   const toggleFollow = (id:string) => {
@@ -36,22 +35,24 @@ const PopupFollowers:React.FC<PopupProps> = ({
     toggleFollow(id);
   };
 
-  const SyncFollowers = (followers:any) => {
-    followers.forEach((value:any) => {
-      if (!value.follow) {
-        fetch(`${followDeleteURL}/${value.id}`, {
+  const SyncFollowers = async (followers:any) => {
+    followers.reduce(async (acc:any, value:any) => {
+      await acc;
+      if (value.follow !== value.originFollow) {
+        const callURL = value.follow ? followAddURL : followDeleteURL;
+        await fetch(`${callURL}/${value._id}`, {
           method: 'post',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
         });
       }
-    });
+      return acc;
+    }, []);
   };
   const SyncandClose = (e:React.MouseEvent<HTMLButtonElement>) => {
-    // SyncFollowers(followers);
+    SyncFollowers(followers);
     closePopup(e);
   };
-  console.log(followers);
   return (
     <S.Box>
       <S.Inner>
@@ -64,14 +65,14 @@ const PopupFollowers:React.FC<PopupProps> = ({
         <S.FollowArea>
           { followers.map(
             (value:any) => (
-              <S.FollowMember key={value.id}>
+              <S.FollowMember key={value._id}>
                 <S.ProfileImage src={value.thumbnailUrl} />
                 <S.FollowName>
                   {value.name}
                 </S.FollowName>
                 {value.follow
-                  ? <S.UnFollowButton value={value.id} onClick={returnToggleFollow(value.id)}>언팔로우</S.UnFollowButton>
-                  : <S.FollowButton value={value.id} onClick={returnToggleFollow(value.id)}>팔로우</S.FollowButton>}
+                  ? <S.UnFollowButton value={value._id} onClick={returnToggleFollow(value._id)}>언팔로우</S.UnFollowButton>
+                  : <S.FollowButton value={value._id} onClick={returnToggleFollow(value._id)}>팔로우</S.FollowButton>}
               </S.FollowMember>
             ),
           )}
