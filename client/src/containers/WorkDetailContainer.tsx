@@ -6,7 +6,9 @@ import useGetFeed from '../hooks/useGetFeed';
 import { API_SERVER, API_ADDR } from '../utils/constants';
 import { IData } from '../components/WorksDetail/types';
 import WorksDetail from '../components/WorksDetail';
-import { CheckStringLength, CommentChecker } from '../utils/check';
+import {
+  CheckStringLength, CommentChecker, CheckIsLogin, IsLoginChecker,
+} from '../utils/check';
 import { RootState } from '../modules';
 
 const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
@@ -27,11 +29,11 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   };
 
   const CommentLengthCheker = CheckStringLength(CommentChecker);
+  const LoginChecker = CheckIsLogin(IsLoginChecker);
 
   const addNewComment = () => {
     if (data) {
-      if (!user.isLogin) {
-        alert('로그인이 필요한 서비스입니다.');
+      if (!LoginChecker(user.isLogin)) {
         return;
       }
 
@@ -45,14 +47,10 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
       const ADDR = API_ADDR.FEED_IMAGE_ADD_COMMENT(id);
 
       axios.post(ADDR, postData, { withCredentials: true }).then((response) => {
-        if (!response.data.success) {
-          alert(response.data.msg);
-        } else {
-          setData(response.data.data);
-          setInputComment('');
-        }
+        setData(response.data.data);
+        setInputComment('');
       }).catch((e) => {
-        console.error(e);
+
       });
     }
   };

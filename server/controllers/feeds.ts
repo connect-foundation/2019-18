@@ -231,7 +231,6 @@ const getMoreMusics = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-
 export {
   getImages,
   getWallpapers,
