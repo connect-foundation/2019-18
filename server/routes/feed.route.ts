@@ -10,7 +10,7 @@ import {
   getMoreMusics,
 } from '../controllers/feeds';
 import authByJWT from '../middleware/authByJWT';
-import viewUpdate from '../middleware/viewUpdate';
+import abusingDetector from '../middleware/abusingDetector';
 
 const router = require('express').Router();
 
@@ -22,7 +22,7 @@ router.get('/wallpapers/more/:fixedNum/:skippedNum', getMoreWallpapers);
 router.post('/musics/:id/add-comment', authByJWT, addMusicComment);
 router.get('/musics/more/:fixedNum/:skippedNum', getMoreMusics);
 
-router.get('/workimage/:id', authByJWT, viewUpdate, getWorkImage);
-router.get('/workmusic/:id', getWorkMusic);
+router.get('/workimage/:id', authByJWT, abusingDetector, getWorkImage);
+router.get('/workmusic/:id', authByJWT, abusingDetector, getWorkMusic);
 
 export default router;

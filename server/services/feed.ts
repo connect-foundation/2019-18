@@ -50,6 +50,12 @@ const updateWorkImageView = (_id) => WorkImage.findOneAndUpdate(
   { new: true },
 );
 
+const updateWorkMusicView = (_id) => WorkMusic.findOneAndUpdate(
+  { _id },
+  { $inc: { views: 1 } },
+  { new: true },
+);
+
 
 export {
   get10Images,
@@ -61,4 +67,5 @@ export {
   addCommentToWorkMusic,
   getWorkMusicById,
   updateWorkImageView,
+  updateWorkMusicView,
 };
