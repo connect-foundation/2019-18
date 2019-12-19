@@ -3,7 +3,7 @@ import { setNotification } from './action';
 export type NotificationAction =
 | ReturnType<typeof setNotification>
 
-interface ISender{
+export interface ISender{
   _id: string;
   createdAt: string;
   email: string;
@@ -15,7 +15,7 @@ interface ISender{
   updatedAt:number;
 }
 
-interface IRef{
+export interface IRef{
   ccl: string;
   comments: any;
   commentsAllow: boolean;
@@ -38,7 +38,7 @@ export interface INoti {
   _id: string;
   sender: ISender;
   ref: IRef;
-  type: string;
+  type: 'works' | 'musics' | 'wallpapers';
 }
 
 export interface INotification {

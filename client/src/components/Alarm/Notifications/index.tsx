@@ -26,6 +26,7 @@ const Notifications: React.FC<NotificationsProp> = ({
           sender={noti.sender}
           type={noti.type}
           createdAt={noti.createdAt}
+          refPost={noti.ref}
         />
       ))
     }
