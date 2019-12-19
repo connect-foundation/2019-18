@@ -10,6 +10,11 @@ const get10Images = (skip, limit) => Image.find()
   .populate('creator', 'name thumbnailUrl')
   .populate('owner', 'emoji comments views title');
 
+const getIdsImages = (id) => Image.find({ creator: id })
+  .populate('creator', 'name thumbnailUrl')
+  .populate('owner', 'emoji comments views title');
+
+
 const get10Wallpapers = (skip, limit) => Wallpaper.find()
   .skip(skip)
   .limit(limit)
@@ -53,6 +58,7 @@ const updateWorkImageView = (_id) => WorkImage.findOneAndUpdate(
 
 export {
   get10Images,
+  getIdsImages,
   get10Wallpapers,
   get10Musics,
   getImageFeeds,
