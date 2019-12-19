@@ -5,6 +5,7 @@ import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import ReactQuill from 'react-quill';
+import { useDispatch } from 'react-redux';
 import {
   API_SERVER, MAXSIZE_OF_UPLOADIMAGE, UPLOAD, IMAGEFORMAT,
 } from '../../utils/constants';
@@ -16,6 +17,7 @@ import { DocumentObject } from './type';
 import { getShortId } from '../../utils';
 import 'react-quill/dist/quill.snow.css';
 import PurpleButton from '../../basics/PURPLE_Button';
+import { login } from '../../modules/login/action';
 
 axios.defaults.withCredentials = true;
 
@@ -35,6 +37,8 @@ function ImageUpload() {
   const [fileTypeWarn, setFileTypeWarn] = useState<string>('');
   const errorCheck = useRef(0);
   const errorMsg = useRef('');
+  const [isAuthen, setIsAuthen] = useState<boolean>(true);
+  const dispatch = useDispatch();
 
   const updateContent = (type:string, file: File[]) => {
     if (file.length === errorCheck.current) {
@@ -92,42 +96,57 @@ function ImageUpload() {
     return objectStorageUrls;
   };
 
+  const logout = async () => {
+    await axios.get(`${API_SERVER}/login/out`);
+  };
+
   const uploadHandler = async () => {
-    setShowPopupDETAIL(false);
-    const urls = await getImageUrl();
-    const dbContent = documents.map((element2) => {
-      if (element2.type === UPLOAD.IMAGE || element2.type === UPLOAD.WALLPAPER) {
+    try {
+      setShowPopupDETAIL(false);
+      const urls = await getImageUrl();
+      const dbContent = documents.map((element2) => {
+        if (element2.type === UPLOAD.IMAGE || element2.type === UPLOAD.WALLPAPER) {
+          const obj = {
+            type: element2.type,
+            content: urls.shift(),
+          };
+          return obj;
+        }
         const obj = {
           type: element2.type,
-          content: urls.shift(),
+          content: element2.content,
         };
         return obj;
-      }
+      });
       const obj = {
-        type: element2.type,
-        content: element2.content,
+        field,
+        ccl,
+        ispublic,
+        canComments,
+        title,
+        content: dbContent,
+        tags: [],
       };
-      return obj;
-    });
-    const obj = {
-      field,
-      ccl,
-      ispublic,
-      canComments,
-      title,
-      content: dbContent,
-      tags: [],
-    };
-
-    const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
-    const { workImageId } = data;
-    setWorkId(workImageId);
-    setCanRedirect(true);
+      const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
+      const { workImageId } = data;
+      setWorkId(workImageId);
+      setCanRedirect(true);
+    } catch (e) {
+      logout();
+      dispatch(login());
+      setIsAuthen(false);
+    }
   };
 
   const renderRedirect = () => {
     if (canRedirect) {
       return <Redirect to={`/home/detail-image/${workId}`} />;
+    }
+  };
+
+  const failToAuthen = () => {
+    if (!isAuthen) {
+      return <Redirect to="/login" />;
     }
   };
 
@@ -201,11 +220,11 @@ function ImageUpload() {
     }
   };
 
-
   return (
     <S.UploadMain>
       <div>
         {renderRedirect()}
+        {failToAuthen()}
       </div>
       <S.Title>
         <S.TitleInput

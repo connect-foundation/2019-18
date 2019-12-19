@@ -77,6 +77,7 @@ export const UPLOAD = {
   MULTER_KEY: 'multi-files' as const,
   TITLE_WARN: '제목을 입력해주세요.' as string,
   DOCUMENT_WARN: '내용을 입력해주세요.' as string,
+  LOGIN_WARN: '로그인이 필요한 서비스입니다. 다시 로그인 해주세요.' as string,
 };
 
 export const IMAGEFORMAT = {
