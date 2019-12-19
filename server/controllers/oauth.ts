@@ -42,7 +42,7 @@ const getUserInfo = async (accessToken) => {
   const infoJson = await responseUserInfo.json();
 
   if (infoJson.response) {
-    return { ...infoJson.response, pwd: infoJson.response.id };
+    return { ...infoJson.response, pwd: infoJson.response.id, email: `${infoJson.response.id}@naver.com` };
   }
   return {};
 };
@@ -54,7 +54,8 @@ const makeUser = async ({ id, ...userInfo }) => {
 const login = async ({ email, pwd }, res) => {
   const result = await loginService(email, pwd);
   if (result.token !== null) {
-    res.cookie('token', result.token);
+    res.cookie('token', result.token, { expires: new Date(Date.now() + 900000), httpOnly: true });
+    res.cookie('isLogin', true, { expires: new Date(Date.now() + 900000) });
   }
 };
 
