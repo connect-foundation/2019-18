@@ -18,9 +18,9 @@ const abusingDetector = (req: Request, res: Response, next: NextFunction) => {
     return next();
   }
   const userId: ObjectId = user.id;
-  const { id } = req.params;
+  const postId = req.params.id;
   const type = splitPath(req.path);
-  const key = makeKey(userId, id);
+  const key = makeKey(userId, postId);
 
   if (type === 'workimage') {
     if (imageSet.has(key)) {
@@ -28,7 +28,7 @@ const abusingDetector = (req: Request, res: Response, next: NextFunction) => {
     }
     imageSet.add(key);
     setTimeout(async () => {
-      await updateWorkImageView(id);
+      await updateWorkImageView(postId);
       imageSet.delete(key);
     }, 60000);
   } else {
@@ -37,7 +37,7 @@ const abusingDetector = (req: Request, res: Response, next: NextFunction) => {
     }
     musicSet.add(key);
     setTimeout(async () => {
-      await updateWorkMusicView(id);
+      await updateWorkMusicView(postId);
       musicSet.delete(key);
     }, 60000);
   }
