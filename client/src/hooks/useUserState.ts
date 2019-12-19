@@ -11,7 +11,7 @@ const useUserState = (props:ReactCookieProps) => {
   const dispatch = useDispatch();
   const currentUserState = useSelector((state:RootState) => state.login);
   useEffect(() => {
-    const token = props.cookies && props.cookies.get('token');
+    const token = props.cookies && props.cookies.get('isLogin');
     if (token && currentUserState.name === '') {
       makeUserState().then((userState:loginUser) => {
         // io.emit('userInfo', userState);

@@ -17,8 +17,8 @@ const abusingDetector = (req: Request, res: Response, next: NextFunction) => {
   if (!user) {
     return next();
   }
-  const userId: ObjectId = user.id; // 누구
-  const { id } = req.params; // 무엇
+  const userId: ObjectId = user.id;
+  const { id } = req.params;
   const type = splitPath(req.path);
   const key = makeKey(userId, id);
 
@@ -27,8 +27,8 @@ const abusingDetector = (req: Request, res: Response, next: NextFunction) => {
       return next();
     }
     imageSet.add(key);
-    setTimeout(() => {
-      updateWorkImageView(id);
+    setTimeout(async () => {
+      await updateWorkImageView(id);
       imageSet.delete(key);
     }, 60000);
   } else {
@@ -36,8 +36,8 @@ const abusingDetector = (req: Request, res: Response, next: NextFunction) => {
       return next();
     }
     musicSet.add(key);
-    setTimeout(() => {
-      updateWorkMusicView(id);
+    setTimeout(async () => {
+      await updateWorkMusicView(id);
       musicSet.delete(key);
     }, 60000);
   }
