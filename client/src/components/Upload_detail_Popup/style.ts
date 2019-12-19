@@ -26,6 +26,7 @@ export const Inner = styled.div`
   height: auto;
   background: white;
   padding: 2rem 1rem;
+  margin-top: 1rem;
 
   label{
     margin-bottom: 1rem;

@@ -108,26 +108,6 @@ export const UploadMain = styled.div`
 
 `;
 
-export const UploadButton = styled.button`
-  display: inline-block;
-  border: none;
-  margin: 0;
-  margin-top: 2rem;
-  text-decoration: none;
-  background: ${theme.CRA_PURPLE};
-  color: #ffffff;
-  font-size: 0.8rem;
-  cursor: pointer;
-  text-align: center;
-  width: 10rem;
-  height: 2.5rem;
-
-  :hover{
-    background: ${theme.PALE_CRA_PURPLE};
-  }
-
-`;
-
 export const NotiText = styled.div`
   display:flex;
   flex-direction: column;

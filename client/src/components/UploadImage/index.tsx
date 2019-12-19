@@ -15,7 +15,7 @@ import PopupDetail from '../Upload_detail_Popup';
 import { DocumentObject } from './type';
 import { getShortId } from '../../utils';
 import 'react-quill/dist/quill.snow.css';
-
+import PurpleButton from '../../basics/PURPLE_Button';
 
 axios.defaults.withCredentials = true;
 
@@ -249,7 +249,7 @@ function ImageUpload() {
         <div> 업로드할 수 있는 사진의 최대 용량은 20MB입니다. </div>
         <div className="tyep-error">{fileTypeWarn}</div>
       </S.NotiText>
-      <S.UploadButton type="button" onClick={titleCheck}>업로드</S.UploadButton>
+      <PurpleButton buttonText="업로드" clickHandler={titleCheck} />
       {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
       {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setField={setField} setCcl={setCcl} setIspublic={setIspublic} setCanComments={setCanComments} field={field} ccl={ccl} />}
     </S.UploadMain>

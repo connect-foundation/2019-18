@@ -8,7 +8,6 @@ import {
 import { fieldoptions, ccloptions, UPLOAD_POPUP_MSG } from '../../utils/constants';
 import PopupWarn from '../../commons/Popup_warn';
 
-
 function PopupDetail({
   text,
   field,
