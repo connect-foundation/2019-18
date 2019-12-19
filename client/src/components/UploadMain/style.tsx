@@ -8,7 +8,6 @@ export const LinkBox = styled.div`
     height: 10rem;
     align-items: center;
     justify-content: center;
-    border: 2px solid palevioletred;
 
     a {
         text-decoration: none;
@@ -31,7 +30,6 @@ export const UploadMain = styled.div`
 `;
 
 export const Warn = styled.div`
-    /* border: 2px solid red; */
     font-size: 0.8rem;
     margin-top: 6rem;
     display: flex;

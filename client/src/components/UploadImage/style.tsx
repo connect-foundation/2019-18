@@ -18,7 +18,7 @@ export const SeleteBox = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 0.5rem;
 `;
 
 export const Box = styled.div`
@@ -77,24 +77,24 @@ export const Button = styled.button`
 `;
 
 export const Title = styled.div`
-  height: 60px;
+  height: 3rem;
 `;
 
 export const TitleInput = styled.input`
   height: 100%;
-  width: 750px;
+  width: 35rem;
   display: block;
-  font-size : 20px;
+  font-size : 1rem;
   padding: 0 0.3rem;
   border-top-style: hidden;
   border-right-style: hidden;
   border-left-style: hidden;
   border-bottom-style: groove;
-  margin-bottom: 30px;
+  margin-bottom: 1.5rem;
   background-color: ${theme.background};
   ::placeholder {
       color : ${theme.PALE_TEXT};
-      font-size : 20px;
+      font-size : 1rem;
   };
   :focus{
     outline: none;
@@ -112,15 +112,15 @@ export const UploadButton = styled.button`
   display: inline-block;
   border: none;
   margin: 0;
-  margin-top: 30px;
+  margin-top: 2rem;
   text-decoration: none;
   background: ${theme.CRA_PURPLE};
   color: #ffffff;
-  font-size: 13px;
+  font-size: 0.8rem;
   cursor: pointer;
   text-align: center;
-  width: 180px;
-  height: 40px;
+  width: 10rem;
+  height: 2.5rem;
 
   :hover{
     background: ${theme.PALE_CRA_PURPLE};
@@ -132,13 +132,14 @@ export const NotiText = styled.div`
   display:flex;
   flex-direction: column;
   align-items: center;
+  font-size: 1rem;
   .tyep-error{
     color:red;
-    margin-top: 20px;
+    margin-top: 2rem;
   }
 `;
 
 export const ContentWrapper = styled.div`
-  width: 750px;
+  width: 35rem;
   margin: 1rem auto;
 `;
