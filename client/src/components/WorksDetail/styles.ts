@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { url } from 'inspector';
 import H3 from '../../basics/H3';
 import H4 from '../../basics/H4';
 import { theme } from '../../style/theme';
@@ -41,12 +42,14 @@ export const Content = styled.div`
     flex-direction: column;
     align-items: center;
     position: relative;
-    img{
+    width: 100%;
+    height: 100%;
+    /* img{
         width: auto;
         max-width: 70%;
         height: auto;
         margin: 1rem auto;
-    }
+    } */
     a{
         color: black;
         .MuiSvgIcon-root{
@@ -121,4 +124,18 @@ export const CommentTimestamp = styled.span`
 export const Right = styled.div`
     display: flex;
     justify-content: flex-end;
+`;
+
+interface ImageContentProp {
+    src: string;
+}
+
+export const ImageContent = styled.image<ImageContentProp>`
+    width: 45rem;
+    height: 30rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: ${(props) => `url(${props.src})`};
+    background-position: center center;
+    margin-top: 1rem;
 `;

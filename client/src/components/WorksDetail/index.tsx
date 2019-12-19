@@ -46,14 +46,15 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
             if (content.type === UPLOAD.WALLPAPER) {
               return (
                 <S.Content key={idx}>
-                  <img alt="wallpapers" src={content.content} />
+                  <S.ImageContent src={content.content} />
+                  {/* <img alt="wallpapers" src={content.content} /> */}
                   <a href={`${OBJECT_STORAGE_WALLPAPER}${splitFileName(content.content)}`} download><GetAppIcon /></a>
                 </S.Content>
               );
             }
             return (
               <S.Content key={idx}>
-                <img alt="images" src={content.content} />
+                <S.ImageContent src={content.content} />
               </S.Content>
             );
           })}
