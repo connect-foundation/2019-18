@@ -54,7 +54,6 @@ const viewUpdate = async (req: Request, res: Response, next: NextFunction) => {
       next();
     }
   } catch (e) {
-    console.log(e);
     next(e);
   }
 };
