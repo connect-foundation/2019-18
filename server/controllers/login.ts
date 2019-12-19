@@ -9,7 +9,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const result = await loginService(email, pwd);
     if (result.token !== null) {
       res.cookie('token', result.token, { expires: new Date(Date.now() + 900000), httpOnly: true });
-      res.cookie('isLogin', result.token, { expires: new Date(Date.now() + 900000) });
+      res.cookie('isLogin', true, { expires: new Date(Date.now() + 900000) });
     }
     return response(res, { message: LOGIN.LOGIN_FAILURE }, result.status);
   } catch (e) {
