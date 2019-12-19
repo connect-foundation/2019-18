@@ -1,12 +1,11 @@
 import React, { useState, useRef } from 'react';
 import Select from 'react-select';
-
 import * as S from './style';
 import PurpleButton from '../../basics/PURPLE_Button';
 import {
   PopupProps, ValueType, OptionType,
 } from './type';
-import { fieldoptions, ccloptions } from '../../utils/constants';
+import { fieldoptions, ccloptions, UPLOAD_POPUP_MSG } from '../../utils/constants';
 import PopupWarn from '../../commons/Popup_warn';
 
 function PopupDetail({
@@ -21,7 +20,7 @@ function PopupDetail({
   setCanComments,
 }: PopupProps) {
   const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
-  const msg = useRef('분야는 필수 입력사항 입니다.');
+  const msg = useRef(UPLOAD_POPUP_MSG.feildWarn);
 
   const selectHandlerField = (selectedOption: ValueType<OptionType>) => {
     const { value } = selectedOption as OptionType;
@@ -49,13 +48,12 @@ function PopupDetail({
       return;
     }
     if (ccl.length === 0) {
-      msg.current = 'CCL라이선스 은 필수 입력사항 입니다.';
+      msg.current = UPLOAD_POPUP_MSG.cclWarn;
       setShowPopupWARN(true);
       return;
     }
     await aproveHandler();
   };
-
 
   const togglePopup = () => {
     setShowPopupWARN(false);
@@ -70,14 +68,14 @@ function PopupDetail({
           <Select
             options={fieldoptions}
             onChange={selectHandlerField}
-            placeholder="작품 분야를 선택해 주세요."
+            placeholder={UPLOAD_POPUP_MSG.feildWarn}
 
           />
           <span>CCL라이선스</span>
           <Select
             options={ccloptions}
             onChange={selectHandlerCcl}
-            placeholder="CCL라이선스를 선택해 주세요."
+            placeholder={UPLOAD_POPUP_MSG.cclPlaceHolder}
           />
           <span>댓글</span>
           <S.Radios>

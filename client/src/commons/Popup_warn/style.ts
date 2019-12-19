@@ -22,12 +22,13 @@ export const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  width: 300px;
+  width: 20rem;
   height: auto;
   background: ${theme.background};
-  padding: 30px 20px;
+  padding: 2rem 1rem;
+  font-size: 1rem;
 
   label{
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 `;

@@ -5,6 +5,7 @@ import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import ReactQuill from 'react-quill';
+import { useDispatch } from 'react-redux';
 import {
   API_SERVER, MAXSIZE_OF_UPLOADIMAGE, UPLOAD, IMAGEFORMAT,
 } from '../../utils/constants';
@@ -15,7 +16,8 @@ import PopupDetail from '../Upload_detail_Popup';
 import { DocumentObject } from './type';
 import { getShortId } from '../../utils';
 import 'react-quill/dist/quill.snow.css';
-
+import PurpleButton from '../../basics/PURPLE_Button';
+import { login } from '../../modules/login/action';
 
 axios.defaults.withCredentials = true;
 
@@ -34,6 +36,9 @@ function ImageUpload() {
   const [workId, setWorkId] = useState<string>('');
   const [fileTypeWarn, setFileTypeWarn] = useState<string>('');
   const errorCheck = useRef(0);
+  const errorMsg = useRef('');
+  const [isAuthen, setIsAuthen] = useState<boolean>(true);
+  const dispatch = useDispatch();
 
   const updateContent = (type:string, file: File[]) => {
     if (file.length === errorCheck.current) {
@@ -91,37 +96,46 @@ function ImageUpload() {
     return objectStorageUrls;
   };
 
+  const logout = async () => {
+    await axios.get(`${API_SERVER}/login/out`);
+  };
+
   const uploadHandler = async () => {
-    setShowPopupDETAIL(false);
-    const urls = await getImageUrl();
-    const dbContent = documents.map((element2) => {
-      if (element2.type === UPLOAD.IMAGE || element2.type === UPLOAD.WALLPAPER) {
+    try {
+      setShowPopupDETAIL(false);
+      const urls = await getImageUrl();
+      const dbContent = documents.map((element2) => {
+        if (element2.type === UPLOAD.IMAGE || element2.type === UPLOAD.WALLPAPER) {
+          const obj = {
+            type: element2.type,
+            content: urls.shift(),
+          };
+          return obj;
+        }
         const obj = {
           type: element2.type,
-          content: urls.shift(),
+          content: element2.content,
         };
         return obj;
-      }
+      });
       const obj = {
-        type: element2.type,
-        content: element2.content,
+        field,
+        ccl,
+        ispublic,
+        canComments,
+        title,
+        content: dbContent,
+        tags: [],
       };
-      return obj;
-    });
-    const obj = {
-      field,
-      ccl,
-      ispublic,
-      canComments,
-      title,
-      content: dbContent,
-      tags: [],
-    };
-
-    const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
-    const { workImageId } = data;
-    setWorkId(workImageId);
-    setCanRedirect(true);
+      const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
+      const { workImageId } = data;
+      setWorkId(workImageId);
+      setCanRedirect(true);
+    } catch (e) {
+      logout();
+      dispatch(login());
+      setIsAuthen(false);
+    }
   };
 
   const renderRedirect = () => {
@@ -130,12 +144,24 @@ function ImageUpload() {
     }
   };
 
+  const failToAuthen = () => {
+    if (!isAuthen) {
+      return <Redirect to="/login" />;
+    }
+  };
+
   const titleCheck = () => {
     if (title.length === 0) {
+      errorMsg.current = UPLOAD.TITLE_WARN;
       setShowPopupWARN(true);
-    } else {
-      setShowPopupDETAIL(true);
+      return;
     }
+    if (documents.length === 0) {
+      errorMsg.current = UPLOAD.DOCUMENT_WARN;
+      setShowPopupWARN(true);
+      return;
+    }
+    setShowPopupDETAIL(true);
   };
 
   const addDescription: ()=> void = () => {
@@ -194,11 +220,11 @@ function ImageUpload() {
     }
   };
 
-
   return (
     <S.UploadMain>
       <div>
         {renderRedirect()}
+        {failToAuthen()}
       </div>
       <S.Title>
         <S.TitleInput
@@ -249,8 +275,8 @@ function ImageUpload() {
         <div> 업로드할 수 있는 사진의 최대 용량은 20MB입니다. </div>
         <div className="tyep-error">{fileTypeWarn}</div>
       </S.NotiText>
-      <S.UploadButton type="button" onClick={titleCheck}>업로드</S.UploadButton>
-      {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
+      <PurpleButton buttonText="업로드" clickHandler={titleCheck} />
+      {showPopupWARN && <PopupWarn text={errorMsg.current} closePopup={togglePopup} />}
       {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setField={setField} setCcl={setCcl} setIspublic={setIspublic} setCanComments={setCanComments} field={field} ccl={ccl} />}
     </S.UploadMain>
   );

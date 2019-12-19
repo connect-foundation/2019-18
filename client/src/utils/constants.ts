@@ -75,6 +75,9 @@ export const UPLOAD = {
   IMAGE: 'images' as const,
   DESCRIPTION: 'description' as const,
   MULTER_KEY: 'multi-files' as const,
+  TITLE_WARN: '제목을 입력해주세요.' as string,
+  DOCUMENT_WARN: '내용을 입력해주세요.' as string,
+  LOGIN_WARN: '로그인이 필요한 서비스입니다. 다시 로그인 해주세요.' as string,
 };
 
 export const IMAGEFORMAT = {
@@ -89,4 +92,11 @@ export const OBJECT_STORAGE_WALLPAPER = 'https://kr.object.ncloudstorage.com/cra
 
 export const ERROR_MSG = {
   AXIOS: '잠시후 다시 시도해 주세요.' as const,
+};
+
+export const UPLOAD_POPUP_MSG = {
+  feildWarn: '분야는 필수 입력사항 입니다.' as string,
+  cclWarn: 'CCL라이선스 은 필수 입력사항 입니다.' as string,
+  feildPlaceHolder: '작품 분야를 선택해 주세요.'as const,
+  cclPlaceHolder: 'CCL라이선스를 선택해 주세요.' as const,
 };
