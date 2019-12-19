@@ -67,8 +67,8 @@ const getWallpapers = async (req: Request, res: Response, next: NextFunction) =>
 
 const getWorkImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const fakeCount = req.decodedUser ? 1 : 0;
     const { id } = req.params;
+    const fakeCount = req.decodedUser ? 1 : 0;
     const workImage = await getWorkImageById(id);
     if (!workImage) {
       throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
@@ -92,11 +92,12 @@ const getWorkImage = async (req: Request, res: Response, next: NextFunction) => 
 const getWorkMusic = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-
+    const fakeCount = req.decodedUser ? 1 : 0;
     const workMusic = await getWorkMusicById(id);
     if (!workMusic) {
       throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
     }
+    workMusic.views += fakeCount;
     workMusic.content = workMusic.content.map((el) => {
       if (el.type === 'musics') {
         const musicContent = el.content as IMusicContent;

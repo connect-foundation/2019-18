@@ -23,6 +23,6 @@ router.post('/musics/:id/add-comment', authByJWT, addMusicComment);
 router.get('/musics/more/:fixedNum/:skippedNum', getMoreMusics);
 
 router.get('/workimage/:id', authByJWT, abusingDetector, getWorkImage);
-router.get('/workmusic/:id', getWorkMusic);
+router.get('/workmusic/:id', authByJWT, abusingDetector, getWorkMusic);
 
 export default router;
