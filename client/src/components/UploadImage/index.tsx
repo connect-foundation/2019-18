@@ -34,6 +34,7 @@ function ImageUpload() {
   const [workId, setWorkId] = useState<string>('');
   const [fileTypeWarn, setFileTypeWarn] = useState<string>('');
   const errorCheck = useRef(0);
+  const errorMsg = useRef('');
 
   const updateContent = (type:string, file: File[]) => {
     if (file.length === errorCheck.current) {
@@ -132,10 +133,16 @@ function ImageUpload() {
 
   const titleCheck = () => {
     if (title.length === 0) {
+      errorMsg.current = UPLOAD.TITLE_WARN;
       setShowPopupWARN(true);
-    } else {
-      setShowPopupDETAIL(true);
+      return;
     }
+    if (documents.length === 0) {
+      errorMsg.current = UPLOAD.DOCUMENT_WARN;
+      setShowPopupWARN(true);
+      return;
+    }
+    setShowPopupDETAIL(true);
   };
 
   const addDescription: ()=> void = () => {
@@ -250,7 +257,7 @@ function ImageUpload() {
         <div className="tyep-error">{fileTypeWarn}</div>
       </S.NotiText>
       <PurpleButton buttonText="업로드" clickHandler={titleCheck} />
-      {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
+      {showPopupWARN && <PopupWarn text={errorMsg.current} closePopup={togglePopup} />}
       {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setField={setField} setCcl={setCcl} setIspublic={setIspublic} setCanComments={setCanComments} field={field} ccl={ccl} />}
     </S.UploadMain>
   );
