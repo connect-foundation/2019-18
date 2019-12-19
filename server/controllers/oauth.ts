@@ -52,7 +52,6 @@ const makeUser = async ({ id, ...userInfo }) => {
 };
 
 const login = async ({ email, pwd }, res) => {
-  console.log(email, pwd);
   const result = await loginService(email, pwd);
   if (result.token !== null) {
     res.cookie('token', result.token, { expires: new Date(Date.now() + 900000), httpOnly: true });
