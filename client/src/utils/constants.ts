@@ -90,3 +90,10 @@ export const OBJECT_STORAGE_WALLPAPER = 'https://kr.object.ncloudstorage.com/cra
 export const ERROR_MSG = {
   AXIOS: '잠시후 다시 시도해 주세요.' as const,
 };
+
+export const UPLOAD_POPUP_MSG = {
+  feildWarn: '분야는 필수 입력사항 입니다.' as string,
+  cclWarn: 'CCL라이선스 은 필수 입력사항 입니다.' as string,
+  feildPlaceHolder: '작품 분야를 선택해 주세요.'as const,
+  cclPlaceHolder: 'CCL라이선스를 선택해 주세요.' as const,
+};

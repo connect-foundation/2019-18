@@ -13,6 +13,7 @@ export const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1rem;
 `;
 
 
@@ -21,33 +22,33 @@ export const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  width: 420px;
+  width: 27rem;
   height: auto;
   background: white;
-  padding: 30px 20px;
+  padding: 2rem 1rem;
 
   label{
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 `;
 
 export const SelectBox = styled.div`
   display: flex;
   flex-direction:column;
-  width: 370px;
+  width: 80%;
   span {
     display: block;
     font-weight: 700;
-    line-height: 37px;
+    line-height: 2.3rem;
     text-align: left;
-    margin-top: 10px;
+    margin-top: 1.5rem;
   }
 `;
 
 export const Radios = styled.div`
   label {
-    line-height: 30px;
-    margin-right: 10px;
+    line-height: 1.5rem;
+    margin-right: 1rem;
   }
 `;
 
@@ -55,5 +56,5 @@ export const Buttons = styled.div`
   display: flex;
   width: 90%;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 1rem;
 `;
