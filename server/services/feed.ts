@@ -33,6 +33,11 @@ const get10Musics = (skip, limit) => Music.find()
   .populate('creator', 'name thumbnailUrl')
   .populate('owner', 'comments views');
 
+const getIdsMusics = (id) => Music.find({ creator: id })
+  .populate('creator', 'name thumbnailUrl')
+  .populate('owner', 'comments views');
+
+
 const getWorkImageById = (id) => WorkImage.findById(id).populate('owner', 'name');
 
 const getWorkMusicById = (id) => WorkMusic.findById(id).populate('owner', 'name');
@@ -61,6 +66,7 @@ export {
   getIdsImages,
   get10Wallpapers,
   get10Musics,
+  getIdsMusics,
   getImageFeeds,
   getWorkImageById,
   addCommentToWorkImage,

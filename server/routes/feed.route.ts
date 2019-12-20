@@ -9,6 +9,7 @@ import {
   getWorkMusic,
   addMusicComment,
   getMoreMusics,
+  getMusicsById,
 } from '../controllers/feeds';
 import authByJWT from '../middleware/authByJWT';
 import viewUpdate from '../middleware/viewUpdate';
@@ -21,6 +22,7 @@ router.post('/images/:id/add-comment', authByJWT, addComment);
 router.get('/images/more/:fixedNum/:skippedNum', getMoreImages);
 router.get('/wallpapers', getWallpapers);
 router.get('/wallpapers/more/:fixedNum/:skippedNum', getMoreWallpapers);
+router.get('/musics/:id', getMusicsById);
 router.post('/musics/:id/add-comment', authByJWT, addMusicComment);
 router.get('/musics/more/:fixedNum/:skippedNum', getMoreMusics);
 
