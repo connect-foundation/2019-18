@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { LiProp } from './types';
+import { theme } from '../../../style/theme';
 
 export const DetailSelector = styled.div`
   position: absolute;
@@ -9,7 +10,7 @@ export const DetailSelector = styled.div`
   top:100%;
   left: 0;
   z-index: 10;
-  background: lightgrey;
+  background: ${theme.background};
   white-space: normal;
 `;
 
@@ -27,7 +28,7 @@ export const Li = styled.li<LiProp>`
   padding: 1px;
   cursor: pointer;
   margin: auto .5rem;
-  color: ${(props) => (props.selected ? 'green' : 'white')};
+  color: ${(props) => (props.selected ? theme.CRA_MINT_FIRST : 'black')};
 `;
 
 export const Span = styled.span`

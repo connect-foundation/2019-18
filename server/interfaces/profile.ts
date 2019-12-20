@@ -8,4 +8,4 @@ export default interface IProfile{
     introDetail: string,
     activeFields: string[],
     websiteUrl: string,
-}
+};

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { withRouter, RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -6,6 +7,7 @@ import { API_SERVER } from '../utils/constants';
 import { theme } from '../style/theme';
 // import FeedMyWorks from '../components/FeedMyWorks';
 import Portfolio from '../components/Portfolio';
+import FeedMyWorkContainer from './FeedMyWorkContainer';
 import { RootState } from '../modules';
 
 
@@ -29,6 +31,8 @@ const initialPortfolio = {
   introSimple: '',
   introDetail: '',
   activeFields: [''],
+  name: '',
+  follower: { following: [''], follower: [''] },
 };
 interface matchParams {
   Id: string;
@@ -36,10 +40,11 @@ interface matchParams {
 const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }) => {
   const [portfolio, setPortfolio] = useState({ ...initialPortfolio });
   const { isLogin, id: LoginedId } = useSelector((root:RootState) => root.login);
+
   const isMyPortfolio = (!match.params.Id);
+  const Id = match.params.Id || '';
   useEffect(() => {
     const getData = async () => {
-      const Id = match.params.Id || '';
       const response = await fetch(`${API_SERVER}/profile/${Id}`, {
         method: 'get',
         credentials: 'include',
@@ -53,31 +58,41 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
     };
     getData().then((data:any) => {
       if (data) {
+        const followerObject = {
+          following: [...data.profile.following],
+          follower: [...data.profile.follower],
+        };
         setPortfolio({
-          introDetail: data.introDetail,
-          introSimple: data.introSimple,
-          activeFields: data.activeFields,
+          introDetail: data.profile.introDetail,
+          introSimple: data.profile.introSimple,
+          activeFields: data.profile.activeFields,
+          follower: followerObject,
+          name: data.name,
         });
       }
     });
-  }, []);
-  return (
-    <S.CreatorContainer>
-      <S.PortfolioContainer>
-        <Portfolio
-          isMyPortfolio={isMyPortfolio}
-          introDetail={portfolio.introDetail}
-          introSimple={portfolio.introSimple}
-          activeFields={portfolio.activeFields}
-          isLogin={isLogin}
-          LoginedId={LoginedId}
-          PortfolioOwnerId={match.params.Id || LoginedId}
-        />
-      </S.PortfolioContainer>
-      <S.WorksContainer>
-        {/* <FeedMyWorks /> */}
-      </S.WorksContainer>
-    </S.CreatorContainer>
-  );
+  }, [Id]);
+  return (!isLogin && !match.params.Id)
+    ? (<Redirect to="/" />)
+    : (
+      <S.CreatorContainer>
+        <S.PortfolioContainer>
+          <Portfolio
+            isMyPortfolio={isMyPortfolio}
+            introDetail={portfolio.introDetail}
+            introSimple={portfolio.introSimple}
+            activeFields={portfolio.activeFields}
+            portfolioFollower={portfolio.follower}
+            isLogin={isLogin}
+            LoginedId={LoginedId}
+            PortfolioOwnerId={match.params.Id || LoginedId}
+            PortfolioOwnerName={portfolio.name}
+          />
+        </S.PortfolioContainer>
+        <S.WorksContainer>
+          <FeedMyWorkContainer id={match.params.Id || LoginedId} />
+        </S.WorksContainer>
+      </S.CreatorContainer>
+    );
 };
 export default withRouter(CreatorContainer);

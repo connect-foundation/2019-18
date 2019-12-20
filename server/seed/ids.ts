@@ -49,3 +49,9 @@ export const image:mongoose.Types.ObjectId[] = [
   mongoose.Types.ObjectId(37),
   mongoose.Types.ObjectId(38),
 ];
+
+export const profile:mongoose.Types.ObjectId[] = [
+  mongoose.Types.ObjectId(39),
+  mongoose.Types.ObjectId(40),
+  mongoose.Types.ObjectId(41),
+];

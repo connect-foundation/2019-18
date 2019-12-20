@@ -8,10 +8,15 @@ import {
   createMusic,
   createWorkMusic,
 } from '../services/upload';
-import { AUTH } from '../utils/messages';
+import {
+  findFollower,
+} from '../services/user';
+import { AUTH, LOGIN } from '../utils/messages';
 import { IMusicContent } from '../interfaces/workMusic';
 import response from '../utils/response';
 import { newWorksNotification } from '../socket';
+import { IUserModel } from '../models/user';
+import { NOTIFICATION_TYPE } from '../utils/constant';
 
 interface MulterFile {
     key: string,
@@ -56,6 +61,21 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
     };
     const result = await workImageCreate(data);
     const workImageId = result.id;
+    const sender = await findFollower(user.id);
+    if (!sender) {
+      throw (createError(httpStatus.NOT_FOUND, LOGIN.ID_NOT_MATCH));
+    }
+    const { follower } = sender.profile! as any;
+    const filteredFollowers = follower.map((filteredFollower) => {
+      const {
+        _id, email, name, thumbnailUrl, ...resizeTo
+      } = filteredFollower;
+
+      return {
+        _id, email, name, thumbnailUrl,
+      };
+    });
+
 
     content.forEach(async (element:ContentObject) => {
       if (element.type === 'images') {
@@ -78,8 +98,8 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
         await wallPaperCreate(wallpaperPayload);
       }
     });
-    newWorksNotification(user, result, []);
-    res.json({ workImageId });
+    newWorksNotification(sender, result, filteredFollowers, NOTIFICATION_TYPE.WORKS);
+    response(res, { workImageId });
   } catch (e) {
     next(e);
   }
@@ -93,8 +113,7 @@ const uploadMusicFeed = async (req: Request, res: Response, next: NextFunction) 
       throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
     }
 
-    const { title } = req.body;
-    const { content } = req.body;
+    const { title, content } = req.body;
     const workMusicData = {
       title,
       content,

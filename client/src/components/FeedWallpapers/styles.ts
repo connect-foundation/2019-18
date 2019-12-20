@@ -17,6 +17,6 @@ export const FeedWrapper = styled.div`
 
 export const Progress = styled.div`
     margin: auto auto;
-    margin-top: 20px;
+    margin-top: 1rem;
     color: ${theme.BORDER_GRAY};
 `;

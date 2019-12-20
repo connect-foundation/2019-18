@@ -10,14 +10,31 @@ const initProfile = () => Profile.create(
   },
 );
 const create = (payload) => Profile.create(payload);
-const findProfile = (id) => Profile.findOne({ _id: id });
+const findProfile = (_id) => Profile.findOne({ _id });
+
 const findProfileByUserId = async (id) => {
-  const user = await User.findOne({ _id: id });
-  if (!user) return null;
-  const profile = await Profile.findOne({ _id: user.profile });
+  const profile = await User.findById(id)
+    .populate({
+      path: 'profile',
+      populate: [
+        {
+          path: 'following',
+          select: '_id thumbnailUrl name',
+        },
+        {
+          path: 'follower',
+          select: '_id thumbnailUrl name',
+        },
+      ],
+    });
   return profile;
 };
 const setProfile = (id, payload) => Profile.update({ _id: id }, payload);
+
+
+const followingUpdate = (_id, following) => Profile.findOneAndUpdate({ _id }, { following });
+
+const followerUpdate = async (_id, follower) => Profile.findOneAndUpdate({ _id }, { follower });
 
 
 export {
@@ -26,4 +43,6 @@ export {
   findProfileByUserId,
   setProfile,
   initProfile,
+  followingUpdate,
+  followerUpdate,
 };

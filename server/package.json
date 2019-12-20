@@ -42,7 +42,7 @@
     "@types/jest": "^24.0.23",
     "@types/mongodb": "^3.3.10",
     "@types/mongoose": "^5.5.30",
-    "@types/node": "^12.12.7",
+    "@types/node": "^12.12.17",
     "@types/redis": "^2.8.14",
     "@types/socket.io": "^2.1.4",
     "@types/uuid": "^3.4.6",

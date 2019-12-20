@@ -91,12 +91,15 @@ interface MusicCoverProp{
     src: string;
 }
 
-export const MusicCover = styled.img<MusicCoverProp>`
-    width: auto;
-    height: 100%;
+export const MusicCover = styled.image<MusicCoverProp>`
+    width: 10rem;
+    height: 10rem;
     margin: 0;
     margin-left: auto;
-    background-image: ${(props) => props.src};
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: ${(props) => `url(${props.src})`};
+    background-position: center center;
 `;
 
 export {

@@ -1,19 +1,73 @@
-import React from 'react';
-import AlarmImg from '../../assets/alarm.png';
-import AlarmColorImg from '../../assets/alarm_color.png';
+import React, { useState, useEffect } from 'react';
+import Popover from '@material-ui/core/Popover';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Notifications from './Notifications';
+import { INoti } from '../../modules/notification';
 import * as S from './styles';
 
-const Alarm: React.FC = () => {
-  const alarmNum = 5;
-  const img = alarmNum > 0 ? AlarmColorImg : AlarmImg;
+interface AlarmProp {
+  notifications: INoti[];
+  alarmRef: React.RefObject<HTMLButtonElement>;
+  notiNum: number;
+}
+const Alarm: React.FC<AlarmProp> = ({
+  notifications,
+  alarmRef,
+  notiNum,
+}) => {
+  const classes = S.useStyles();
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(
+    null,
+  );
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+  const alarmNum = 5;
 
   return (
     <S.AlarmContainer>
-      <S.Alarm src={img} />
-      {alarmNum < 10
-        ? <S.AlarmNums>{alarmNum}</S.AlarmNums>
-        : <S.AlarmOverNums>...</S.AlarmOverNums>}
+      <S.AlarmWrapper
+        type="button"
+        onClick={handleClick}
+        ref={alarmRef}
+      >
+        <NotificationsIcon fontSize="large" />
+      </S.AlarmWrapper>
+
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        classes={{
+          paper: classes.paper,
+        }}
+      >
+        <Notifications
+          notifications={notifications}
+        />
+      </Popover>
+
+      <S.AlarmNums>
+        {notiNum < 100
+          ? notiNum
+          : '99+'}
+      </S.AlarmNums>
+
     </S.AlarmContainer>
   );
 };

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import PortfolioForm from '../components/PortfolioForm';
 import { fieldoptions, API_SERVER } from '../utils/constants';
 import { RootState } from '../modules';
+import PopupWarn from '../commons/Popup_warn';
 
 const S = {
   PortfolioFormContainer: styled.div`
@@ -18,9 +19,11 @@ const makeFirstStates = () => fieldoptions.map((option) => ({ ...option, checked
 const PortfolioFormContainer:React.FC = () => {
   const [introSimple, setIntroSimple] = useState('');
   const [introDetail, setIntroDetail] = useState('');
-  const [activeField, setActiveFields] = useState(makeFirstStates);
+  const [activeFields, setActiveFields] = useState(makeFirstStates);
   const [showOption, setShowOption] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(true);
+  const [showPopupWARN, setShowPopupWARN] = useState(false);
+  const [popupTEXT, setPopupTEXT] = useState('');
   const email = useSelector((state:RootState) => state.login.email);
   useEffect(() => {
     const getData = async () => {
@@ -41,13 +44,13 @@ const PortfolioFormContainer:React.FC = () => {
       }
       setIntroSimple(result.introSimple);
       setIntroDetail(result.introDetail);
-      setActiveFields(activeField.map((option) => {
+      setActiveFields(activeFields.map((option) => {
         if (result.activeFields.includes(option.value)) { return { ...option, checked: true }; }
         return option;
       }));
     };
     setShowOption(false);
-    getData().then((result) => setForm(result));
+    getData().then((result) => setForm(result.profile));
     setSubmitSuccess(false);
   }, [submitSuccess, setSubmitSuccess]);
 
@@ -57,7 +60,7 @@ const PortfolioFormContainer:React.FC = () => {
         email,
         introSimple,
         introDetail,
-        activeFields: activeField.filter((option:any) => option.checked).map((option:any) => option.value),
+        activeFields: activeFields.filter((option:any) => option.checked).map((option:any) => option.value),
       };
       const response = await fetch(`${API_SERVER}/profile`, {
         method: 'post',
@@ -67,10 +70,12 @@ const PortfolioFormContainer:React.FC = () => {
       });
       const responseJson = await response.json();
       if (!responseJson.success) {
-        alert('변경되지 않았습니다.');
+        setPopupTEXT('변경되지 않았습니다.');
+        setShowPopupWARN(true);
         return null;
       }
-      alert('성공적으로 제출 되었습니다.');
+      setPopupTEXT('성공적으로 제출되었습니다.');
+      setShowPopupWARN(true);
       return setSubmitSuccess(true);
     };
     setShowOption(false);
@@ -88,17 +93,20 @@ const PortfolioFormContainer:React.FC = () => {
   const onClickShowOption = (e: React.MouseEvent<HTMLDivElement>) => {
     setShowOption(!showOption);
   };
-  const countSelectedFields = () => activeField.filter((option) => option.checked).length;
+  const countSelectedFields = () => activeFields.filter((option) => option.checked).length;
   const onChangeActiveFields = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked && (countSelectedFields() >= 2)) {
       return;
     }
-    setActiveFields(activeField.map((option:any) => {
+    setActiveFields(activeFields.map((option:any) => {
       if (option.value === e.target.value) {
         return { ...option, checked: e.target.checked };
       }
       return { ...option };
     }));
+  };
+  const togglePopup = () => {
+    setShowPopupWARN(false);
   };
   return (
     <S.PortfolioFormContainer>
@@ -106,7 +114,7 @@ const PortfolioFormContainer:React.FC = () => {
         introSimple={introSimple}
         introDetail={introDetail}
         showOption={showOption}
-        activeField={activeField}
+        activeFields={activeFields}
         onChangeActiveFields={onChangeActiveFields}
         onChangeintroSimple={onChangeintroSimple}
         onChangeintroDetail={onChangeintroDetail}
@@ -114,6 +122,7 @@ const PortfolioFormContainer:React.FC = () => {
         onSubmit={onSubmit}
         onCancel={onCancel}
       />
+      {showPopupWARN && <PopupWarn text={popupTEXT} closePopup={togglePopup} />}
     </S.PortfolioFormContainer>
   );
 };

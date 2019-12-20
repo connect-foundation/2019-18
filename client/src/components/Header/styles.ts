@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { theme } from '../../style/theme';
 
 export const HeaderContainer = styled.div`
@@ -10,6 +11,7 @@ export const HeaderContainer = styled.div`
     position: sticky;
     top: 0;
     background: ${theme.background};
+    z-index: 10;
 `;
 
 export const HeaderTitle = styled.div`
@@ -22,4 +24,10 @@ export const HeaderTitle = styled.div`
     justify-content: center;
     font-size: 2rem;
     font-weight: 600;
+`;
+
+export const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    user-select: none;
 `;

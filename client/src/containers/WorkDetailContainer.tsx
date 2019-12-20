@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import useGetFeed from '../hooks/useGetFeed';
-import { API_SERVER, API_ADDR } from '../utils/constants';
+import { ERROR_MSG, API_SERVER } from '../utils/constants';
 import { IData } from '../components/WorksDetail/types';
 import WorksDetail from '../components/WorksDetail';
-import { CheckStringLength, CommentChecker } from '../utils/check';
+import {
+  CheckStringLength, CommentChecker, CheckIsLogin, IsLoginChecker,
+} from '../utils/check';
 import { RootState } from '../modules';
+import { Alert } from '../utils';
+import { FEED_IMAGE_ADD_COMMENT, Axios } from '../utils/request';
 
 const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   const { id } = match.params;
@@ -27,11 +30,11 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   };
 
   const CommentLengthCheker = CheckStringLength(CommentChecker);
+  const LoginChecker = CheckIsLogin(IsLoginChecker);
 
-  const addNewComment = () => {
+  const addNewComment = async () => {
     if (data) {
-      if (!user.isLogin) {
-        alert('로그인이 필요한 서비스입니다.');
+      if (!LoginChecker(user.isLogin)) {
         return;
       }
 
@@ -42,17 +45,13 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
       const postData = {
         content: inputComment,
       };
-      const ADDR = API_ADDR.FEED_IMAGE_ADD_COMMENT(id);
+      const reqConfig = FEED_IMAGE_ADD_COMMENT(id, postData);
 
-      axios.post(ADDR, postData, { withCredentials: true }).then((response) => {
-        if (!response.data.success) {
-          alert(response.data.msg);
-        } else {
-          setData(response.data.data);
-          setInputComment('');
-        }
+      Axios(reqConfig).then((response) => {
+        setData(response.data.data);
+        setInputComment('');
       }).catch((e) => {
-        console.error(e);
+        Alert(ERROR_MSG.AXIOS);
       });
     }
   };

@@ -2,39 +2,49 @@ import React, {
   useState, useRef,
 } from 'react';
 import ImageUploader from 'react-images-upload';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { API_SERVER, MAXSIZE_OF_UPLOADIMAGE } from '../../utils/constants';
+import ReactQuill from 'react-quill';
+import { useDispatch } from 'react-redux';
+import {
+  MAXSIZE_OF_UPLOADIMAGE, UPLOAD, IMAGEFORMAT,
+} from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
-import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
-import { ContentObject, DetailObject } from './type';
+import { DocumentObject } from './type';
 import { getShortId } from '../../utils';
-
-axios.defaults.withCredentials = true;
-
-const initDetailObject = {
-  commentsAllow: true,
-  ccl: '',
-  field: '',
-  public: true,
-};
+import 'react-quill/dist/quill.snow.css';
+import PurpleButton from '../../basics/PURPLE_Button';
+import { login } from '../../modules/login/action';
+import {
+  CheckStringLength, CheckObjLength, imageUploadTitleChecker, imageUploadContentChecker,
+} from '../../utils/check';
+import {
+  Axios, UPLOAD_IMAGE_URL, UPLOAD_IMAGE, LOGOUT,
+} from '../../utils/request';
 
 function ImageUpload() {
-  const [documents, setDocumnets] = useState<ContentObject[]>([]);
+  const [documents, setDocumnets] = useState<DocumentObject[]>([]);
   const [title, setTitle] = useState<string>('');
-  const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
   const [showPopupDETAIL, setShowPopupDETAIL] = useState<boolean>(false);
-  const [detailInfo, setDetailInfo] = useState<DetailObject>(initDetailObject);
+
+  const [field, setField] = useState('');
+  const [ccl, setCcl] = useState('');
+  const [ispublic, setIspublic] = useState(true);
+  const [canComments, setCanComments] = useState(true);
+
   const [canRedirect, setCanRedirect] = useState<boolean>(false);
-  const [workId, setWorkId] = useState<string>('');
+  const workId = useRef('');
   const [fileTypeWarn, setFileTypeWarn] = useState<string>('');
   const errorCheck = useRef(0);
+  const [isAuthen, setIsAuthen] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const titleLengthChecker = CheckStringLength(imageUploadTitleChecker);
+  const contentLengthChecker = CheckObjLength(imageUploadContentChecker);
 
   const updateContent = (type:string, file: File[]) => {
     if (file.length === errorCheck.current) {
-      setFileTypeWarn('지원하지 않은 파일 형식입니다.');
+      setFileTypeWarn(UPLOAD.UNSUPPORTED_TYPE);
       return;
     }
     setFileTypeWarn('');
@@ -45,6 +55,7 @@ function ImageUpload() {
     reader.onloadend = (e) => {
       if (typeof reader.result === 'string') {
         const obj = {
+          key: getShortId(),
           type,
           content: '',
           file: newfile,
@@ -56,11 +67,11 @@ function ImageUpload() {
   };
 
   const onDropWallPaper = (file: File[]) => {
-    updateContent('wallpapers', file);
+    updateContent(UPLOAD.WALLPAPER, file);
   };
 
   const onDropImage = (file: File[]) => {
-    updateContent('images', file);
+    updateContent(UPLOAD.IMAGE, file);
   };
 
   const makeFormData = () => {
@@ -69,12 +80,12 @@ function ImageUpload() {
 
     documents.forEach((element) => {
       const { file, type } = element;
-      if (file !== null && file.type === 'image/jpeg') {
-        format = '.jpg';
-        formdata.append('multi-files', file, type + format);
+      if (file !== null && file.type === IMAGEFORMAT.JPEG) {
+        format = IMAGEFORMAT._JPG;
+        formdata.append(UPLOAD.MULTER_KEY, file, type + format);
       } else if (file !== null) {
-        format = '.png';
-        formdata.append('multi-files', file, type + format);
+        format = IMAGEFORMAT._PNG;
+        formdata.append(UPLOAD.MULTER_KEY, file, type + format);
       }
     });
     return formdata;
@@ -82,63 +93,87 @@ function ImageUpload() {
 
   const getImageUrl = async () => {
     const formdata = makeFormData();
-    const { data } = await axios.post(`${API_SERVER}/upload/getImageUrl`, formdata);
+    const reqConfig = UPLOAD_IMAGE_URL(formdata);
+    const { data } = await Axios(reqConfig);
     const { objectStorageUrls } = data;
     return objectStorageUrls;
   };
 
+  const logout = async () => {
+    const reqConfig = LOGOUT();
+    await Axios(reqConfig);
+  };
+
   const uploadHandler = async () => {
-    setShowPopupDETAIL(false);
-    const urls = await getImageUrl();
-    const dbContent = documents.map((element2) => {
-      if (element2.type === 'images' || element2.type === 'wallpapers') {
+    try {
+      setShowPopupDETAIL(false);
+      const urls = await getImageUrl();
+      const dbContent = documents.map((element2) => {
+        if (element2.type === UPLOAD.IMAGE || element2.type === UPLOAD.WALLPAPER) {
+          const obj = {
+            type: element2.type,
+            content: urls.shift(),
+          };
+          return obj;
+        }
         const obj = {
           type: element2.type,
-          content: urls.shift(),
+          content: element2.content,
         };
         return obj;
-      }
+      });
       const obj = {
-        type: element2.type,
-        content: element2.content,
+        field,
+        ccl,
+        ispublic,
+        canComments,
+        title,
+        content: dbContent,
+        tags: [],
       };
-      return obj;
-    });
-    const obj = {
-      ...detailInfo,
-      title,
-      content: dbContent,
-      tags: [],
-    };
-
-    const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
-    const { workImageId } = data;
-    setWorkId(workImageId);
-    setCanRedirect(true);
+      const reqConfig = UPLOAD_IMAGE(obj);
+      const { data } = await Axios(reqConfig);
+      const { workImageId } = data.data;
+      workId.current = workImageId;
+      setCanRedirect(true);
+    } catch (e) {
+      logout();
+      dispatch(login());
+      setIsAuthen(false);
+    }
   };
 
   const renderRedirect = () => {
     if (canRedirect) {
-      return <Redirect to={`/home/detail-image/${workId}`} />;
+      return <Redirect to={`/home/detail-image/${workId.current}`} />;
+    }
+  };
+
+  const failToAuthen = () => {
+    if (!isAuthen) {
+      return <Redirect to="/login" />;
     }
   };
 
   const titleCheck = () => {
-    if (title.length === 0) {
-      setShowPopupWARN(true);
-    } else {
-      setShowPopupDETAIL(true);
+    if (!titleLengthChecker(title)) {
+      return;
     }
+    if (!contentLengthChecker(documents)) {
+      return;
+    }
+    setShowPopupDETAIL(true);
   };
 
   const addDescription: ()=> void = () => {
-    const obj:ContentObject = {
-      type: 'description',
-      content: '아무말 아무말',
+    const obj:DocumentObject = {
+      key: getShortId(),
+      type: UPLOAD.DESCRIPTION,
+      content: '',
       file: null,
       preview: '',
     };
-    const temp2:ContentObject[] = [...documents];
+    const temp2:DocumentObject[] = [...documents];
     temp2.push(obj);
     setDocumnets(temp2);
   };
@@ -147,19 +182,46 @@ function ImageUpload() {
     setTitle(e.target.value);
   };
 
-  const togglePopup = () => {
-    setShowPopupWARN(false);
-  };
-
   const togglePopupDetail = () => {
     setShowPopupDETAIL(false);
   };
 
+  const makeContent = (el: DocumentObject) => {
+    if (el.type === UPLOAD.IMAGE || el.type === UPLOAD.WALLPAPER) {
+      return (
+        <S.ContentWrapper key={el.key}>
+          <Preview src={el.preview} />
+        </S.ContentWrapper>
+      );
+    }
+    if (el.type === UPLOAD.DESCRIPTION) {
+      return (
+        <S.ContentWrapper key={el.key}>
+          <ReactQuill
+            value={el.content as string}
+            onChange={(text) => {
+              el.content = text;
+              setDocumnets(documents.map((docu) => {
+                if (docu.key === el.key) {
+                  return {
+                    ...el,
+                    content: text,
+                  };
+                }
+                return docu;
+              }));
+            }}
+          />
+        </S.ContentWrapper>
+      );
+    }
+  };
 
   return (
     <S.UploadMain>
       <div>
         {renderRedirect()}
+        {failToAuthen()}
       </div>
       <S.Title>
         <S.TitleInput
@@ -171,18 +233,9 @@ function ImageUpload() {
         />
       </S.Title>
       <div>
-        {documents
-          && documents.map(({ type, content, preview }) => {
-            if (type === 'images' || type === 'wallpapers') {
-              return <Preview key={getShortId()} src={preview} />;
-            }
-            return (
-              <div>
-                {content}
-              </div>
-            );
-          })}
-        {/* {previews && previews.map((element) => <Preview src={element} />)} */}
+        {
+          documents.map((el:DocumentObject) => makeContent(el))
+        }
       </div>
 
       <S.SeleteBox>
@@ -219,9 +272,8 @@ function ImageUpload() {
         <div> 업로드할 수 있는 사진의 최대 용량은 20MB입니다. </div>
         <div className="tyep-error">{fileTypeWarn}</div>
       </S.NotiText>
-      <S.UploadButton type="button" onClick={titleCheck}>업로드</S.UploadButton>
-      {showPopupWARN && <PopupWarn text="제목을 입력해주세요." closePopup={togglePopup} />}
-      {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setDetailInfo={setDetailInfo} />}
+      <PurpleButton buttonText="업로드" clickHandler={titleCheck} />
+      {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setField={setField} setCcl={setCcl} setIspublic={setIspublic} setCanComments={setCanComments} field={field} ccl={ccl} />}
     </S.UploadMain>
   );
 }

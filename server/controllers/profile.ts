@@ -14,7 +14,7 @@ const getMyProfile = async (req: Request, res: Response, next: NextFunction) => 
     if (!req.decodedUser) {
       throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
     }
-    const profile = await findProfile(req.decodedUser.profile);
+    const profile = await findProfileByUserId(req.decodedUser.id);
     if (!profile) {
       throw (createError(httpStatus.INTERNAL_SERVER_ERROR, ''));
     }
@@ -35,6 +35,7 @@ const getProfileById = async (req: Request, res: Response, next: NextFunction) =
   }
   return response(res, profile);
 };
+
 const setMyProfile = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.decodedUser || req.decodedUser.email !== req.body.email) {

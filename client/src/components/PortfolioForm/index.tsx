@@ -10,7 +10,7 @@ import { PortfolioProp } from './types';
 const PortfolioForm:React.FC<PortfolioProp> = (
   {
     introSimple, introDetail, showOption, onChangeintroSimple, onChangeintroDetail, onClickShowOption,
-    onChangeActiveFields, activeField, onSubmit, onCancel,
+    onChangeActiveFields, activeFields, onSubmit, onCancel,
   },
 ) => {
   const makeFieldSelects = (value:string, label:string, checked:boolean) => (
@@ -21,7 +21,7 @@ const PortfolioForm:React.FC<PortfolioProp> = (
       label={label}
     />
   );
-  const fieldString = activeField.filter((option:any) => option.checked)
+  const fieldString = activeFields.filter((option:any) => option.checked)
     .map((option:any) => option.value).join(', ');
   return (
     <S.PortfolioForm>
@@ -45,7 +45,7 @@ const PortfolioForm:React.FC<PortfolioProp> = (
     <S.SelectionArea>
       <S.InputTitle></S.InputTitle>
       <S.InputOptionsArea>
-        {(activeField.map((option:any) => makeFieldSelects(option.value, option.label, option.checked)))}
+        {(activeFields.map((option:any) => makeFieldSelects(option.value, option.label, option.checked)))}
       </S.InputOptionsArea>
     </S.SelectionArea>
     )}

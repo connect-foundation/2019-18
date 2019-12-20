@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import { url } from 'inspector';
 import H3 from '../../basics/H3';
 import H4 from '../../basics/H4';
 import { theme } from '../../style/theme';
 import Textarea from '../../basics/Textarea';
 import Button from '../../basics/Button';
-import Img from '../../basics/Img';
 import Span from '../../basics/Span';
 
 export const Container = styled.div`
@@ -37,20 +37,34 @@ export const Creator = styled(H4)`
     margin-right: auto;
 `;
 
-export const ContentImg = styled(Img)`
-    width: auto;
-    max-width: 70%;
-    height: auto;
-    margin: 1rem auto;
+export const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* img{
+        width: auto;
+        max-width: 70%;
+        height: auto;
+        margin: 1rem auto;
+    } */
+    a{
+        color: black;
+        .MuiSvgIcon-root{
+            font-size: 3rem;
+        }
+    }
 `;
 
 export const CopyRight = styled.div`
-    margin-right:auto;
+    margin: 5rem 0;
+    color: ${theme.AMERICAN_RIVER};
 `;
 
 export const CommentContainer = styled.div`
     width: auto;
-    /* max-height: fit-content; */
     min-height: 5rem;
     border: 1px solid black;
     padding: 1rem;
@@ -110,4 +124,18 @@ export const CommentTimestamp = styled.span`
 export const Right = styled.div`
     display: flex;
     justify-content: flex-end;
+`;
+
+interface ImageContentProp {
+    src: string;
+}
+
+export const ImageContent = styled.image<ImageContentProp>`
+    width: 45rem;
+    height: 30rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: ${(props) => `url(${props.src})`};
+    background-position: center center;
+    margin-top: 1rem;
 `;

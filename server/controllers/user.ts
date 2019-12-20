@@ -1,7 +1,10 @@
-import { Request, Response } from 'express';
-import { create, remove } from '../services/user';
-import { initProfile } from '../services/profile';
+import { Request, Response, NextFunction } from 'express';
+import createError from 'http-errors';
+import httpStatus from 'http-status';
+import mongoose from 'mongoose';
+import { create, remove, getNotifications } from '../services/user';
 import response from '../utils/response';
+import { PARAMS } from '../utils/messages';
 
 const { validationResult } = require('express-validator');
 
@@ -24,7 +27,6 @@ const signup = async (req: Request, res: Response) => {
     if (e.name === 'MongoError') {
       return response(res, { message: '이미 사용중인 이메일입니다' }, 500);
     }
-    console.log(e.message);
     return response(res, { message: 'unknown error' }, 500);
   }
 };
@@ -40,7 +42,29 @@ const withdrawal = async (req:Request, res:Response) => {
   return res.json(result);
 };
 
+const getNoti = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      throw createError(httpStatus[400], PARAMS.NOT_CORRECT_PARAMS);
+    }
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw createError(httpStatus[400], PARAMS.NOT_CORRECT_PARAMS);
+    }
+
+    const notifications = await getNotifications(id);
+    if (!notifications) {
+      throw createError(httpStatus.NOT_FOUND, PARAMS.NOT_CORRECT_PARAMS);
+    }
+
+    response(res, notifications);
+  } catch (e) {
+    next(e);
+  }
+};
+
 export {
   signup,
   withdrawal,
+  getNoti,
 };

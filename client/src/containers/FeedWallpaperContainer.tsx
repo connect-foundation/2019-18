@@ -3,18 +3,20 @@ import { useSelector } from 'react-redux';
 import FeedWallpapers from '../components/FeedWallpapers';
 import { RootState } from '../modules';
 import { API_SERVER } from '../utils/constants';
-import useGetFeedWallpaperList from '../hooks/useGetFeedWallpaperList';
+import useGetFeedList from '../hooks/useGetFeedList';
+import { getWallpaperDataMore } from '../modules/feed';
 
 const FeedWallpaperContainer:React.FC = () => {
   const data = useSelector((state: RootState) => state.feed.wallpaperData);
+  const skippedNumG = useSelector((state: RootState) => state.feed.wallpaperSkippedNum);
   const [{
     isLoading, isError, skippedNum, fixedNum,
-  }, doFetch, onInsert2] = useGetFeedWallpaperList();
+  }, doFetch, onInsert] = useGetFeedList(skippedNumG, getWallpaperDataMore);
 
   useEffect(() => {
-    window.addEventListener('scroll', onInsert2);
+    document.addEventListener('scroll', onInsert);
     return () => {
-      window.removeEventListener('scroll', onInsert2);
+      document.removeEventListener('scroll', onInsert);
     };
   }, [skippedNum]);
 

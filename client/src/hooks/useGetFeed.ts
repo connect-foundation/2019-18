@@ -9,8 +9,6 @@ const useGetFeed = <T>(initData:T)
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    // const { CancelToken } = axios;
-    // const source = CancelToken.source();
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
@@ -24,7 +22,6 @@ const useGetFeed = <T>(initData:T)
           setIsError(true);
         }
       } catch (e) {
-        console.error(e);
         setIsError(e);
       }
     };

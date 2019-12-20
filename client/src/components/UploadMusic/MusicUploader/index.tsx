@@ -59,11 +59,11 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
       </S.AlbumCoverWrapper>
       <S.DetailWrapper>
         <S.Detail>
-          <S.Span>곡명</S.Span>
+          <S.Span>곡 명</S.Span>
           <S.TitleInput type="text" onChange={onTitleChangeHandler} />
         </S.Detail>
         <S.Detail>
-          <S.Span>장르</S.Span>
+          <S.Span>장 르</S.Span>
           <S.DetailButtonWrapper>
             <S.DetailButton onClick={genresModalToggle}>
               {
@@ -80,7 +80,7 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
 
         </S.Detail>
         <S.Detail>
-          <S.Span>무드</S.Span>
+          <S.Span>무 드</S.Span>
           <S.DetailButtonWrapper>
             <S.DetailButton onClick={moodsModalToggle}>
               {
@@ -96,7 +96,7 @@ const MusicUploader:React.FC<MusicUploaderProp> = ({
           </S.DetailButtonWrapper>
         </S.Detail>
         <S.Detail>
-          <S.Span>악기</S.Span>
+          <S.Span>악 기</S.Span>
           <S.DetailButtonWrapper>
             <S.DetailButton onClick={instrumentsModalToggle}>
               {

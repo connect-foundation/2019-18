@@ -1,6 +1,6 @@
 export default interface WorksCardProp{
-  _id: string,
-  ownerId: string,
+  _id: string;
+  ownerId: string;
   imgUrl: string;
   title: string;
   numOfComments: string;
@@ -10,4 +10,6 @@ export default interface WorksCardProp{
     email: string,
     name: string,
   };
+  createdAt: number;
+  updatedAt: number;
 }

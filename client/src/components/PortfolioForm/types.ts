@@ -8,5 +8,5 @@ export interface PortfolioProp{
     onChangeActiveFields:(e: React.ChangeEvent<HTMLInputElement>) => void;
     onSubmit:(e: React.MouseEvent<HTMLButtonElement>) => void;
     onCancel:(e: React.MouseEvent<HTMLButtonElement>) => void;
-    activeField: any;
+    activeFields: any;
 }

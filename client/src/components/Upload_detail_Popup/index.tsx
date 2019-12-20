@@ -1,26 +1,30 @@
 import React, { useState, useRef } from 'react';
 import Select from 'react-select';
-
 import * as S from './style';
 import PurpleButton from '../../basics/PURPLE_Button';
 import {
   PopupProps, ValueType, OptionType,
 } from './type';
-import { fieldoptions, ccloptions } from '../../utils/constants';
-import PopupWarn from '../../commons/Popup_warn';
+import { fieldoptions, ccloptions, UPLOAD_POPUP_MSG } from '../../utils/constants';
+import {
+  CheckStringLength, imageUploadDetailFieldChecker, imageUploadDetailCclChecker,
+} from '../../utils/check';
 
 function PopupDetail({
   text,
+  field,
+  ccl,
   cancleHandler,
   aproveHandler,
-  setDetailInfo,
+  setField,
+  setCcl,
+  setIspublic,
+  setCanComments,
 }: PopupProps) {
-  const [field, setField] = useState('');
-  const [ccl, setCcl] = useState('');
-  const [ispublic, setIspublic] = useState(true);
-  const [canComments, setCanComments] = useState(true);
   const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
-  const msg = useRef('분야는 필수 입력사항 입니다.');
+  const msg = useRef(UPLOAD_POPUP_MSG.feildWarn);
+  const fieldLengthChecker = CheckStringLength(imageUploadDetailFieldChecker);
+  const cclLengthChecker = CheckStringLength(imageUploadDetailCclChecker);
 
   const selectHandlerField = (selectedOption: ValueType<OptionType>) => {
     const { value } = selectedOption as OptionType;
@@ -43,25 +47,14 @@ function PopupDetail({
   };
 
   const composeAddtionalInfo = async () => {
-    if (field.length === 0) {
-      setShowPopupWARN(true);
+    if (!fieldLengthChecker(field)) {
       return;
     }
-    if (ccl.length === 0) {
-      msg.current = 'CCL라이선스 은 필수 입력사항 입니다.';
-      setShowPopupWARN(true);
+    if (!cclLengthChecker(ccl)) {
       return;
     }
-    const obj = {
-      field,
-      ccl,
-      public: ispublic,
-      commentsAllow: canComments,
-    };
-    await setDetailInfo(obj);
     await aproveHandler();
   };
-
 
   const togglePopup = () => {
     setShowPopupWARN(false);
@@ -76,34 +69,34 @@ function PopupDetail({
           <Select
             options={fieldoptions}
             onChange={selectHandlerField}
-            placeholder="작품 분야를 선택해 주세요."
+            placeholder={UPLOAD_POPUP_MSG.feildWarn}
 
           />
           <span>CCL라이선스</span>
           <Select
             options={ccloptions}
             onChange={selectHandlerCcl}
-            placeholder="CCL라이선스를 선택해 주세요."
+            placeholder={UPLOAD_POPUP_MSG.cclPlaceHolder}
           />
           <span>댓글</span>
           <S.Radios>
-            <label htmlFor="comment">
-              <input type="radio" name="comments" value="Y" checked onChange={radioHandlerComments} />
+            <label htmlFor="comment_Y">
+              <input type="radio" id="comment_Y" name="comments" value="Y" checked onChange={radioHandlerComments} />
               허용
             </label>
-            <label htmlFor="comment">
-              <input type="radio" name="comments" value="N" onChange={radioHandlerComments} />
+            <label htmlFor="comment_N">
+              <input type="radio" id="comment_N" name="comments" value="N" onChange={radioHandlerComments} />
               비허용
             </label>
           </S.Radios>
           <span>공개설정</span>
           <S.Radios>
-            <label htmlFor="is1">
-              <input type="radio" name="ispublic" value="Y" checked onChange={radioHandlerIspublic} />
+            <label htmlFor="public_Y">
+              <input type="radio" id="public_Y" name="ispublic" value="Y" checked onChange={radioHandlerIspublic} />
               공개
             </label>
-            <label htmlFor="is2">
-              <input type="radio" name="ispublic" value="N" onChange={radioHandlerIspublic} />
+            <label htmlFor="public_N">
+              <input type="radio" id="public_N" name="ispublic" value="N" onChange={radioHandlerIspublic} />
               비공개
             </label>
           </S.Radios>
@@ -113,7 +106,6 @@ function PopupDetail({
           <PurpleButton clickHandler={composeAddtionalInfo} buttonText="확인" />
         </S.Buttons>
       </S.Inner>
-      {showPopupWARN && <PopupWarn text={msg.current} closePopup={togglePopup} />}
     </S.Box>
   );
 }

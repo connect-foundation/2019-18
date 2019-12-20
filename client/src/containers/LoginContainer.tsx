@@ -46,7 +46,6 @@ const LoginContainer:React.FC = () => {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
     });
-
     const responseJson = await response.json();
     if (responseJson.success) {
       return dispatch(login());
