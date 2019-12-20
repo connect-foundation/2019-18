@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { resultsAriaMessage } from 'react-select/src/accessibility';
 import FeedWorks from '../components/FeedWorks';
 import FeedMusics from '../components/FeedMusics';
 import { API_SERVER } from '../utils/constants';
