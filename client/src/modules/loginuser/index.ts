@@ -14,7 +14,6 @@ const makeUserState = async () => {
     method: 'get',
     credentials: 'include',
   });
-  console.log(response);
   const responseData = await response.json();
 
   if (!responseData.success) { return initialState; }

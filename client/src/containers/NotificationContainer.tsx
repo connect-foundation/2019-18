@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import Alarm from '../components/Alarm';
 import { RootState } from '../modules';
-import { API_SERVER } from '../utils/constants';
 import { INotification, setNotification } from '../modules/notification';
 import { getNewNotis } from '../socket';
+import { NOTIFICATIONS, Axios } from '../utils/request';
 
 const NotificationContainer:React.FC = () => {
   const [notiNum, setNotiNum] = useState(0);
@@ -15,7 +14,8 @@ const NotificationContainer:React.FC = () => {
   const alarmRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    axios(`${API_SERVER}/user/notifications/${user.id}`)
+    const notificationConfig = NOTIFICATIONS(user.id);
+    Axios(notificationConfig)
       .then((result) => {
         dispatch(setNotification(result.data.data));
       })

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useRef } from 'react';
+import { Redirect } from 'react-router';
 import { musicUploaderChecker, CheckObjLength } from '../utils/check';
 import UploadMusic from '../components/UploadMusic';
-import { API_SERVER } from '../utils/constants';
 import { getShortId, getFileUrl } from '../utils';
+import { GET_IMAGE_URL, UPLOAD_MUSIC, Axios } from '../utils/request';
 
 export interface IMusic {
   musicUrl:string;
@@ -30,7 +30,8 @@ const UploadMusicContainer:React.FC<UploadMusicContainerProp> = () => {
   const [title, setTitle] = useState('');
   const [docus, setDocus] = useState<IDocu[]>([]);
   const objLengthChecker = CheckObjLength(musicUploaderChecker);
-
+  const [canRedirect, setCanRedirect] = useState(false);
+  const workId = useRef('');
   const titleChangeHandler = (key: string) => (e:React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
     const docuKey = key;
@@ -210,7 +211,8 @@ const UploadMusicContainer:React.FC<UploadMusicContainerProp> = () => {
 
   const getMusicUrl = async () => {
     const formData = makeFormData();
-    const { data } = await axios.post(`${API_SERVER}/upload/getImageUrl`, formData);
+    const reqConfig = GET_IMAGE_URL(formData);
+    const { data } = await Axios(reqConfig);
     const { objectStorageUrls } = data;
     return objectStorageUrls;
   };
@@ -242,7 +244,10 @@ const UploadMusicContainer:React.FC<UploadMusicContainerProp> = () => {
       title,
       content: dbContent,
     };
-    const response = await axios.post(`${API_SERVER}/upload/music`, data);
+    const reqConfig = UPLOAD_MUSIC(data);
+    const response = await Axios(reqConfig);
+    workId.current = response.data.data._id;
+    setCanRedirect(true);
   };
 
   const quillOnChangeHandler = (curDocu:IDocu) => (text:string) => {
@@ -258,20 +263,26 @@ const UploadMusicContainer:React.FC<UploadMusicContainerProp> = () => {
   };
 
   return (
-    <UploadMusic
-      title={title}
-      docus={docus}
-      titleChangeHandler={titleChangeHandler}
-      genresChangeHandler={genresChangeHandler}
-      moodsChangeHandler={moodsChangeHandler}
-      instrumentsChangeHandler={instrumentsChangeHandler}
-      imageUrlChangeHandler={imageUrlChangeHandler}
-      onChangeTitle={onChangeTitle}
-      MusicFileChangeHandler={MusicFileChangeHandler}
-      TextButtonOnCLickHandler={TextButtonOnCLickHandler}
-      UploadClickHandler={UploadClickHandler}
-      quillOnChangeHandler={quillOnChangeHandler}
-    />
+    <>
+      {
+        canRedirect
+          && <Redirect to={`/home/detail-music/${workId.current}`} />
+      }
+      <UploadMusic
+        title={title}
+        docus={docus}
+        titleChangeHandler={titleChangeHandler}
+        genresChangeHandler={genresChangeHandler}
+        moodsChangeHandler={moodsChangeHandler}
+        instrumentsChangeHandler={instrumentsChangeHandler}
+        imageUrlChangeHandler={imageUrlChangeHandler}
+        onChangeTitle={onChangeTitle}
+        MusicFileChangeHandler={MusicFileChangeHandler}
+        TextButtonOnCLickHandler={TextButtonOnCLickHandler}
+        UploadClickHandler={UploadClickHandler}
+        quillOnChangeHandler={quillOnChangeHandler}
+      />
+    </>
   );
 };
 

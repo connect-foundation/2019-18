@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import MusicDetail from '../components/MusicDetail';
 import useGetFeed from '../hooks/useGetFeed';
 import { RootState } from '../modules';
-import { API_SERVER, API_ADDR } from '../utils/constants';
+import { API_SERVER } from '../utils/constants';
 import { IData } from '../components/MusicDetail/types';
 import { CheckStringLength, CommentChecker } from '../utils/check';
+import { Alert } from '../utils';
+import { FEED_MUSIC_ADD_COMMENT, Axios } from '../utils/request';
 
 const MusicDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
   const { id } = match.params;
@@ -29,10 +30,10 @@ const MusicDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
 
   const CommentLengthChecker = CheckStringLength(CommentChecker);
 
-  const addNewComment = () => {
+  const addNewComment = async () => {
     if (data) {
       if (!user.isLogin) {
-        alert('로그인이 필요한 서비스입니다.');
+        Alert('로그인이 필요한 서비스입니다.');
         return;
       }
 
@@ -41,21 +42,18 @@ const MusicDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
       }
     }
 
-    const postData = {
-      content: inputComment,
-    };
-    const ADDR = API_ADDR.FEED_MUSIC_ADD_COMMENT(id);
-
-    axios.post(ADDR, postData, { withCredentials: true }).then((response) => {
+    try {
+      const reqConfig = FEED_MUSIC_ADD_COMMENT(id, inputComment);
+      const response = await Axios(reqConfig);
       if (!response.data.success) {
-        alert(response.data.msg);
+        Alert(response.data.msg);
       } else {
         setData(response.data.data);
         setInputComment('');
       }
-    }).catch((e) => {
+    } catch (e) {
       console.error(e);
-    });
+    }
   };
 
   return (

@@ -39,10 +39,6 @@ const UploadMusic:React.FC<UploadMusicProp> = ({
   UploadClickHandler,
   quillOnChangeHandler,
 }) => {
-  useEffect(() => {
-    console.log(docus);
-  }, [docus]);
-
   const makeDescription = (el: IDocu) => (
     <S.ContentWrapper key={el.key}>
       <ReactQuill
