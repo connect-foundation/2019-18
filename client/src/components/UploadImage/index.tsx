@@ -2,12 +2,11 @@ import React, {
   useState, useRef,
 } from 'react';
 import ImageUploader from 'react-images-upload';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { useDispatch } from 'react-redux';
 import {
-  API_SERVER, MAXSIZE_OF_UPLOADIMAGE, UPLOAD, IMAGEFORMAT,
+  MAXSIZE_OF_UPLOADIMAGE, UPLOAD, IMAGEFORMAT,
 } from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
@@ -20,8 +19,9 @@ import { login } from '../../modules/login/action';
 import {
   CheckStringLength, CheckObjLength, imageUploadTitleChecker, imageUploadContentChecker,
 } from '../../utils/check';
-
-axios.defaults.withCredentials = true;
+import {
+  Axios, UPLOAD_IMAGE_URL, UPLOAD_IMAGE, LOGOUT,
+} from '../../utils/request';
 
 function ImageUpload() {
   const [documents, setDocumnets] = useState<DocumentObject[]>([]);
@@ -93,13 +93,15 @@ function ImageUpload() {
 
   const getImageUrl = async () => {
     const formdata = makeFormData();
-    const { data } = await axios.post(`${API_SERVER}/upload/getImageUrl`, formdata);
+    const reqConfig = UPLOAD_IMAGE_URL(formdata);
+    const { data } = await Axios(reqConfig);
     const { objectStorageUrls } = data;
     return objectStorageUrls;
   };
 
   const logout = async () => {
-    await axios.get(`${API_SERVER}/login/out`);
+    const reqConfig = LOGOUT();
+    await Axios(reqConfig);
   };
 
   const uploadHandler = async () => {
@@ -129,7 +131,8 @@ function ImageUpload() {
         content: dbContent,
         tags: [],
       };
-      const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
+      const reqConfig = UPLOAD_IMAGE(obj);
+      const { data } = await Axios(reqConfig);
       const { workImageId } = data.data;
       workId.current = workImageId;
       setCanRedirect(true);
