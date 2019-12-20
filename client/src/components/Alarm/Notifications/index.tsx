@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import React from 'react';
 import * as S from './styles';
-import { RootState } from '../../../modules';
-import { getShortId, getTimeSimple } from '../../../utils';
+import { getShortId } from '../../../utils';
 import { INoti } from '../../../modules/notification';
 import NotificationItem from '../NotificationItem';
 
@@ -26,6 +23,7 @@ const Notifications: React.FC<NotificationsProp> = ({
           sender={noti.sender}
           type={noti.type}
           createdAt={noti.createdAt}
+          refPost={noti.ref}
         />
       ))
     }

@@ -10,6 +10,11 @@ const get10Images = (skip, limit) => Image.find()
   .populate('creator', 'name thumbnailUrl')
   .populate('owner', 'emoji comments views title');
 
+const getIdsImages = (id) => Image.find({ creator: id })
+  .populate('creator', 'name thumbnailUrl')
+  .populate('owner', 'emoji comments views title');
+
+
 const get10Wallpapers = (skip, limit) => Wallpaper.find()
   .skip(skip)
   .limit(limit)
@@ -27,6 +32,11 @@ const get10Musics = (skip, limit) => Music.find()
   .limit(limit)
   .populate('creator', 'name thumbnailUrl')
   .populate('owner', 'comments views');
+
+const getIdsMusics = (id) => Music.find({ creator: id })
+  .populate('creator', 'name thumbnailUrl')
+  .populate('owner', 'comments views');
+
 
 const getWorkImageById = (id) => WorkImage.findById(id).populate('owner', 'name');
 
@@ -59,8 +69,10 @@ const updateWorkMusicView = (_id) => WorkMusic.findOneAndUpdate(
 
 export {
   get10Images,
+  getIdsImages,
   get10Wallpapers,
   get10Musics,
+  getIdsMusics,
   getImageFeeds,
   getWorkImageById,
   addCommentToWorkImage,

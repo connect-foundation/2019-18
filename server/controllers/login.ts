@@ -8,8 +8,8 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const { email, pwd } = req.body;
     const result = await loginService(email, pwd);
     if (result.token !== null) {
-      res.cookie('token', result.token, { expires: new Date(Date.now() + 900000), httpOnly: true });
-      res.cookie('isLogin', true, { expires: new Date(Date.now() + 900000) });
+      res.cookie('token', result.token, { expires: new Date(Date.now() + 43200000), httpOnly: true });
+      res.cookie('isLogin', true, { expires: new Date(Date.now() + 43200000) });
     }
     return response(res, { message: LOGIN.LOGIN_FAILURE }, result.status);
   } catch (e) {

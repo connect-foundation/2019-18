@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../../modules/login/action';
 import { RootState } from '../../../modules';
-import HeaderSearch from './HeaderSearch';
 import HeaderGreeting from './HeaderGreeting';
 import Alarm from '../../Alarm';
 import * as S from './styles';
@@ -26,7 +25,6 @@ const HeaderRight: React.FC = () => {
   };
   return (
     <S.HeaderRightContainer>
-      <HeaderSearch />
       {!LoginUser.isLogin
         ? (
           <S.LoginContainer>
@@ -40,7 +38,9 @@ const HeaderRight: React.FC = () => {
             <S.LoginLink to="/">
               <S.LoginButton onClick={onLogout}>로그아웃</S.LoginButton>
             </S.LoginLink>
-            <S.UploadButton><S.UploadLink to="/home/upload">업로드</S.UploadLink></S.UploadButton>
+            <S.UploadLink to="/home/upload">
+              <S.UploadButton>업로드</S.UploadButton>
+            </S.UploadLink>
             <NotificationContainer />
             <HeaderGreeting />
           </S.LoginContainer>
