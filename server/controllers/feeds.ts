@@ -12,6 +12,7 @@ import {
   addCommentToWorkImage,
   getWorkMusicById,
   get10Musics,
+  getIdsMusics,
   addCommentToWorkMusic,
 } from '../services/feed';
 import {
@@ -300,6 +301,34 @@ const getMoreMusics = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
+const getMusicsById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const musics = await getIdsMusics(id);
+    const filteredFeed = musics.map(({
+      _id, imageUrl, musicUrl, title, creator, owner, createdAt, updatedAt,
+    }) => {
+      const newFeed = {
+        _id,
+        imageUrl: `${IMAGE_CDN}${MUSIC_COVERS}${imageUrl}${IMAGE_QUERY_LOW}`,
+        musicUrl: `${OS_TARGET_URL}${MUSICS}${musicUrl}`,
+        title,
+        creator,
+        ownerId: (owner as IWorkMusicModel).id,
+        numOfComments: (owner as IWorkMusicModel).comments.length,
+        views: (owner as IWorkMusicModel).views,
+        createdAt,
+        updatedAt,
+      };
+      console.error(newFeed);
+      return newFeed;
+    });
+    return response(res, filteredFeed);
+  } catch (e) {
+    next(e);
+  }
+};
+
 export {
   getImages,
   getImagesById,
@@ -311,4 +340,5 @@ export {
   getWorkMusic,
   addMusicComment,
   getMoreMusics,
+  getMusicsById,
 };
