@@ -11,20 +11,21 @@ import {
 } from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
-import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
 import { DocumentObject } from './type';
 import { getShortId } from '../../utils';
 import 'react-quill/dist/quill.snow.css';
 import PurpleButton from '../../basics/PURPLE_Button';
 import { login } from '../../modules/login/action';
+import {
+  CheckStringLength, CheckObjLength, imageUploadTitleChecker, imageUploadContentChecker,
+} from '../../utils/check';
 
 axios.defaults.withCredentials = true;
 
 function ImageUpload() {
   const [documents, setDocumnets] = useState<DocumentObject[]>([]);
   const [title, setTitle] = useState<string>('');
-  const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
   const [showPopupDETAIL, setShowPopupDETAIL] = useState<boolean>(false);
 
   const [field, setField] = useState('');
@@ -36,9 +37,10 @@ function ImageUpload() {
   const [workId, setWorkId] = useState<string>('');
   const [fileTypeWarn, setFileTypeWarn] = useState<string>('');
   const errorCheck = useRef(0);
-  const errorMsg = useRef('');
   const [isAuthen, setIsAuthen] = useState<boolean>(true);
   const dispatch = useDispatch();
+  const titleLengthCheker = CheckStringLength(imageUploadTitleChecker);
+  const contentLengthChecker = CheckObjLength(imageUploadContentChecker);
 
   const updateContent = (type:string, file: File[]) => {
     if (file.length === errorCheck.current) {
@@ -151,14 +153,10 @@ function ImageUpload() {
   };
 
   const titleCheck = () => {
-    if (title.length === 0) {
-      errorMsg.current = UPLOAD.TITLE_WARN;
-      setShowPopupWARN(true);
+    if (!titleLengthCheker(title)) {
       return;
     }
-    if (documents.length === 0) {
-      errorMsg.current = UPLOAD.DOCUMENT_WARN;
-      setShowPopupWARN(true);
+    if (!contentLengthChecker(documents)) {
       return;
     }
     setShowPopupDETAIL(true);
@@ -179,10 +177,6 @@ function ImageUpload() {
 
   const onChangetitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
-  };
-
-  const togglePopup = () => {
-    setShowPopupWARN(false);
   };
 
   const togglePopupDetail = () => {
@@ -276,7 +270,6 @@ function ImageUpload() {
         <div className="tyep-error">{fileTypeWarn}</div>
       </S.NotiText>
       <PurpleButton buttonText="업로드" clickHandler={titleCheck} />
-      {showPopupWARN && <PopupWarn text={errorMsg.current} closePopup={togglePopup} />}
       {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setField={setField} setCcl={setCcl} setIspublic={setIspublic} setCanComments={setCanComments} field={field} ccl={ccl} />}
     </S.UploadMain>
   );
