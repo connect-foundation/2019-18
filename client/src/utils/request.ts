@@ -27,6 +27,8 @@ export const UPLOAD_IMAGE = (data: any):AxiosRequestConfig => ({
 export const LOGOUT = ():AxiosRequestConfig => ({
   method: 'GET',
   url: '/login/out',
+});
+
 export const FEED_MUSIC_ADD_COMMENT = (id:string, data: any):AxiosRequestConfig => ({
   method: 'post',
   url: `/feed/musics/${id}/add-comment`,
