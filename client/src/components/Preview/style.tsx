@@ -3,9 +3,9 @@ import { theme } from '../../style/theme';
 
 export const Box = styled.div`
   display: flex;
-  max-width: 750px;
+  width: 100%;
   height: auto;
-  margin-top: 30px;
+  margin-top: 1.5rem;
 `;
 export const Img = styled.img`
   display: flex;

@@ -5,12 +5,14 @@ import httpStatus from 'http-status';
 import response from '../utils/response';
 import {
   get10Images,
+  getIdsImages,
   get10Wallpapers,
   getImageFeeds,
   getWorkImageById,
   addCommentToWorkImage,
   getWorkMusicById,
   get10Musics,
+  getIdsMusics,
   addCommentToWorkMusic,
 } from '../services/feed';
 import {
@@ -23,6 +25,29 @@ import { IWorkMusicModel } from '../models/work_music';
 const getImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const images = await getImageFeeds(0, 10);
+    const filteredFeed = images.map((image: any) => {
+      const newFeed = {
+        id: image.id,
+        url: `${IMAGE_CDN}${IMAGES}${image.url}${IMAGE_QUERY_LOW}`,
+        ownerId: image.owner.id,
+        numOfComments: image.owner.comments.length,
+        views: image.owner.views,
+        title: image.owner.title,
+        creator: image.creator,
+      };
+
+      return newFeed;
+    });
+
+    return response(res, filteredFeed);
+  } catch (e) {
+    next(e);
+  }
+};
+const getImagesById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const images = await getIdsImages(id);
     const filteredFeed = images.map((image: any) => {
       const newFeed = {
         id: image.id,
@@ -276,8 +301,37 @@ const getMoreMusics = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
+const getMusicsById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const musics = await getIdsMusics(id);
+    const filteredFeed = musics.map(({
+      _id, imageUrl, musicUrl, title, creator, owner, createdAt, updatedAt,
+    }) => {
+      const newFeed = {
+        _id,
+        imageUrl: `${IMAGE_CDN}${MUSIC_COVERS}${imageUrl}${IMAGE_QUERY_LOW}`,
+        musicUrl: `${OS_TARGET_URL}${MUSICS}${musicUrl}`,
+        title,
+        creator,
+        ownerId: (owner as IWorkMusicModel).id,
+        numOfComments: (owner as IWorkMusicModel).comments.length,
+        views: (owner as IWorkMusicModel).views,
+        createdAt,
+        updatedAt,
+      };
+      console.error(newFeed);
+      return newFeed;
+    });
+    return response(res, filteredFeed);
+  } catch (e) {
+    next(e);
+  }
+};
+
 export {
   getImages,
+  getImagesById,
   getWallpapers,
   getWorkImage,
   addComment,
@@ -286,4 +340,5 @@ export {
   getWorkMusic,
   addMusicComment,
   getMoreMusics,
+  getMusicsById,
 };

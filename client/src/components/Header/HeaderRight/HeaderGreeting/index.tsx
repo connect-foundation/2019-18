@@ -6,12 +6,11 @@ import Img from '../../../../basics/Img';
 const ProfileLink = styled(Link)`
     text-decoration : none;
     margin: auto;
-    margin-left: 1rem;
+    margin-left: 0.7rem;
 `;
 const ProfileImg = styled(Img)`
     height: 2.5rem;
     width: 2.5rem;
-    margin-left: 1rem;
 `;
 const HeaderGreetingContainer = styled.div`
     display:flex;

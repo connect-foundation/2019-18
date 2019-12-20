@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { withRouter, RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -6,6 +7,7 @@ import { API_SERVER } from '../utils/constants';
 import { theme } from '../style/theme';
 // import FeedMyWorks from '../components/FeedMyWorks';
 import Portfolio from '../components/Portfolio';
+import FeedMyWorkContainer from './FeedMyWorkContainer';
 import { RootState } from '../modules';
 
 
@@ -70,25 +72,27 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
       }
     });
   }, [Id]);
-  return (
-    <S.CreatorContainer>
-      <S.PortfolioContainer>
-        <Portfolio
-          isMyPortfolio={isMyPortfolio}
-          introDetail={portfolio.introDetail}
-          introSimple={portfolio.introSimple}
-          activeFields={portfolio.activeFields}
-          portfolioFollower={portfolio.follower}
-          isLogin={isLogin}
-          LoginedId={LoginedId}
-          PortfolioOwnerId={match.params.Id || LoginedId}
-          PortfolioOwnerName={portfolio.name}
-        />
-      </S.PortfolioContainer>
-      <S.WorksContainer>
-        {/* <FeedMyWorks /> */}
-      </S.WorksContainer>
-    </S.CreatorContainer>
-  );
+  return (!isLogin && !match.params.Id)
+    ? (<Redirect to="/" />)
+    : (
+      <S.CreatorContainer>
+        <S.PortfolioContainer>
+          <Portfolio
+            isMyPortfolio={isMyPortfolio}
+            introDetail={portfolio.introDetail}
+            introSimple={portfolio.introSimple}
+            activeFields={portfolio.activeFields}
+            portfolioFollower={portfolio.follower}
+            isLogin={isLogin}
+            LoginedId={LoginedId}
+            PortfolioOwnerId={match.params.Id || LoginedId}
+            PortfolioOwnerName={portfolio.name}
+          />
+        </S.PortfolioContainer>
+        <S.WorksContainer>
+          <FeedMyWorkContainer id={match.params.Id || LoginedId} />
+        </S.WorksContainer>
+      </S.CreatorContainer>
+    );
 };
 export default withRouter(CreatorContainer);

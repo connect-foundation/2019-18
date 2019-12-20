@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import PortfolioForm from '../components/PortfolioForm';
 import { fieldoptions, API_SERVER } from '../utils/constants';
 import { RootState } from '../modules';
+import PopupWarn from '../commons/Popup_warn';
 
 const S = {
   PortfolioFormContainer: styled.div`
@@ -21,6 +22,8 @@ const PortfolioFormContainer:React.FC = () => {
   const [activeFields, setActiveFields] = useState(makeFirstStates);
   const [showOption, setShowOption] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(true);
+  const [showPopupWARN, setShowPopupWARN] = useState(false);
+  const [popupTEXT, setPopupTEXT] = useState('');
   const email = useSelector((state:RootState) => state.login.email);
   useEffect(() => {
     const getData = async () => {
@@ -67,10 +70,12 @@ const PortfolioFormContainer:React.FC = () => {
       });
       const responseJson = await response.json();
       if (!responseJson.success) {
-        alert('변경되지 않았습니다.');
+        setPopupTEXT('변경되지 않았습니다.');
+        setShowPopupWARN(true);
         return null;
       }
-      alert('성공적으로 제출 되었습니다.');
+      setPopupTEXT('성공적으로 제출되었습니다.');
+      setShowPopupWARN(true);
       return setSubmitSuccess(true);
     };
     setShowOption(false);
@@ -100,6 +105,9 @@ const PortfolioFormContainer:React.FC = () => {
       return { ...option };
     }));
   };
+  const togglePopup = () => {
+    setShowPopupWARN(false);
+  };
   return (
     <S.PortfolioFormContainer>
       <PortfolioForm
@@ -114,6 +122,7 @@ const PortfolioFormContainer:React.FC = () => {
         onSubmit={onSubmit}
         onCancel={onCancel}
       />
+      {showPopupWARN && <PopupWarn text={popupTEXT} closePopup={togglePopup} />}
     </S.PortfolioFormContainer>
   );
 };
