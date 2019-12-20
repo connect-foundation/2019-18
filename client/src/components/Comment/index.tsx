@@ -1,7 +1,6 @@
 import React from 'react';
 import * as S from './styles';
 import { CommentProp, CommentListProp } from './types';
-import Like from '../../commons/Like';
 import { getShortId, getTimeFromNow } from '../../utils';
 
 const CommentList:React.FC<CommentListProp> = ({ owner, comment, createdAt }) => (

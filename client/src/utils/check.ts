@@ -1,6 +1,6 @@
-import Swal from 'sweetalert2';
 import 'animate.css';
 import { Alert } from './index';
+import { UPLOAD, UPLOAD_POPUP_MSG } from '../utils/constants';
 
 interface Checker {
   msg: ()=> string;
@@ -41,6 +41,31 @@ export const musicUploaderChecker = {
   msg: () => `최대 ${musicUploaderChecker.max} 개 선택 가능합니다.`,
   check: (objs: any[]) => objs.length <= musicUploaderChecker.max - 1,
 };
+
+export const imageUploadTitleChecker = {
+  minLen: 1,
+  msg: () => UPLOAD.TITLE_WARN,
+  check: (str: string) => (str.length >= imageUploadTitleChecker.minLen),
+};
+
+export const imageUploadContentChecker = {
+  minLen: 1,
+  msg: () => UPLOAD.DOCUMENT_WARN,
+  check: (objs: any[]) => (objs.length >= imageUploadContentChecker.minLen),
+};
+
+export const imageUploadDetailFieldChecker = {
+  minLen: 1,
+  msg: () => UPLOAD_POPUP_MSG.feildWarn,
+  check: (str: string) => (str.length >= imageUploadDetailFieldChecker.minLen),
+};
+
+export const imageUploadDetailCclChecker = {
+  minLen: 1,
+  msg: () => UPLOAD_POPUP_MSG.cclWarn,
+  check: (str: string) => (str.length >= imageUploadDetailCclChecker.minLen),
+};
+
 export const CheckStringLength = (checker:Checker) => (str: string) => {
   if (!checker.check(str)) {
     Alert(checker.msg());

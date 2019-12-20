@@ -2,29 +2,30 @@ import React, {
   useState, useRef,
 } from 'react';
 import ImageUploader from 'react-images-upload';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { useDispatch } from 'react-redux';
 import {
-  API_SERVER, MAXSIZE_OF_UPLOADIMAGE, UPLOAD, IMAGEFORMAT,
+  MAXSIZE_OF_UPLOADIMAGE, UPLOAD, IMAGEFORMAT,
 } from '../../utils/constants';
 import Preview from '../Preview';
 import * as S from './style';
-import PopupWarn from '../../commons/Popup_warn';
 import PopupDetail from '../Upload_detail_Popup';
 import { DocumentObject } from './type';
 import { getShortId } from '../../utils';
 import 'react-quill/dist/quill.snow.css';
 import PurpleButton from '../../basics/PURPLE_Button';
 import { login } from '../../modules/login/action';
-
-axios.defaults.withCredentials = true;
+import {
+  CheckStringLength, CheckObjLength, imageUploadTitleChecker, imageUploadContentChecker,
+} from '../../utils/check';
+import {
+  Axios, UPLOAD_IMAGE_URL, UPLOAD_IMAGE, LOGOUT,
+} from '../../utils/request';
 
 function ImageUpload() {
   const [documents, setDocumnets] = useState<DocumentObject[]>([]);
   const [title, setTitle] = useState<string>('');
-  const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
   const [showPopupDETAIL, setShowPopupDETAIL] = useState<boolean>(false);
 
   const [field, setField] = useState('');
@@ -33,12 +34,13 @@ function ImageUpload() {
   const [canComments, setCanComments] = useState(true);
 
   const [canRedirect, setCanRedirect] = useState<boolean>(false);
-  const [workId, setWorkId] = useState<string>('');
+  const workId = useRef('');
   const [fileTypeWarn, setFileTypeWarn] = useState<string>('');
   const errorCheck = useRef(0);
-  const errorMsg = useRef('');
   const [isAuthen, setIsAuthen] = useState<boolean>(true);
   const dispatch = useDispatch();
+  const titleLengthChecker = CheckStringLength(imageUploadTitleChecker);
+  const contentLengthChecker = CheckObjLength(imageUploadContentChecker);
 
   const updateContent = (type:string, file: File[]) => {
     if (file.length === errorCheck.current) {
@@ -91,13 +93,15 @@ function ImageUpload() {
 
   const getImageUrl = async () => {
     const formdata = makeFormData();
-    const { data } = await axios.post(`${API_SERVER}/upload/getImageUrl`, formdata);
+    const reqConfig = UPLOAD_IMAGE_URL(formdata);
+    const { data } = await Axios(reqConfig);
     const { objectStorageUrls } = data;
     return objectStorageUrls;
   };
 
   const logout = async () => {
-    await axios.get(`${API_SERVER}/login/out`);
+    const reqConfig = LOGOUT();
+    await Axios(reqConfig);
   };
 
   const uploadHandler = async () => {
@@ -127,9 +131,10 @@ function ImageUpload() {
         content: dbContent,
         tags: [],
       };
-      const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
-      const { workImageId } = data;
-      setWorkId(workImageId);
+      const reqConfig = UPLOAD_IMAGE(obj);
+      const { data } = await Axios(reqConfig);
+      const { workImageId } = data.data;
+      workId.current = workImageId;
       setCanRedirect(true);
     } catch (e) {
       logout();
@@ -140,7 +145,7 @@ function ImageUpload() {
 
   const renderRedirect = () => {
     if (canRedirect) {
-      return <Redirect to={`/home/detail-image/${workId}`} />;
+      return <Redirect to={`/home/detail-image/${workId.current}`} />;
     }
   };
 
@@ -151,14 +156,10 @@ function ImageUpload() {
   };
 
   const titleCheck = () => {
-    if (title.length === 0) {
-      errorMsg.current = UPLOAD.TITLE_WARN;
-      setShowPopupWARN(true);
+    if (!titleLengthChecker(title)) {
       return;
     }
-    if (documents.length === 0) {
-      errorMsg.current = UPLOAD.DOCUMENT_WARN;
-      setShowPopupWARN(true);
+    if (!contentLengthChecker(documents)) {
       return;
     }
     setShowPopupDETAIL(true);
@@ -179,10 +180,6 @@ function ImageUpload() {
 
   const onChangetitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
-  };
-
-  const togglePopup = () => {
-    setShowPopupWARN(false);
   };
 
   const togglePopupDetail = () => {
@@ -276,7 +273,6 @@ function ImageUpload() {
         <div className="tyep-error">{fileTypeWarn}</div>
       </S.NotiText>
       <PurpleButton buttonText="업로드" clickHandler={titleCheck} />
-      {showPopupWARN && <PopupWarn text={errorMsg.current} closePopup={togglePopup} />}
       {showPopupDETAIL && <PopupDetail text="추가 정보" cancleHandler={togglePopupDetail} aproveHandler={uploadHandler} setField={setField} setCcl={setCcl} setIspublic={setIspublic} setCanComments={setCanComments} field={field} ccl={ccl} />}
     </S.UploadMain>
   );

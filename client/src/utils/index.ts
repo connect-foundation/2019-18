@@ -2,6 +2,7 @@ import shortId from 'shortid';
 import moment from 'moment';
 import 'moment/locale/ko';
 import Swal from 'sweetalert2';
+import { theme } from '../style/theme';
 
 export const getTime = (t:number) => {
   function appendLeadingZeroes(n:number) {
@@ -42,4 +43,5 @@ export const Alert = (title: string) => Swal.fire({
   hideClass: {
     popup: 'animated fadeOutUp faster',
   },
+  confirmButtonColor: theme.CRA_MINT_FIRST,
 });

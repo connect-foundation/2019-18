@@ -12,6 +12,21 @@ export const USE_GET_FEED_LIST = (fixedNum: number, skippedNum: number):AxiosReq
   url: `/feed/images/more/${fixedNum}/${skippedNum}`,
 });
 
+export const UPLOAD_IMAGE_URL = (data: FormData):AxiosRequestConfig => ({
+  method: 'POST',
+  url: '/upload/getImageUrl',
+  data,
+});
+
+export const UPLOAD_IMAGE = (data: any):AxiosRequestConfig => ({
+  method: 'POST',
+  url: '/upload/works-image',
+  data,
+});
+
+export const LOGOUT = ():AxiosRequestConfig => ({
+  method: 'GET',
+  url: '/login/out',
 export const FEED_MUSIC_ADD_COMMENT = (id:string, data: any):AxiosRequestConfig => ({
   method: 'post',
   url: `/feed/musics/${id}/add-comment`,
