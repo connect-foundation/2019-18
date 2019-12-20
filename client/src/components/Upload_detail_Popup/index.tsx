@@ -6,7 +6,9 @@ import {
   PopupProps, ValueType, OptionType,
 } from './type';
 import { fieldoptions, ccloptions, UPLOAD_POPUP_MSG } from '../../utils/constants';
-import PopupWarn from '../../commons/Popup_warn';
+import {
+  CheckStringLength, imageUploadDetailFieldChecker, imageUploadDetailCclChecker,
+} from '../../utils/check';
 
 function PopupDetail({
   text,
@@ -21,6 +23,8 @@ function PopupDetail({
 }: PopupProps) {
   const [showPopupWARN, setShowPopupWARN] = useState<boolean>(false);
   const msg = useRef(UPLOAD_POPUP_MSG.feildWarn);
+  const fieldLengthChecker = CheckStringLength(imageUploadDetailFieldChecker);
+  const cclLengthChecker = CheckStringLength(imageUploadDetailCclChecker);
 
   const selectHandlerField = (selectedOption: ValueType<OptionType>) => {
     const { value } = selectedOption as OptionType;
@@ -43,13 +47,10 @@ function PopupDetail({
   };
 
   const composeAddtionalInfo = async () => {
-    if (field.length === 0) {
-      setShowPopupWARN(true);
+    if (!fieldLengthChecker(field)) {
       return;
     }
-    if (ccl.length === 0) {
-      msg.current = UPLOAD_POPUP_MSG.cclWarn;
-      setShowPopupWARN(true);
+    if (!cclLengthChecker(ccl)) {
       return;
     }
     await aproveHandler();
@@ -105,7 +106,6 @@ function PopupDetail({
           <PurpleButton clickHandler={composeAddtionalInfo} buttonText="확인" />
         </S.Buttons>
       </S.Inner>
-      {showPopupWARN && <PopupWarn text={msg.current} closePopup={togglePopup} />}
     </S.Box>
   );
 }

@@ -1,6 +1,6 @@
 import 'animate.css';
 import { Alert } from './index';
-import { UPLOAD } from '../utils/constants';
+import { UPLOAD, UPLOAD_POPUP_MSG } from '../utils/constants';
 
 interface Checker {
   msg: ()=> string;
@@ -52,6 +52,18 @@ export const imageUploadContentChecker = {
   minLen: 1,
   msg: () => UPLOAD.DOCUMENT_WARN,
   check: (objs: any[]) => (objs.length >= imageUploadContentChecker.minLen),
+};
+
+export const imageUploadDetailFieldChecker = {
+  minLen: 1,
+  msg: () => UPLOAD_POPUP_MSG.feildWarn,
+  check: (str: string) => (str.length >= imageUploadDetailFieldChecker.minLen),
+};
+
+export const imageUploadDetailCclChecker = {
+  minLen: 1,
+  msg: () => UPLOAD_POPUP_MSG.cclWarn,
+  check: (str: string) => (str.length >= imageUploadDetailCclChecker.minLen),
 };
 
 export const CheckStringLength = (checker:Checker) => (str: string) => {
