@@ -34,12 +34,12 @@ function ImageUpload() {
   const [canComments, setCanComments] = useState(true);
 
   const [canRedirect, setCanRedirect] = useState<boolean>(false);
-  const [workId, setWorkId] = useState<string>('');
+  const workId = useRef('');
   const [fileTypeWarn, setFileTypeWarn] = useState<string>('');
   const errorCheck = useRef(0);
   const [isAuthen, setIsAuthen] = useState<boolean>(true);
   const dispatch = useDispatch();
-  const titleLengthCheker = CheckStringLength(imageUploadTitleChecker);
+  const titleLengthChecker = CheckStringLength(imageUploadTitleChecker);
   const contentLengthChecker = CheckObjLength(imageUploadContentChecker);
 
   const updateContent = (type:string, file: File[]) => {
@@ -130,8 +130,8 @@ function ImageUpload() {
         tags: [],
       };
       const { data } = await axios.post(`${API_SERVER}/upload/works-image`, obj);
-      const { workImageId } = data;
-      setWorkId(workImageId);
+      const { workImageId } = data.data;
+      workId.current = workImageId;
       setCanRedirect(true);
     } catch (e) {
       logout();
@@ -142,7 +142,7 @@ function ImageUpload() {
 
   const renderRedirect = () => {
     if (canRedirect) {
-      return <Redirect to={`/home/detail-image/${workId}`} />;
+      return <Redirect to={`/home/detail-image/${workId.current}`} />;
     }
   };
 
@@ -153,7 +153,7 @@ function ImageUpload() {
   };
 
   const titleCheck = () => {
-    if (!titleLengthCheker(title)) {
+    if (!titleLengthChecker(title)) {
       return;
     }
     if (!contentLengthChecker(documents)) {

@@ -98,10 +98,8 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
         await wallPaperCreate(wallpaperPayload);
       }
     });
-
-
     newWorksNotification(sender, result, filteredFollowers, NOTIFICATION_TYPE.WORKS);
-    res.json({ workImageId });
+    response(res, { workImageId });
   } catch (e) {
     next(e);
   }
