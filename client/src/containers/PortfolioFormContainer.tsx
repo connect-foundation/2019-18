@@ -39,6 +39,7 @@ const PortfolioFormContainer:React.FC = () => {
   const originUrlG = useSelector((state:RootState) => state.login.originUrl);
   const [previewImage, setPreviewImage] = useState<imageObject>({ file: null, preview: originUrlG });
   const dispatch = useDispatch();
+  const [canRedirect, setCanRedirect] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -98,7 +99,6 @@ const PortfolioFormContainer:React.FC = () => {
       const data = await Axios(reqConfig);
       const { thumbnailUrl, originUrl } = data.data;
       dispatch(updateImgUrl(thumbnailUrl, originUrl));
-
       const params = {
         email,
         introSimple,
@@ -119,6 +119,7 @@ const PortfolioFormContainer:React.FC = () => {
       }
       setPopupTEXT('성공적으로 제출되었습니다.');
       setShowPopupWARN(true);
+      // setCanRedirect(true);
       return setSubmitSuccess(true);
     };
     setShowOption(false);
@@ -150,10 +151,12 @@ const PortfolioFormContainer:React.FC = () => {
   };
   const togglePopup = () => {
     setShowPopupWARN(false);
+    setCanRedirect(true);
   };
   return (
     <S.PortfolioFormContainer>
       <PortfolioForm
+        canRedirect={canRedirect}
         previewImage={previewImage}
         onImageUrlChangeHandler={onImageUrlChangeHandler}
         introSimple={introSimple}

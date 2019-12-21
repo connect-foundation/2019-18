@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import { Redirect } from 'react-router-dom';
 import * as S from './style';
 import TextInput from '../../basics/Input/TextInput';
 import { PortfolioProp } from './types';
@@ -9,7 +9,7 @@ import Preview from '../Preview';
 
 const PortfolioForm:React.FC<PortfolioProp> = (
   {
-    previewImage, onImageUrlChangeHandler, introSimple, introDetail, showOption, onChangeintroSimple, onChangeintroDetail, onClickShowOption,
+    canRedirect, previewImage, onImageUrlChangeHandler, introSimple, introDetail, showOption, onChangeintroSimple, onChangeintroDetail, onClickShowOption,
     onChangeActiveFields, activeFields, onSubmit, onCancel,
   },
 ) => {
@@ -24,12 +24,19 @@ const PortfolioForm:React.FC<PortfolioProp> = (
   const fieldString = activeFields.filter((option:any) => option.checked)
     .map((option:any) => option.value).join(', ');
 
+  const redirectHandler = () => {
+    if (canRedirect) {
+      return <Redirect to="/creator" />;
+    }
+  };
   useEffect(() => {
 
   }, [previewImage]);
 
   return (
+
     <S.PortfolioForm>
+      {redirectHandler()}
       <S.InputArea>
         <S.InputTitle>프로필 사진</S.InputTitle>
         <S.Preview>
@@ -75,7 +82,6 @@ const PortfolioForm:React.FC<PortfolioProp> = (
         <S.RedEmptyButton onClick={onCancel}>취소</S.RedEmptyButton>
       </S.InputButtonArea>
     </S.PortfolioForm>
-
   );
 };
 export default PortfolioForm;

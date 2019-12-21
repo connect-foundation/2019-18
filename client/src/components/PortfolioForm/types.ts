@@ -4,6 +4,7 @@ interface imageObject {
     preview: string,
   }
 export interface PortfolioProp{
+    canRedirect: boolean;
     previewImage: imageObject;
     onImageUrlChangeHandler: (e: React.ChangeEvent<HTMLInputElement>)=>void;
     introSimple: string;
