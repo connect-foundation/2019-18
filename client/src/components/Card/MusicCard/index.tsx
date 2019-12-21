@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import * as S from './styles';
-import StyledLink from '../../../basics/StyledLink';
 import { TextWithImg } from '../CardFooter/styles';
 import CardFooter from '../CardFooter';
 import MusicCardProp from './types';
@@ -18,7 +17,7 @@ const MusicCard: React.FC<MusicCardProp> = ({
 
   return (
     <S.Container>
-      <StyledLink to={`/home/detail-music/${ownerId}`}>
+      <S.StyledLink to={`/home/detail-music/${ownerId}`}>
         <S.CardImgContainer>
           <S.CardImg src={imageUrl} />
 
@@ -27,24 +26,27 @@ const MusicCard: React.FC<MusicCardProp> = ({
         <S.CardHeader>
           <S.Title>{title}</S.Title>
         </S.CardHeader>
+      </S.StyledLink>
 
+      <S.StyledLink to={`/creator/${creator._id}`}>
         <S.CardBody id={creator._id}>
           <TextWithImg
             src={creator.thumbnailUrl}
             text={creator.name}
           />
         </S.CardBody>
-
+      </S.StyledLink>
+      <S.StyledLink to={`/home/detail-music/${ownerId}`}>
         <CardFooter
           comments={numOfComments.toString()}
           views={views.toString()}
         />
-      </StyledLink>
-      <S.CroppedCardImg src={imageUrl} />
-      <S.PlayButton htmlFor={_id}>
-        <button type="button" id={_id} onClick={playToggle}><S.PlayIcon /></button>
-      </S.PlayButton>
-      <MusicFeedPlayerMini url={musicUrl} isPlaying={isPlaying} playToggle={playToggle} audioRef={audioRef} />
+        <S.CroppedCardImg src={imageUrl} />
+        <S.PlayButton htmlFor={_id}>
+          <button type="button" id={_id} onClick={playToggle}><S.PlayIcon /></button>
+        </S.PlayButton>
+        <MusicFeedPlayerMini url={musicUrl} isPlaying={isPlaying} playToggle={playToggle} audioRef={audioRef} />
+      </S.StyledLink>
     </S.Container>
   );
 };

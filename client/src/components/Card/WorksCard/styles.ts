@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Img from '../../../basics/Img';
 import { theme } from '../../../style/theme';
 import H3 from '../../../basics/H3';
+import StyledLink from '../../../basics/StyledLink';
 
 export const Container = styled.div`
     display: flex;
@@ -43,3 +44,7 @@ export const CardBody = styled.div`
     padding: 0 1rem;
     border-bottom: 1px ${theme.BORDER_GRAY} solid;
 `;
+
+export {
+  StyledLink,
+};

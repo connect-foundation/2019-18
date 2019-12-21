@@ -3,6 +3,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Img from '../../../basics/Img';
 import { theme } from '../../../style/theme';
 import H3 from '../../../basics/H3';
+import StyledLink from '../../../basics/StyledLink';
 
 export const Container = styled.div`
     display: flex;
@@ -83,3 +84,7 @@ export const PlayButton = styled.label`
             outline: none;        }
     
 `;
+
+export {
+  StyledLink,
+};
