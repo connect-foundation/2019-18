@@ -13,6 +13,11 @@ export const Container = styled.div`
     border-radius: 10px;
     border: 0px solid black;
     box-shadow: ${theme.BOX_SHADOW};
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        transition: all 0.3s ease-in-out;
+        transform: scale(1.1);
+    }
 `;
 
 export const CardImgContainer = styled.div`

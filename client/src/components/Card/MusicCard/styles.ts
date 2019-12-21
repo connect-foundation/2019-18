@@ -16,6 +16,11 @@ export const Container = styled.div`
     box-shadow: ${theme.BOX_SHADOW};
     position: relative;
     overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        transition: all 0.3s ease-in-out;
+        transform: scale(1.1);
+    }
 `;
 
 export const CardImgContainer = styled.div`
