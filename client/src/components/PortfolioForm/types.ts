@@ -1,4 +1,11 @@
+
+interface imageObject {
+    file: File | null,
+    preview: string,
+  }
 export interface PortfolioProp{
+    previewImage: imageObject;
+    onImageUrlChangeHandler: (e: React.ChangeEvent<HTMLInputElement>)=>void;
     introSimple: string;
     introDetail: string;
     showOption: boolean;

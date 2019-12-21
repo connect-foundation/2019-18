@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import * as S from './style';
 import TextInput from '../../basics/Input/TextInput';
 import { PortfolioProp } from './types';
-
+import Preview from '../Preview';
 
 const PortfolioForm:React.FC<PortfolioProp> = (
   {
-    introSimple, introDetail, showOption, onChangeintroSimple, onChangeintroDetail, onClickShowOption,
+    previewImage, onImageUrlChangeHandler, introSimple, introDetail, showOption, onChangeintroSimple, onChangeintroDetail, onClickShowOption,
     onChangeActiveFields, activeFields, onSubmit, onCancel,
   },
 ) => {
@@ -23,9 +23,21 @@ const PortfolioForm:React.FC<PortfolioProp> = (
   );
   const fieldString = activeFields.filter((option:any) => option.checked)
     .map((option:any) => option.value).join(', ');
+
+  useEffect(() => {
+
+  }, [previewImage]);
+
   return (
     <S.PortfolioForm>
       <S.InputArea>
+        <S.InputTitle>프로필 사진</S.InputTitle>
+        <div>
+          <Preview src={previewImage.preview} />
+          <label htmlFor="image" className="sc-daURTG dBDRlb">
+            <input type="file" id="image" accept="image/*" onChange={onImageUrlChangeHandler} />
+          </label>
+        </div>
         <S.InputTitle>한 줄 소개</S.InputTitle>
         <S.InputTextArea>
           <TextInput placeholder="한줄소개" value={introSimple} onChange={onChangeintroSimple} />

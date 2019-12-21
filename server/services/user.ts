@@ -43,6 +43,8 @@ const getNotifications = async (_id) => User.findById(_id)
     populate: 'ref',
   });
 
+const updateUserImgUrl = (_id, originUrl, thumbnailUrl) => User.findOneAndUpdate({ _id }, { originUrl, thumbnailUrl });
+
 export {
   create,
   remove,
@@ -52,4 +54,5 @@ export {
   findFollower,
   findFollowing,
   getNotifications,
+  updateUserImgUrl,
 };
