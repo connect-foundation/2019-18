@@ -130,7 +130,7 @@ interface ImageContentProp {
     src: string;
 }
 
-export const ImageContent = styled.image<ImageContentProp>`
+export const ImageContent = styled.div<ImageContentProp>`
     width: 45rem;
     height: 30rem;
     background-size: contain;
