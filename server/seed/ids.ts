@@ -7,11 +7,33 @@ export const user:mongoose.Types.ObjectId[] = [
 ];
 
 export const workImage:mongoose.Types.ObjectId[] = [
+  //image 0~4
   mongoose.Types.ObjectId(4),
   mongoose.Types.ObjectId(5),
   mongoose.Types.ObjectId(6),
   mongoose.Types.ObjectId(7),
   mongoose.Types.ObjectId(8),
+
+  //wallpaper 5~14
+  mongoose.Types.ObjectId(50),
+  mongoose.Types.ObjectId(51),
+  mongoose.Types.ObjectId(52),
+  mongoose.Types.ObjectId(53),
+  mongoose.Types.ObjectId(54),
+  mongoose.Types.ObjectId(55),
+  mongoose.Types.ObjectId(56),
+  mongoose.Types.ObjectId(57),
+  mongoose.Types.ObjectId(58),
+  mongoose.Types.ObjectId(59),
+  //15~19
+  mongoose.Types.ObjectId(60),
+  mongoose.Types.ObjectId(61),
+  mongoose.Types.ObjectId(62),
+  mongoose.Types.ObjectId(63),
+  mongoose.Types.ObjectId(64),
+
+
+
 ];
 
 export const wallpaper:mongoose.Types.ObjectId[] = [
@@ -54,4 +76,23 @@ export const profile:mongoose.Types.ObjectId[] = [
   mongoose.Types.ObjectId(39),
   mongoose.Types.ObjectId(40),
   mongoose.Types.ObjectId(41),
+];
+
+export const workMusic:mongoose.Types.ObjectId[] = [
+  mongoose.Types.ObjectId(70),
+  mongoose.Types.ObjectId(71),
+  mongoose.Types.ObjectId(72),
+  mongoose.Types.ObjectId(73),
+  mongoose.Types.ObjectId(74),
+  mongoose.Types.ObjectId(75),
+  mongoose.Types.ObjectId(76),
+  mongoose.Types.ObjectId(77),
+  mongoose.Types.ObjectId(78),
+  mongoose.Types.ObjectId(79),
+  mongoose.Types.ObjectId(80),
+  mongoose.Types.ObjectId(81),
+  mongoose.Types.ObjectId(82),
+  mongoose.Types.ObjectId(83),
+  mongoose.Types.ObjectId(84),
+
 ];

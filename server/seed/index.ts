@@ -17,6 +17,7 @@ fs.readdirSync(path.join(__dirname))
 
       await model.create(data, (err) => {
         if (err) {
+          console.log(data);
           console.error(err);
           process.exit();
         }
