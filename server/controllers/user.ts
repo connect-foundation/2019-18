@@ -81,7 +81,8 @@ const updateImg = async (req: Request & { files: MulterFile[] },
     const target = files[0];
     const originUrl = process.env.CDN_URL + target.key + IMAGE_QUERY_LOW;
     const thumbnailUrl = process.env.CDN_URL + target.key + IMAGE_PROFILE_THUB;
-    await updateUserImgUrl(user.id, originUrl, thumbnailUrl);
+    const data = await updateUserImgUrl(user.id, originUrl, thumbnailUrl);
+    response(res, data!);
   } catch (e) {
     next(e);
   }

@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PortfolioForm from '../components/PortfolioForm';
 import {
   fieldoptions, API_SERVER, UPLOAD, IMAGEFORMAT,
 } from '../utils/constants';
 import { RootState } from '../modules';
 import PopupWarn from '../commons/Popup_warn';
-import { getShortId, getFileUrl } from '../utils';
+import { getFileUrl } from '../utils';
 import {
   Axios, UPDATE_PROFILE_IMG,
 } from '../utils/request';
-
+import { updateImgUrl } from '../modules/login';
 
 interface imageObject {
   file: File | null,
@@ -36,8 +36,9 @@ const PortfolioFormContainer:React.FC = () => {
   const [showPopupWARN, setShowPopupWARN] = useState(false);
   const [popupTEXT, setPopupTEXT] = useState('');
   const email = useSelector((state:RootState) => state.login.email);
-  const originUrl = useSelector((state:RootState) => state.login.originUrl);
-  const [previewImage, setPreviewImage] = useState<imageObject>({ file: null, preview: originUrl });
+  const originUrlG = useSelector((state:RootState) => state.login.originUrl);
+  const [previewImage, setPreviewImage] = useState<imageObject>({ file: null, preview: originUrlG });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getData = async () => {
@@ -94,7 +95,9 @@ const PortfolioFormContainer:React.FC = () => {
         formdata.append(UPLOAD.MULTER_KEY, file, `profileImage${format}`);
       }
       const reqConfig = UPDATE_PROFILE_IMG(formdata);
-      await Axios(reqConfig);
+      const data = await Axios(reqConfig);
+      const { thumbnailUrl, originUrl } = data.data;
+      dispatch(updateImgUrl(thumbnailUrl, originUrl));
 
       const params = {
         email,
