@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PauseIcon from '@material-ui/icons/Pause';
-import RepeatIcon from '@material-ui/icons/Repeat';
+import { Repeat, RepeatOne } from '@material-ui/icons';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { theme } from '../../style/theme';
 import Button from '../../basics/Button';
@@ -84,14 +84,14 @@ export const Controller = styled.div`
 
 export const ControllerItem = styled.div`
     display: flex;
-    margin-left: 1rem;
+    margin: 0 0.5rem;
 `;
 
 interface MusicCoverProp{
     src: string;
 }
 
-export const MusicCover = styled.image<MusicCoverProp>`
+export const MusicCover = styled.div<MusicCoverProp>`
     width: 10rem;
     height: 10rem;
     margin: 0;
@@ -105,5 +105,6 @@ export const MusicCover = styled.image<MusicCoverProp>`
 export {
   PauseIcon,
   PlayArrowIcon,
-  RepeatIcon,
+  Repeat,
+  RepeatOne,
 };

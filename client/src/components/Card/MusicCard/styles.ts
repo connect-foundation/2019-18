@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import { PlayArrow, Pause } from '@material-ui/icons';
 import Img from '../../../basics/Img';
 import { theme } from '../../../style/theme';
 import H3 from '../../../basics/H3';
-import StyledLink from '../../../basics/StyledLink';
+import Link from '../../../basics/StyledLink';
 
 export const Container = styled.div`
     display: flex;
@@ -24,6 +24,7 @@ export const Container = styled.div`
 `;
 
 export const CardImgContainer = styled.div`
+    position: relative;
     display: flex;
     width: 100%;
     height: 13rem;
@@ -39,7 +40,7 @@ export const CardImg = styled(Img)`
     border-top-left-radius:10px;
     border-top-right-radius: 10px;
     background: no-repeat;
-    filter: blur(30px) grayscale(30%);
+    filter: blur(10px) grayscale(30%);
     
 `;
 
@@ -58,8 +59,6 @@ export const CardBody = styled.div`
     border-bottom: 1px ${theme.BORDER_GRAY} solid;
 `;
 
-export const PlayIcon = PlayArrowIcon;
-
 export const CroppedCardImg = styled(Img)`
     position: absolute;
     top: 55px;
@@ -72,24 +71,37 @@ export const CroppedCardImg = styled(Img)`
 `;
 
 export const PlayButton = styled.label`
-        position: absolute;
-        top: 80px;
-        right: 116px;
-        button{
-            width: 90px;
-            border: none;
-            background: none;
-            text-decoration: none;
-            color: white;
-            .MuiSvgIcon-root {
-                font-size: 3rem;
-            }
-        }
-        button:focus {
-            outline: none;        }
-    
+    position: absolute;
+    top: 80px;
+    right: 116px;
+    cursor: pointer;
+`;
+
+export const InnerPlayButton = styled.button`
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 90px;
+    border: none;
+    background: none;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    .MuiSvgIcon-root {
+        font-size: 3rem;
+    }
+    &:focus {
+        outline: none;
+    };
+`;
+
+export const StyledLink = styled(Link)`
+    width: 100%;
+    height: 100%;
 `;
 
 export {
-  StyledLink,
+  PlayArrow,
+  Pause,
 };

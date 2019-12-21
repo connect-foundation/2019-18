@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
-
+import React from 'react';
 import Quill from 'react-quill';
 import * as S from './styles';
 import MusicPlayer from '../MusicPlayer';
-import { MusicDetailProp } from './types';
+import { MusicDetailProp, IData } from './types';
 import PlayerFooter from './PlayerFooter';
 import { IMusicContent } from '../MusicDetail/types';
 import { IMusic } from '../UploadMusic/types';
@@ -19,66 +18,80 @@ const MusicDetail: React.FC<MusicDetailProp> = ({
   commentRef,
   changeInputHandler,
   addNewComment,
-}) => (isLoading || data === null
-  ? (<div>Loading...</div>)
-  : (
-    <S.Container>
-      <S.Header>
-        <S.HeaderTitle>{data.title}</S.HeaderTitle>
-        <S.HeaderMeta>
-          <span>by</span>
-          &nbsp;
-          <S.Strong>{data.owner.name}</S.Strong>
-          &nbsp;
-          <span>{`| ${getTimeSimple(data.createdAt)}`}</span>
-          &nbsp;
-          <span>{`| 조회 ${data.views}`}</span>
-        </S.HeaderMeta>
-      </S.Header>
-      {
+}) => {
+  const getHeaderMeta = (name: string, createdAt: number, views: string) => (
+    <S.HeaderMeta>
+      <span>by</span>
+      &nbsp;
+      <S.Strong>{name}</S.Strong>
+      &nbsp;
+      <span>{`| ${getTimeSimple(createdAt)}`}</span>
+      &nbsp;
+      <span>{`| 조회 ${views}`}</span>
+    </S.HeaderMeta>
+  );
+
+  const getMusicContent = ({
+    title, imageUrl, musicUrl, genres, moods, instruments,
+  }: IMusic,
+  { owner, views }: IData) => (
+    <div key={getShortId()}>
+      <MusicPlayer
+        title={title}
+        author={owner.name}
+        coverUrl={imageUrl}
+        musicUrl={musicUrl}
+      />
+      <PlayerFooter
+        view={views}
+        genres={genres}
+        moods={moods}
+        instruments={instruments}
+      />
+    </div>
+  );
+
+    const getDescriptionContent = (contentValue: string) => (
+      <Quill
+        key={getShortId()}
+        value={contentValue}
+        theme="bubble"
+        readOnly
+      />
+    )
+
+  return (
+    isLoading || data === null
+      ? (<div>Loading...</div>)
+      : (
+        <S.Container>
+          <S.Header>
+            <S.HeaderTitle>{data.title}</S.HeaderTitle>
+            {getHeaderMeta(data.owner.name, data.createdAt, data.views)}
+          </S.Header>
+          {
         (data.content as IMusicContent[]).map((content, index) => {
           if (content.type === 'musics') {
             const music = content.content as IMusic;
-            return (
-              <div key={getShortId()}>
-                <MusicPlayer
-                  title={music.title}
-                  author={data.owner.name}
-                  coverUrl={music.imageUrl}
-                  musicUrl={music.musicUrl}
-                />
-                <PlayerFooter
-                  view={data.views}
-                  genres={music.genres}
-                  moods={music.moods}
-                  instruments={music.instruments}
-                />
-              </div>
-            );
+            return getMusicContent(music, data);
           }
-          return (
-            <Quill
-              key={getShortId()}
-              value={content.content as string}
-              theme="bubble"
-              readOnly
-            />
-          );
+          return getDescriptionContent(content.content as string);
         })
       }
 
-      <S.CopyRight>{`Copyright © ${data.owner.name} All Rights Reserved`}</S.CopyRight>
+          <S.CopyRight>{`Copyright © ${data.owner.name} All Rights Reserved`}</S.CopyRight>
 
-      <Comment
-        comments={data.comments}
-        commentsAllow={data.commentsAllow}
-        user={user}
-        inputComment={inputComment}
-        changeInputHandler={changeInputHandler}
-        addNewComment={addNewComment}
-      />
-    </S.Container>
-  )
-);
+          <Comment
+            comments={data.comments}
+            commentsAllow={data.commentsAllow}
+            user={user}
+            inputComment={inputComment}
+            changeInputHandler={changeInputHandler}
+            addNewComment={addNewComment}
+          />
+        </S.Container>
+      )
+  );
+};
 
 export default MusicDetail;
