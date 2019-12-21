@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Quill from 'react-quill';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useSelector } from 'react-redux';
+import { encode } from 'punycode';
 import * as S from './styles';
 import Comment from '../Comment';
 import Like from '../../commons/Like';
-import { getTimeSimple, getShortId } from '../../utils';
+import { getTimeSimple, getShortId, BlobContent } from '../../utils';
 import { CommentProp, WorksDetailProp } from './types';
 import { UPLOAD, OBJECT_STORAGE_WALLPAPER } from '../../utils/constants';
 import { RootState } from '../../modules';
@@ -13,12 +14,37 @@ import { RootState } from '../../modules';
 const WorksDetail:React.FC<WorksDetailProp> = ({
   data, inputComment, user, isLoading, isError, changeInputHandler, addNewComment,
 }) => {
-  const splitFileName = (url:string) => {
-    const [path, _query] = url.split('?');
-    const [_path, fileName] = path.split('wallpapers/');
-    return fileName;
-  };
   const isLogin = useSelector((state:RootState) => state.login.isLogin);
+
+  const getDescriptionContent = (descriptionValue: any) => (
+    <Quill
+      key={getShortId()}
+      value={descriptionValue}
+      theme="bubble"
+      readOnly
+    />
+  );
+
+  const getWallpaperContent = (imageSrc: string, fileObj: any, title: string) => (
+    <S.Content key={getShortId()}>
+      <S.ImageContent src={imageSrc} />
+      { isLogin
+        && (
+          <a
+            href={BlobContent(fileObj)}
+            download={`${title}.jpeg`}
+          >
+            <GetAppIcon />
+          </a>
+        )}
+    </S.Content>
+  );
+
+  const getImageContent = (src: any) => (
+    <S.Content key={getShortId()}>
+      <S.ImageContent src={src} />
+    </S.Content>
+  );
 
   return (
     isLoading || data === null
@@ -36,31 +62,14 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
             <span>{`| 조회 ${data.views}`}</span>
           </S.HeaderMeta>
 
-          {data.content.map((content, idx) => {
-            if (content.type === UPLOAD.DESCRIPTION) {
-              return (
-                <Quill
-                  key={idx}
-                  value={content.content as string}
-                  theme="bubble"
-                  readOnly
-                />
-              );
+          {data.content.map(({ type, content, fileObj }) => {
+            if (type === UPLOAD.DESCRIPTION) {
+              return getDescriptionContent(content);
             }
-            if (content.type === UPLOAD.WALLPAPER) {
-              return (
-                <S.Content key={idx}>
-                  <S.ImageContent src={content.content} />
-                  { isLogin
-                    && <a href={`${OBJECT_STORAGE_WALLPAPER}${splitFileName(content.content)}`} download><GetAppIcon /></a>}
-                </S.Content>
-              );
+            if (type === UPLOAD.WALLPAPER) {
+              return getWallpaperContent(content, fileObj, data.title);
             }
-            return (
-              <S.Content key={idx}>
-                <S.ImageContent src={content.content} />
-              </S.Content>
-            );
+            return getImageContent(content);
           })}
 
           <S.CopyRight>{`Copyright © ${data.owner.name} All Rights Reserved`}</S.CopyRight>

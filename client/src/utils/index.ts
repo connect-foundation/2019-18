@@ -45,3 +45,8 @@ export const Alert = (title: string) => Swal.fire({
   },
   confirmButtonColor: theme.CRA_MINT_FIRST,
 });
+
+export const BlobContent = (fileObj: any) => {
+  const dataUrl = `data:image/jpeg;base64,${fileObj}`;
+  return dataUrl;
+};

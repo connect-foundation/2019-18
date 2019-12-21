@@ -23,6 +23,7 @@ export interface IData {
     content:{
         type:string,
         content:string,
+        fileObj?: any,
     }[],
     emoji: string[],
     comments:IComment[],
