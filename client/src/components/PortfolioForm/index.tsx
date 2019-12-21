@@ -32,12 +32,14 @@ const PortfolioForm:React.FC<PortfolioProp> = (
     <S.PortfolioForm>
       <S.InputArea>
         <S.InputTitle>프로필 사진</S.InputTitle>
-        <div>
+        <S.Preview>
           <Preview src={previewImage.preview} />
           <label htmlFor="image" className="sc-daURTG dBDRlb">
             <input type="file" id="image" accept="image/*" onChange={onImageUrlChangeHandler} />
           </label>
-        </div>
+        </S.Preview>
+      </S.InputArea>
+      <S.InputArea>
         <S.InputTitle>한 줄 소개</S.InputTitle>
         <S.InputTextArea>
           <TextInput placeholder="한줄소개" value={introSimple} onChange={onChangeintroSimple} />
