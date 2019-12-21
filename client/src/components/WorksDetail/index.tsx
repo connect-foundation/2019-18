@@ -2,13 +2,16 @@ import React, { useEffect } from 'react';
 import Quill from 'react-quill';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useSelector } from 'react-redux';
-import { encode } from 'punycode';
 import * as S from './styles';
 import Comment from '../Comment';
-import Like from '../../commons/Like';
-import { getTimeSimple, getShortId, BlobContent } from '../../utils';
-import { CommentProp, WorksDetailProp } from './types';
-import { UPLOAD, OBJECT_STORAGE_WALLPAPER } from '../../utils/constants';
+import {
+  getTimeSimple,
+  getShortId,
+  BlobContent,
+  revokeObjectURL,
+} from '../../utils';
+import { WorksDetailProp } from './types';
+import { UPLOAD } from '../../utils/constants';
 import { RootState } from '../../modules';
 
 const WorksDetail:React.FC<WorksDetailProp> = ({
@@ -31,7 +34,7 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
       { isLogin
         && (
           <a
-            href={BlobContent(fileObj)}
+            href={fileObj}
             download={`${title}.jpeg`}
           >
             <GetAppIcon />
@@ -45,6 +48,24 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
       <S.ImageContent src={src} />
     </S.Content>
   );
+
+  useEffect(() => {
+    if (data) {
+      data.content.forEach((el) => {
+        if (el.fileObj) {
+          el.fileObj = BlobContent(el.fileObj);
+        }
+      });
+    }
+
+    return () => (
+      data?.content.forEach((el) => {
+        if (el.fileObj) {
+          revokeObjectURL(el.fileObj);
+        }
+      })
+    );
+  }, [data]);
 
   return (
     isLoading || data === null
