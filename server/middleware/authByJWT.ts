@@ -25,7 +25,9 @@ const authByJWT = async (req: Request, res: Response, next: NextFunction) => {
       return next();
     }
     const decoded = await decodeJwt(req.cookies.token);
+    console.log(`decoded: ${decoded}`);
     const userdata:any = await getUserFromToken(decoded);
+
     if (userdata) {
       req.decodedUser = {
         id: userdata.id,

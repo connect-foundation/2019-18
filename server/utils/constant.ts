@@ -17,7 +17,7 @@ export const {
 
 export const IMAGE_CDN: any = process.env.CDN_URL;
 export const WALLPAPERS: string = 'wallpapers/';
-export const IMAGE_QUERY_LOW: string = '?type=w&w=200&quality=90';
+export const IMAGE_QUERY_LOW: string = '?type=w&w=400&quality=90';
 export const IMAGE_QUERY_HIGH: string = '?type=w&w=750&quality=90' as const;
 export const IMAGE_PROFILE_THUB: string = '?type=w&w=50&quality=90';
 export const IMAGES: string = 'images/';

@@ -108,10 +108,16 @@ const getWorkImage = async (req: Request, res: Response, next: NextFunction) => 
         if (el.type === 'description') {
           return el;
         }
+        if (el.type === 'wallpapers') {
+          return {
+            ...el,
+            content: `${IMAGE_CDN}${el.type}/${el.content}${IMAGE_QUERY_HIGH}`,
+            fileObj: await download(el.content),
+          };
+        }
         return {
           ...el,
           content: `${IMAGE_CDN}${el.type}/${el.content}${IMAGE_QUERY_HIGH}`,
-          fileObj: await download(el.content),
         };
       }),
     );

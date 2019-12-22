@@ -13,6 +13,7 @@ const ProfileLink = styled(Link)`
 const ProfileImg = styled(Img)`
     height: 2.5rem;
     width: 2.5rem;
+    border-radius: 100%;
 `;
 const HeaderGreetingContainer = styled.div`
     display:flex;

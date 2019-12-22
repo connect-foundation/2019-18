@@ -14,6 +14,7 @@ const makeKey = (userId: any, postId: string):string => (userId as string) + pos
 
 const abusingDetector = (req: Request, res: Response, next: NextFunction) => {
   const user = req.decodedUser;
+  console.log(`user: ${user}`);
   if (!user) {
     return next();
   }

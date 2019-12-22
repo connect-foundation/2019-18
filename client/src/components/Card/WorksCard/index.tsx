@@ -21,7 +21,7 @@ const WorksCard: React.FC<WorksCardProp> = ({
     <S.StyledLink to={`/creator/${creator._id}`}>
       <S.CardBody id={creator._id}>
         <TextWithImg
-          src="https://kr.object.ncloudstorage.com/crafolio/user/thumbnail/user-profile-thumbnail.png"
+          src={creator.thumbnailUrl}
           text={creator.name}
         />
       </S.CardBody>
