@@ -98,6 +98,7 @@ const uploadWorkImage = async (req: Request, res:Response, next: NextFunction) =
         await wallPaperCreate(wallpaperPayload);
       }
     });
+
     newWorksNotification(sender, result, filteredFollowers, NOTIFICATION_TYPE.WORKS);
     response(res, { workImageId });
   } catch (e) {
@@ -128,6 +129,23 @@ const uploadMusicFeed = async (req: Request, res: Response, next: NextFunction) 
     };
 
     const newWorkMusic = await createWorkMusic(workMusicData);
+    const workMusicId = newWorkMusic.id;
+    const sender = await findFollower(user.id);
+    if (!sender) {
+      throw (createError(httpStatus.NOT_FOUND, LOGIN.ID_NOT_MATCH));
+    }
+    const { follower } = sender.profile as any;
+    const filteredFollowers = follower.map((filteredFollower) => {
+      const {
+        _id, email, name, thumbnailUrl, ...rest
+      } = filteredFollower;
+
+      return {
+        _id, email, name, thumbnailUrl,
+      };
+    });
+
+
     newWorkMusic.content.forEach(async (newMusicContent) => {
       if (newMusicContent.type === 'musics') {
         const musicContent = newMusicContent.content as IMusicContent;
@@ -144,6 +162,7 @@ const uploadMusicFeed = async (req: Request, res: Response, next: NextFunction) 
       }
     });
 
+    newWorksNotification(sender, newWorkMusic, filteredFollowers, NOTIFICATION_TYPE.MUSICS);
     response(res, newWorkMusic);
   } catch (e) {
     next(e);

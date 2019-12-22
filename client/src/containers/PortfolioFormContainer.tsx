@@ -1,10 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PortfolioForm from '../components/PortfolioForm';
-import { fieldoptions, API_SERVER } from '../utils/constants';
+import {
+  fieldoptions, API_SERVER, UPLOAD, IMAGEFORMAT,
+} from '../utils/constants';
 import { RootState } from '../modules';
 import PopupWarn from '../commons/Popup_warn';
+import { getFileUrl } from '../utils';
+import {
+  Axios, UPDATE_PROFILE_IMG,
+} from '../utils/request';
+import { updateImgUrl } from '../modules/login';
+
+interface imageObject {
+  file: File | null,
+  preview: string,
+}
 
 const S = {
   PortfolioFormContainer: styled.div`
@@ -15,7 +27,6 @@ const S = {
 };
 const makeFirstStates = () => fieldoptions.map((option) => ({ ...option, checked: false }));
 
-
 const PortfolioFormContainer:React.FC = () => {
   const [introSimple, setIntroSimple] = useState('');
   const [introDetail, setIntroDetail] = useState('');
@@ -25,6 +36,11 @@ const PortfolioFormContainer:React.FC = () => {
   const [showPopupWARN, setShowPopupWARN] = useState(false);
   const [popupTEXT, setPopupTEXT] = useState('');
   const email = useSelector((state:RootState) => state.login.email);
+  const originUrlG = useSelector((state:RootState) => state.login.originUrl);
+  const [previewImage, setPreviewImage] = useState<imageObject>({ file: null, preview: originUrlG });
+  const dispatch = useDispatch();
+  const [canRedirect, setCanRedirect] = useState(false);
+
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(`${API_SERVER}/profile`, {
@@ -54,8 +70,35 @@ const PortfolioFormContainer:React.FC = () => {
     setSubmitSuccess(false);
   }, [submitSuccess, setSubmitSuccess]);
 
+
+  const onImageUrlChangeHandler = ((e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.currentTarget;
+
+    if (!target) {
+      return;
+    }
+    const { files } = target;
+    const file = files![0];
+    const preview = getFileUrl(file);
+    setPreviewImage({ file, preview });
+  });
+
   const onSubmit = (e:React.MouseEvent<HTMLButtonElement>) => {
     const submitData = async () => {
+      const formdata = new FormData();
+      let format:string;
+      const { file } = previewImage;
+      if (file !== null && file.type === IMAGEFORMAT.JPEG) {
+        format = IMAGEFORMAT._JPG;
+        formdata.append(UPLOAD.MULTER_KEY, file, `profileImage${format}`);
+      } else if (file !== null) {
+        format = IMAGEFORMAT._PNG;
+        formdata.append(UPLOAD.MULTER_KEY, file, `profileImage${format}`);
+      }
+      const reqConfig = UPDATE_PROFILE_IMG(formdata);
+      const data = await Axios(reqConfig);
+      const { thumbnailUrl, originUrl } = data.data;
+      dispatch(updateImgUrl(thumbnailUrl, originUrl));
       const params = {
         email,
         introSimple,
@@ -76,6 +119,7 @@ const PortfolioFormContainer:React.FC = () => {
       }
       setPopupTEXT('성공적으로 제출되었습니다.');
       setShowPopupWARN(true);
+      // setCanRedirect(true);
       return setSubmitSuccess(true);
     };
     setShowOption(false);
@@ -107,10 +151,14 @@ const PortfolioFormContainer:React.FC = () => {
   };
   const togglePopup = () => {
     setShowPopupWARN(false);
+    setCanRedirect(true);
   };
   return (
     <S.PortfolioFormContainer>
       <PortfolioForm
+        canRedirect={canRedirect}
+        previewImage={previewImage}
+        onImageUrlChangeHandler={onImageUrlChangeHandler}
         introSimple={introSimple}
         introDetail={introDetail}
         showOption={showOption}

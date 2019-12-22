@@ -26,7 +26,7 @@ const users = [
   },
   {
     _id: userId[2],
-    email: 'jominjimail@gmail.com',
+    email: 'test@test.com',
     pwd: '1234',
     name: '조민지',
     profile: profileId[2],

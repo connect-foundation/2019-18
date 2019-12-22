@@ -108,20 +108,12 @@ function ImageUpload() {
     try {
       setShowPopupDETAIL(false);
       const urls = await getImageUrl();
-      const dbContent = documents.map((element2) => {
-        if (element2.type === UPLOAD.IMAGE || element2.type === UPLOAD.WALLPAPER) {
-          const obj = {
-            type: element2.type,
-            content: urls.shift(),
-          };
-          return obj;
-        }
-        const obj = {
-          type: element2.type,
-          content: element2.content,
-        };
-        return obj;
-      });
+      const isImageFiles = (type:string) => type === UPLOAD.IMAGE || type === UPLOAD.WALLPAPER;
+
+      const dbContent = documents.map(({ type, content }) => ({
+        type,
+        content: isImageFiles(type) ? urls.shift() : content,
+      }));
       const obj = {
         field,
         ccl,

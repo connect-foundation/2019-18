@@ -9,6 +9,7 @@ export default interface WorksCardProp{
     _id: string,
     email: string,
     name: string,
+    thumbnailUrl: string,
   };
   createdAt: number;
   updatedAt: number;

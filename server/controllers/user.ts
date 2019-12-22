@@ -2,9 +2,16 @@ import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
 import httpStatus from 'http-status';
 import mongoose from 'mongoose';
-import { create, remove, getNotifications } from '../services/user';
+import {
+  create, remove, getNotifications, updateUserImgUrl,
+} from '../services/user';
 import response from '../utils/response';
-import { PARAMS } from '../utils/messages';
+import { PARAMS, AUTH, LOGIN } from '../utils/messages';
+import { IMAGE_QUERY_LOW, IMAGE_PROFILE_THUB } from '../utils/constant';
+
+interface MulterFile {
+  key: string,
+}
 
 const { validationResult } = require('express-validator');
 
@@ -63,8 +70,27 @@ const getNoti = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const updateImg = async (req: Request & { files: MulterFile[] },
+  res: Response, next: NextFunction) => {
+  try {
+    const user = req.decodedUser;
+    if (!user) {
+      throw (createError(httpStatus.UNAUTHORIZED, AUTH.UNAUTHORIZED));
+    }
+    const { files } = req;
+    const target = files[0];
+    const originUrl = process.env.CDN_URL + target.key + IMAGE_QUERY_LOW;
+    const thumbnailUrl = process.env.CDN_URL + target.key + IMAGE_PROFILE_THUB;
+    const data = await updateUserImgUrl(user.id, originUrl, thumbnailUrl);
+    response(res, data!);
+  } catch (e) {
+    next(e);
+  }
+};
+
 export {
   signup,
   withdrawal,
   getNoti,
+  updateImg,
 };

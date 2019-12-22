@@ -19,22 +19,15 @@ const redisConfig:redis.ClientOpts = {
 const redisClient = redis.createClient(redisConfig);
 bluebird.promisifyAll(redisClient);
 redisClient.on('connect', () => {
-  console.log('redis connected');
 });
 
-const setUserSocketId = async (userId, socketId) => {
-  console.log(`set user socket it : ${userId}: ${socketId}`);
-  return redisClient.hsetAsync('users:socketId', userId, socketId);
-};
+const setUserSocketId = async (userId, socketId) => redisClient.hsetAsync('users:socketId', userId, socketId);
 
 const deleteUserSocketId = (userId) => {
   redisClient.del(userId);
 };
 
-const getUserSocketId = async (userId) => {
-  console.log(`getUserSocketId: ${userId}`);
-  return redisClient.hgetAsync('users:socketId', userId.toString());
-};
+const getUserSocketId = async (userId) => redisClient.hgetAsync('users:socketId', userId.toString());
 
 export {
   setUserSocketId,

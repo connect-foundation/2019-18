@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Img from '../../../../basics/Img';
+import { RootState } from '../../../../modules';
 
 const ProfileLink = styled(Link)`
     text-decoration : none;
@@ -11,19 +13,22 @@ const ProfileLink = styled(Link)`
 const ProfileImg = styled(Img)`
     height: 2.5rem;
     width: 2.5rem;
+    border-radius: 100%;
 `;
 const HeaderGreetingContainer = styled.div`
     display:flex;
     height: 100%;
 `;
 
-const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
-const HeaderGreeting: React.FC = () => (
-  <HeaderGreetingContainer>
-    <ProfileLink to="/creator">
-      <ProfileImg src={LOGIN_PROFILE_THUMBNAIL} />
-    </ProfileLink>
-  </HeaderGreetingContainer>
-);
+const HeaderGreeting: React.FC = () => {
+  const thumbnailUrl = useSelector((state: RootState) => state.login.thumbnailUrl);
+  return (
+    <HeaderGreetingContainer>
+      <ProfileLink to="/creator">
+        <ProfileImg src={thumbnailUrl} />
+      </ProfileLink>
+    </HeaderGreetingContainer>
+  );
+};
 
 export default HeaderGreeting;

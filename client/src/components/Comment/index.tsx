@@ -41,8 +41,6 @@ const Comment: React.FC<CommentProp> = ({
       }
 
       <S.CommentFooter>
-        <S.Mention>멘션</S.Mention>
-        <S.Mention>비밀 댓글</S.Mention>
         {
           commentsAllow
             ? <S.SubmitButton onClick={addNewComment}>등록</S.SubmitButton>

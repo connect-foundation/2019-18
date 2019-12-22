@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as S from './styles';
 import { getShortId } from '../../../utils';
 import { INoti } from '../../../modules/notification';
@@ -26,7 +26,7 @@ const Notifications: React.FC<NotificationsProp> = ({
           refPost={noti.ref}
         />
       ))
-    }
+      }
   </S.Container>
 );
 export default Notifications;

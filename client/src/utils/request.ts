@@ -58,4 +58,10 @@ export const UPLOAD_MUSIC = (data: any):AxiosRequestConfig => ({
   data,
 });
 
+export const UPDATE_PROFILE_IMG = (data: FormData):AxiosRequestConfig => ({
+  method: 'post',
+  url: '/user/update_profile_img',
+  data,
+});
+
 export const Axios = async (config:AxiosRequestConfig) => instance.request(config);
