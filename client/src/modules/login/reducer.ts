@@ -1,5 +1,5 @@
 import {
-  SETUSER, UNSETUSER, LOGIN,
+  SETUSER, UNSETUSER, LOGIN, UPDATE_IMG_URL,
 } from './action';
 
 import {
@@ -29,6 +29,12 @@ function login(state:LoginUserState = initialState, action:LoginUserAction) {
     case LOGIN:
       return {
         ...initialState, isLogin: true,
+      };
+    case UPDATE_IMG_URL:
+      return {
+        ...initialState,
+        thumbnailUrl: action.payload.thumbnailUrl,
+        originUrl: action.payload.originUrl,
       };
     default:
       return state;

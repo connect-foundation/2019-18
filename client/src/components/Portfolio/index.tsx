@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import * as S from './style';
 import StyledLink from '../../basics/StyledLink';
 import PopupFollowers from '../../commons/PopupFollowers';
 import { portfolioProp } from './types';
 import { API_SERVER } from '../../utils/constants';
+import { RootState } from '../../modules';
 
-const LOGIN_PROFILE_THUMBNAIL = 'https://kr.object.ncloudstorage.com/crafolio/user/origin/iu-profile-origin.png';
 const follow = (id:string) => {
   fetch(`${API_SERVER}/follow/add/${id}`, {
     method: 'post',
@@ -29,6 +30,8 @@ const Portfolio:React.FC<portfolioProp> = ({
   const showFollowersPopup = () => { setShowFollowers(true); };
   const closeFollowingsPopup = () => { setShowFollowings(false); };
   const showFollowingsPopup = () => { setShowFollowings(true); };
+  const thumbnailUrl = useSelector((state:RootState) => state.login.thumbnailUrl);
+
   const onClickFollow = () => {
     if (followable) {
       follow(PortfolioOwnerId);
@@ -85,7 +88,7 @@ const Portfolio:React.FC<portfolioProp> = ({
           </S.FollowLine>
 
         </S.PortfolioDetail>
-        <S.PortfolioImage src={LOGIN_PROFILE_THUMBNAIL} />
+        <S.PortfolioImage src={thumbnailUrl} />
       </S.PortfolioBox>
       <S.IntroduceBox>
         {isLogin

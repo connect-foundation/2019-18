@@ -34,6 +34,7 @@ export const InputArea = styled.div`
     padding: 10px;
     width: 500px; 
     display: flex;
+    flex-direction: row;
 `;
 export const InputButtonArea = styled.div`
     margin: 0 auto;
@@ -95,4 +96,13 @@ export const LongInputTextArea = styled.div`
 `;
 export const PortfolioFormBox = styled.div`
     border: 1px black solid;
+`;
+
+export const Preview = styled.div`
+    width: 13rem;
+    height: auto;
+
+    div{
+        margin-top: 0;
+    }
 `;
