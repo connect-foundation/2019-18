@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Img from '../../../basics/Img';
 import { theme } from '../../../style/theme';
 import H3 from '../../../basics/H3';
+import StyledLink from '../../../basics/StyledLink';
 
 export const Container = styled.div`
     display: flex;
@@ -12,6 +13,11 @@ export const Container = styled.div`
     border-radius: 10px;
     border: 0px solid black;
     box-shadow: ${theme.BOX_SHADOW};
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        transition: all 0.3s ease-in-out;
+        transform: scale(1.1);
+    }
 `;
 
 export const CardImgContainer = styled.div`
@@ -43,3 +49,7 @@ export const CardBody = styled.div`
     padding: 0 1rem;
     border-bottom: 1px ${theme.BORDER_GRAY} solid;
 `;
+
+export {
+  StyledLink,
+};

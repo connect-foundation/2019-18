@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import * as S from './styles';
-import { theme } from '../../style/theme';
 import VolumeSlider from '../VolumeSlider';
 import MusicPlayerProp from './types';
 
@@ -123,8 +122,8 @@ const MusicPlayer:React.FC<MusicPlayerProp> = ({
           <S.ControllerItem>
             {
               isRepeat
-                ? <S.RepeatIcon fontSize="small" style={{ color: theme.CRA_PURPLE }} onClick={toggleRepeat} />
-                : <S.RepeatIcon fontSize="small" style={{ color: 'black' }} onClick={toggleRepeat} />
+                ? <S.RepeatOne fontSize="default" style={{ color: 'black' }} onClick={toggleRepeat} />
+                : <S.Repeat fontSize="default" style={{ color: 'black' }} onClick={toggleRepeat} />
             }
           </S.ControllerItem>
         </S.Controller>
