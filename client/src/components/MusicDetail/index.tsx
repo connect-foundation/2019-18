@@ -8,6 +8,7 @@ import { IMusicContent } from '../MusicDetail/types';
 import { IMusic } from '../UploadMusic/types';
 import { getShortId, getTimeSimple } from '../../utils';
 import Comment from '../Comment';
+import { CircularProgress } from '@material-ui/core';
 
 const MusicDetail: React.FC<MusicDetailProp> = ({
   data,
@@ -62,7 +63,9 @@ const MusicDetail: React.FC<MusicDetailProp> = ({
 
   return (
     isLoading || data === null
-      ? (<div>Loading...</div>)
+      ? (<S.Progress>
+        <CircularProgress color="inherit" />
+      </S.Progress>)
       : (
         <S.Container>
           <S.Header>

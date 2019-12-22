@@ -68,3 +68,9 @@ export const CopyRight = styled.div`
     margin: 5rem 0;
     color: ${theme.AMERICAN_RIVER};
 `;
+
+export const Progress = styled.div`
+    margin: auto auto;
+    margin-top: 20px;
+    color: ${theme.BORDER_GRAY};
+`;

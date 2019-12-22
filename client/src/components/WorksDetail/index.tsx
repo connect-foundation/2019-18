@@ -13,6 +13,7 @@ import {
 import { WorksDetailProp } from './types';
 import { UPLOAD } from '../../utils/constants';
 import { RootState } from '../../modules';
+import { CircularProgress } from '@material-ui/core';
 
 const WorksDetail:React.FC<WorksDetailProp> = ({
   data, inputComment, user, isLoading, isError, changeInputHandler, addNewComment,
@@ -69,7 +70,11 @@ const WorksDetail:React.FC<WorksDetailProp> = ({
 
   return (
     isLoading || data === null
-      ? (<div>Loading...</div>)
+      ? (
+      <S.Progress>
+        <CircularProgress color="inherit" />
+      </S.Progress>
+      )
       : (
         <S.Container>
           <S.Title>{data.title}</S.Title>
