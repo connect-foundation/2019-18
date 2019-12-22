@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 const corsConfig = {
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3000', 'http://www.crafolio.site', 'http://101.101.163.55', 'http://crafolio.site', 'http://localhost'],
   credentials: true,
 };
 app.use(cors(corsConfig));
