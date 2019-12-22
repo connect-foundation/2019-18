@@ -223,7 +223,6 @@ const addMusicComment = async (req: Request, res: Response, next: NextFunction) 
       }
       return el;
     });
-
     response(res, workMusic);
   } catch (e) {
     next(e);
