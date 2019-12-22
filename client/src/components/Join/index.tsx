@@ -25,7 +25,7 @@ const Join:React.FC<JoinProp> = ({
         <PasswordInput onChange={onChangePwdCheck} value={pwdCheck} placeholder="비밀번호를 다시 입력하세요" />
         <SubmitButton onClick={onJoin}>제출</SubmitButton>
         <S.HomeMidLine>
-          <S.HomeLink to="/home">가입을 취소하고 홈으로</S.HomeLink>
+          <S.HomeLink to="/">가입을 취소하고 홈으로</S.HomeLink>
         </S.HomeMidLine>
       </S.Join>
     ));
