@@ -139,3 +139,9 @@ export const ImageContent = styled.div<ImageContentProp>`
     background-position: center center;
     margin-top: 1rem;
 `;
+
+export const Progress = styled.div`
+    margin: auto auto;
+    margin-top: 20px;
+    color: ${theme.BORDER_GRAY};
+`;

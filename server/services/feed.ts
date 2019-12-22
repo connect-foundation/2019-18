@@ -8,7 +8,8 @@ const get10Images = (skip, limit) => Image.find()
   .skip(skip)
   .limit(limit)
   .populate('creator', 'name thumbnailUrl')
-  .populate('owner', 'emoji comments views title');
+  .populate('owner', 'emoji comments views title')
+  .sort({ updatedAt: -1 });
 
 const getIdsImages = (id) => Image.find({ creator: id })
   .populate('creator', 'name thumbnailUrl')
@@ -19,7 +20,8 @@ const get10Wallpapers = (skip, limit) => Wallpaper.find()
   .skip(skip)
   .limit(limit)
   .populate('creator', 'name thumbnailUrl')
-  .populate('owner', 'emoji comments views title');
+  .populate('owner', 'emoji comments views title')
+  .sort({ updatedAt: -1 });
 
 const getImageFeeds = (skip, limit) => Image.find()
   .skip(skip)
@@ -31,7 +33,8 @@ const get10Musics = (skip, limit) => Music.find()
   .skip(skip)
   .limit(limit)
   .populate('creator', 'name thumbnailUrl')
-  .populate('owner', 'comments views');
+  .populate('owner', 'comments views')
+  .sort({ updatedAt: -1 });
 
 const getIdsMusics = (id) => Music.find({ creator: id })
   .populate('creator', 'name thumbnailUrl')
