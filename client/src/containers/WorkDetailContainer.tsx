@@ -46,7 +46,6 @@ const WorkDetailContainer = ({ match }: RouteComponentProps<{id:string}>) => {
         content: inputComment,
       };
       const reqConfig = FEED_IMAGE_ADD_COMMENT(id, postData);
-
       Axios(reqConfig).then((response) => {
         setData(response.data.data);
         setInputComment('');

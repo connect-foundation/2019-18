@@ -24,7 +24,14 @@ const addNewNotification = (
       onModel,
     },
   },
-}, { new: true });
+}, { new: true }).populate({
+  path: 'notifications.sender',
+  populate: 'sender',
+})
+  .populate({
+    path: 'notifications.ref',
+    populate: 'ref',
+  });
 
 export {
   workImageCreate,
