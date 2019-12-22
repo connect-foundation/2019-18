@@ -4,7 +4,15 @@ export const DEFAULT_ORIGIN_URL = 'https://kr.object.ncloudstorage.com/crafolio/
 export const DEFAULT_THUMBNAIL_URL = 'https://kr.object.ncloudstorage.com/crafolio/user/thumbnail/user-profile-thumbnail.png';
 
 export const {
-  OS_TARGET_URL, clientID, clientSECRET, serviceURL, reactURL,
+  OS_TARGET_URL,
+  clientID,
+  clientSECRET,
+  serviceURL,
+  reactURL,
+  OS_ACCESS_KEY,
+  OS_SECRET_KEY,
+  OS_ENDPOINT,
+  OS_BUCKET_NAME,
 } = process.env;
 
 export const IMAGE_CDN: any = process.env.CDN_URL;

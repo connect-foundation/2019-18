@@ -21,6 +21,8 @@ import {
 import { FEED, AUTH } from '../utils/messages';
 import { IMusicContent } from '../interfaces/workMusic';
 import { IWorkMusicModel } from '../models/work_music';
+import download from '../utils/imageDownload';
+import { IWorkImageModel } from '../models/work_image';
 
 const getImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -95,19 +97,25 @@ const getWorkImage = async (req: Request, res: Response, next: NextFunction) => 
     const { id } = req.params;
     const fakeCount = req.decodedUser ? 1 : 0;
     const workImage = await getWorkImageById(id);
+
     if (!workImage) {
       throw (createError(httpStatus.NOT_FOUND, FEED.NOT_FOUND_WORK_IMAGE));
     }
+
     workImage.views += fakeCount;
-    workImage.content = workImage.content.map((el) => {
-      if (el.type === 'description') {
-        return el;
-      }
-      return {
-        ...el,
-        content: `${IMAGE_CDN}${el.type}/${el.content}${IMAGE_QUERY_HIGH}`,
-      };
-    });
+    workImage.content = await Promise.all(
+      workImage.content.map(async (el) => {
+        if (el.type === 'description') {
+          return el;
+        }
+        return {
+          ...el,
+          content: `${IMAGE_CDN}${el.type}/${el.content}${IMAGE_QUERY_HIGH}`,
+          fileObj: await download(el.content),
+        };
+      }),
+    );
+
     response(res, workImage);
   } catch (e) {
     next(e);
@@ -292,7 +300,6 @@ const getMoreMusics = async (req: Request, res: Response, next: NextFunction) =>
         createdAt,
         updatedAt,
       };
-      console.error(newFeed);
       return newFeed;
     });
     return response(res, filteredFeed);
@@ -320,7 +327,6 @@ const getMusicsById = async (req: Request, res: Response, next: NextFunction) =>
         createdAt,
         updatedAt,
       };
-      console.error(newFeed);
       return newFeed;
     });
     return response(res, filteredFeed);
