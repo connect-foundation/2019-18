@@ -5,6 +5,7 @@ export default interface IImage{
     _id: string,
     name: string,
     email: string,
+    thumbnailUrl: string,
   };
   url: string;
   title:string;

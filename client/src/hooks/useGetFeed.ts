@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 const useGetFeed = <T>(initData:T)
   :[{data:T, setData:React.Dispatch<T>, isLoading:boolean, isError:boolean}, (url:string)=>void ] => {
   const [data, setData] = useState(initData);

@@ -16,6 +16,7 @@ const SmallImg = styled(Img)`
     return '1.5rem';
   }};
     height: auto;
+    border-radius: 100%;
 `;
 
 const SmallH4 = styled(H4)`

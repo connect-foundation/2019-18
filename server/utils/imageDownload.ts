@@ -38,8 +38,12 @@ const download = async (fileName: string) => new Promise((resolve, reject) => {
       console.error(err);
       reject(err);
     }
-    const objectData = data.Body.toString('base64');
-    resolve(objectData);
+    if (data) {
+      const objectData = data.Body.toString('base64');
+      resolve(objectData);
+    } else {
+      resolve(null);
+    }
   });
 });
 

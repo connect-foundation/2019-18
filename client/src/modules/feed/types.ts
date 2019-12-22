@@ -12,6 +12,7 @@ export interface IImage{
       _id: string,
       name: string,
       email: string,
+      thumbnailUrl: string,
     };
     url: string;
     title:string;
@@ -28,6 +29,7 @@ export interface IWallpaper{
     _id: string,
     name: string,
     email: string,
+    thumbnailUrl: string,
   };
   url: string;
   title:string;
