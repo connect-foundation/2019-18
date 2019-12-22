@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import * as S from './style';
 import StyledLink from '../../basics/StyledLink';
@@ -30,7 +30,7 @@ const Portfolio:React.FC<portfolioProp> = ({
   const showFollowersPopup = () => { setShowFollowers(true); };
   const closeFollowingsPopup = () => { setShowFollowings(false); };
   const showFollowingsPopup = () => { setShowFollowings(true); };
-  const thumbnailUrl = useSelector((state:RootState) => state.login.thumbnailUrl);
+  const thumbnailUrl = useRef('');
 
   const onClickFollow = () => {
     if (followable) {
@@ -67,6 +67,7 @@ const Portfolio:React.FC<portfolioProp> = ({
             } else {
               setFollowable(true);
             }
+            thumbnailUrl.current = data.thumbnailUrl;
           }
         });
       }
@@ -88,7 +89,7 @@ const Portfolio:React.FC<portfolioProp> = ({
           </S.FollowLine>
 
         </S.PortfolioDetail>
-        <S.PortfolioImage src={thumbnailUrl} />
+         <S.PortfolioImage src={thumbnailUrl.current} />
       </S.PortfolioBox>
       <S.IntroduceBox>
         {isLogin
