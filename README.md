@@ -44,38 +44,19 @@
 - 배경화면 카테고리에 올라온 이미지 다운로드
 
 ------
+## Architecture
 
-## Tech
-
-### client
-
-- React, Redux
-- TypeScript
-- Naver OAuth
-- styled-component
-
-### back
-
-- Node.js
-- Express 
-- JWT
-- TypeScript
-- MongoDB, Mongoose
-- jest(supertest)
-- socket.io
-- Shell script
-
-### infra
-
-- Ncloud
-  - server (Linux)
-  - object storage
-- docker
-  - MongoDB
-  - Redis
-- Nginx
+![](https://i.imgur.com/OzVrqJX.jpg)
 
 ------
+## Tech
+
+![](https://i.imgur.com/Ahz0yzo.jpg)
+
+------
+
+
+
 
 ## TeamName: 사아자~🦁 
 
