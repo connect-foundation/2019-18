@@ -1,5 +1,6 @@
 
 export interface portfolioProp{
+    thumbnailUrl: string;
     introSimple: string;
     introDetail: string;
     activeFields: string[];

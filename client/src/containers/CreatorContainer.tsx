@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import { withRouter, RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
@@ -39,6 +39,7 @@ interface matchParams {
 const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }) => {
   const [portfolio, setPortfolio] = useState({ ...initialPortfolio });
   const { isLogin, id: LoginedId } = useSelector((root:RootState) => root.login);
+  const thumbnailUrl = useRef('');
 
   const isMyPortfolio = (!match.params.Id);
   const Id = match.params.Id || '';
@@ -57,6 +58,7 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
     };
     getData().then((data:any) => {
       if (data) {
+        thumbnailUrl.current = data.thumbnailUrl;
         const followerObject = {
           following: [...data.profile.following],
           follower: [...data.profile.follower],
@@ -77,6 +79,7 @@ const CreatorContainer: React.SFC<RouteComponentProps<matchParams>> = ({ match }
       <S.CreatorContainer>
         <S.PortfolioContainer>
           <Portfolio
+            thumbnailUrl={thumbnailUrl.current}
             isMyPortfolio={isMyPortfolio}
             introDetail={portfolio.introDetail}
             introSimple={portfolio.introSimple}

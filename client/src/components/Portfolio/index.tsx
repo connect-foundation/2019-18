@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import * as S from './style';
 import StyledLink from '../../basics/StyledLink';
@@ -20,7 +20,7 @@ const unfollow = (id:string) => {
   });
 };
 const Portfolio:React.FC<portfolioProp> = ({
-  introSimple, introDetail, activeFields, isMyPortfolio, PortfolioOwnerId, PortfolioOwnerName, isLogin, LoginedId, portfolioFollower,
+  thumbnailUrl, introSimple, introDetail, activeFields, isMyPortfolio, PortfolioOwnerId, PortfolioOwnerName, isLogin, LoginedId, portfolioFollower,
 }) => {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowings, setShowFollowings] = useState(false);
@@ -30,7 +30,6 @@ const Portfolio:React.FC<portfolioProp> = ({
   const showFollowersPopup = () => { setShowFollowers(true); };
   const closeFollowingsPopup = () => { setShowFollowings(false); };
   const showFollowingsPopup = () => { setShowFollowings(true); };
-  const thumbnailUrl = useRef('');
 
   const onClickFollow = () => {
     if (followable) {
@@ -67,7 +66,6 @@ const Portfolio:React.FC<portfolioProp> = ({
             } else {
               setFollowable(true);
             }
-            thumbnailUrl.current = data.thumbnailUrl;
           }
         });
       }
@@ -89,7 +87,7 @@ const Portfolio:React.FC<portfolioProp> = ({
           </S.FollowLine>
 
         </S.PortfolioDetail>
-         <S.PortfolioImage src={thumbnailUrl.current} />
+         <S.PortfolioImage src={thumbnailUrl} />
       </S.PortfolioBox>
       <S.IntroduceBox>
         {isLogin

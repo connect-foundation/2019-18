@@ -33,6 +33,7 @@ export const PortfolioImage = styled(Img)`
   margin: 35px 38px 30px 0;
   background-size:cover;
   background-position: center center;
+  border-radius: 100%;
 `;
 export const FollowLine = styled.div`
   font-size: 13px;
