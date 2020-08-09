@@ -32,6 +32,7 @@
 ## Demo
 
 ###  🏠[크라폴리오 접속하기](http://www.crafolio.site)
+Service server is down.
 
 ------
 
@@ -65,3 +66,4 @@
 아: 이준호 [@Junow](https://github.com/Junow)
 
 자: 조민지 [@jominjimail](https://github.com/jominjimail)
+
