@@ -11,7 +11,7 @@
     "emotion": "^10.0.23",
     "is-hotkey": "^0.1.6",
     "js-cookie": "^2.2.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "react": "^16.11.0",
     "react-cookie": "^4.0.1",
     "react-dom": "^16.11.0",
